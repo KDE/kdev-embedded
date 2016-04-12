@@ -1,0 +1,14 @@
+{
+    "KPlugin": {
+        "Category": "Embedded",
+        "Description": "Embedded Plugin",
+        "Icon": "project-development-new-template",
+        "Id": "kdevembedded",
+        "Name": "Embedded systems",
+        "ServiceTypes": [
+            "KDevelop/Plugin"
+        ]
+    },
+    "X-KDevelop-Category": "Global",
+    "X-KDevelop-Mode": "GUI"
+}

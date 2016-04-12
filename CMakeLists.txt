@@ -1,25 +1,34 @@
-#add_definitions(-DTRANSLATION_DOMAIN=\"kdevpatrick\")
-project(PATRICK C CXX)
+#add_definitions(-DTRANSLATION_DOMAIN=\"kdevembedded\")
+project(EMBEDDED C CXX)
+
+set(ARDUINO_SDK_VERSION "168")
+set(ARDUINO_SDK_VERSION_NAME "1.6.8")
+
+add_definitions(-DARDUINO_SDK_VERSION="${ARDUINO_SDK_VERSION}")
+add_definitions(-DARDUINO_SDK_VERSION_NAME="${ARDUINO_SDK_VERSION_NAME}")
 
 ########### install target ###############
 
-set(kdevpatrick_PART_SRCS
-    patrickplugin.cpp
+set(KDEVEMBEDDED_PART_SRCS
+    embedded.cpp
     arduinowindow.cpp
+    tollkit.cpp
+    firsttimewizard.cpp
 )
 
 include_directories(CMAKE_CURRENT_BINARY_DIR)
 
-set(kdevpatrick_PART_UI
+set(KDEVEMBEDDED_PART_UI
     arduinowindow.ui
+    firsttimewizard.ui
 )
 
-ki18n_wrap_ui(kdevpatrick_PART_SRCS ${kdevpatrick_PART_UI})
+ki18n_wrap_ui(KDEVEMBEDDED_PART_SRCS ${KDEVEMBEDDED_PART_UI})
 
-qt5_add_resources(kdevpatrick_PART_SRCS kdevpatrick.qrc)
-kdevplatform_add_plugin(kdevpatrick JSON kdevpatrick.json SOURCES ${kdevpatrick_PART_SRCS})
+qt5_add_resources(KDEVEMBEDDED_PART_SRCS kdevembedded.qrc)
+kdevplatform_add_plugin(kdevembedded JSON kdevembedded.json SOURCES ${KDEVEMBEDDED_PART_SRCS})
 
-target_link_libraries(kdevpatrick
+target_link_libraries(kdevembedded
     KF5::Parts
     KF5::TextEditor
     KDev::Interfaces

@@ -1,13 +1,15 @@
 #ifndef ARDUINOWINDOW_H
 #define ARDUINOWINDOW_H
 
-#include <QMainWindow>
+// Configure Arduino board and interface
+
+#include <QDialog>
 
 namespace Ui {
 class arduinowindow;
 }
 
-class arduinowindow : public QMainWindow
+class arduinowindow : public QDialog
 {
     Q_OBJECT
 

@@ -2,7 +2,7 @@
 #include "ui_arduinowindow.h"
 
 arduinowindow::arduinowindow(QWidget *parent) :
-    QMainWindow(parent),
+    QDialog(parent),
     ui(new Ui::arduinowindow)
 {
     ui->setupUi(this);
