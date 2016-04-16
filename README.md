@@ -19,7 +19,7 @@ Creator](http://www.qt.io/ide/).
 The other alternative IDEs for Arduino are:
 
 -   PROGRAMINO IDE <br/>
-    Price: 30â‚¬ <br/>
+    Price: 30ââ‚¬â¬ <br/>
     It provides good features and development options, but isnâ€™t a free
     or open source software.
 
