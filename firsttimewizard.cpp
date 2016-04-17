@@ -114,7 +114,7 @@ void firstTimeWizard::install()
           archive.write(buffer.data(), readBytes);
           readBytes = reply->read(buffer.data(), bufferSize);
       }
-      installStatusLabel->setText(QString("Extracting... ( %1KB )").arg(((int)(readBytes/(2^10)))));
+      installStatusLabel->setText(QString("Extracting... ( %1KB )").arg(((int)(readBytes >> 10))));
       archive.seek(0);
 
       // call tar to extract
@@ -237,7 +237,7 @@ void firstTimeWizard::onDownloadProgress(qint64 received, qint64 total)
        percent = 100 * received / total;
 
     qDebug() << "Download" << "R" << received << "T" << total << 100.0 * received / total;
-    downloadStatusLabel->setText(QString("Downloading... ( %1KB / %2KB )").arg((int)(received/(2^20))).arg((int)(total/(2^20))));
+    downloadStatusLabel->setText(QString("Downloading... ( %1KB / %2KB )").arg((int)(received >> 10)).arg((int)(total >> 10)));
     downloadProgressBar->setValue(percent);
 }
 
