@@ -19,7 +19,14 @@
 #include <QDebug>
 #include <QStringList>
 
+//#include <QtCore/QSet>
+#include <interfaces/isession.h>
+#include <interfaces/icore.h>
+#include <KConfigGroup>
+
 #include "tollkit.h"
+
+using namespace KDevelop;
 
 firstTimeWizard::firstTimeWizard(QWidget *parent) :
   QWizard(parent)
@@ -34,6 +41,11 @@ firstTimeWizard::firstTimeWizard(QWidget *parent) :
   installStatusLabel->setText("");
   urlLabel->setText(urlLabel->text().arg("mailto:patrickelectric@gmail.com"));
   projectLabel->setText(projectLabel->text().arg("Embedded plugin").arg("Patrick J. Pereira"));
+  
+  //TODO update to ARDUINO_SDK_MIN_VERSION_NAME
+  existingInstallButton->setText(existingInstallButton->text().arg(ARDUINO_SDK_VERSION_NAME));
+  automaticInstallButton->setText(automaticInstallButton->text().arg(ARDUINO_SDK_VERSION_NAME));
+  
 
   // Download mode is default
   automaticInstallButton->setChecked(true);
@@ -42,9 +54,10 @@ firstTimeWizard::firstTimeWizard(QWidget *parent) :
   // Sketchbook path
   getSketchbookPath();
 
+  //TODO support others OS
   QString mDownloadOs = "Linux";
   downloadLabel->setText(downloadLabel->text().arg(ARDUINO_SDK_VERSION_NAME).arg(mDownloadOs));
-
+  
   connect(arduinoPathButton, SIGNAL(clicked()), this, SLOT(chooseArduinoPath()));
   connect(sketchbookPathButton, SIGNAL(clicked()), this, SLOT(chooseSketchbookPath()));
 }
@@ -69,6 +82,14 @@ bool firstTimeWizard::validateCurrentPage()
       break;
     }
 
+    case 2:
+    {
+      KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
+      settings.writeEntry("arduinoFolder",arduinoPathEdit->text());
+      settings.writeEntry("sketchbookFolder", sketchbookPathEdit->text());
+    }
+    break;
+    
     default:
     break;
   }
@@ -79,11 +100,9 @@ void firstTimeWizard::download()
 {
   downloadProgressBar->setValue(0);
   QNetworkRequest request(QUrl("https://downloads.arduino.cc/arduino-1.6.8-linux64.tar.xz"));
-  //QNetworkRequest request(QUrl("https://uclibc.org/downloads/uClibc-0.9.30.2.tar.xz"));
   request.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
   reply = mDownloadManager->get(request);
   connect(reply, &QNetworkReply::downloadProgress, this, &firstTimeWizard::onDownloadProgress);
-  //connect(reply, &QNetworkReply::finished, [=](){downloadStatusLabel->setText("Downloaded !");});
   connect(reply, &QNetworkReply::finished, this, &firstTimeWizard::install);
   downloadStatusLabel->setText("Downloading...");
 }
@@ -127,12 +146,11 @@ void firstTimeWizard::install()
               << "-C" << destinationPath;
 
       QFutureWatcher<int> extractWatcher;
-      //QxtSignalWaiter extractWaiter(&extractWatcher, SIGNAL(finished()));
       QFuture<int> extractFuture = QtConcurrent::run(&QProcess::execute, extractCommand, extractArgs);
       extractWatcher.setFuture(extractFuture);
-      //extractWaiter.wait();
       extractSuccess = extractFuture.result() == 0;
       installStatusLabel->setText("Extracted !");
+      arduinoPathEdit->setText(destinationPath+"/arduino-"+ ARDUINO_SDK_VERSION_NAME);
       installFinished = true;
   }
 }
@@ -236,7 +254,6 @@ void firstTimeWizard::onDownloadProgress(qint64 received, qint64 total)
     if(total)
        percent = 100 * received / total;
 
-    qDebug() << "Download" << "R" << received << "T" << total << 100.0 * received / total;
     downloadStatusLabel->setText(QString("Downloading... ( %1KB / %2KB )").arg((int)(received >> 10)).arg((int)(total >> 10)));
     downloadProgressBar->setValue(percent);
 }
