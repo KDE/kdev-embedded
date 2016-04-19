@@ -37,3 +37,6 @@ target_link_libraries(kdevembedded
 )
 
 add_subdirectory(doc_templates)
+
+set(TEMPLATE_DIRS template)
+kdevplatform_add_app_templates(${TEMPLATE_DIRS}) 
