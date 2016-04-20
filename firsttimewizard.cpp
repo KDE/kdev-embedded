@@ -39,8 +39,8 @@ firstTimeWizard::firstTimeWizard(QWidget *parent) :
 
   downloadStatusLabel->setText("");
   installStatusLabel->setText("");
-  urlLabel->setText(urlLabel->text().arg("mailto:patrickelectric@gmail.com"));
-  projectLabel->setText(projectLabel->text().arg("Embedded plugin").arg("Patrick J. Pereira"));
+  urlLabel->setText(urlLabel->text().arg(i18n("mailto: %1"").arg(patrickelectric@gmail.com")));
+  projectLabel->setText(projectLabel->text().arg(i18n("Embedded plugin")).arg("Patrick J. Pereira"));
   
   //TODO update to ARDUINO_SDK_MIN_VERSION_NAME
   existingInstallButton->setText(existingInstallButton->text().arg(ARDUINO_SDK_VERSION_NAME));
@@ -99,18 +99,19 @@ bool firstTimeWizard::validateCurrentPage()
 void firstTimeWizard::download()
 {
   downloadProgressBar->setValue(0);
+  // TODO update to generic links, create to linux and mac
   QNetworkRequest request(QUrl("https://downloads.arduino.cc/arduino-1.6.8-linux64.tar.xz"));
   request.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
   reply = mDownloadManager->get(request);
   connect(reply, &QNetworkReply::downloadProgress, this, &firstTimeWizard::onDownloadProgress);
   connect(reply, &QNetworkReply::finished, this, &firstTimeWizard::install);
-  downloadStatusLabel->setText("Downloading...");
+  downloadStatusLabel->setText(i18n("Downloading..."));
 }
 
 void firstTimeWizard::install()
 {
   downloadFinished = true;
-  downloadStatusLabel->setText("Downloaded !");
+  downloadStatusLabel->setText(i18n("Downloaded !"));
   // extract the archive
   QTemporaryFile archive("arduino");
   bool extractSuccess = archive.open();
@@ -122,7 +123,7 @@ void firstTimeWizard::install()
 
   if (extractSuccess)
   {
-    installStatusLabel->setText("Extracting...");
+    installStatusLabel->setText(i18n("Extracting..."));
       // write the reply to the temporary file
       QByteArray buffer;
       static const int bufferSize = 8192;
@@ -133,14 +134,14 @@ void firstTimeWizard::install()
           archive.write(buffer.data(), readBytes);
           readBytes = reply->read(buffer.data(), bufferSize);
       }
-      installStatusLabel->setText(QString("Extracting... ( %1KB )").arg(((int)(readBytes >> 10))));
+      installStatusLabel->setText(i18n("Extracting... ( %1KB )").arg(((int)(readBytes >> 10))));
       archive.seek(0);
 
       // call tar to extract
       QString extractCommand;
       QStringList extractArgs = QStringList();
       extractCommand = "tar";
-      if (QString(ARDUINO_SDK_VERSION_NAME) >= "1.6.0")
+      if (QString(ARDUINO_SDK_VERSION_NAME) >= ARDUINO_SDK_MIN_VERSION_NAME)
           extractArgs = QStringList()
               << "-x" << "-J" << "-f" << archive.fileName()
               << "-C" << destinationPath;
@@ -149,7 +150,7 @@ void firstTimeWizard::install()
       QFuture<int> extractFuture = QtConcurrent::run(&QProcess::execute, extractCommand, extractArgs);
       extractWatcher.setFuture(extractFuture);
       extractSuccess = extractFuture.result() == 0;
-      installStatusLabel->setText("Extracted !");
+      installStatusLabel->setText(i18n("Extracted !"));
       arduinoPathEdit->setText(destinationPath+"/arduino-"+ ARDUINO_SDK_VERSION_NAME);
       installFinished = true;
   }
@@ -227,7 +228,7 @@ void firstTimeWizard::chooseArduinoPath()
 #ifdef Q_OS_DARWIN
 #elif defined(Q_OS_WIN32) || defined(Q_OS_WIN64)
 #else
-  path = QFileDialog::getExistingDirectory(this, tr("Find Files"), QDir::currentPath());
+  path = QFileDialog::getExistingDirectory(this, i18n("Find Files"), QDir::currentPath());
 #endif
 
     if (!path.isEmpty())
@@ -241,7 +242,7 @@ void firstTimeWizard::chooseSketchbookPath()
 #ifdef Q_OS_DARWIN
 #elif defined(Q_OS_WIN32) || defined(Q_OS_WIN64)
 #else
-  path = QFileDialog::getExistingDirectory(this, tr("Find Files"), QDir::currentPath());
+  path = QFileDialog::getExistingDirectory(this, i18n("Find Files"), QDir::currentPath());
 #endif
 
   if (!path.isEmpty())
@@ -254,7 +255,7 @@ void firstTimeWizard::onDownloadProgress(qint64 received, qint64 total)
     if(total)
        percent = 100 * received / total;
 
-    downloadStatusLabel->setText(QString("Downloading... ( %1KB / %2KB )").arg((int)(received >> 10)).arg((int)(total >> 10)));
+    downloadStatusLabel->setText(i18n("Downloading... ( %1KB / %2KB )").arg((int)(received >> 10)).arg((int)(total >> 10)));
     downloadProgressBar->setValue(percent);
 }
 
