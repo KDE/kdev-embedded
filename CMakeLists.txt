@@ -7,6 +7,7 @@ set(ARDUINO_SDK_MIN_VERSION_NAME "1.6.8")
 
 add_definitions(-DARDUINO_SDK_VERSION="${ARDUINO_SDK_VERSION}")
 add_definitions(-DARDUINO_SDK_VERSION_NAME="${ARDUINO_SDK_VERSION_NAME}")
+add_definitions(-DARDUINO_SDK_MIN_VERSION_NAME="${ARDUINO_SDK_MIN_VERSION_NAME}")
 
 ########### install target ###############
 
