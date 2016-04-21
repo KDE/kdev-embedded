@@ -39,7 +39,7 @@ firstTimeWizard::firstTimeWizard(QWidget *parent) :
 
   downloadStatusLabel->setText("");
   installStatusLabel->setText("");
-  urlLabel->setText(urlLabel->text().arg(i18n("mailto: %1"").arg(patrickelectric@gmail.com")));
+  urlLabel->setText(urlLabel->text().arg(i18n("mailto:%1").arg("patrickelectric@gmail.com")));
   projectLabel->setText(projectLabel->text().arg(i18n("Embedded plugin")).arg("Patrick J. Pereira"));
   
   //TODO update to ARDUINO_SDK_MIN_VERSION_NAME
