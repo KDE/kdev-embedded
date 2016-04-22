@@ -14,7 +14,8 @@ add_definitions(-DARDUINO_SDK_MIN_VERSION_NAME="${ARDUINO_SDK_MIN_VERSION_NAME}"
 set(KDEVEMBEDDED_PART_SRCS
     embedded.cpp
     arduinowindow.cpp
-    tollkit.cpp
+    toolkit.cpp
+    board.cpp
     firsttimewizard.cpp
 )
 
@@ -40,5 +41,6 @@ target_link_libraries(kdevembedded
 
 add_subdirectory(doc_templates)
 
-set(TEMPLATE_DIRS template)
+############################################
+set(TEMPLATE_DIRS embeddedproject)
 kdevplatform_add_app_templates(${TEMPLATE_DIRS}) 

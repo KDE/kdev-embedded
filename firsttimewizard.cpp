@@ -24,7 +24,7 @@
 #include <interfaces/icore.h>
 #include <KConfigGroup>
 
-#include "tollkit.h"
+#include "toolkit.h"
 
 using namespace KDevelop;
 
@@ -33,8 +33,7 @@ firstTimeWizard::firstTimeWizard(QWidget *parent) :
 {
   downloadFinished=installFinished=false;
   mDownloadManager = new QNetworkAccessManager;
-  settings = new QSettings;
-
+  
   setupUi(this);
 
   downloadStatusLabel->setText("");

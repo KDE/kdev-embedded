@@ -24,9 +24,11 @@ public:
     ~Embedded() override;
 
     firstTimeWizard* embeddedWindow;
+    arduinoWindow* arduinoBoard;
 
 private slots:
     void documentDeclaration();
+    void documentDeclaration2();
 };
 
 

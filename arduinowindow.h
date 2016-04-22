@@ -3,21 +3,22 @@
 
 // Configure Arduino board and interface
 
-#include <QDialog>
+#include <QWizard>
 
-namespace Ui {
-class arduinowindow;
-}
+#include "board.h"
 
-class arduinowindow : public QDialog
+#include "ui_arduinowindow.h"
+
+class arduinoWindow : public QWizard, Ui::arduinowindow
 {
     Q_OBJECT
 
 public:
-    explicit arduinowindow(QWidget *parent = 0);
-    ~arduinowindow();
+    explicit arduinoWindow(QWidget *parent = 0);
+    ~arduinoWindow();
 
 private:
+    Board *board;
     Ui::arduinowindow *ui;
 };
 

@@ -28,7 +28,7 @@ public:
   QString getSketchbookPath();
   QString downloadAndInstallArduino();
   bool validateCurrentPage();
-  int nextId() const;
+  int  nextId() const;
   bool finish();
 private slots:
   void onDownloadProgress(qint64 received, qint64 total);

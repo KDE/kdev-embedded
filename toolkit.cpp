@@ -1,4 +1,4 @@
-#include "tollkit.h"
+#include "toolkit.h"
 
 #include <QStringList>
 #include <QDir>
@@ -6,6 +6,13 @@
 #include <QProcess>
 #include <QDebug>
 
+QString Toolkit::getBoardFile(const QString &path)
+{
+    QFile file(path + "/hardware/arduino/avr/boards.txt");
+    if(!file.open(QFile::ReadOnly))
+      return QString();
+    return path + "/hardware/arduino/avr/boards.txt";
+}
 
 QString Toolkit::toolkitVersion(const QString &path)
 {
@@ -18,12 +25,11 @@ QString Toolkit::toolkitVersion(const QString &path)
     QList<QByteArray> list = arduinoVersion.split(' ');
     if (list.size() >= 2)
       return  list.at(1).trimmed();
-  return QString();
+    return QString();
 }
 
 bool Toolkit::isValidArduinoPath(const QString &path)
 {
-  //return acceptableVersion.contains(toolkitVersion(path));
-  QString version = Toolkit::toolkitVersion(path);
-  return (version=="1.6.8" || version=="1.6.7");
+    QString version = Toolkit::toolkitVersion(path);
+    return (version=="1.6.8" || version=="1.6.7");
 }

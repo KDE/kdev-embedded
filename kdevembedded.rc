@@ -3,6 +3,9 @@
 <MenuBar>
   <Menu name="Embedded">
     <Text context="@title:menu">Embedded</Text>
+    <Action name="action_board" />
+    <Action name="action_upload" />
+    <Action name="action_serial" />
     <Action name="action_project" />
   </Menu>
 </MenuBar>

@@ -1,14 +1,22 @@
 #include "arduinowindow.h"
-#include "ui_arduinowindow.h"
 
-arduinowindow::arduinowindow(QWidget *parent) :
-    QDialog(parent),
-    ui(new Ui::arduinowindow)
+#include <interfaces/isession.h>
+#include <interfaces/icore.h>
+
+#include "toolkit.h"
+
+using namespace KDevelop;
+
+arduinoWindow::arduinoWindow(QWidget *parent) :
+    QWizard(parent)
 {
-    ui->setupUi(this);
+    setupUi(this);
+    
+    board = new Board;
+    board->load();
 }
 
-arduinowindow::~arduinowindow()
+arduinoWindow::~arduinoWindow()
 {
     delete ui;
 }

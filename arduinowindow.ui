@@ -7,26 +7,21 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>300</height>
+    <height>361</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>arduinowindow</string>
   </property>
-  <widget class="QWidget" name="centralWidget">
-   <widget class="QDialogButtonBox" name="buttonBox">
-    <property name="geometry">
-     <rect>
-      <x>220</x>
-      <y>260</y>
-      <width>174</width>
-      <height>34</height>
-     </rect>
-    </property>
-    <property name="standardButtons">
-     <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-    </property>
-   </widget>
+  <widget class="QWidget" name="centralWidget" native="true">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>404</width>
+     <height>331</height>
+    </rect>
+   </property>
    <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
@@ -40,7 +35,7 @@
      <item>
       <widget class="QLabel" name="board_label">
        <property name="text">
-        <string>&amp;Board:</string>
+        <string>Board:</string>
        </property>
        <property name="buddy">
         <cstring>board_combo</cstring>
@@ -69,7 +64,7 @@
      <item>
       <widget class="QLabel" name="interface_label">
        <property name="text">
-        <string>&amp;Interface:</string>
+        <string>In&amp;terface:</string>
        </property>
        <property name="buddy">
         <cstring>board_combo</cstring>
@@ -88,10 +83,10 @@
    <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>150</y>
-      <width>201</width>
-      <height>141</height>
+      <x>220</x>
+      <y>210</y>
+      <width>171</width>
+      <height>111</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -107,13 +102,55 @@
       <x>220</x>
       <y>10</y>
       <width>171</width>
-      <height>241</height>
+      <height>191</height>
      </rect>
     </property>
     <property name="text">
      <string/>
     </property>
    </widget>
+   <widget class="QWidget" name="layoutWidget_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>150</y>
+      <width>201</width>
+      <height>58</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="Lay2_2">
+     <item>
+      <widget class="QLabel" name="interface_label_2">
+       <property name="text">
+        <string>Interface ba&amp;ud rate:</string>
+       </property>
+       <property name="buddy">
+        <cstring>board_combo</cstring>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="KComboBox" name="interface_combo_2">
+       <property name="editable">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDialogButtonBox" name="buttonBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>330</y>
+     <width>191</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="standardButtons">
+    <set>QDialogButtonBox::Apply|QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+   </property>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>

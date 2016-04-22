@@ -31,20 +31,33 @@ Embedded::Embedded ( QObject* parent, const QVariantList& )
 {
     setXMLFile( QStringLiteral("kdevembedded.rc") );
 
-    QAction* action = actionCollection()->addAction( QStringLiteral("action_project") );
-    action->setText( i18n( "Arduino Setup" ) );
-    actionCollection()->setDefaultShortcut(action, i18n( "Alt+Shift+a" ));
-    connect( action, SIGNAL(triggered(bool)), this, SLOT(documentDeclaration()) );
-    action->setToolTip( i18n( "1 Line Tip" ) );
-    // i18n: translate title same as the action name
-    action->setWhatsThis( i18n( "Long Tip 3 lines") );
-    action->setIcon( QIcon::fromTheme( QStringLiteral("project-development-new-template") ) );
+    QAction* actionProject = actionCollection()->addAction( QStringLiteral("action_project") );
+    actionProject->setText( i18n( "Arduino Setup" ) );
+    actionCollection()->setDefaultShortcut(actionProject, i18n( "Alt+Shift+a" ));
+    connect( actionProject, SIGNAL(triggered(bool)), this, SLOT(documentDeclaration()) );
+    actionProject->setToolTip( i18n( "1 Line Tip" ) );
+    actionProject->setWhatsThis( i18n( "Long Tip 3 lines") );
+    actionProject->setIcon( QIcon::fromTheme( QStringLiteral("project-development-new-template") ) );
+  
+    QAction* actionConfigureBoard = actionCollection()->addAction( QStringLiteral("action_board") );
+    actionConfigureBoard->setText( i18n( "Board settings" ) );
+    actionCollection()->setDefaultShortcut(actionConfigureBoard, i18n( "Alt+Shift+b" ));
+    connect( actionConfigureBoard, SIGNAL(triggered(bool)), this, SLOT(documentDeclaration2()) );
+    actionConfigureBoard->setToolTip( i18n( "1 Line Tip" ) );
+    actionConfigureBoard->setWhatsThis( i18n( "Long Tip 3 lines") );
+    actionConfigureBoard->setIcon( QIcon::fromTheme( QStringLiteral("project-development-new-template") ) );
 }
 
 void Embedded::documentDeclaration()
 {
   embeddedWindow = new firstTimeWizard(ICore::self()->uiController()->activeMainWindow());
   embeddedWindow->show();
+}
+
+void Embedded::documentDeclaration2()
+{
+  arduinoBoard = new arduinoWindow(ICore::self()->uiController()->activeMainWindow());
+  arduinoBoard->show();
 }
 
 Embedded::~Embedded()
