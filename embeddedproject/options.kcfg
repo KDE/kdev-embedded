@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+      http://www.kde.org/standards/kcfg/1.0/kcfg.xsd">
+  <kcfgfile arg="true"/>
+  <group name="Board confugiration">
+      
+    <entry name="board_name" type="String">
+      <label>Board name :</label>
+      <default>uno</default>
+    </entry>
+    
+    <entry name="board_clock" type="String">
+      <label>Board clock (MHz):</label>
+       <whatsthis>WTHIT</whatsthis>
+      <default>12</default>
+    </entry>
+    
+    <entry name="treePartitionColumnWidths" type="IntList" hidden="true">
+		<default>140,90,90,90,0,90,90,0,0,0,0,0</default>
+    </entry>
+    
+  </group>
+</kcfg>

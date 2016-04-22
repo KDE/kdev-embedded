@@ -1,0 +1,16 @@
+[General]
+BaseClasses=public QObject
+BaseClasses=public KDevelop::IPlugin,public KDevelop::IBasicVersionControl
+BaseClasses=object
+
+Name=Embedded 
+Comment=An embedded system template potato2
+Category=Embedded/C++
+Type=Project
+Files=Header
+OptionsFile=options.kcfg
+
+[Header]
+Name=Header
+File=Makefile
+OutputFile=Makefile
