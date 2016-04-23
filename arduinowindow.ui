@@ -22,51 +22,51 @@
         <item>
          <layout class="QVBoxLayout" name="verticalLayout">
           <item>
-           <widget class="QLabel" name="board_label">
+           <widget class="QLabel" name="boardLabel">
             <property name="text">
              <string>Boa&amp;rd:</string>
             </property>
             <property name="buddy">
-             <cstring>board_combo</cstring>
+             <cstring>boardCombo</cstring>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="KComboBox" name="board_combo">
+           <widget class="KComboBox" name="boardCombo">
             <property name="editable">
              <bool>true</bool>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="interface_label">
+           <widget class="QLabel" name="interfacelabel">
             <property name="text">
              <string>In&amp;terface:</string>
             </property>
             <property name="buddy">
-             <cstring>board_combo</cstring>
+             <cstring>boardCombo</cstring>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="KComboBox" name="interface_combo">
+           <widget class="KComboBox" name="interfaceCombo">
             <property name="editable">
              <bool>true</bool>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLabel" name="interface_label_2">
+           <widget class="QLabel" name="buadLabel">
             <property name="text">
              <string>Interface ba&amp;ud rate:</string>
             </property>
             <property name="buddy">
-             <cstring>board_combo</cstring>
+             <cstring>boardCombo</cstring>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="KComboBox" name="interface_combo_2">
+           <widget class="KComboBox" name="baudCombo">
             <property name="editable">
              <bool>true</bool>
             </property>
