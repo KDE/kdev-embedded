@@ -3,13 +3,13 @@
 
 // Configure Arduino board and interface
 
-#include <QWizard>
+#include <QDialog>
 
 #include "board.h"
 
 #include "ui_arduinowindow.h"
 
-class arduinoWindow : public QWizard, Ui::arduinowindow
+class arduinoWindow : public QDialog, Ui::arduinowindow
 {
     Q_OBJECT
 

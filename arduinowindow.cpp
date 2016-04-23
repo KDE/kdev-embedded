@@ -8,12 +8,12 @@
 using namespace KDevelop;
 
 arduinoWindow::arduinoWindow(QWidget *parent) :
-    QWizard(parent)
+    QDialog(parent)
 {
     setupUi(this);
     
-    board = new Board;
-    board->load();
+    //board = new Board;
+    Board::instance().update();
 }
 
 arduinoWindow::~arduinoWindow()
