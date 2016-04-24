@@ -18,6 +18,8 @@ public:
     ~arduinoWindow();
 
 private:
+    void boardComboChanged(QString text);
+
     Board *board;
     Ui::arduinowindow *ui;
 };
