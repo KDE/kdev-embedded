@@ -33,18 +33,18 @@ firstTimeWizard::firstTimeWizard(QWidget *parent) :
 {
   downloadFinished=installFinished=false;
   mDownloadManager = new QNetworkAccessManager;
-  
+
   setupUi(this);
 
   downloadStatusLabel->setText("");
   installStatusLabel->setText("");
   urlLabel->setText(urlLabel->text().arg(i18n("mailto:%1").arg("patrickelectric@gmail.com")));
   projectLabel->setText(projectLabel->text().arg(i18n("Embedded plugin")).arg("Patrick J. Pereira"));
-  
+
   //TODO update to ARDUINO_SDK_MIN_VERSION_NAME
   existingInstallButton->setText(existingInstallButton->text().arg(ARDUINO_SDK_VERSION_NAME));
   automaticInstallButton->setText(automaticInstallButton->text().arg(ARDUINO_SDK_VERSION_NAME));
-  
+
 
   // Download mode is default
   automaticInstallButton->setChecked(true);
@@ -56,9 +56,9 @@ firstTimeWizard::firstTimeWizard(QWidget *parent) :
   //TODO support others OS
   QString mDownloadOs = "Linux";
   downloadLabel->setText(downloadLabel->text().arg(ARDUINO_SDK_VERSION_NAME).arg(mDownloadOs));
-  
-  connect(arduinoPathButton, SIGNAL(clicked()), this, SLOT(chooseArduinoPath()));
-  connect(sketchbookPathButton, SIGNAL(clicked()), this, SLOT(chooseSketchbookPath()));
+
+  connect(arduinoPathButton, &QToolButton::clicked, this, &firstTimeWizard::chooseArduinoPath);
+  connect(sketchbookPathButton, &QToolButton::clicked, this, &firstTimeWizard::chooseSketchbookPath);
 }
 
 bool firstTimeWizard::validateCurrentPage()
@@ -88,7 +88,7 @@ bool firstTimeWizard::validateCurrentPage()
       settings.writeEntry("sketchbookFolder", sketchbookPathEdit->text());
     }
     break;
-    
+
     default:
     break;
   }
