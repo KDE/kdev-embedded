@@ -1,6 +1,7 @@
 #include "arduinowindow.h"
 
 #include <QDebug>
+#include <QPixmap>
 
 #include <interfaces/isession.h>
 #include <interfaces/icore.h>
@@ -15,30 +16,36 @@ arduinoWindow::arduinoWindow(QWidget *parent) :
 {
     setupUi(this);
 
+    model = new arduinoWindowModel;
+
     // Just select the options
     boardCombo->setEditable(false);
     interfaceCombo->setEditable(false);
     baudCombo->setEditable(false);
 
-    //board = new Board;
     Board::instance().update();
     QStringList boardsId = Board::instance().boardList;
     QStringList boardsName;
-
     foreach(const QString &boardId, boardsId)
         boardsName << Board::instance().boards[boardId].name;
+    model->populate(boardsId, boardsName);
 
-    boardCombo->addItems(boardsName);
+    boardCombo->setModel(model);
     boardComboChanged(boardCombo->currentText());
     connect(boardCombo, &QComboBox::currentTextChanged, this,  &arduinoWindow::boardComboChanged);
 }
 
 void arduinoWindow::boardComboChanged(QString text)
 {
-    QString id = Board::instance().getIdFromName(text);
-    QStringList baud = Board::instance().boards[id].upSpeed;
     baudCombo->clear();
+    QString id = model->getData(boardCombo->currentIndex()).id;
+    QStringList baud = Board::instance().boards[id].upSpeed;
+
     baudCombo->addItems(baud);
+    // TODO add boards description
+    bitext->setText(text);
+    // TODO get path to image
+    //image->setPixmap(QPixmap::fromImage(image));
 }
 
 arduinoWindow::~arduinoWindow()
