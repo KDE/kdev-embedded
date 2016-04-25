@@ -6,6 +6,8 @@
 #include <interfaces/isession.h>
 #include <interfaces/icore.h>
 
+#include <solid/device.h>
+
 #include "toolkit.h"
 
 using namespace KDevelop;
@@ -32,6 +34,14 @@ arduinoWindow::arduinoWindow(QWidget *parent) :
 
     boardCombo->setModel(model);
     boardComboChanged(boardCombo->currentText());
+
+    // TODO filter devices
+    auto devices = Solid::Device::allDevices();
+    foreach(const Solid::Device device, devices)
+        if(device.product() != "")
+            interfaceCombo->addItem(device.product());
+        //qDebug() << device.description() << device.parentUdi() << device.product() << device.udi() << device.vendor();
+
     connect(boardCombo, &QComboBox::currentTextChanged, this,  &arduinoWindow::boardComboChanged);
 }
 

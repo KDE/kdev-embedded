@@ -32,6 +32,7 @@ qt5_add_resources(KDEVEMBEDDED_PART_SRCS kdevembedded.qrc)
 kdevplatform_add_plugin(kdevembedded JSON kdevembedded.json SOURCES ${KDEVEMBEDDED_PART_SRCS})
 
 target_link_libraries(kdevembedded
+    KF5::Solid
     KF5::Parts
     KF5::TextEditor
     KDev::Interfaces
@@ -43,4 +44,4 @@ add_subdirectory(doc_templates)
 
 ############################################
 set(TEMPLATE_DIRS embeddedproject)
-kdevplatform_add_app_templates(${TEMPLATE_DIRS}) 
+kdevplatform_add_app_templates(${TEMPLATE_DIRS})
