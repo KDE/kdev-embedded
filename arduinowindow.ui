@@ -41,7 +41,7 @@
           <item>
            <widget class="QLabel" name="interfacelabel">
             <property name="text">
-             <string>Interface:</string>
+             <string>In&amp;terface:</string>
             </property>
             <property name="textFormat">
              <enum>Qt::PlainText</enum>
@@ -61,7 +61,7 @@
           <item>
            <widget class="QLabel" name="buadLabel">
             <property name="text">
-             <string>Interface baud rate:</string>
+             <string>&amp;Interface baud rate:</string>
             </property>
             <property name="buddy">
              <cstring>boardCombo</cstring>
@@ -91,7 +91,7 @@
          </layout>
         </item>
         <item>
-         <widget class="QLabel" name="label">
+         <widget class="QLabel" name="image">
           <property name="text">
            <string/>
           </property>

@@ -1,24 +1,36 @@
 #include "arduinowindow.h"
 
 #include <QDebug>
+#include <QImage>
 #include <QPixmap>
+#include <QStandardPaths>
+#include <QCoreApplication>
 
 #include <interfaces/isession.h>
 #include <interfaces/icore.h>
 
 #include <solid/device.h>
+#include <solid/devicenotifier.h>
 
 #include "toolkit.h"
 
 using namespace KDevelop;
 
-// TODO create a abstracttablemodel to update img and text
+using namespace Solid;
+
+//TODO: create document to add board ID, description and image
 arduinoWindow::arduinoWindow(QWidget *parent) :
-    QDialog(parent)
+    QDialog(parent),
+    model (new arduinoWindowModel),
+    devices (new Solid::DeviceNotifier)
 {
     setupUi(this);
 
-    model = new arduinoWindowModel;
+    boardImgsDir = QDir(QStandardPaths::locate(
+                        QStandardPaths::GenericDataLocation,
+                        QLatin1String("kdevembedded/boardsimg"),
+                        QStandardPaths::LocateDirectory
+                        ) + '/');
 
     // Just select the options
     boardCombo->setEditable(false);
@@ -26,6 +38,7 @@ arduinoWindow::arduinoWindow(QWidget *parent) :
     baudCombo->setEditable(false);
 
     Board::instance().update();
+
     QStringList boardsId = Board::instance().boardList;
     QStringList boardsName;
     foreach(const QString &boardId, boardsId)
@@ -35,27 +48,43 @@ arduinoWindow::arduinoWindow(QWidget *parent) :
     boardCombo->setModel(model);
     boardComboChanged(boardCombo->currentText());
 
-    // TODO filter devices
-    auto devices = Solid::Device::allDevices();
-    foreach(const Solid::Device device, devices)
-        if(device.product() != "")
-            interfaceCombo->addItem(device.product());
-        //qDebug() << device.description() << device.parentUdi() << device.product() << device.udi() << device.vendor();
-
+    devices = Solid::DeviceNotifier::instance();
+    connect(devices, &Solid::DeviceNotifier::deviceAdded, this, &arduinoWindow::devicesChanged);
+    connect(devices, &Solid::DeviceNotifier::deviceRemoved, this, &arduinoWindow::devicesChanged);
     connect(boardCombo, &QComboBox::currentTextChanged, this,  &arduinoWindow::boardComboChanged);
 }
 
-void arduinoWindow::boardComboChanged(QString text)
+void arduinoWindow::boardComboChanged(const QString& text)
 {
     baudCombo->clear();
     QString id = model->getData(boardCombo->currentIndex()).id;
     QStringList baud = Board::instance().boards[id].upSpeed;
 
     baudCombo->addItems(baud);
-    // TODO add boards description
+    // TODO: add boards description
     bitext->setText(text);
-    // TODO get path to image
-    //image->setPixmap(QPixmap::fromImage(image));
+
+    // TODO: select image from board selection
+    QString imageLocal = boardImgsDir.absolutePath()+"/NetduinoPlus2.svg";
+    image->setPixmap(QPixmap::fromImage(QImage(imageLocal)));
+}
+
+void arduinoWindow::devicesChanged(const QString& udi)
+{
+    Q_UNUSED(udi);
+    interfaceCombo->clear();
+    auto devices = Solid::Device::allDevices();
+    foreach(const Solid::Device device, devices)
+        if(device.product() != "" and device.udi().contains("tty"))
+        {
+            interfaceCombo->addItem(device.product());
+            qDebug() << "INTERFACE ############ INTERFACE";
+            qDebug() << "Description\t:" << device.description();
+            qDebug() << "Parent Udi\t:" << device.parentUdi();
+            qDebug() << "Product\t:" << device.product();
+            qDebug() << "Udi\t:" << device.udi();
+            qDebug() << "Vendor\t:" <<device.vendor();
+        }
 }
 
 arduinoWindow::~arduinoWindow()

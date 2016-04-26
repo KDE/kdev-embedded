@@ -4,11 +4,17 @@
 // Configure Arduino board and interface
 
 #include <Qt>
+#include <QDir>
 #include <QDialog>
 
 #include "board.h"
 
 #include "ui_arduinowindow.h"
+
+namespace Solid
+{
+    class DeviceNotifier;
+};
 
 class arduinoWindowModel : public QAbstractTableModel {
     Q_OBJECT
@@ -70,10 +76,14 @@ public:
 
 private:
     arduinoWindowModel *model;
-    void boardComboChanged(QString text);
+    void boardComboChanged(const QString& text);
+    void devicesChanged(const QString& udi);
 
     Board *board;
     Ui::arduinowindow *ui;
+
+    QDir boardImgsDir;
+    Solid::DeviceNotifier *devices;
 };
 
 #endif // ARDUINOWINDOW_H

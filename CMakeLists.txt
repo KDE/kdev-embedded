@@ -40,6 +40,8 @@ target_link_libraries(kdevembedded
     KDev::Language
 )
 
+install(DIRECTORY boardsimg DESTINATION ${DATA_INSTALL_DIR}/kdevembedded)
+
 add_subdirectory(doc_templates)
 
 ############################################
