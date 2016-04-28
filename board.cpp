@@ -11,52 +11,54 @@
 #include <interfaces/icore.h>
 #include <KConfigGroup>
 
+Q_LOGGING_CATEGORY(BoMsg, "Kdev.embedded.bo.msg");
+
 using namespace KDevelop;
 
 void BoardInfo::printData()
 {
     // Board
 
-    qDebug() << "name" << name;
-    qDebug() << "vid"  << vid;
-    qDebug() << "pid"  << pid;
+    qCDebug(BoMsg) << "name" << name;
+    qCDebug(BoMsg) << "vid"  << vid;
+    qCDebug(BoMsg) << "pid"  << pid;
 
     // Upload
 
-    qDebug() << "upTool"              << upTool;
-    qDebug() << "upProtocol"          << upProtocol;
-    qDebug() << "upMaxSize"           << upMaxSize;
-    qDebug() << "upMaxDataSize"       << upMaxDataSize;
-    qDebug() << "upSpeed"             << upSpeed;
-    qDebug() << "upDisableFlush"      << upDisableFlush;
-    qDebug() << "upUse1k2bpsTouch"    << upUse1k2bpsTouch;
-    qDebug() << "upWaitForUploadPort" << upWaitForUploadPort;
+    qCDebug(BoMsg) << "upTool"              << upTool;
+    qCDebug(BoMsg) << "upProtocol"          << upProtocol;
+    qCDebug(BoMsg) << "upMaxSize"           << upMaxSize;
+    qCDebug(BoMsg) << "upMaxDataSize"       << upMaxDataSize;
+    qCDebug(BoMsg) << "upSpeed"             << upSpeed;
+    qCDebug(BoMsg) << "upDisableFlush"      << upDisableFlush;
+    qCDebug(BoMsg) << "upUse1k2bpsTouch"    << upUse1k2bpsTouch;
+    qCDebug(BoMsg) << "upWaitForUploadPort" << upWaitForUploadPort;
 
     // Boot loader
 
-    qDebug() << "blTool"          << blTool;
-    qDebug() << "blLowFuses"      << blLowFuses;
-    qDebug() << "blHighFuses"     << blHighFuses;
-    qDebug() << "blExtendedFuses" << blExtendedFuses;
-    qDebug() << "blFile"          << blFile;
-    qDebug() << "blNoblink"       << blNoblink;
-    qDebug() << "blUnlockBits"    << blUnlockBits;
-    qDebug() << "blLockBits"      << blLockBits;
+    qCDebug(BoMsg) << "blTool"          << blTool;
+    qCDebug(BoMsg) << "blLowFuses"      << blLowFuses;
+    qCDebug(BoMsg) << "blHighFuses"     << blHighFuses;
+    qCDebug(BoMsg) << "blExtendedFuses" << blExtendedFuses;
+    qCDebug(BoMsg) << "blFile"          << blFile;
+    qCDebug(BoMsg) << "blNoblink"       << blNoblink;
+    qCDebug(BoMsg) << "blUnlockBits"    << blUnlockBits;
+    qCDebug(BoMsg) << "blLockBits"      << blLockBits;
 
     // Build
 
-    qDebug() << "bMcu"        << bMcu;
-    qDebug() << "bFcpu"       << bFcpu;
-    qDebug() << "bVid"        << bVid;
-    qDebug() << "bPid"        << bPid;
-    qDebug() << "bUsbProduct" << bUsbProduct;
-    qDebug() << "bBoard"      << bBoard;
-    qDebug() << "bCore"       << bCore;
-    qDebug() << "bVariant"    << bVariant;
-    qDebug() << "bExtraFlags" << bExtraFlags;
+    qCDebug(BoMsg) << "bMcu"        << bMcu;
+    qCDebug(BoMsg) << "bFcpu"       << bFcpu;
+    qCDebug(BoMsg) << "bVid"        << bVid;
+    qCDebug(BoMsg) << "bPid"        << bPid;
+    qCDebug(BoMsg) << "bUsbProduct" << bUsbProduct;
+    qCDebug(BoMsg) << "bBoard"      << bBoard;
+    qCDebug(BoMsg) << "bCore"       << bCore;
+    qCDebug(BoMsg) << "bVariant"    << bVariant;
+    qCDebug(BoMsg) << "bExtraFlags" << bExtraFlags;
 
     // Not an Option
-    qDebug() << "NaO" << NaO;
+    qCDebug(BoMsg) << "NaO" << NaO;
 }
 
 QString Board::getIdFromName(QString _name)

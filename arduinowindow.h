@@ -6,7 +6,9 @@
 #include <Qt>
 #include <QDir>
 #include <QDialog>
+#include <QLoggingCategory>
 
+Q_DECLARE_LOGGING_CATEGORY(AwMsg);
 
 #include "ui_arduinowindow.h"
 

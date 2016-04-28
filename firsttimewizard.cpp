@@ -26,6 +26,9 @@
 
 #include "toolkit.h"
 
+Q_LOGGING_CATEGORY(FtwIo, "Kdev.embedded.ftw.io");
+Q_LOGGING_CATEGORY(FtwMsg, "kdev.embedded.ftw.msg");
+
 using namespace KDevelop;
 
 FirstTimeWizard::FirstTimeWizard(QWidget *parent) :
@@ -112,13 +115,19 @@ void FirstTimeWizard::install()
   downloadFinished = true;
   downloadStatusLabel->setText(i18n("Downloaded !"));
   // Extract the archive
-  QTemporaryFile archive("arduino");
+  QTemporaryFile archive;
   bool extractSuccess = archive.open();
   QString destinationPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
   QDir destinationDir(destinationPath);
 
+  if (!extractSuccess)
+    qCDebug(FtwIo) << "Cant open file" << archive.fileName();
+
   if (!destinationDir.exists())
+  {
+    qCDebug(FtwIo) << "Destination directory already exists at" << destinationPath;
     extractSuccess = extractSuccess && destinationDir.mkpath(".");
+  }
 
   if (extractSuccess)
   {
@@ -184,11 +193,13 @@ QString FirstTimeWizard::getArduinoPath()
   {
     if (Toolkit::isValidArduinoPath(path))
     {
+      qCDebug(FtwIo) << "Valid Arduino path at" << path;
       arduinoPathEdit->setText(path);
       existingInstallButton->setChecked(true);
       return path;
     }
   }
+  qCDebug(FtwIo) << "No valid Arduino path";
   return QString();
 }
 
@@ -250,6 +261,9 @@ void FirstTimeWizard::onDownloadProgress(qint64 received, qint64 total)
     int percent = 0;
     if(total)
        percent = 100 * received / total;
+
+    qCDebug(FtwIo) << "Download in Progress" << percent << "%";
+    qCDebug(FtwIo) << "Download in Progress" << received << "/" << total;
 
     downloadStatusLabel->setText(i18n("Downloading... ( %1KB / %2KB )").arg((int)(received >> 10)).arg((int)(total >> 10)));
     downloadProgressBar->setValue(percent);

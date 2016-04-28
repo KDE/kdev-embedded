@@ -4,6 +4,10 @@
 // first time wizard configuration
 
 #include <QWizard>
+#include <QLoggingCategory>
+
+Q_DECLARE_LOGGING_CATEGORY(FtwIo);
+Q_DECLARE_LOGGING_CATEGORY(FtwMsg);
 
 #include "ui_firsttimewizard.h"
 

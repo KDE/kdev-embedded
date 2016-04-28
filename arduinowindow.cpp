@@ -5,6 +5,7 @@
 #include <QPixmap>
 #include <QStandardPaths>
 #include <QCoreApplication>
+#include <QLoggingCategory>
 
 #include <interfaces/isession.h>
 #include <interfaces/icore.h>
@@ -15,8 +16,9 @@
 #include "board.h"
 #include "toolkit.h"
 
-using namespace KDevelop;
+Q_LOGGING_CATEGORY(AwMsg, "Kdev.embedded.aw.msg");
 
+using namespace KDevelop;
 using namespace Solid;
 
 //TODO: create document to add board ID, description and image
@@ -25,6 +27,9 @@ ArduinoWindow::ArduinoWindow(QWidget *parent) :
     model (new arduinoWindowModel),
     devices (new Solid::DeviceNotifier)
 {
+    QLoggingCategory potato("Kdev.embedded.aw.msg");
+    qDebug() << "potato" << potato.isDebugEnabled();
+    qCDebug(AwMsg) << "AW opened";
     setupUi(this);
 
     boardImgsDir = QDir(QStandardPaths::locate(
@@ -63,10 +68,11 @@ void ArduinoWindow::boardComboChanged(const QString& text)
 
     baudCombo->addItems(baud);
     // TODO: add boards description
+    qCDebug(AwMsg) << "Baord selected" << text;
     bitext->setText(text);
 
     // TODO: select image from board selection
-    QString imageLocal = boardImgsDir.absolutePath()+"/NetduinoPlus2.svg";
+    QString imageLocal = boardImgsDir.absolutePath()+"/arduino_uno(rev3)-icsp_breadboard.svg";
     image->setPixmap(QPixmap::fromImage(QImage(imageLocal)));
 }
 
@@ -81,12 +87,12 @@ void ArduinoWindow::devicesChanged(const QString& udi)
         if(device.product() != "" and device.udi().contains("tty"))
         {
             interfaceCombo->addItem(device.product());
-            qDebug() << "INTERFACE ############ INTERFACE";
-            qDebug() << "Description\t:" << device.description();
-            qDebug() << "Parent Udi\t:" << device.parentUdi();
-            qDebug() << "Product\t:" << device.product();
-            qDebug() << "Udi\t:" << device.udi();
-            qDebug() << "Vendor\t:" <<device.vendor();
+            qCDebug(AwMsg) << "INTERFACE ############ INTERFACE";
+            qCDebug(AwMsg) << "Description\t:" << device.description();
+            qCDebug(AwMsg) << "Parent Udi\t:" << device.parentUdi();
+            qCDebug(AwMsg) << "Product\t:" << device.product();
+            qCDebug(AwMsg) << "Udi\t:" << device.udi();
+            qCDebug(AwMsg) << "Vendor\t:" <<device.vendor();
         }
     }
 }

@@ -5,6 +5,9 @@
 #include <QStringList>
 #include <QHash>
 #include <QMap>
+#include <QLoggingCategory>
+
+Q_DECLARE_LOGGING_CATEGORY(BoMsg);
 
 class BoardInfo
 {
