@@ -22,7 +22,9 @@
 
 #include <interfaces/isession.h>
 #include <interfaces/icore.h>
+
 #include <KConfigGroup>
+#include <KTar>
 
 #include "toolkit.h"
 
@@ -131,7 +133,7 @@ void FirstTimeWizard::install()
 
   if (extractSuccess)
   {
-    installStatusLabel->setText(i18n("Extracting..."));
+      installStatusLabel->setText(i18n("Extracting..."));
       // Write the reply to the temporary file
       QByteArray buffer;
       // Create a buffer of 8kB
@@ -147,18 +149,12 @@ void FirstTimeWizard::install()
       archive.seek(0);
 
       // Call tar to extract
-      QString extractCommand;
-      QStringList extractArgs;
-      extractCommand = "tar";
-      if (QString(ARDUINO_SDK_VERSION_NAME) >= ARDUINO_SDK_MIN_VERSION_NAME)
-          extractArgs = QStringList()
-              << "-x" << "-J" << "-f" << archive.fileName()
-              << "-C" << destinationPath;
+      KTar potato(archive.fileName(), "application/x-xz");
+      potato.open(QIODevice::ReadOnly);
+      extractSuccess = potato.directory()->copyTo(destinationPath, true);
+      qCDebug(FtwIo) << "Downloaded file extracted with success ? :" << extractSuccess;
+      qCDebug(FtwIo) << archive.fileName() << "extracted in" << destinationPath;
 
-      QFutureWatcher<int> extractWatcher;
-      QFuture<int> extractFuture = QtConcurrent::run(&QProcess::execute, extractCommand, extractArgs);
-      extractWatcher.setFuture(extractFuture);
-      extractSuccess = extractFuture.result() == 0;
       installStatusLabel->setText(i18n("Extracted !"));
       arduinoPathEdit->setText(destinationPath+"/arduino-"+ ARDUINO_SDK_VERSION_NAME);
       installFinished = true;

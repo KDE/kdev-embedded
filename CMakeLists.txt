@@ -32,6 +32,7 @@ qt5_add_resources(KDEVEMBEDDED_PART_SRCS kdevembedded.qrc)
 kdevplatform_add_plugin(kdevembedded JSON kdevembedded.json SOURCES ${KDEVEMBEDDED_PART_SRCS})
 
 target_link_libraries(kdevembedded
+    KF5::Archive
     KF5::Solid
     KF5::Parts
     KF5::TextEditor
