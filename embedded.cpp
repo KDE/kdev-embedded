@@ -33,20 +33,21 @@ Embedded::Embedded (QObject* parent, const QVariantList&)
     : IPlugin (QStringLiteral("kdevembedded"), parent)
 {
     setXMLFile(QStringLiteral("kdevembedded.rc"));
+
     QAction* actionProject = actionCollection()->addAction(QStringLiteral("action_project"));
     actionProject->setText(i18n("Arduino Setup"));
-    connect(actionProject, &QAction::triggered, this, &Embedded::documentDeclaration);
-    actionProject->setToolTip(i18n("1 Line Tip"));
-    actionProject->setWhatsThis(i18n("Long Tip 3 lines"));
+    actionProject->setToolTip(i18n("Configure Arduino Toolkit."));
+    actionProject->setWhatsThis(i18n("Toolkit manager for Arduino programs,"));
     actionProject->setIcon(QIcon::fromTheme(QStringLiteral("project-development-new-template")));
+    connect(actionProject, &QAction::triggered, this, &Embedded::documentDeclaration);
 
     QAction* actionConfigureBoard = actionCollection()->addAction(QStringLiteral("action_board"));
     actionConfigureBoard->setText(i18n("Board settings"));
     actionCollection()->setDefaultShortcut(actionConfigureBoard, i18n("Alt+Shift+b"));
-    connect(actionConfigureBoard, &QAction::triggered, this, &Embedded::documentDeclaration2);
-    actionConfigureBoard->setToolTip(i18n("1 Line Tip"));
-    actionConfigureBoard->setWhatsThis(i18n("Long Tip 3 lines"));
+    actionConfigureBoard->setToolTip(i18n("Configure board and interface configurations for embedded systems."));
+    actionConfigureBoard->setWhatsThis(i18n("Project and upload manager for embedded systems."));
     actionConfigureBoard->setIcon(QIcon::fromTheme(QStringLiteral("project-development-new-template")));
+    connect(actionConfigureBoard, &QAction::triggered, this, &Embedded::documentDeclaration2);
 }
 
 void Embedded::documentDeclaration()
