@@ -30,15 +30,11 @@ private:
 
 public:
     enum {NAME, ID, COLUMNS};
-    bool populate(QStringList ids, QStringList names)
+    void populate(QStringList ids, QStringList names)
     {
-        if(ids.size() == names.size())
-        {
-            for(int i=0; i<ids.size();i++)
-                db.push_back(coluns{ids[i], names[i]});
-            return true;
-        }
-        return false;
+        Q_ASSERT(ids.size() == names.size());
+        for(int i=0; i<ids.size();i++)
+            db.push_back(coluns{ids[i], names[i]});
     }
 
     QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const {
@@ -67,13 +63,13 @@ public:
     int rowCount(const QModelIndex &parent) const { Q_UNUSED(parent) return db.count(); }
 };
 
-class arduinoWindow : public QDialog, Ui::arduinowindow
+class ArduinoWindow : public QDialog, Ui::ArduinoWindow
 {
     Q_OBJECT
 
 public:
-    explicit arduinoWindow(QWidget *parent = 0);
-    ~arduinoWindow();
+    explicit ArduinoWindow(QWidget *parent = 0);
+    ~ArduinoWindow();
 
 private:
     arduinoWindowModel *model;
@@ -81,7 +77,6 @@ private:
     void devicesChanged(const QString& udi);
 
     Board *board;
-    Ui::arduinowindow *ui;
 
     QDir boardImgsDir;
     Solid::DeviceNotifier *devices;

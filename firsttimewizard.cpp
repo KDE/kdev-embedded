@@ -2,6 +2,7 @@
 
 #include <QStandardPaths>
 
+#include <QNetworkAccessManager>
 #include <QNetworkRequest>
 #include <QNetworkReply>
 #include <QEventLoop>
@@ -19,7 +20,6 @@
 #include <QDebug>
 #include <QStringList>
 
-//#include <QtCore/QSet>
 #include <interfaces/isession.h>
 #include <interfaces/icore.h>
 #include <KConfigGroup>
@@ -28,16 +28,16 @@
 
 using namespace KDevelop;
 
-firstTimeWizard::firstTimeWizard(QWidget *parent) :
-  QWizard(parent)
+FirstTimeWizard::FirstTimeWizard(QWidget *parent) :
+  QWizard(parent),
+  mDownloadManager(new QNetworkAccessManager),
+  downloadFinished(false),
+  installFinished(false)
 {
-  downloadFinished=installFinished=false;
-  mDownloadManager = new QNetworkAccessManager;
-
   setupUi(this);
 
-  downloadStatusLabel->setText("");
-  installStatusLabel->setText("");
+  downloadStatusLabel->clear();
+  installStatusLabel->clear();
   urlLabel->setText(urlLabel->text().arg(i18n("mailto:%1").arg("patrickelectric@gmail.com")));
   projectLabel->setText(projectLabel->text().arg(i18n("Embedded plugin")).arg("Patrick J. Pereira"));
 
@@ -57,11 +57,11 @@ firstTimeWizard::firstTimeWizard(QWidget *parent) :
   QString mDownloadOs = "Linux";
   downloadLabel->setText(downloadLabel->text().arg(ARDUINO_SDK_VERSION_NAME).arg(mDownloadOs));
 
-  connect(arduinoPathButton, &QToolButton::clicked, this, &firstTimeWizard::chooseArduinoPath);
-  connect(sketchbookPathButton, &QToolButton::clicked, this, &firstTimeWizard::chooseSketchbookPath);
+  connect(arduinoPathButton, &QToolButton::clicked, this, &FirstTimeWizard::chooseArduinoPath);
+  connect(sketchbookPathButton, &QToolButton::clicked, this, &FirstTimeWizard::chooseSketchbookPath);
 }
 
-bool firstTimeWizard::validateCurrentPage()
+bool FirstTimeWizard::validateCurrentPage()
 {
   switch (currentId())
   {
@@ -95,23 +95,23 @@ bool firstTimeWizard::validateCurrentPage()
   return true;
 }
 
-void firstTimeWizard::download()
+void FirstTimeWizard::download()
 {
   downloadProgressBar->setValue(0);
   // TODO update to generic links, create to linux and mac
   QNetworkRequest request(QUrl("https://downloads.arduino.cc/arduino-1.6.8-linux64.tar.xz"));
   request.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
   reply = mDownloadManager->get(request);
-  connect(reply, &QNetworkReply::downloadProgress, this, &firstTimeWizard::onDownloadProgress);
-  connect(reply, &QNetworkReply::finished, this, &firstTimeWizard::install);
+  connect(reply, &QNetworkReply::downloadProgress, this, &FirstTimeWizard::onDownloadProgress);
+  connect(reply, &QNetworkReply::finished, this, &FirstTimeWizard::install);
   downloadStatusLabel->setText(i18n("Downloading..."));
 }
 
-void firstTimeWizard::install()
+void FirstTimeWizard::install()
 {
   downloadFinished = true;
   downloadStatusLabel->setText(i18n("Downloaded !"));
-  // extract the archive
+  // Extract the archive
   QTemporaryFile archive("arduino");
   bool extractSuccess = archive.open();
   QString destinationPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
@@ -123,8 +123,9 @@ void firstTimeWizard::install()
   if (extractSuccess)
   {
     installStatusLabel->setText(i18n("Extracting..."));
-      // write the reply to the temporary file
+      // Write the reply to the temporary file
       QByteArray buffer;
+      // Create a buffer of 8kB
       static const int bufferSize = 8192;
       buffer.resize(bufferSize);
       qint64 readBytes = reply->read(buffer.data(), bufferSize);
@@ -136,9 +137,9 @@ void firstTimeWizard::install()
       installStatusLabel->setText(i18n("Extracting... ( %1KB )").arg(((int)(readBytes >> 10))));
       archive.seek(0);
 
-      // call tar to extract
+      // Call tar to extract
       QString extractCommand;
-      QStringList extractArgs = QStringList();
+      QStringList extractArgs;
       extractCommand = "tar";
       if (QString(ARDUINO_SDK_VERSION_NAME) >= ARDUINO_SDK_MIN_VERSION_NAME)
           extractArgs = QStringList()
@@ -155,25 +156,22 @@ void firstTimeWizard::install()
   }
 }
 
-int firstTimeWizard::nextId() const
+int FirstTimeWizard::nextId() const
 {
   if (currentId() == 0 && existingInstallButton->isChecked())
     return 2;
   return QWizard::nextId();
 }
 
-QString firstTimeWizard::getArduinoPath()
+QString FirstTimeWizard::getArduinoPath()
 {
-  // paths to search for an existing installation
-  QStringList defaultArduinoPaths;
-
-  // Find Arduino path
+   // Find Arduino path
 #ifdef Q_OS_DARWIN
 #elif defined(Q_OS_WIN32) || defined(Q_OS_WIN64)
 #else
   QString applicationPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
-
-  defaultArduinoPaths
+  // Paths to search for an existing installation
+  static QStringList defaultArduinoPaths = QStringList()
     << QDir(applicationPath).filePath(QString("arduino-") + QString(ARDUINO_SDK_VERSION_NAME))
     << QDir(applicationPath).filePath("arduino")
     << QString("/usr/local/share/arduino-") + ARDUINO_SDK_VERSION_NAME
@@ -182,8 +180,7 @@ QString firstTimeWizard::getArduinoPath()
     << QString("/usr/share/arduino");
 #endif
 
-  //change to ->caontins ?
-  foreach(const QString &path, defaultArduinoPaths)
+  foreach(const auto& path, defaultArduinoPaths)
   {
     if (Toolkit::isValidArduinoPath(path))
     {
@@ -192,10 +189,10 @@ QString firstTimeWizard::getArduinoPath()
       return path;
     }
   }
-  return "";
+  return QString();
 }
 
-QString firstTimeWizard::getSketchbookPath()
+QString FirstTimeWizard::getSketchbookPath()
 {
   // Find Sketchbook path
   QDir sketchbookPath;
@@ -208,20 +205,20 @@ QString firstTimeWizard::getSketchbookPath()
   if(sketchbookPath.exists())
     sketchbookPathEdit->setText(sketchbookPath.absolutePath());
 
-  return "";
+  return QString();
 }
 
-QString firstTimeWizard::downloadAndInstallArduino()
+QString FirstTimeWizard::downloadAndInstallArduino()
 {
-  return "";
+  return QString();
 }
 
-bool firstTimeWizard::finish()
+bool FirstTimeWizard::finish()
 {
   return true;
 }
 
-void firstTimeWizard::chooseArduinoPath()
+void FirstTimeWizard::chooseArduinoPath()
 {
   QString path;
 #ifdef Q_OS_DARWIN
@@ -235,7 +232,7 @@ void firstTimeWizard::chooseArduinoPath()
 
 }
 
-void firstTimeWizard::chooseSketchbookPath()
+void FirstTimeWizard::chooseSketchbookPath()
 {
   QString path;
 #ifdef Q_OS_DARWIN
@@ -248,7 +245,7 @@ void firstTimeWizard::chooseSketchbookPath()
     sketchbookPathEdit->setText(path);
 }
 
-void firstTimeWizard::onDownloadProgress(qint64 received, qint64 total)
+void FirstTimeWizard::onDownloadProgress(qint64 received, qint64 total)
 {
     int percent = 0;
     if(total)
@@ -258,6 +255,7 @@ void firstTimeWizard::onDownloadProgress(qint64 received, qint64 total)
     downloadProgressBar->setValue(percent);
 }
 
-firstTimeWizard::~firstTimeWizard()
+FirstTimeWizard::~FirstTimeWizard()
 {
+    delete mDownloadManager;
 }

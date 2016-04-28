@@ -1,19 +1,15 @@
 #ifndef KDEVPLATFORM_PLUGIN_EMBEDDED_H
 #define KDEVPLATFORM_PLUGIN_EMBEDDED_H
 
-// main file
-
 #include <interfaces/iplugin.h>
-#include <interfaces/contextmenuextension.h>
 
 #include <QtCore/QVariant>
 #include <QLoggingCategory>
-#include <QMenu>
 
-#include "arduinowindow.h"
-#include "firsttimewizard.h"
+class ArduinoWindow;
+class FirstTimeWizard;
 
-Q_DECLARE_LOGGING_CATEGORY(PLUGIN_EMBEDDED)
+Q_DECLARE_LOGGING_CATEGORY(PLUGIN_EMBEDDED);
 
 class Embedded : public KDevelop::IPlugin
 {
@@ -23,10 +19,9 @@ public:
     explicit Embedded( QObject *parent, const QVariantList & = QVariantList() );
     ~Embedded() override;
 
-    firstTimeWizard* embeddedWindow;
-    arduinoWindow* arduinoBoard;
+    FirstTimeWizard* embeddedWindow;
+    ArduinoWindow* arduinoBoard;
 
-private slots:
     void documentDeclaration();
     void documentDeclaration2();
 };

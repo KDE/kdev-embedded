@@ -20,7 +20,7 @@ using namespace KDevelop;
 using namespace Solid;
 
 //TODO: create document to add board ID, description and image
-arduinoWindow::arduinoWindow(QWidget *parent) :
+ArduinoWindow::ArduinoWindow(QWidget *parent) :
     QDialog(parent),
     model (new arduinoWindowModel),
     devices (new Solid::DeviceNotifier)
@@ -38,24 +38,24 @@ arduinoWindow::arduinoWindow(QWidget *parent) :
     interfaceCombo->setEditable(false);
     baudCombo->setEditable(false);
 
+    // Update variables
     Board::instance().update();
 
-    QStringList boardsId = Board::instance().boardList;
-    QStringList boardsName;
-    foreach(const QString &boardId, boardsId)
-        boardsName << Board::instance().boards[boardId].name;
-    model->populate(boardsId, boardsName);
+    // Populate model
+    model->populate(Board::instance().boardList, Board::instance().boardNameList);
 
+    // Start ComboBoxes
     boardCombo->setModel(model);
     boardComboChanged(boardCombo->currentText());
+    devicesChanged(QString());
 
     devices = Solid::DeviceNotifier::instance();
-    connect(devices, &Solid::DeviceNotifier::deviceAdded, this, &arduinoWindow::devicesChanged);
-    connect(devices, &Solid::DeviceNotifier::deviceRemoved, this, &arduinoWindow::devicesChanged);
-    connect(boardCombo, &QComboBox::currentTextChanged, this,  &arduinoWindow::boardComboChanged);
+    connect(devices, &Solid::DeviceNotifier::deviceAdded, this, &ArduinoWindow::devicesChanged);
+    connect(devices, &Solid::DeviceNotifier::deviceRemoved, this, &ArduinoWindow::devicesChanged);
+    connect(boardCombo, &QComboBox::currentTextChanged, this,  &ArduinoWindow::boardComboChanged);
 }
 
-void arduinoWindow::boardComboChanged(const QString& text)
+void ArduinoWindow::boardComboChanged(const QString& text)
 {
     baudCombo->clear();
     QString id = model->getData(boardCombo->currentIndex()).id;
@@ -70,12 +70,14 @@ void arduinoWindow::boardComboChanged(const QString& text)
     image->setPixmap(QPixmap::fromImage(QImage(imageLocal)));
 }
 
-void arduinoWindow::devicesChanged(const QString& udi)
+void ArduinoWindow::devicesChanged(const QString& udi)
 {
     Q_UNUSED(udi);
+
     interfaceCombo->clear();
     auto devices = Solid::Device::allDevices();
-    foreach(const Solid::Device device, devices)
+    foreach(const auto& device, devices)
+    {
         if(device.product() != "" and device.udi().contains("tty"))
         {
             interfaceCombo->addItem(device.product());
@@ -86,9 +88,9 @@ void arduinoWindow::devicesChanged(const QString& udi)
             qDebug() << "Udi\t:" << device.udi();
             qDebug() << "Vendor\t:" <<device.vendor();
         }
+    }
 }
 
-arduinoWindow::~arduinoWindow()
+ArduinoWindow::~ArduinoWindow()
 {
-    delete ui;
 }

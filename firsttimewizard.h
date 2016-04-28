@@ -3,23 +3,23 @@
 
 // first time wizard configuration
 
-#include <QNetworkAccessManager>
 #include <QWizard>
-#include <QSettings>
 
 #include "ui_firsttimewizard.h"
 
-class firstTimeWizard : public QWizard, Ui::firstTimeWizard
+class QNetworkAccessManager;
+class QNetworkReply;
+
+class FirstTimeWizard : public QWizard, Ui::FirstTimeWizard
 {
   Q_OBJECT
 
 public:
-  explicit firstTimeWizard(QWidget *parent = NULL);
-  ~firstTimeWizard();
+  explicit FirstTimeWizard(QWidget *parent = NULL);
+  ~FirstTimeWizard();
 
   QNetworkAccessManager *mDownloadManager;
   QNetworkReply *reply;
-  QSettings *settings;
 
   bool downloadFinished;
   bool installFinished;
@@ -30,7 +30,7 @@ public:
   bool validateCurrentPage();
   int  nextId() const;
   bool finish();
-private slots:
+
   void onDownloadProgress(qint64 received, qint64 total);
   void chooseArduinoPath();
   void chooseSketchbookPath();
