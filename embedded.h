@@ -16,7 +16,7 @@ class Embedded : public KDevelop::IPlugin
     Q_OBJECT
 
 public:
-    explicit Embedded( QObject *parent, const QVariantList & = QVariantList() );
+    explicit Embedded(QObject *parent, const QVariantList & = QVariantList());
     ~Embedded() override;
 
     FirstTimeWizard* embeddedWindow;

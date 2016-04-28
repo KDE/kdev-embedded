@@ -29,25 +29,25 @@ using namespace KTextEditor;
 
 K_PLUGIN_FACTORY_WITH_JSON(EmbeddedFactory, "kdevembedded.json", registerPlugin<Embedded>(); )
 
-Embedded::Embedded ( QObject* parent, const QVariantList& )
-    : IPlugin ( QStringLiteral("kdevembedded"), parent )
+Embedded::Embedded (QObject* parent, const QVariantList&)
+    : IPlugin (QStringLiteral("kdevembedded"), parent)
 {
-    setXMLFile( QStringLiteral("kdevembedded.rc") );
-    QAction* actionProject = actionCollection()->addAction( QStringLiteral("action_project") );
-    actionProject->setText( i18n( "Arduino Setup" ) );
-    actionCollection()->setDefaultShortcut(actionProject, i18n( "Alt+Shift+a" ));
+    setXMLFile(QStringLiteral("kdevembedded.rc"));
+    QAction* actionProject = actionCollection()->addAction(QStringLiteral("action_project"));
+    actionProject->setText(i18n("Arduino Setup"));
+    actionCollection()->setDefaultShortcut(actionProject, i18n("Alt+Shift+a"));
     connect(actionProject, &QAction::triggered, this, &Embedded::documentDeclaration);
-    actionProject->setToolTip( i18n( "1 Line Tip" ) );
-    actionProject->setWhatsThis( i18n( "Long Tip 3 lines") );
-    actionProject->setIcon( QIcon::fromTheme( QStringLiteral("project-development-new-template") ) );
+    actionProject->setToolTip(i18n("1 Line Tip"));
+    actionProject->setWhatsThis(i18n("Long Tip 3 lines"));
+    actionProject->setIcon(QIcon::fromTheme(QStringLiteral("project-development-new-template")));
 
-    QAction* actionConfigureBoard = actionCollection()->addAction( QStringLiteral("action_board") );
-    actionConfigureBoard->setText( i18n( "Board settings" ) );
-    actionCollection()->setDefaultShortcut(actionConfigureBoard, i18n( "Alt+Shift+b" ));
+    QAction* actionConfigureBoard = actionCollection()->addAction(QStringLiteral("action_board"));
+    actionConfigureBoard->setText(i18n("Board settings"));
+    actionCollection()->setDefaultShortcut(actionConfigureBoard, i18n("Alt+Shift+b"));
     connect(actionConfigureBoard, &QAction::triggered, this, &Embedded::documentDeclaration2);
-    actionConfigureBoard->setToolTip( i18n( "1 Line Tip" ) );
-    actionConfigureBoard->setWhatsThis( i18n( "Long Tip 3 lines") );
-    actionConfigureBoard->setIcon( QIcon::fromTheme( QStringLiteral("project-development-new-template") ) );
+    actionConfigureBoard->setToolTip(i18n("1 Line Tip"));
+    actionConfigureBoard->setWhatsThis(i18n("Long Tip 3 lines"));
+    actionConfigureBoard->setIcon(QIcon::fromTheme(QStringLiteral("project-development-new-template")));
 }
 
 void Embedded::documentDeclaration()
