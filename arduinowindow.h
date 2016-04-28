@@ -7,9 +7,10 @@
 #include <QDir>
 #include <QDialog>
 
-#include "board.h"
 
 #include "ui_arduinowindow.h"
+
+class Board;
 
 namespace Solid
 {

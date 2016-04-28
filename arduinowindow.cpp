@@ -12,6 +12,7 @@
 #include <solid/device.h>
 #include <solid/devicenotifier.h>
 
+#include "board.h"
 #include "toolkit.h"
 
 using namespace KDevelop;
