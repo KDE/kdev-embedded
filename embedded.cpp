@@ -35,7 +35,6 @@ Embedded::Embedded (QObject* parent, const QVariantList&)
     setXMLFile(QStringLiteral("kdevembedded.rc"));
     QAction* actionProject = actionCollection()->addAction(QStringLiteral("action_project"));
     actionProject->setText(i18n("Arduino Setup"));
-    actionCollection()->setDefaultShortcut(actionProject, i18n("Alt+Shift+a"));
     connect(actionProject, &QAction::triggered, this, &Embedded::documentDeclaration);
     actionProject->setToolTip(i18n("1 Line Tip"));
     actionProject->setWhatsThis(i18n("Long Tip 3 lines"));
