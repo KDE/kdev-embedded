@@ -228,26 +228,16 @@ bool FirstTimeWizard::finish()
 void FirstTimeWizard::chooseArduinoPath()
 {
   QString path;
-#ifdef Q_OS_DARWIN
-#elif defined(Q_OS_WIN32) || defined(Q_OS_WIN64)
-#else
   path = QFileDialog::getExistingDirectory(this, i18n("Find Files"), QDir::currentPath());
-#endif
-
-    if (!path.isEmpty())
-      arduinoPathEdit->setText(path);
+  if (!path.isEmpty())
+    arduinoPathEdit->setText(path);
 
 }
 
 void FirstTimeWizard::chooseSketchbookPath()
 {
   QString path;
-#ifdef Q_OS_DARWIN
-#elif defined(Q_OS_WIN32) || defined(Q_OS_WIN64)
-#else
   path = QFileDialog::getExistingDirectory(this, i18n("Find Files"), QDir::currentPath());
-#endif
-
   if (!path.isEmpty())
     sketchbookPathEdit->setText(path);
 }

@@ -1,5 +1,5 @@
-#ifndef TOOLKIT_H
-#define TOOLKIT_H
+#ifndef EMBEDDED_TOOLKIT_H
+#define EMBEDDED_TOOLKIT_H
 
 // file to manage tools
 
@@ -17,8 +17,8 @@ public:
      * @return bool True if valid and False if not
      */
     static bool isValidArduinoPath(const QString &path);
-    
+
     static QString getBoardFile(const QString &path);
 };
 
-#endif // TOOLKIT_H
+#endif // EMBEDDED_TOOLKIT_H

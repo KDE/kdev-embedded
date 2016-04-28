@@ -1,9 +1,8 @@
-#ifndef ARDUINOWINDOW_H
-#define ARDUINOWINDOW_H
+#ifndef EMBEDDED_ARDUINOWINDOW_H
+#define EMBEDDED_ARDUINOWINDOW_H
 
 // Configure Arduino board and interface
 
-#include <Qt>
 #include <QDir>
 #include <QDialog>
 #include <QLoggingCategory>
@@ -84,4 +83,4 @@ private:
     Solid::DeviceNotifier *devices;
 };
 
-#endif // ARDUINOWINDOW_H
+#endif // EMBEDDED_ARDUINOWINDOW_H

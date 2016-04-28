@@ -1,5 +1,5 @@
-#ifndef BOARD_H
-#define BOARD_H
+#ifndef EMBEDDED_BOARD_H
+#define EMBEDDED_BOARD_H
 
 #include <QString>
 #include <QStringList>
@@ -84,4 +84,4 @@ private:
     bool listed;
 };
 
-#endif // BOARD_H
+#endif // EMBEDDED_BOARD_H

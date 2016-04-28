@@ -1,5 +1,5 @@
-#ifndef FIRSTTIMEWIZARD_H
-#define FIRSTTIMEWIZARD_H
+#ifndef EMBEDDED_FIRSTTIMEWIZARD_H
+#define EMBEDDED_FIRSTTIMEWIZARD_H
 
 // first time wizard configuration
 
@@ -43,4 +43,4 @@ public:
 
 };
 
-#endif // FIRSTTIMEWIZARD_H
+#endif // EMBEDDED_FIRSTTIMEWIZARD_H

@@ -4,7 +4,6 @@
 #include <QImage>
 #include <QPixmap>
 #include <QStandardPaths>
-#include <QCoreApplication>
 #include <QLoggingCategory>
 
 #include <interfaces/isession.h>
