@@ -22,8 +22,8 @@ public:
     FirstTimeWizard* embeddedWindow;
     ArduinoWindow* arduinoBoard;
 
-    void documentDeclaration();
-    void documentDeclaration2();
+    void firstTimeWizardEvent();
+    void boardSettingsEvent();
 };
 
 

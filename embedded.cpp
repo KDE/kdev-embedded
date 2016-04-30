@@ -39,7 +39,7 @@ Embedded::Embedded (QObject* parent, const QVariantList&)
     actionProject->setToolTip(i18n("Configure Arduino Toolkit."));
     actionProject->setWhatsThis(i18n("Toolkit manager for Arduino programs,"));
     actionProject->setIcon(QIcon::fromTheme(QStringLiteral("project-development-new-template")));
-    connect(actionProject, &QAction::triggered, this, &Embedded::documentDeclaration);
+    connect(actionProject, &QAction::triggered, this, &Embedded::firstTimeWizardEvent);
 
     QAction* actionConfigureBoard = actionCollection()->addAction(QStringLiteral("action_board"));
     actionConfigureBoard->setText(i18n("Board settings"));
@@ -47,16 +47,16 @@ Embedded::Embedded (QObject* parent, const QVariantList&)
     actionConfigureBoard->setToolTip(i18n("Configure board and interface configurations for embedded systems."));
     actionConfigureBoard->setWhatsThis(i18n("Project and upload manager for embedded systems."));
     actionConfigureBoard->setIcon(QIcon::fromTheme(QStringLiteral("project-development-new-template")));
-    connect(actionConfigureBoard, &QAction::triggered, this, &Embedded::documentDeclaration2);
+    connect(actionConfigureBoard, &QAction::triggered, this, &Embedded::boardSettingsEvent);
 }
 
-void Embedded::documentDeclaration()
+void Embedded::firstTimeWizardEvent()
 {
   embeddedWindow = new FirstTimeWizard(ICore::self()->uiController()->activeMainWindow());
   embeddedWindow->show();
 }
 
-void Embedded::documentDeclaration2()
+void Embedded::boardSettingsEvent()
 {
   arduinoBoard = new ArduinoWindow(ICore::self()->uiController()->activeMainWindow());
   arduinoBoard->show();
