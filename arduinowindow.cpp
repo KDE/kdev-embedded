@@ -27,12 +27,10 @@ ArduinoWindowModel::ArduinoWindowModel(QObject *parent)
 {
 }
 
-void ArduinoWindowModel::populate(QStringList ids, QStringList names)
+void ArduinoWindowModel::populate(const QVector<ArduinoWindowModelStruct> &tdb)
 {
-    Q_ASSERT(ids.size() == names.size());
     beginResetModel();
-    for(int i=0; i<ids.size();i++)
-        db.push_back(ArduinoWindowModelStruct{ids[i], names[i]});
+    db = tdb;
     endResetModel();
 }
 
@@ -85,7 +83,11 @@ ArduinoWindow::ArduinoWindow(QWidget *parent) :
     Board::instance().update();
 
     // Populate model
-    model->populate(Board::instance().boardList, Board::instance().boardNameList);
+    QVector<ArduinoWindowModelStruct> data;
+    Q_ASSERT(Board::instance().boardList.size() == Board::instance().boardNameList.size());
+    for(int i=0; i<Board::instance().boardNameList.size();i++)
+        data.push_back(ArduinoWindowModelStruct{Board::instance().boardList[i], Board::instance().boardNameList[i]});
+    model->populate(data);
 
     // Start ComboBoxes
     boardCombo->setModel(model);

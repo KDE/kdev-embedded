@@ -33,7 +33,7 @@ private:
 public:
     ArduinoWindowModel(QObject *parent);
     enum {NAME, ID, COLUMNS};
-    void populate(QStringList ids, QStringList names);
+    void populate(const QVector<ArduinoWindowModelStruct> &tdb);
 
     QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
 
