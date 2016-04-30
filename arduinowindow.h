@@ -12,53 +12,32 @@ Q_DECLARE_LOGGING_CATEGORY(AwMsg);
 #include "ui_arduinowindow.h"
 
 class Board;
+class QAbstractTableModel;
 
 namespace Solid
 {
     class DeviceNotifier;
 };
 
-class arduinoWindowModel : public QAbstractTableModel {
+struct ArduinoWindowModelStruct
+{
+    QString id;
+    QString name;
+};
+
+class ArduinoWindowModel : public QAbstractTableModel {
     Q_OBJECT
 private:
-    struct coluns
-    {
-        QString id;
-        QString name;
-    };
-
-    QVector<coluns> db;
+    QVector<ArduinoWindowModelStruct> db;
 
 public:
+    ArduinoWindowModel(QObject *parent);
     enum {NAME, ID, COLUMNS};
-    void populate(QStringList ids, QStringList names)
-    {
-        Q_ASSERT(ids.size() == names.size());
-        for(int i=0; i<ids.size();i++)
-            db.push_back(coluns{ids[i], names[i]});
-    }
+    void populate(QStringList ids, QStringList names);
 
-    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const {
-        if(!index.isValid())
-            return QVariant();
+    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
 
-        if(role == Qt::DisplayRole)
-        {
-            if(index.column() == ID)
-                return db.at(index.row()).id;
-            else if(index.column() == NAME)
-                return db.at(index.row()).name;
-        }
-
-        return QVariant();
-    };
-
-    coluns getData(int index)
-    {
-        if(index>-1)
-            return db.at(index);
-        return coluns{QString(""), QString("")};
-    }
+    ArduinoWindowModelStruct getData(int index);
 
     int columnCount(const QModelIndex &parent) const { Q_UNUSED(parent) return COLUMNS; }
     int rowCount(const QModelIndex &parent) const { Q_UNUSED(parent) return db.count(); }
@@ -73,7 +52,7 @@ public:
     ~ArduinoWindow();
 
 private:
-    arduinoWindowModel *model;
+    ArduinoWindowModel *model;
     void boardComboChanged(const QString& text);
     void devicesChanged(const QString& udi);
 

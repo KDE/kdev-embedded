@@ -12,6 +12,8 @@
 #include <solid/device.h>
 #include <solid/devicenotifier.h>
 
+#include <QAbstractTableModel>
+
 #include "board.h"
 #include "toolkit.h"
 
@@ -20,10 +22,47 @@ Q_LOGGING_CATEGORY(AwMsg, "Kdev.embedded.aw.msg");
 using namespace KDevelop;
 using namespace Solid;
 
+ArduinoWindowModel::ArduinoWindowModel(QObject *parent)
+    :QAbstractTableModel(parent)
+{
+}
+
+void ArduinoWindowModel::populate(QStringList ids, QStringList names)
+{
+    Q_ASSERT(ids.size() == names.size());
+    beginResetModel();
+    for(int i=0; i<ids.size();i++)
+        db.push_back(ArduinoWindowModelStruct{ids[i], names[i]});
+    endResetModel();
+}
+
+QVariant ArduinoWindowModel::data(const QModelIndex& index, int role) const
+{
+    if(!index.isValid())
+        return QVariant();
+
+    if(role == Qt::DisplayRole)
+    {
+        if(index.column() == ID)
+            return db.at(index.row()).id;
+        else if(index.column() == NAME)
+            return db.at(index.row()).name;
+    }
+
+    return QVariant();
+}
+
+ArduinoWindowModelStruct ArduinoWindowModel::getData(int index)
+{
+    if(index>-1)
+        return db.at(index);
+    return ArduinoWindowModelStruct{QString(""), QString("")};
+}
+
 //TODO: create document to add board ID, description and image
 ArduinoWindow::ArduinoWindow(QWidget *parent) :
     QDialog(parent),
-    model (new arduinoWindowModel),
+    model (new ArduinoWindowModel(parent)),
     devices (new Solid::DeviceNotifier)
 {
     QLoggingCategory potato("Kdev.embedded.aw.msg");
