@@ -93,7 +93,9 @@ void Board::load()
 
     KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
     QFile boardsFile(Toolkit::getBoardFile(settings.readEntry("arduinoFolder","")));
-    boardsFile.open(QFile::ReadOnly);
+    bool fileOpened = boardsFile.open(QFile::ReadOnly);
+    qCDebug(BoMsg) << "Board file opened" << fileOpened;
+    Q_ASSERT(fileOpened);
     QTextStream boardsFileUTF8(&boardsFile);
     boardsFileUTF8.setCodec("UTF-8");
 
