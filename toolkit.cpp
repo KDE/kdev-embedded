@@ -8,10 +8,10 @@
 
 QString Toolkit::getBoardFile(const QString &path)
 {
-    QFile file(path + "/hardware/arduino/avr/boards.txt");
+    QFile file(path + boardFilePath());
     if(!file.open(QFile::ReadOnly))
       return QString();
-    return path + "/hardware/arduino/avr/boards.txt";
+    return path + boardFilePath();
 }
 
 QString Toolkit::toolkitVersion(const QString &path)
@@ -26,6 +26,11 @@ QString Toolkit::toolkitVersion(const QString &path)
     if (list.size() >= 2)
       return  list.at(1).trimmed();
     return QString();
+}
+
+QString Toolkit::boardFilePath()
+{
+    return "/hardware/arduino/avr/boards.txt";
 }
 
 bool Toolkit::isValidArduinoPath(const QString &path)
