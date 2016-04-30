@@ -63,8 +63,6 @@ ArduinoWindow::ArduinoWindow(QWidget *parent) :
     model (new ArduinoWindowModel(parent)),
     devices (new Solid::DeviceNotifier)
 {
-    QLoggingCategory potato("Kdev.embedded.aw.msg");
-    qDebug() << "potato" << potato.isDebugEnabled();
     qCDebug(AwMsg) << "AW opened";
     setupUi(this);
 

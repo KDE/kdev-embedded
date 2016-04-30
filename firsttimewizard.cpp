@@ -149,9 +149,9 @@ void FirstTimeWizard::install()
       archive.seek(0);
 
       // Call tar to extract
-      KTar potato(archive.fileName(), "application/x-xz");
-      potato.open(QIODevice::ReadOnly);
-      extractSuccess = potato.directory()->copyTo(destinationPath, true);
+      KTar extract(archive.fileName(), "application/x-xz");
+      extract.open(QIODevice::ReadOnly);
+      extractSuccess = extract.directory()->copyTo(destinationPath, true);
       qCDebug(FtwIo) << "Downloaded file extracted with success ? :" << extractSuccess;
       qCDebug(FtwIo) << archive.fileName() << "extracted in" << destinationPath;
 
