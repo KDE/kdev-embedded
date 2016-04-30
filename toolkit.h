@@ -11,8 +11,8 @@ private:
     static QString toolkitVersion(const QString &path);
     static QString boardFilePath();
 
-    Toolkit& operator=(Toolkit& other)=delete;
-    Toolkit (const Toolkit& other)=delete;
+    Toolkit& operator = (Toolkit& other) = delete;
+    Toolkit(const Toolkit& other) = delete;
     Toolkit();
 public:
     static  Toolkit& instance();

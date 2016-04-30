@@ -76,8 +76,8 @@ public:
     QString getIdFromName(QString _name);
 
 private:
-    Board& operator=(Board& other)=delete;
-    Board (const Board& other)=delete;
+    Board& operator = (Board& other) = delete;
+    Board(const Board& other) = delete;
     Board();
 
     void load();

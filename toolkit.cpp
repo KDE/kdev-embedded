@@ -36,5 +36,5 @@ QString Toolkit::boardFilePath()
 bool Toolkit::isValidArduinoPath(const QString &path)
 {
     QString version = Toolkit::toolkitVersion(path);
-    return (version=="1.6.8" || version=="1.6.7");
+    return (version == "1.6.8" || version == "1.6.7");
 }

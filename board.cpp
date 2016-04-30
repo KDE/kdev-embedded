@@ -78,14 +78,14 @@ Board& Board::instance()
 
 Board::Board()
 {
-  listed=false;
+  listed = false;
 }
 
 void Board::update()
 {
   if(!listed)
       load();
-  listed=true;
+  listed = true;
 }
 
 void Board::load()

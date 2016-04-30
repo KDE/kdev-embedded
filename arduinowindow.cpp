@@ -85,7 +85,7 @@ ArduinoWindow::ArduinoWindow(QWidget *parent) :
     // Populate model
     QVector<ArduinoWindowModelStruct> data;
     Q_ASSERT(Board::instance().boardList.size() == Board::instance().boardNameList.size());
-    for(int i=0; i<Board::instance().boardNameList.size();i++)
+    for(int i = 0; i<Board::instance().boardNameList.size();i++)
         data.push_back(ArduinoWindowModelStruct{Board::instance().boardList[i], Board::instance().boardNameList[i]});
     model->populate(data);
 
