@@ -35,9 +35,9 @@ using namespace KDevelop;
 
 FirstTimeWizard::FirstTimeWizard(QWidget *parent) :
   QWizard(parent),
-  mDownloadManager(new QNetworkAccessManager),
-  downloadFinished(false),
-  installFinished(false)
+  m_mDownloadManager(new QNetworkAccessManager),
+  m_downloadFinished(false),
+  m_installFinished(false)
 {
   setupUi(this);
 
@@ -77,7 +77,7 @@ bool FirstTimeWizard::validateCurrentPage()
 
     case 1:
     {
-      if(downloadFinished && installFinished)
+      if(m_downloadFinished && m_installFinished)
         return true;
       else
         download();
@@ -106,15 +106,15 @@ void FirstTimeWizard::download()
   // TODO update to generic links, create to linux and mac
   QNetworkRequest request(QUrl("https://downloads.arduino.cc/arduino-1.6.8-linux64.tar.xz"));
   request.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
-  reply = mDownloadManager->get(request);
-  connect(reply, &QNetworkReply::downloadProgress, this, &FirstTimeWizard::onDownloadProgress);
-  connect(reply, &QNetworkReply::finished, this, &FirstTimeWizard::install);
+  m_reply = m_mDownloadManager->get(request);
+  connect(m_reply, &QNetworkReply::downloadProgress, this, &FirstTimeWizard::onDownloadProgress);
+  connect(m_reply, &QNetworkReply::finished, this, &FirstTimeWizard::install);
   downloadStatusLabel->setText(i18n("Downloading..."));
 }
 
 void FirstTimeWizard::install()
 {
-  downloadFinished = true;
+  m_downloadFinished = true;
   downloadStatusLabel->setText(i18n("Downloaded !"));
   // Extract the archive
   QTemporaryFile archive;
@@ -139,11 +139,11 @@ void FirstTimeWizard::install()
       // Create a buffer of 8kB
       static const int bufferSize = 8192;
       buffer.resize(bufferSize);
-      qint64 readBytes = reply->read(buffer.data(), bufferSize);
+      qint64 readBytes = m_reply->read(buffer.data(), bufferSize);
       while (readBytes > 0)
       {
           archive.write(buffer.data(), readBytes);
-          readBytes = reply->read(buffer.data(), bufferSize);
+          readBytes = m_reply->read(buffer.data(), bufferSize);
       }
       installStatusLabel->setText(i18n("Extracting... ( %1KB )").arg(((int)(readBytes >> 10))));
       archive.seek(0);
@@ -157,7 +157,7 @@ void FirstTimeWizard::install()
 
       installStatusLabel->setText(i18n("Extracted !"));
       arduinoPathEdit->setText(destinationPath+"/arduino-"+ ARDUINO_SDK_VERSION_NAME);
-      installFinished = true;
+      m_installFinished = true;
   }
 }
 
@@ -257,5 +257,5 @@ void FirstTimeWizard::onDownloadProgress(qint64 received, qint64 total)
 
 FirstTimeWizard::~FirstTimeWizard()
 {
-    delete mDownloadManager;
+    delete m_mDownloadManager;
 }

@@ -16,46 +16,46 @@ public:
 
     // Board
 
-    QStringList name;
-    QStringList vid;
-    QStringList pid;
+    QStringList m_name;
+    QStringList m_vid;
+    QStringList m_pid;
 
     // Upload
 
-    QStringList upTool;
-    QStringList upProtocol;
-    QStringList upMaxSize;
-    QStringList upMaxDataSize;
-    QStringList upSpeed;
-    QStringList upDisableFlush;
-    QStringList upUse1k2bpsTouch;
-    QStringList upWaitForUploadPort;
+    QStringList m_upTool;
+    QStringList m_upProtocol;
+    QStringList m_upMaxSize;
+    QStringList m_upMaxDataSize;
+    QStringList m_upSpeed;
+    QStringList m_upDisableFlush;
+    QStringList m_upUse1k2bpsTouch;
+    QStringList m_upWaitForUploadPort;
 
     // Boot loader
 
-    QStringList blTool;
-    QStringList blLowFuses;
-    QStringList blHighFuses;
-    QStringList blExtendedFuses;
-    QStringList blFile;
-    QStringList blNoblink;
-    QStringList blUnlockBits;
-    QStringList blLockBits;
+    QStringList m_blTool;
+    QStringList m_blLowFuses;
+    QStringList m_blHighFuses;
+    QStringList m_blExtendedFuses;
+    QStringList m_blFile;
+    QStringList m_blNoblink;
+    QStringList m_blUnlockBits;
+    QStringList m_blLockBits;
 
     // Build
 
-    QStringList bMcu;
-    QStringList bFcpu;
-    QStringList bVid;
-    QStringList bPid;
-    QStringList bUsbProduct;
-    QStringList bBoard;
-    QStringList bCore;
-    QStringList bVariant;
-    QStringList bExtraFlags;
+    QStringList m_bMcu;
+    QStringList m_bFcpu;
+    QStringList m_bVid;
+    QStringList m_bPid;
+    QStringList m_bUsbProduct;
+    QStringList m_bBoard;
+    QStringList m_bCore;
+    QStringList m_bVariant;
+    QStringList m_bExtraFlags;
 
     // Not an Option
-    QStringList NaO;
+    QStringList m_NaO;
 
 };
 
@@ -68,10 +68,10 @@ class Board
 public:
     static  Board& instance();
 
-    QMap<QString, BoardInfo> boards;
+    QMap<QString, BoardInfo> m_boards;
 
-    QStringList boardList;
-    QStringList boardNameList;
+    QStringList m_boardList;
+    QStringList m_boardNameList;
     void update();
     QString getIdFromName(QString _name);
 
@@ -81,7 +81,7 @@ private:
     Board();
 
     void load();
-    bool listed;
+    bool m_listed;
 };
 
 #endif // EMBEDDED_BOARD_H

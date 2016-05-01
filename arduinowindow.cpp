@@ -30,7 +30,7 @@ ArduinoWindowModel::ArduinoWindowModel(QObject *parent)
 void ArduinoWindowModel::populate(const QVector<ArduinoWindowModelStruct> &tdb)
 {
     beginResetModel();
-    db = tdb;
+    m_db = tdb;
     endResetModel();
 }
 
@@ -42,9 +42,9 @@ QVariant ArduinoWindowModel::data(const QModelIndex& index, int role) const
     if(role == Qt::DisplayRole)
     {
         if(index.column() == ID)
-            return db.at(index.row()).id;
+            return m_db.at(index.row()).m_id;
         else if(index.column() == NAME)
-            return db.at(index.row()).name;
+            return m_db.at(index.row()).m_name;
     }
 
     return QVariant();
@@ -53,20 +53,20 @@ QVariant ArduinoWindowModel::data(const QModelIndex& index, int role) const
 ArduinoWindowModelStruct ArduinoWindowModel::getData(int index)
 {
     if(index>-1)
-        return db.at(index);
+        return m_db.at(index);
     return ArduinoWindowModelStruct{QString(""), QString("")};
 }
 
 //TODO: create document to add board ID, description and image
 ArduinoWindow::ArduinoWindow(QWidget *parent) :
     QDialog(parent),
-    model (new ArduinoWindowModel(parent)),
+    m_model (new ArduinoWindowModel(parent)),
     devices (new Solid::DeviceNotifier)
 {
     qCDebug(AwMsg) << "AW opened";
     setupUi(this);
 
-    boardImgsDir = QDir(QStandardPaths::locate(
+    m_boardImgsDir = QDir(QStandardPaths::locate(
                         QStandardPaths::GenericDataLocation,
                         QLatin1String("kdevembedded/boardsimg"),
                         QStandardPaths::LocateDirectory
@@ -82,13 +82,13 @@ ArduinoWindow::ArduinoWindow(QWidget *parent) :
 
     // Populate model
     QVector<ArduinoWindowModelStruct> data;
-    Q_ASSERT(Board::instance().boardList.size() == Board::instance().boardNameList.size());
-    for(int i = 0; i<Board::instance().boardNameList.size();i++)
-        data.push_back(ArduinoWindowModelStruct{Board::instance().boardList[i], Board::instance().boardNameList[i]});
-    model->populate(data);
+    Q_ASSERT(Board::instance().m_boardList.size() == Board::instance().m_boardNameList.size());
+    for(int i = 0; i<Board::instance().m_boardNameList.size();i++)
+        data.push_back(ArduinoWindowModelStruct{Board::instance().m_boardList[i], Board::instance().m_boardNameList[i]});
+    m_model->populate(data);
 
     // Start ComboBoxes
-    boardCombo->setModel(model);
+    boardCombo->setModel(m_model);
     boardComboChanged(boardCombo->currentText());
     devicesChanged(QString());
 
@@ -101,8 +101,8 @@ ArduinoWindow::ArduinoWindow(QWidget *parent) :
 void ArduinoWindow::boardComboChanged(const QString& text)
 {
     baudCombo->clear();
-    QString id = model->getData(boardCombo->currentIndex()).id;
-    QStringList baud = Board::instance().boards[id].upSpeed;
+    QString id = m_model->getData(boardCombo->currentIndex()).m_id;
+    QStringList baud = Board::instance().m_boards[id].m_upSpeed;
 
     baudCombo->addItems(baud);
     // TODO: add boards description
@@ -110,7 +110,7 @@ void ArduinoWindow::boardComboChanged(const QString& text)
     bitext->setText(text);
 
     // TODO: select image from board selection
-    QString imageLocal = boardImgsDir.absolutePath()+"/arduino_uno(rev3)-icsp_breadboard.svg";
+    QString imageLocal = m_boardImgsDir.absolutePath()+"/arduino_uno(rev3)-icsp_breadboard.svg";
     image->setPixmap(QPixmap::fromImage(QImage(imageLocal)));
 }
 

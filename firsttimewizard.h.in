@@ -26,11 +26,11 @@ public:
   explicit FirstTimeWizard(QWidget *parent = NULL);
   ~FirstTimeWizard();
 
-  QNetworkAccessManager *mDownloadManager;
-  QNetworkReply *reply;
+  QNetworkAccessManager *m_mDownloadManager;
+  QNetworkReply *m_reply;
 
-  bool downloadFinished;
-  bool installFinished;
+  bool m_downloadFinished;
+  bool m_installFinished;
 
   QString getArduinoPath();
   QString getSketchbookPath();

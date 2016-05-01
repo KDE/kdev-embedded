@@ -19,8 +19,8 @@ public:
     explicit Embedded(QObject *parent, const QVariantList & = QVariantList());
     ~Embedded() override;
 
-    FirstTimeWizard* embeddedWindow;
-    ArduinoWindow* arduinoBoard;
+    FirstTimeWizard* m_embeddedWindow;
+    ArduinoWindow* m_arduinoBoard;
 
     void firstTimeWizardEvent();
     void boardSettingsEvent();

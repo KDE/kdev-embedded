@@ -52,20 +52,20 @@ Embedded::Embedded (QObject* parent, const QVariantList&)
 
 void Embedded::firstTimeWizardEvent()
 {
-  embeddedWindow = new FirstTimeWizard(ICore::self()->uiController()->activeMainWindow());
-  embeddedWindow->show();
+  m_embeddedWindow = new FirstTimeWizard(ICore::self()->uiController()->activeMainWindow());
+  m_embeddedWindow->show();
 }
 
 void Embedded::boardSettingsEvent()
 {
-  arduinoBoard = new ArduinoWindow(ICore::self()->uiController()->activeMainWindow());
-  arduinoBoard->show();
+  m_arduinoBoard = new ArduinoWindow(ICore::self()->uiController()->activeMainWindow());
+  m_arduinoBoard->show();
 }
 
 Embedded::~Embedded()
 {
-    delete embeddedWindow;
-    delete arduinoBoard;
+    delete m_embeddedWindow;
+    delete m_arduinoBoard;
 }
 
 #include "embedded.moc"

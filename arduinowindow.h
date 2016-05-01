@@ -21,14 +21,14 @@ namespace Solid
 
 struct ArduinoWindowModelStruct
 {
-    QString id;
-    QString name;
+    QString m_id;
+    QString m_name;
 };
 
 class ArduinoWindowModel : public QAbstractTableModel {
     Q_OBJECT
 private:
-    QVector<ArduinoWindowModelStruct> db;
+    QVector<ArduinoWindowModelStruct> m_db;
 
 public:
     ArduinoWindowModel(QObject *parent);
@@ -40,7 +40,7 @@ public:
     ArduinoWindowModelStruct getData(int index);
 
     int columnCount(const QModelIndex &parent) const { Q_UNUSED(parent) return COLUMNS; }
-    int rowCount(const QModelIndex &parent) const { Q_UNUSED(parent) return db.count(); }
+    int rowCount(const QModelIndex &parent) const { Q_UNUSED(parent) return m_db.count(); }
 };
 
 class ArduinoWindow : public QDialog, Ui::ArduinoWindow
@@ -52,13 +52,13 @@ public:
     ~ArduinoWindow();
 
 private:
-    ArduinoWindowModel *model;
+    ArduinoWindowModel *m_model;
     void boardComboChanged(const QString& text);
     void devicesChanged(const QString& udi);
 
-    Board *board;
+    Board *m_board;
 
-    QDir boardImgsDir;
+    QDir m_boardImgsDir;
     Solid::DeviceNotifier *devices;
 };
 
