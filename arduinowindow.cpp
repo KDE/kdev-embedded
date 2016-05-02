@@ -103,8 +103,8 @@ void ArduinoWindow::boardComboChanged(const QString& text)
     baudCombo->clear();
     QString id = m_model->getData(boardCombo->currentIndex()).m_id;
     QStringList baud = Board::instance().m_boards[id].m_upSpeed;
-
     baudCombo->addItems(baud);
+
     // TODO: add boards description
     qCDebug(AwMsg) << "Baord selected" << text;
     bitext->setText(text);
@@ -117,13 +117,15 @@ void ArduinoWindow::boardComboChanged(const QString& text)
 void ArduinoWindow::devicesChanged(const QString& udi)
 {
     Q_UNUSED(udi);
-
     interfaceCombo->clear();
     auto devices = Solid::Device::allDevices();
+
+    bool interfaceExist = false;
     foreach(const auto& device, devices)
     {
         if(device.product() != "" and device.udi().contains("tty"))
         {
+            interfaceExist = true;
             interfaceCombo->addItem(device.product());
             qCDebug(AwMsg) << "INTERFACE ############ INTERFACE";
             qCDebug(AwMsg) << "Description\t:" << device.description();
@@ -132,6 +134,19 @@ void ArduinoWindow::devicesChanged(const QString& udi)
             qCDebug(AwMsg) << "Udi\t:" << device.udi();
             qCDebug(AwMsg) << "Vendor\t:" <<device.vendor();
         }
+    }
+
+    if(interfaceExist == false)
+    {
+        interfaceCombo->setEnabled(false);
+        interfacelabel->setText("Interface (please connect one):");
+        interfacelabel->setStyleSheet("color: rgb(255, 0, 0);");
+    }
+    else
+    {
+        interfaceCombo->setEnabled(true);
+        interfacelabel->setText("Interface:");
+        interfacelabel->setStyleSheet("color: rgb(0, 0, 0);");
     }
 }
 

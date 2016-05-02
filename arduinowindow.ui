@@ -40,6 +40,9 @@
           </item>
           <item>
            <widget class="QLabel" name="interfacelabel">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
             <property name="text">
              <string>In&amp;terface:</string>
             </property>
