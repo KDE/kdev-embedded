@@ -9,14 +9,17 @@
 #include <KPluginLoader>
 #include <KAboutData>
 #include <KActionCollection>
+#include <KConfigGroup>
 
 #include <KTextEditor/Document>
 #include <KTextEditor/View>
 #include <QApplication>
 #include <QStandardPaths>
+#include <QMessageBox>
 #include <KParts/MainWindow>
 
 #include <interfaces/icore.h>
+#include <interfaces/isession.h>
 #include <interfaces/iuicontroller.h>
 
 #include "arduinowindow.h"
@@ -58,8 +61,18 @@ void Embedded::firstTimeWizardEvent()
 
 void Embedded::boardSettingsEvent()
 {
-  m_arduinoBoard = new ArduinoWindow(ICore::self()->uiController()->activeMainWindow());
-  m_arduinoBoard->show();
+  KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
+  if(!settings.readEntry("arduinoFolder","").isEmpty())
+  {
+    m_arduinoBoard = new ArduinoWindow(ICore::self()->uiController()->activeMainWindow());
+    m_arduinoBoard->show();
+  }
+  else
+  {
+    QMessageBox::warning(0, i18n("kdev-embedded"), i18n("Please, run the first time wizard."));
+    firstTimeWizardEvent();
+  }
+
 }
 
 Embedded::~Embedded()
