@@ -13,6 +13,7 @@
 #include <solid/devicenotifier.h>
 
 #include <QAbstractTableModel>
+#include <QAbstractButton>
 
 #include <KConfigGroup>
 
@@ -99,6 +100,7 @@ ArduinoWindow::ArduinoWindow(QWidget *parent) :
     connect(devices, &Solid::DeviceNotifier::deviceRemoved, this, &ArduinoWindow::devicesChanged);
     connect(boardCombo, &QComboBox::currentTextChanged, this,  &ArduinoWindow::boardComboChanged);
     connect(mcuFreqCombo, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,  &ArduinoWindow::mcuFreqComboChanged);
+    connect(buttonBox, &QDialogButtonBox::clicked, this, &ArduinoWindow::buttonBoxChanged);
 }
 
 void ArduinoWindow::mcuFreqComboChanged(int index)
@@ -107,23 +109,6 @@ void ArduinoWindow::mcuFreqComboChanged(int index)
         return;
 
     qCDebug(AwMsg) << "mcuFreqComboBox Index: " << index;
-
-    QString id = m_model->getData(boardCombo->currentIndex()).m_id;
-    Q_ASSERT(Board::instance().m_boards[id].m_bMcu.size() >= index);
-
-    QString mcu = Board::instance().m_boards[id].m_bMcu[index];
-    QString freq;
-    if(Board::instance().m_boards[id].m_bFcpu.size() == Board::instance().m_boards[id].m_bMcu.size())
-        freq = Board::instance().m_boards[id].m_bFcpu[index];
-    else
-        freq = Board::instance().m_boards[id].m_bFcpu[0];
-
-    KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
-
-    settings.writeEntry("buildId", id);
-    settings.writeEntry("buildMcu", mcu);
-    settings.writeEntry("buildFreq", freq);
-
     qCDebug(AwMsg) << "mcuFreqComboBox Count: " << mcuFreqCombo->count();
 
     if(mcuFreqCombo->count() <= 1)
@@ -201,6 +186,43 @@ void ArduinoWindow::devicesChanged(const QString& udi)
         interfacelabel->setText("Interface:");
         interfacelabel->setStyleSheet("color: rgb(0, 0, 0);");
     }
+}
+
+void ArduinoWindow::buttonBoxChanged(QAbstractButton *button)
+{
+    qCDebug(AwMsg) << "Button clicked";
+    auto buttonType = buttonBox->standardButton(button);
+
+    if(buttonType == QDialogButtonBox::Apply || buttonType == QDialogButtonBox::Ok)
+    {
+        qCDebug(AwMsg) << "Button clicked" << "Apply or Ok";
+        int index = mcuFreqCombo->currentIndex();
+        QString id = m_model->getData(boardCombo->currentIndex()).m_id;
+        Q_ASSERT(Board::instance().m_boards[id].m_bMcu.size() >= index);
+
+        QString mcu = Board::instance().m_boards[id].m_bMcu[index];
+        QString freq;
+        if(Board::instance().m_boards[id].m_bFcpu.size() == Board::instance().m_boards[id].m_bMcu.size())
+            freq = Board::instance().m_boards[id].m_bFcpu[index];
+        else
+            freq = Board::instance().m_boards[id].m_bFcpu[0];
+
+        KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
+        settings.writeEntry("buildId", id);
+        settings.writeEntry("buildMcu", mcu);
+        settings.writeEntry("buildFreq", freq);
+
+        qCDebug(AwMsg) << "buildId " << id;
+        qCDebug(AwMsg) << "buildMcu " << mcu;
+        qCDebug(AwMsg) << "buildFreq " << freq;
+    }
+
+    if(buttonType == QDialogButtonBox::Apply || buttonType == QDialogButtonBox::Cancel)
+    {
+        qCDebug(AwMsg) << "Button clicked" << "Apply or Cancel";
+        close();
+    }
+
 }
 
 ArduinoWindow::~ArduinoWindow()
