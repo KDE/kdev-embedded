@@ -119,7 +119,7 @@ void Board::load()
         int lineType = attrName.split(".").size();
 
         // Normal type
-        if(lineType<4)
+        if(lineType!=0)
         {
             // Board
             if(attrName.contains("name"))
@@ -213,7 +213,7 @@ void Board::load()
             else if(attrName.contains("build.extra_flags"))
                 m_boards[productId].m_bExtraFlags << attrValue;
 
-            else m_boards[productId].m_NaO << attrValue;
+            else m_boards[productId].m_NaO << QString("(%1,%2,%3)").arg(productId).arg(attrName).arg(attrValue);
         }
     }
     m_boardsFile.close();

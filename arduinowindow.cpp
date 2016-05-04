@@ -14,6 +14,8 @@
 
 #include <QAbstractTableModel>
 
+#include <KConfigGroup>
+
 #include "board.h"
 #include "toolkit.h"
 
@@ -75,7 +77,7 @@ ArduinoWindow::ArduinoWindow(QWidget *parent) :
     // Just select the options
     boardCombo->setEditable(false);
     interfaceCombo->setEditable(false);
-    baudCombo->setEditable(false);
+    mcuFreqCombo->setEditable(false);
 
     // Update variables
     Board::instance().update();
@@ -96,14 +98,63 @@ ArduinoWindow::ArduinoWindow(QWidget *parent) :
     connect(devices, &Solid::DeviceNotifier::deviceAdded, this, &ArduinoWindow::devicesChanged);
     connect(devices, &Solid::DeviceNotifier::deviceRemoved, this, &ArduinoWindow::devicesChanged);
     connect(boardCombo, &QComboBox::currentTextChanged, this,  &ArduinoWindow::boardComboChanged);
+    connect(mcuFreqCombo, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,  &ArduinoWindow::mcuFreqComboChanged);
+}
+
+void ArduinoWindow::mcuFreqComboChanged(int index)
+{
+    if(index < 0)
+        return;
+
+    qCDebug(AwMsg) << "mcuFreqComboBox Index: " << index;
+
+    QString id = m_model->getData(boardCombo->currentIndex()).m_id;
+    Q_ASSERT(Board::instance().m_boards[id].m_bMcu.size() >= index);
+
+    QString mcu = Board::instance().m_boards[id].m_bMcu[index];
+    QString freq;
+    if(Board::instance().m_boards[id].m_bFcpu.size() == Board::instance().m_boards[id].m_bMcu.size())
+        freq = Board::instance().m_boards[id].m_bFcpu[index];
+    else
+        freq = Board::instance().m_boards[id].m_bFcpu[0];
+
+    KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
+
+    settings.writeEntry("buildId", id);
+    settings.writeEntry("buildMcu", mcu);
+    settings.writeEntry("buildFreq", freq);
+
+    qCDebug(AwMsg) << "mcuFreqComboBox Count: " << mcuFreqCombo->count();
+
+    if(mcuFreqCombo->count() <= 1)
+        mcuFreqCombo->setEnabled(false);
+    else
+        mcuFreqCombo->setEnabled(true);
 }
 
 void ArduinoWindow::boardComboChanged(const QString& text)
 {
-    baudCombo->clear();
+    mcuFreqCombo->clear();
     QString id = m_model->getData(boardCombo->currentIndex()).m_id;
-    QStringList baud = Board::instance().m_boards[id].m_upSpeed;
-    baudCombo->addItems(baud);
+
+    QStringList mcus = Board::instance().m_boards[id].m_bMcu;
+    QStringList freqs = Board::instance().m_boards[id].m_bFcpu;
+
+    QString freq;
+    uint index = 0;
+    foreach(const auto& mcu, mcus)
+    {
+      if(mcus.size() == freqs.size())
+        freq = freqs[index];
+      else
+        freq = freqs[0];
+
+      QString freqMHz = QString::number(freq.left(freq.lastIndexOf("0")+1).toInt()/1e6)+"MHz";
+      mcuFreqCombo->addItem(mcu+", "+freqMHz);
+      index += 1;
+    }
+    Board::instance().m_boards[id].printData();
+
 
     // TODO: add boards description
     qCDebug(AwMsg) << "Baord selected" << text;
@@ -112,6 +163,8 @@ void ArduinoWindow::boardComboChanged(const QString& text)
     // TODO: select image from board selection
     QString imageLocal = m_boardImgsDir.absolutePath()+"/arduino_uno(rev3)-icsp_breadboard.svg";
     image->setPixmap(QPixmap::fromImage(QImage(imageLocal)));
+
+    mcuFreqComboChanged(0);
 }
 
 void ArduinoWindow::devicesChanged(const QString& udi)

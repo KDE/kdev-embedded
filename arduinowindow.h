@@ -54,6 +54,7 @@ public:
 private:
     ArduinoWindowModel *m_model;
     void boardComboChanged(const QString& text);
+    void mcuFreqComboChanged(int index);
     void devicesChanged(const QString& udi);
 
     Board *m_board;
