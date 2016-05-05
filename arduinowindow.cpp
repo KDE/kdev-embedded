@@ -146,7 +146,12 @@ void ArduinoWindow::boardComboChanged(const QString& text)
     bitext->setText(text);
 
     // TODO: select image from board selection
-    QString imageLocal = m_boardImgsDir.absolutePath()+"/arduino_uno(rev3)-icsp_breadboard.svg";
+    QString imageLocal;
+    imageLocal = m_boardImgsDir.absolutePath()+"/"+id+".svg";
+    if(QImage(imageLocal).isNull())
+      imageLocal = m_boardImgsDir.absolutePath()+"/arduino.svg";
+    qCDebug(AwMsg) << "Baord image path" << id << imageLocal;
+
     image->setPixmap(QPixmap::fromImage(QImage(imageLocal)));
 
     mcuFreqComboChanged(0);
