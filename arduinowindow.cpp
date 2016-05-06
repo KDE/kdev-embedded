@@ -3,6 +3,8 @@
 #include <QDebug>
 #include <QImage>
 #include <QPixmap>
+#include <QPainter>
+#include <QPalette>
 #include <QStandardPaths>
 #include <QLoggingCategory>
 
@@ -146,13 +148,21 @@ void ArduinoWindow::boardComboChanged(const QString& text)
     bitext->setText(text);
 
     // TODO: select image from board selection
-    QString imageLocal;
-    imageLocal = m_boardImgsDir.absolutePath()+"/"+id+".svg";
-    if(QImage(imageLocal).isNull())
-      imageLocal = m_boardImgsDir.absolutePath()+"/arduino.svg";
-    qCDebug(AwMsg) << "Baord image path" << id << imageLocal;
+    QPixmap pix(QString("%1/%2.svg").arg(m_boardImgsDir.absolutePath(),id));
+    if(pix.isNull())
+      pix = QPixmap(m_boardImgsDir.absolutePath()+"/arduino.svg");
 
-    image->setPixmap(QPixmap::fromImage(QImage(imageLocal)));
+    if(pix.width() > image->width() || pix.height() > image->height())
+      pix = pix.scaled(image->width(), image->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
+    static QPixmap buffer(image->width(), image->height());
+    QPainter painter(&buffer);
+    painter.fillRect(QRect(0, 0, image->width(), image->height()), palette().background());
+    painter.drawPixmap(buffer.width()/2 - pix.width()/2, buffer.height()/2 - pix.height()/2, pix);
+    painter.end();
+
+    qCDebug(AwMsg) << "Baord image path" << id << pix;
+    image->setPixmap(buffer);
 
     mcuFreqComboChanged(0);
 }
