@@ -129,11 +129,11 @@ Test the software compatibility and programmability of KDevelop with
 Arduino’s source code and libraries. After that, a plugin will be
 created to manage what kind of embedded system the project will use
 during the development, this same plugin will manage other plugins that
-will provide a variable system development. </br>
+will provide a variable system development.
 In the beginning will be only one children plugin to manage the Arduino
 environment and process. To perform such boards and processors
 management it’s possible to use a generic *makefile* to compile and
-upload the project to Arduino boards. </br>
+upload the project to Arduino boards.
 With selectors menu, like Board and processor clock, it’s possible to
 use the Kdevelop module called *Sublime* with a drop-down menu in
 toolbar that will be display the options to the user, and with this
@@ -153,10 +153,10 @@ begun. Unlike the AVR boards which use
 [*bossac*](http://www.shumatech.com/web/products/bossa) to perform the
 upload process. The same process of Arduino AVR can be used with the
 Arduino ARM boards, using a generic makefile, but with *bossac* and
-*arm-none-eabi-binutils* in the place of *avrdude*. </br>
+*arm-none-eabi-binutils* in the place of *avrdude*.
 The Arduino X86 boards uses a script to perform the compile and upload
 process. If time isn’t a problem until now in the project the
-implementation of such feature will be performed. </br>
+implementation of such feature will be performed.
 With *arm-none-eabi-binutils* we already have a .bin, .elf or .hex to be
 uploaded to an ARM processor. It’s necessary something between the
 processor and the computer to realize the upload process, this thing
@@ -175,9 +175,9 @@ If the last point finish with success, this part can be done without so
 much problems. With a OpenOCD link with the board interface, it’s
 possible to use the GDB with a remote access to the socket door that
 OpenOCD open to realize the communication with GDB and the hardware
-components of the processor debug. </br>
+components of the processor debug.
 With all this steps done, we have created a awesome embedded system
-platform with our friend KDevelop :) </br>
+platform with our friend KDevelop :)
 The last week will be reserved to solve some bugs and finish some points
 in the documentation of the project.
 
