@@ -16,52 +16,59 @@ class QAbstractTableModel;
 
 namespace Solid
 {
-    class DeviceNotifier;
+class DeviceNotifier;
 };
 
 struct ArduinoWindowModelStruct
 {
-    QString m_id;
-    QString m_name;
+	QString m_id;
+	QString m_name;
 };
 
-class ArduinoWindowModel : public QAbstractTableModel {
-    Q_OBJECT
+class ArduinoWindowModel : public QAbstractTableModel
+{
+	Q_OBJECT
 private:
-    QVector<ArduinoWindowModelStruct> m_db;
+	QVector<ArduinoWindowModelStruct> m_db;
 
 public:
-    ArduinoWindowModel(QObject *parent);
-    enum {NAME, ID, COLUMNS};
-    void populate(const QVector<ArduinoWindowModelStruct> &tdb);
+	ArduinoWindowModel(QObject *parent);
+	enum {NAME, ID, COLUMNS};
+	void populate(const QVector<ArduinoWindowModelStruct> &tdb);
 
-    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+	QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
 
-    ArduinoWindowModelStruct getData(int index);
+	ArduinoWindowModelStruct getData(int index);
 
-    int columnCount(const QModelIndex &parent) const { Q_UNUSED(parent) return COLUMNS; }
-    int rowCount(const QModelIndex &parent) const { Q_UNUSED(parent) return m_db.count(); }
+	int columnCount(const QModelIndex &parent) const
+	{
+		Q_UNUSED(parent) return COLUMNS;
+	}
+	int rowCount(const QModelIndex &parent) const
+	{
+		Q_UNUSED(parent) return m_db.count();
+	}
 };
 
 class ArduinoWindow : public QDialog, Ui::ArduinoWindow
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit ArduinoWindow(QWidget *parent = 0);
-    ~ArduinoWindow();
+	explicit ArduinoWindow(QWidget *parent = 0);
+	~ArduinoWindow();
 
 private:
-    ArduinoWindowModel *m_model;
-    void boardComboChanged(const QString& text);
-    void mcuFreqComboChanged(int index);
-    void devicesChanged(const QString& udi);
-    void buttonBoxChanged(QAbstractButton *button);
+	ArduinoWindowModel *m_model;
+	void boardComboChanged(const QString& text);
+	void mcuFreqComboChanged(int index);
+	void devicesChanged(const QString& udi);
+	void buttonBoxChanged(QAbstractButton *button);
 
-    Board *m_board;
+	Board *m_board;
 
-    QDir m_boardImgsDir;
-    Solid::DeviceNotifier *devices;
+	QDir m_boardImgsDir;
+	Solid::DeviceNotifier *devices;
 };
 
 #endif // EMBEDDED_ARDUINOWINDOW_H

@@ -4,8 +4,8 @@
 class %{APPNAMEID}
 {
 public:
-    %{APPNAMEID}();
-    ~%{APPNAMEID}();
+  %{APPNAMEID}();
+  ~%{APPNAMEID}();
 };
 
 #endif // %{APPNAMEUC}_H

@@ -13,17 +13,17 @@ Q_DECLARE_LOGGING_CATEGORY(PLUGIN_EMBEDDED);
 
 class Embedded : public KDevelop::IPlugin
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit Embedded(QObject *parent, const QVariantList & = QVariantList());
-    ~Embedded() override;
+	explicit Embedded(QObject *parent, const QVariantList & = QVariantList());
+	~Embedded() override;
 
-    FirstTimeWizard* m_embeddedWindow;
-    ArduinoWindow* m_arduinoBoard;
+	FirstTimeWizard* m_embeddedWindow;
+	ArduinoWindow* m_arduinoBoard;
 
-    void firstTimeWizardEvent();
-    void boardSettingsEvent();
+	void firstTimeWizardEvent();
+	void boardSettingsEvent();
 };
 
 
