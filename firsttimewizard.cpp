@@ -65,6 +65,7 @@ FirstTimeWizard::FirstTimeWizard(QWidget *parent) :
 	connect(arduinoPathButton, &QToolButton::clicked, this, &FirstTimeWizard::chooseArduinoPath);
 	connect(sketchbookPathButton, &QToolButton::clicked, this, &FirstTimeWizard::chooseSketchbookPath);
 	connect(this, &QWizard::currentIdChanged, this, &FirstTimeWizard::validateCurrentId);
+	connect(button(QWizard::CancelButton), &QAbstractButton::clicked, this, &FirstTimeWizard::cancelButtonClicked);
 }
 
 bool FirstTimeWizard::validateCurrentPage()
@@ -116,8 +117,17 @@ void FirstTimeWizard::download()
 
 void FirstTimeWizard::install()
 {
-	m_downloadFinished = true;
-	downloadStatusLabel->setText(i18n("Downloaded !"));
+	m_downloadFinished = m_reply->isOpen();
+	qCDebug(FtwIo) << "at install m_downloadFinished" << m_downloadFinished;
+
+	if (m_downloadFinished)
+		downloadStatusLabel->setText(i18n("Downloaded !"));
+	else
+	{
+		downloadStatusLabel->setText(i18n("Downloaded canceled !"));
+		return;
+	}
+
 	// Extract the archive
 	QTemporaryFile archive;
 	bool extractSuccess = archive.open();
@@ -162,6 +172,13 @@ void FirstTimeWizard::install()
 		m_installFinished = true;
 	}
 	this->button(QWizard::NextButton)->setEnabled(true);
+}
+
+void FirstTimeWizard::cancelButtonClicked(bool state)
+{
+	Q_UNUSED(state);
+	qCDebug(FtwIo) << "CancelButton clicked";
+	m_reply->abort();
 }
 
 void FirstTimeWizard::validateCurrentId(int id)

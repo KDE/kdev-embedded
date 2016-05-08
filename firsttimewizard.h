@@ -42,6 +42,7 @@ public:
 	void onDownloadProgress(qint64 received, qint64 total);
 	void chooseArduinoPath();
 	void validateCurrentId(int id);
+	void cancelButtonClicked(bool state);
 	void chooseSketchbookPath();
 	void download();
 	void install();
