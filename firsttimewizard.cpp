@@ -64,6 +64,7 @@ FirstTimeWizard::FirstTimeWizard(QWidget *parent) :
 
   connect(arduinoPathButton, &QToolButton::clicked, this, &FirstTimeWizard::chooseArduinoPath);
   connect(sketchbookPathButton, &QToolButton::clicked, this, &FirstTimeWizard::chooseSketchbookPath);
+  connect(this, &QWizard::currentIdChanged, this, &FirstTimeWizard::validateCurrentId);
 }
 
 bool FirstTimeWizard::validateCurrentPage()
@@ -102,6 +103,7 @@ bool FirstTimeWizard::validateCurrentPage()
 
 void FirstTimeWizard::download()
 {
+  button(QWizard::NextButton)->setEnabled(false);
   downloadProgressBar->setValue(0);
   // TODO update to generic links, create to linux and mac
   QNetworkRequest request(QUrl("https://downloads.arduino.cc/arduino-1.6.8-linux64.tar.xz"));
@@ -159,12 +161,20 @@ void FirstTimeWizard::install()
       arduinoPathEdit->setText(destinationPath+"/arduino-"+ ARDUINO_SDK_VERSION_NAME);
       m_installFinished = true;
   }
+  this->button(QWizard::NextButton)->setEnabled(true);
+}
+
+void FirstTimeWizard::validateCurrentId(int id)
+{
+  if (id == 1 && !existingInstallButton->isChecked())
+    download();
 }
 
 int FirstTimeWizard::nextId() const
 {
   if (currentId() == 0 && existingInstallButton->isChecked())
     return 2;
+
   return QWizard::nextId();
 }
 
