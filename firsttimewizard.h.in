@@ -20,32 +20,32 @@ class QNetworkReply;
 
 class FirstTimeWizard : public QWizard, Ui::FirstTimeWizard
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit FirstTimeWizard(QWidget *parent = NULL);
-	~FirstTimeWizard();
+    explicit FirstTimeWizard(QWidget *parent = NULL);
+    ~FirstTimeWizard();
 
-	QNetworkAccessManager *m_mDownloadManager;
-	QNetworkReply *m_reply;
+    QNetworkAccessManager *m_mDownloadManager;
+    QNetworkReply *m_reply;
 
-	bool m_downloadFinished;
-	bool m_installFinished;
+    bool m_downloadFinished;
+    bool m_installFinished;
 
-	QString getArduinoPath();
-	QString getSketchbookPath();
-	QString downloadAndInstallArduino();
-	bool validateCurrentPage();
-	int  nextId() const;
-	bool finish();
+    QString getArduinoPath();
+    QString getSketchbookPath();
+    QString downloadAndInstallArduino();
+    bool validateCurrentPage();
+    int  nextId() const;
+    bool finish();
 
-	void onDownloadProgress(qint64 received, qint64 total);
-	void chooseArduinoPath();
-	void validateCurrentId(int id);
-	void cancelButtonClicked(bool state);
-	void chooseSketchbookPath();
-	void download();
-	void install();
+    void onDownloadProgress(qint64 received, qint64 total);
+    void chooseArduinoPath();
+    void validateCurrentId(int id);
+    void cancelButtonClicked(bool state);
+    void chooseSketchbookPath();
+    void download();
+    void install();
 
 };
 
