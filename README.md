@@ -188,3 +188,12 @@ Instalation
 2.  Create a build folder (```mkdir build && cd build```)
 3.  Configure (```cmake .. ```), if you are using KDevelop from source (cmake .. -DCMAKE_INSTALL_PREFIX=PathToKDE5)
 4.  Compile and install (```make install```)
+
+Debuging:
+-------
+
+The debug can be done using the output of qCDebug() function.
+1.  Turn the debug variable true (```export QT_LOGGING_RULES="Kdev.embedded*.debug=true"```)
+2.  Highlight and show debug messages (```kdevelop 2>&1 | grep Kdev.embedded ```)
+
+If you want to help us if a bug appears, please use ```kdevelop 2>&1 | grep Kdev.embedded > kdev-embedded-log.txt``` to save the debug message and send to us.
