@@ -180,3 +180,11 @@ With all this steps done, we have created a awesome embedded system
 platform with our friend KDevelop :) </br>
 The last week will be reserved to solve some bugs and finish some points
 in the documentation of the project.
+
+Instalation
+========
+
+1.  Download/Clone the repository (```git clone repository.git```)
+2.  Create a build folder (```mkdir build && cd build```)
+3.  Configure (```cmake .. ```), if you are using KDevelop from source (cmake .. -DCMAKE_INSTALL_PREFIX=PathToKDE5)
+4.  Compile and install (```make install```)
