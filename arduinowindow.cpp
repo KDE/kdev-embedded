@@ -5,6 +5,7 @@
 #include <QPixmap>
 #include <QPainter>
 #include <QPalette>
+#include <QPushButton>
 #include <QStandardPaths>
 #include <QLoggingCategory>
 
@@ -102,7 +103,8 @@ ArduinoWindow::ArduinoWindow(QWidget *parent) :
     connect(devices, &Solid::DeviceNotifier::deviceRemoved, this, &ArduinoWindow::devicesChanged);
     connect(boardCombo, &QComboBox::currentTextChanged, this,  &ArduinoWindow::boardComboChanged);
     connect(mcuFreqCombo, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,  &ArduinoWindow::mcuFreqComboChanged);
-    connect(buttonBox, &QDialogButtonBox::clicked, this, &ArduinoWindow::buttonBoxChanged);
+    connect(buttonBox->button(QDialogButtonBox::Ok), &QPushButton::clicked, this, &ArduinoWindow::buttonBoxOk);
+    connect(buttonBox->button(QDialogButtonBox::Cancel), &QPushButton::clicked, this, &ArduinoWindow::buttonBoxCancel);
 }
 
 void ArduinoWindow::mcuFreqComboChanged(int index)
@@ -155,7 +157,7 @@ void ArduinoWindow::boardComboChanged(const QString& text)
     if(pix.width() > image->width() || pix.height() > image->height())
         pix = pix.scaled(image->width(), image->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
-    static QPixmap buffer(image->width(), image->height());
+    QPixmap buffer(image->width(), image->height());
     QPainter painter(&buffer);
     painter.fillRect(QRect(0, 0, image->width(), image->height()), palette().background());
     painter.drawPixmap(buffer.width()/2 - pix.width()/2, buffer.height()/2 - pix.height()/2, pix);
@@ -203,41 +205,36 @@ void ArduinoWindow::devicesChanged(const QString& udi)
     }
 }
 
-void ArduinoWindow::buttonBoxChanged(QAbstractButton *button)
+void ArduinoWindow::buttonBoxOk()
 {
-    qCDebug(AwMsg) << "Button clicked";
-    auto buttonType = buttonBox->standardButton(button);
+    qCDebug(AwMsg) << "Button clicked" << "Ok";
+    int index = mcuFreqCombo->currentIndex();
+    QString id = m_model->getData(boardCombo->currentIndex()).m_id;
+    Q_ASSERT(Board::instance().m_boards[id].m_bMcu.size() >= index);
 
-    if (buttonType == QDialogButtonBox::Ok)
-    {
-        qCDebug(AwMsg) << "Button clicked" << "Ok";
-        int index = mcuFreqCombo->currentIndex();
-        QString id = m_model->getData(boardCombo->currentIndex()).m_id;
-        Q_ASSERT(Board::instance().m_boards[id].m_bMcu.size() >= index);
+    QString mcu = Board::instance().m_boards[id].m_bMcu[index];
+    QString freq;
+    if(Board::instance().m_boards[id].m_bFcpu.size() == Board::instance().m_boards[id].m_bMcu.size())
+        freq = Board::instance().m_boards[id].m_bFcpu[index];
+    else
+        freq = Board::instance().m_boards[id].m_bFcpu[0];
 
-        QString mcu = Board::instance().m_boards[id].m_bMcu[index];
-        QString freq;
-        if(Board::instance().m_boards[id].m_bFcpu.size() == Board::instance().m_boards[id].m_bMcu.size())
-            freq = Board::instance().m_boards[id].m_bFcpu[index];
-        else
-            freq = Board::instance().m_boards[id].m_bFcpu[0];
+    KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
+    settings.writeEntry("buildId", id);
+    settings.writeEntry("buildMcu", mcu);
+    settings.writeEntry("buildFreq", freq);
 
-        KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
-        settings.writeEntry("buildId", id);
-        settings.writeEntry("buildMcu", mcu);
-        settings.writeEntry("buildFreq", freq);
+    qCDebug(AwMsg) << "buildId " << id;
+    qCDebug(AwMsg) << "buildMcu " << mcu;
+    qCDebug(AwMsg) << "buildFreq " << freq;
 
-        qCDebug(AwMsg) << "buildId " << id;
-        qCDebug(AwMsg) << "buildMcu " << mcu;
-        qCDebug(AwMsg) << "buildFreq " << freq;
-    }
+    close();
+}
 
-    if (buttonType == QDialogButtonBox::Ok || buttonType == QDialogButtonBox::Cancel)
-    {
-        qCDebug(AwMsg) << "Button clicked" << "Ok or Cancel";
-        close();
-    }
-
+void ArduinoWindow::buttonBoxCancel()
+{
+    qCDebug(AwMsg) << "Button clicked" << "Cancel";
+    close();
 }
 
 ArduinoWindow::~ArduinoWindow()

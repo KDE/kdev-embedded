@@ -63,7 +63,8 @@ private:
     void boardComboChanged(const QString& text);
     void mcuFreqComboChanged(int index);
     void devicesChanged(const QString& udi);
-    void buttonBoxChanged(QAbstractButton *button);
+    void buttonBoxOk();
+    void buttonBoxCancel();
 
     Board *m_board;
 
