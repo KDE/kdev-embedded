@@ -208,9 +208,9 @@ void ArduinoWindow::buttonBoxChanged(QAbstractButton *button)
     qCDebug(AwMsg) << "Button clicked";
     auto buttonType = buttonBox->standardButton(button);
 
-    if(buttonType == QDialogButtonBox::Apply || buttonType == QDialogButtonBox::Ok)
+    if (buttonType == QDialogButtonBox::Ok)
     {
-        qCDebug(AwMsg) << "Button clicked" << "Apply or Ok";
+        qCDebug(AwMsg) << "Button clicked" << "Ok";
         int index = mcuFreqCombo->currentIndex();
         QString id = m_model->getData(boardCombo->currentIndex()).m_id;
         Q_ASSERT(Board::instance().m_boards[id].m_bMcu.size() >= index);
@@ -232,9 +232,9 @@ void ArduinoWindow::buttonBoxChanged(QAbstractButton *button)
         qCDebug(AwMsg) << "buildFreq " << freq;
     }
 
-    if(buttonType == QDialogButtonBox::Apply || buttonType == QDialogButtonBox::Cancel)
+    if (buttonType == QDialogButtonBox::Ok || buttonType == QDialogButtonBox::Cancel)
     {
-        qCDebug(AwMsg) << "Button clicked" << "Apply or Cancel";
+        qCDebug(AwMsg) << "Button clicked" << "Ok or Cancel";
         close();
     }
 
