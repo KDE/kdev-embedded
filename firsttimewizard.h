@@ -34,10 +34,8 @@ public:
 
     QString getArduinoPath();
     QString getSketchbookPath();
-    QString downloadAndInstallArduino();
     bool validateCurrentPage();
     int  nextId() const;
-    bool finish();
 
     void onDownloadProgress(qint64 received, qint64 total);
     void chooseArduinoPath();

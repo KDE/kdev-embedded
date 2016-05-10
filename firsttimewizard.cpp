@@ -242,16 +242,6 @@ QString FirstTimeWizard::getSketchbookPath()
     return QString();
 }
 
-QString FirstTimeWizard::downloadAndInstallArduino()
-{
-    return QString();
-}
-
-bool FirstTimeWizard::finish()
-{
-    return true;
-}
-
 void FirstTimeWizard::chooseArduinoPath()
 {
     QString path;
