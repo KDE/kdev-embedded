@@ -59,8 +59,8 @@ Some of the goals are:
 1.  Port Arduino support from 1.6.0 to last Arduino version
     into KDevelop.
 
-2.  Port and create others features like:  
-    - Board selector.  
+2.  Port and create others features like:
+    - Board selector.
     - Clock selector.
     - Serial monitor.
     - Assembly visualization.
@@ -177,6 +177,11 @@ With all this steps done, we have created a awesome embedded system
 platform with our friend KDevelop :)
 The last week will be reserved to solve some bugs and finish some points
 in the documentation of the project.
+
+Branchs
+========
+1. [Master](https://phabricator.kde.org/diffusion/KDEVEMBEDDED/)
+2. [Arduino](https://phabricator.kde.org/diffusion/KDEVEMBEDDED/repository/Arduino/)
 
 Instalation
 ========
