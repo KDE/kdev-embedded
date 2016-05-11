@@ -42,11 +42,13 @@ public:
 
     int columnCount(const QModelIndex &parent) const
     {
-        Q_UNUSED(parent) return COLUMNS;
+        Q_UNUSED(parent)
+        return COLUMNS;
     }
     int rowCount(const QModelIndex &parent) const
     {
-        Q_UNUSED(parent) return m_db.count();
+        Q_UNUSED(parent)
+        return m_db.count();
     }
 };
 
