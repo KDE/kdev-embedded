@@ -119,10 +119,13 @@ void ArduinoWindow::mcuFreqComboChanged(int index)
         mcuFreqCombo->setEnabled(false);
     else
         mcuFreqCombo->setEnabled(true);
+
+    bitext->setText(richTextDescription());
 }
 
 void ArduinoWindow::boardComboChanged(const QString& text)
 {
+    Q_UNUSED(text);
     mcuFreqCombo->clear();
     QString id = m_model->getData(boardCombo->currentIndex()).m_id;
 
@@ -130,7 +133,7 @@ void ArduinoWindow::boardComboChanged(const QString& text)
     QStringList freqs = Board::instance().m_boards[id].m_bFcpu;
 
     QString freq;
-    uint index = 0;
+    int index = 0;
     foreach(const auto& mcu, mcus)
     {
         if(mcus.size() == freqs.size())
@@ -143,11 +146,6 @@ void ArduinoWindow::boardComboChanged(const QString& text)
         index += 1;
     }
     Board::instance().m_boards[id].printData();
-
-
-    // TODO: add boards description
-    qCDebug(AwMsg) << "Baord selected" << text;
-    bitext->setText(text);
 
     // TODO: select image from board selection
     QPixmap pix(QString("%1/%2.svg").arg(m_boardImgsDir.absolutePath(),id));
@@ -229,6 +227,62 @@ void ArduinoWindow::buttonBoxOk()
     qCDebug(AwMsg) << "buildFreq " << freq;
 
     close();
+}
+
+QString ArduinoWindow::richTextDescription()
+{
+    QString id = m_model->getData(boardCombo->currentIndex()).m_id;
+    QStringList mcus = Board::instance().m_boards[id].m_bMcu;
+    QStringList freqs = Board::instance().m_boards[id].m_bFcpu;
+    QStringList flashs = Board::instance().m_boards[id].m_upMaxSize;
+    QStringList srams = Board::instance().m_boards[id].m_upMaxDataSize;
+
+    int index = mcuFreqCombo->currentIndex();
+    QString mcu = getRedRichTextSelected(mcus, index);
+    QString freq = getRedRichTextSelected(freqs, index);
+    QString flash = getRedRichTextSelected(flashs, index);
+    QString sram = getRedRichTextSelected(srams, index);
+
+    // TODO: add a better board description
+    return QString("<p>Processor:</p> \
+                    <ul>  \
+                    <li>%2</li> \
+                    </ul> \
+                <p>Frequency:</p> \
+                    <ul>  \
+                    <li>%3</li>\
+                    </ul> \
+                <p>Memory:</p> \
+                    <ul>  \
+                    <li>Flash (kB): %4</li> \
+                    <li>SRAM (kB): %5</li> \
+                    </ul>").arg(mcu).arg(freq).arg(flash).arg(sram);
+}
+
+QString ArduinoWindow::getRedRichTextSelected(QStringList list, int index)
+{
+    QStringList ulist = list.toSet().toList();
+
+    QString item;
+    QString temp;
+
+    if (list.size() <= 1)
+        item = "<font color='red'>"+list[0]+"</font>";
+    else
+    {
+        foreach (auto const& oitem, ulist)
+        {
+            temp = oitem;
+            if (oitem == list[index])
+                temp = "<font color='red'>"+oitem+"</font>";
+            if (item.isEmpty())
+                item = temp;
+            else
+                item = item+","+temp;
+        }
+    }
+
+    return item;
 }
 
 void ArduinoWindow::buttonBoxCancel()

@@ -60,6 +60,8 @@ public:
 
 private:
     ArduinoWindowModel *m_model;
+    QString getRedRichTextSelected(QStringList list, int index);
+    QString richTextDescription();
     void boardComboChanged(const QString& text);
     void mcuFreqComboChanged(int index);
     void devicesChanged(const QString& udi);
