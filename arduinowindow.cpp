@@ -155,14 +155,14 @@ void ArduinoWindow::boardComboChanged(const QString& text)
     if(pix.width() > image->width() || pix.height() > image->height())
         pix = pix.scaled(image->width(), image->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
 
-    QPixmap buffer(image->width(), image->height());
-    QPainter painter(&buffer);
+    m_pixBuffer = QPixmap(image->width(), image->height());
+    QPainter painter(&m_pixBuffer);
     painter.fillRect(QRect(0, 0, image->width(), image->height()), palette().background());
-    painter.drawPixmap(buffer.width()/2 - pix.width()/2, buffer.height()/2 - pix.height()/2, pix);
+    painter.drawPixmap(m_pixBuffer.width()/2 - pix.width()/2, m_pixBuffer.height()/2 - pix.height()/2, pix);
     painter.end();
 
     qCDebug(AwMsg) << "Baord image path" << id << pix;
-    image->setPixmap(buffer);
+    image->setPixmap(m_pixBuffer);
 
     mcuFreqComboChanged(0);
 }
@@ -265,6 +265,8 @@ QString ArduinoWindow::getRedRichTextSelected(QStringList list, int index)
 
     QString item;
     QString temp;
+
+    qCDebug(AwMsg) << "List size" << list << list.size() << "Index" << index;
 
     if (list.size() <= 1)
         item = "<font color='red'>"+list[0]+"</font>";

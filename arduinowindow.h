@@ -12,6 +12,7 @@ Q_DECLARE_LOGGING_CATEGORY(AwMsg);
 #include "ui_arduinowindow.h"
 
 class Board;
+class QPixmap;
 class QAbstractTableModel;
 
 namespace Solid
@@ -72,6 +73,7 @@ private:
 
     Board *m_board;
 
+    QPixmap m_pixBuffer;
     QDir m_boardImgsDir;
     Solid::DeviceNotifier *devices;
 };
