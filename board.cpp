@@ -186,7 +186,7 @@ void Board::load()
                 m_boards[productId].m_blLockBits << attrValue;
 
             // Build
-            else if(attrName.contains("build.mcu"))
+            else if(attrName.contains("build.mcu") && !attrValue.contains("atmegang"))
                 m_boards[productId].m_bMcu << attrValue;
 
             else if(attrName.contains("build.f_cpu"))
