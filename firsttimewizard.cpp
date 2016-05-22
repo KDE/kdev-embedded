@@ -46,8 +46,7 @@ FirstTimeWizard::FirstTimeWizard(QWidget *parent) :
     urlLabel->setText(urlLabel->text().arg(i18n("mailto:%1").arg("patrickelectric@gmail.com")));
     projectLabel->setText(projectLabel->text().arg(i18n("Embedded plugin")).arg("Patrick J. Pereira"));
 
-    //TODO update to ARDUINO_SDK_MIN_VERSION_NAME
-    existingInstallButton->setText(existingInstallButton->text().arg(ARDUINO_SDK_VERSION_NAME));
+    existingInstallButton->setText(existingInstallButton->text().arg(ARDUINO_SDK_MIN_VERSION_NAME));
     automaticInstallButton->setText(automaticInstallButton->text().arg(ARDUINO_SDK_VERSION_NAME));
 
 
@@ -107,7 +106,8 @@ void FirstTimeWizard::download()
     button(QWizard::NextButton)->setEnabled(false);
     downloadProgressBar->setValue(0);
     // TODO update to generic links, create to linux and mac
-    QNetworkRequest request(QUrl("https://downloads.arduino.cc/arduino-1.6.8-linux64.tar.xz"));
+    QNetworkRequest request(QUrl(QString("https://downloads.arduino.cc/arduino-%0-linux64.tar.xz").arg(ARDUINO_SDK_VERSION_NAME)));
+    qCDebug(FtwIo) << "Download : " << QString("https://downloads.arduino.cc/arduino-%0-linux64.tar.xz").arg(ARDUINO_SDK_VERSION_NAME);
     request.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
     m_reply = m_mDownloadManager->get(request);
     connect(m_reply, &QNetworkReply::downloadProgress, this, &FirstTimeWizard::onDownloadProgress);

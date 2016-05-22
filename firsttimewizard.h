@@ -8,8 +8,8 @@
 
 #include "ui_firsttimewizard.h"
 
-#define ARDUINO_SDK_VERSION "168"
-#define ARDUINO_SDK_VERSION_NAME "1.6.8"
+#define ARDUINO_SDK_VERSION "169"
+#define ARDUINO_SDK_VERSION_NAME "1.6.9"
 #define ARDUINO_SDK_MIN_VERSION_NAME "1.6.8"
 
 Q_DECLARE_LOGGING_CATEGORY(FtwIo);
