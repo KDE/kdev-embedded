@@ -10,6 +10,7 @@ class Toolkit
 private:
     static QString toolkitVersion(const QString &path);
     static QString boardFilePath();
+    static QString avrProgramPath();
 
     Toolkit& operator = (Toolkit& other) = delete;
     Toolkit(const Toolkit& other) = delete;
@@ -26,6 +27,7 @@ public:
     static bool isValidArduinoPath(const QString &path);
 
     static QString getBoardFile(const QString &path);
+    static QString avrdudePath();
 };
 
 #endif // EMBEDDED_TOOLKIT_H

@@ -6,6 +6,14 @@
 #include <QDir>
 #include <QDialog>
 #include <QLoggingCategory>
+// need to create a better way without this include
+#include <QProcess>
+/*
+namespace QProcess
+{
+    class ExitStatus;
+};
+*/
 
 Q_DECLARE_LOGGING_CATEGORY(AwMsg);
 
@@ -17,7 +25,7 @@ class QAbstractTableModel;
 
 namespace Solid
 {
-class DeviceNotifier;
+    class DeviceNotifier;
 };
 
 struct ArduinoWindowModelStruct
@@ -65,12 +73,17 @@ private:
     ArduinoWindowModel *m_model;
     QString getRedRichTextSelected(QStringList list, int index);
     QString richTextDescription();
+    void chooseHexPath();
     void boardComboChanged(const QString& text);
     void mcuFreqComboChanged(int index);
     void devicesChanged(const QString& udi);
     void buttonBoxOk();
     void buttonBoxCancel();
+    void avrdudeStderr(int exitCode, QProcess::ExitStatus exitStatus);
+    void avrdudeStdout();
 
+    QString m_interface;
+    QProcess *m_avrdudeProcess;
     Board *m_board;
 
     QPixmap m_pixBuffer;

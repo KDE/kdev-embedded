@@ -5,7 +5,9 @@
 #include <QPixmap>
 #include <QPainter>
 #include <QPalette>
+#include <QProcess>
 #include <QPushButton>
+#include <QFileDialog>
 #include <QStandardPaths>
 #include <QLoggingCategory>
 
@@ -67,6 +69,7 @@ ArduinoWindowModelStruct ArduinoWindowModel::getData(int index)
 ArduinoWindow::ArduinoWindow(QWidget *parent) :
     QDialog(parent),
     m_model (new ArduinoWindowModel(parent)),
+    m_avrdudeProcess (new QProcess(parent)),
     devices (new Solid::DeviceNotifier)
 {
     qCDebug(AwMsg) << "AW opened";
@@ -99,12 +102,25 @@ ArduinoWindow::ArduinoWindow(QWidget *parent) :
     devicesChanged(QString());
 
     devices = Solid::DeviceNotifier::instance();
+
+    connect(hexPathButton, &QToolButton::clicked, this, &ArduinoWindow::chooseHexPath);
+    m_avrdudeProcess->connect(m_avrdudeProcess, &QProcess::readyReadStandardOutput, this, &ArduinoWindow::avrdudeStdout);
+    m_avrdudeProcess->connect(m_avrdudeProcess, (void (QProcess::*)(int,QProcess::ExitStatus))&QProcess::finished, this, &ArduinoWindow::avrdudeStderr);
+
     connect(devices, &Solid::DeviceNotifier::deviceAdded, this, &ArduinoWindow::devicesChanged);
     connect(devices, &Solid::DeviceNotifier::deviceRemoved, this, &ArduinoWindow::devicesChanged);
     connect(boardCombo, &QComboBox::currentTextChanged, this,  &ArduinoWindow::boardComboChanged);
     connect(mcuFreqCombo, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,  &ArduinoWindow::mcuFreqComboChanged);
     connect(buttonBox->button(QDialogButtonBox::Ok), &QPushButton::clicked, this, &ArduinoWindow::buttonBoxOk);
     connect(buttonBox->button(QDialogButtonBox::Cancel), &QPushButton::clicked, this, &ArduinoWindow::buttonBoxCancel);
+}
+
+void ArduinoWindow::chooseHexPath()
+{
+    QString path;
+    path = QFileDialog::getOpenFileName(this, i18n("Find Files"), QDir::currentPath());
+    if (!path.isEmpty())
+        hexPathEdit->setText(path);
 }
 
 void ArduinoWindow::mcuFreqComboChanged(int index)
@@ -183,9 +199,15 @@ void ArduinoWindow::devicesChanged(const QString& udi)
             qCDebug(AwMsg) << "INTERFACE ############ INTERFACE";
             qCDebug(AwMsg) << "Description\t:" << device.description();
             qCDebug(AwMsg) << "Parent Udi\t:" << device.parentUdi();
+            //qCDebug(AwMsg) << "Parenti\t:" << device.parent();
             qCDebug(AwMsg) << "Product\t:" << device.product();
             qCDebug(AwMsg) << "Udi\t:" << device.udi();
             qCDebug(AwMsg) << "Vendor\t:" <<device.vendor();
+            qCDebug(AwMsg) << "Icon\t:" <<device.icon();
+            qCDebug(AwMsg) << "Emblems\t:" <<device.emblems();
+            qCDebug(AwMsg) << "Interface\t:"<< device.udi().split("/").takeLast();
+            m_interface = QString(device.udi().split("/").takeLast());
+            //Solid::GenericInterface *interface = device.as<Solid::GenericInterface>();
         }
     }
 
@@ -226,7 +248,43 @@ void ArduinoWindow::buttonBoxOk()
     qCDebug(AwMsg) << "buildMcu " << mcu;
     qCDebug(AwMsg) << "buildFreq " << freq;
 
-    close();
+    QString arduinoPath = settings.readEntry("arduinoFolder","");
+
+    QStringList flags;
+    //<< QString(arduinoPath+Toolkit::avrdudePath())
+    flags << "-v" << "-v" << "-v" << "-v"
+        << "-C"
+        << QString(arduinoPath+"/hardware/tools/avr/etc/avrdude.conf")
+        << QString("-p%0").arg(mcu)
+        << "-c" << Board::instance().m_boards[id].m_upProtocol[0]
+        << "-P" << "/dev/"+m_interface
+        << "-b" << Board::instance().m_boards[id].m_upSpeed
+        << "-D"
+        << QString("-Uflash:w:%0:i").arg(hexPathEdit->text());
+
+    qDebug().noquote() << QString(arduinoPath+Toolkit::avrdudePath()) << flags;
+    //m_avrdudeProcess->start(QString(arduinoPath+Toolkit::avrdudePath()),flags);
+    m_avrdudeProcess->start("avrdude",flags);
+}
+
+void ArduinoWindow::avrdudeStderr(int exitCode, QProcess::ExitStatus exitStatus)
+{
+    QString perr = m_avrdudeProcess->readAllStandardError();
+    if (perr.length())
+        qDebug().noquote() << QString("Error during download.\n\r" + perr) << exitCode << exitStatus;
+    else
+        qDebug().noquote() << QString("Download complete.\n\r" + perr) << exitCode << exitStatus;
+}
+
+void ArduinoWindow::avrdudeStdout()
+{
+    m_avrdudeProcess->setReadChannel(QProcess::StandardOutput);
+    QTextStream stream(m_avrdudeProcess);
+    while (!stream.atEnd())
+    {
+        QString line = stream.readLine();
+        qDebug().noquote() << line;
+    }
 }
 
 QString ArduinoWindow::richTextDescription()
