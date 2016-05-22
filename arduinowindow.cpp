@@ -101,11 +101,26 @@ ArduinoWindow::ArduinoWindow(QWidget *parent) :
     boardComboChanged(boardCombo->currentText());
     devicesChanged(QString());
 
+    projectCheck->setEnabled(false);
+    projectBox->setEnabled(false);
+    hexPathEdit->setEnabled(false);
+    hexPathButton->setEnabled(false);
+    verboseCheck->setEnabled(false);
+    buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+    buttonBox->button(QDialogButtonBox::Ok)->setText("Upload");
+
+    // Start output box configuration
+    output->setTextBackgroundColor(QColor(0, 0, 0, 255));
+    output->setTextColor(QColor(0, 255, 0, 255));
+    output->append("Welcome,\n\nKDev-Embedded is still in alpha,\nplease be careful and report any problems you find.\n\nHave fun !");
+
     devices = Solid::DeviceNotifier::instance();
 
     connect(hexPathButton, &QToolButton::clicked, this, &ArduinoWindow::chooseHexPath);
     m_avrdudeProcess->connect(m_avrdudeProcess, &QProcess::readyReadStandardOutput, this, &ArduinoWindow::avrdudeStdout);
     m_avrdudeProcess->connect(m_avrdudeProcess, (void (QProcess::*)(int,QProcess::ExitStatus))&QProcess::finished, this, &ArduinoWindow::avrdudeStderr);
+
+    connect(uploadCheck, &QCheckBox::stateChanged, this, &ArduinoWindow::uploadCheckChanged);
 
     connect(devices, &Solid::DeviceNotifier::deviceAdded, this, &ArduinoWindow::devicesChanged);
     connect(devices, &Solid::DeviceNotifier::deviceRemoved, this, &ArduinoWindow::devicesChanged);
@@ -199,7 +214,6 @@ void ArduinoWindow::devicesChanged(const QString& udi)
             qCDebug(AwMsg) << "INTERFACE ############ INTERFACE";
             qCDebug(AwMsg) << "Description\t:" << device.description();
             qCDebug(AwMsg) << "Parent Udi\t:" << device.parentUdi();
-            //qCDebug(AwMsg) << "Parenti\t:" << device.parent();
             qCDebug(AwMsg) << "Product\t:" << device.product();
             qCDebug(AwMsg) << "Udi\t:" << device.udi();
             qCDebug(AwMsg) << "Vendor\t:" <<device.vendor();
@@ -207,7 +221,6 @@ void ArduinoWindow::devicesChanged(const QString& udi)
             qCDebug(AwMsg) << "Emblems\t:" <<device.emblems();
             qCDebug(AwMsg) << "Interface\t:"<< device.udi().split("/").takeLast();
             m_interface = QString(device.udi().split("/").takeLast());
-            //Solid::GenericInterface *interface = device.as<Solid::GenericInterface>();
         }
     }
 
@@ -251,9 +264,12 @@ void ArduinoWindow::buttonBoxOk()
     QString arduinoPath = settings.readEntry("arduinoFolder","");
 
     QStringList flags;
-    //<< QString(arduinoPath+Toolkit::avrdudePath())
-    flags << "-v" << "-v" << "-v" << "-v"
-        << "-C"
+    if(verboseCheck->checkState() == Qt::Checked)
+        flags << "-v" << "-v" << "-v" << "-v";
+    else
+        flags << "-q" << "-q";
+
+    flags << "-C"
         << QString(arduinoPath+"/hardware/tools/avr/etc/avrdude.conf")
         << QString("-p%0").arg(mcu)
         << "-c" << Board::instance().m_boards[id].m_upProtocol[0]
@@ -262,18 +278,28 @@ void ArduinoWindow::buttonBoxOk()
         << "-D"
         << QString("-Uflash:w:%0:i").arg(hexPathEdit->text());
 
-    qDebug().noquote() << QString(arduinoPath+Toolkit::avrdudePath()) << flags;
-    //m_avrdudeProcess->start(QString(arduinoPath+Toolkit::avrdudePath()),flags);
-    m_avrdudeProcess->start("avrdude",flags);
+    if(m_avrdudeProcess->state() != QProcess::NotRunning)
+        m_avrdudeProcess->close();
+
+    output->clear();
+    output->append("Running...\n");
+    qCDebug(AwMsg) << QString(arduinoPath+Toolkit::avrdudePath()) << flags;
+    m_avrdudeProcess->start(QString(arduinoPath+Toolkit::avrdudePath()),flags);
 }
 
 void ArduinoWindow::avrdudeStderr(int exitCode, QProcess::ExitStatus exitStatus)
 {
     QString perr = m_avrdudeProcess->readAllStandardError();
-    if (perr.length())
-        qDebug().noquote() << QString("Error during download.\n\r" + perr) << exitCode << exitStatus;
+    if(exitCode != 0)
+    {
+        qCDebug(AwMsg) << QString("Error during upload.\n" + perr) << exitCode << exitStatus;
+        output->append(QString("Error during upload. ☹\nCode: %0\n%1").arg(exitCode).arg(perr));
+    }
     else
-        qDebug().noquote() << QString("Download complete.\n\r" + perr) << exitCode << exitStatus;
+    {
+        qCDebug(AwMsg) << QString("Upload complete.\n" + perr) << exitCode << exitStatus;
+        output->append(QString("Upload complete. ☺\n%0").arg(perr));
+    }
 }
 
 void ArduinoWindow::avrdudeStdout()
@@ -282,9 +308,22 @@ void ArduinoWindow::avrdudeStdout()
     QTextStream stream(m_avrdudeProcess);
     while (!stream.atEnd())
     {
+        output->append(stream.readLine());
         QString line = stream.readLine();
-        qDebug().noquote() << line;
+        qCDebug(AwMsg) << "avrdudeStdout" << line;
     }
+}
+
+void ArduinoWindow::uploadCheckChanged(int state)
+{
+    bool enable = false;
+    if(state == Qt::Checked)
+        enable = true;
+
+    hexPathEdit->setEnabled(enable);
+    hexPathButton->setEnabled(enable);
+    verboseCheck->setEnabled(enable);
+    buttonBox->button(QDialogButtonBox::Ok)->setEnabled(state);
 }
 
 QString ArduinoWindow::richTextDescription()

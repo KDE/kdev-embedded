@@ -81,6 +81,7 @@ private:
     void buttonBoxCancel();
     void avrdudeStderr(int exitCode, QProcess::ExitStatus exitStatus);
     void avrdudeStdout();
+    void uploadCheckChanged(int state);
 
     QString m_interface;
     QProcess *m_avrdudeProcess;
