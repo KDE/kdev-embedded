@@ -54,6 +54,8 @@ public:
     QStringList m_bVariant;
     QStringList m_bExtraFlags;
 
+    QStringList m_freqHz;
+
     // Not an Option
     QStringList m_NaO;
 
@@ -81,6 +83,7 @@ private:
     Board();
 
     void load();
+    QString Freq2FreqHz(QString freq);
     bool m_listed;
 };
 

@@ -88,6 +88,11 @@ void Board::update()
     m_listed = true;
 }
 
+QString Board::Freq2FreqHz(QString freq)
+{
+        return QString::number(freq.left(freq.lastIndexOf("0")+1).toInt()/1e6)+"MHz";
+}
+
 void Board::load()
 {
 
@@ -190,7 +195,10 @@ void Board::load()
                 m_boards[productId].m_bMcu << attrValue;
 
             else if(attrName.contains("build.f_cpu"))
+            {
                 m_boards[productId].m_bFcpu << attrValue;
+                m_boards[productId].m_freqHz << Freq2FreqHz(attrValue);
+            }
 
             else if(attrName.contains("build.vid"))
                 m_boards[productId].m_bVid << attrValue;

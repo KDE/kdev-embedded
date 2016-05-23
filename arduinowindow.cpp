@@ -161,7 +161,7 @@ void ArduinoWindow::boardComboChanged(const QString& text)
     QString id = m_model->getData(boardCombo->currentIndex()).m_id;
 
     QStringList mcus = Board::instance().m_boards[id].m_bMcu;
-    QStringList freqs = Board::instance().m_boards[id].m_bFcpu;
+    QStringList freqs = Board::instance().m_boards[id].m_freqHz;
 
     QString freq;
     int index = 0;
@@ -172,8 +172,7 @@ void ArduinoWindow::boardComboChanged(const QString& text)
         else
             freq = freqs[0];
 
-        QString freqMHz = QString::number(freq.left(freq.lastIndexOf("0")+1).toInt()/1e6)+"MHz";
-        mcuFreqCombo->addItem(mcu+", "+freqMHz);
+        mcuFreqCombo->addItem(mcu+", "+freq);
         index += 1;
     }
     Board::instance().m_boards[id].printData();
@@ -330,17 +329,13 @@ QString ArduinoWindow::richTextDescription()
 {
     QString id = m_model->getData(boardCombo->currentIndex()).m_id;
     QStringList mcus = Board::instance().m_boards[id].m_bMcu;
-    QStringList freqs = Board::instance().m_boards[id].m_bFcpu;
+    QStringList freqs = Board::instance().m_boards[id].m_freqHz;
     QStringList flashs = Board::instance().m_boards[id].m_upMaxSize;
     QStringList srams = Board::instance().m_boards[id].m_upMaxDataSize;
 
-    QStringList freqsMHz;
-    foreach (auto const& freq, freqs)
-            freqsMHz << QString::number(freq.left(freq.lastIndexOf("0")+1).toInt()/1e6)+"MHz";
-
     int index = mcuFreqCombo->currentIndex();
     QString mcu = getRedRichTextSelected(mcus, index);
-    QString freq = getRedRichTextSelected(freqsMHz, index);
+    QString freq = getRedRichTextSelected(freqs, index);
     QString flash = getRedRichTextSelected(flashs, index);
     QString sram = getRedRichTextSelected(srams, index);
 
