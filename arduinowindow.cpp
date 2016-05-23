@@ -334,9 +334,13 @@ QString ArduinoWindow::richTextDescription()
     QStringList flashs = Board::instance().m_boards[id].m_upMaxSize;
     QStringList srams = Board::instance().m_boards[id].m_upMaxDataSize;
 
+    QStringList freqsMHz;
+    foreach (auto const& freq, freqs)
+            freqsMHz << QString::number(freq.left(freq.lastIndexOf("0")+1).toInt()/1e6)+"MHz";
+
     int index = mcuFreqCombo->currentIndex();
     QString mcu = getRedRichTextSelected(mcus, index);
-    QString freq = getRedRichTextSelected(freqs, index);
+    QString freq = getRedRichTextSelected(freqsMHz, index);
     QString flash = getRedRichTextSelected(flashs, index);
     QString sram = getRedRichTextSelected(srams, index);
 
