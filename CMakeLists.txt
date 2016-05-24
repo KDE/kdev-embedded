@@ -60,5 +60,5 @@ install(DIRECTORY boardsimg DESTINATION ${DATA_INSTALL_DIR}/kdevembedded)
 add_subdirectory(doc_templates)
 
 ############################################
-set(TEMPLATE_DIRS embeddedproject)
+set(TEMPLATE_DIRS embeddedproject arduinoproject)
 kdevplatform_add_app_templates(${TEMPLATE_DIRS})
