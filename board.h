@@ -54,6 +54,8 @@ public:
     QStringList m_bVariant;
     QStringList m_bExtraFlags;
 
+    QStringList m_upMaxSizeKb;
+    QStringList m_upMaxDataSizeKb;
     QStringList m_freqHz;
 
     // Not an Option

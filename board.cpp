@@ -148,10 +148,16 @@ void Board::load()
                 m_boards[productId].m_upProtocol << attrValue;
 
             else if(attrName.contains("upload.maximum_size"))
+            {
                 m_boards[productId].m_upMaxSize << attrValue;
+                m_boards[productId].m_upMaxSizeKb << QString::number((attrValue).toInt()/1024);
+            }
 
             else if(attrName.contains("upload.maximum_data_size"))
+            {
                 m_boards[productId].m_upMaxDataSize << attrValue;
+                m_boards[productId].m_upMaxDataSizeKb << QString::number((attrValue).toInt()/1024);
+            }
 
             else if(attrName.contains("upload.speed"))
                 m_boards[productId].m_upSpeed << attrValue;

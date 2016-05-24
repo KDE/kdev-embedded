@@ -330,8 +330,8 @@ QString ArduinoWindow::richTextDescription()
     QString id = m_model->getData(boardCombo->currentIndex()).m_id;
     QStringList mcus = Board::instance().m_boards[id].m_bMcu;
     QStringList freqs = Board::instance().m_boards[id].m_freqHz;
-    QStringList flashs = Board::instance().m_boards[id].m_upMaxSize;
-    QStringList srams = Board::instance().m_boards[id].m_upMaxDataSize;
+    QStringList flashs = Board::instance().m_boards[id].m_upMaxSizeKb;
+    QStringList srams = Board::instance().m_boards[id].m_upMaxDataSizeKb;
 
     int index = mcuFreqCombo->currentIndex();
     QString mcu = getRedRichTextSelected(mcus, index);
