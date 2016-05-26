@@ -90,7 +90,7 @@ void Board::update()
 
 QString Board::Freq2FreqHz(QString freq)
 {
-        return QString::number(freq.left(freq.lastIndexOf("0")+1).toInt()/1e6)+"MHz";
+    return QString::number(freq.left(freq.lastIndexOf("L")).toInt()/1e6)+"MHz";
 }
 
 void Board::load()
