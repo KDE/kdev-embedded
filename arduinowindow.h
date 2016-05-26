@@ -8,12 +8,6 @@
 #include <QLoggingCategory>
 // need to create a better way without this include
 #include <QProcess>
-/*
-namespace QProcess
-{
-    class ExitStatus;
-};
-*/
 
 Q_DECLARE_LOGGING_CATEGORY(AwMsg);
 

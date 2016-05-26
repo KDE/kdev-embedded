@@ -31,19 +31,6 @@ QString Toolkit::toolkitVersion(const QString &path)
     return QString();
 }
 
-/*
-QStringList Toolkit::avrdudeFlags(const Board *board)
-{
-    QStringList flags;
-    flags << "-v" << "-v" << "-v" << "-v";
-    flags << "-C";
-    flags << QDir(hardwarePath()).filePath("/hardware/tools/avr/etc/avrdude.conf");
-    //flags << QString("-p%0").arg(board->attribute("builder.mcu"));
-
-    return flags;
-}
-*/
-
 QString Toolkit::avrdudePath()
 {
     return QString(avrProgramPath()+"/avrdude");
