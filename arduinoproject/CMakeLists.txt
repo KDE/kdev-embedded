@@ -1,3 +1,6 @@
+#
+# CMakeLists template to Arduino development.
+#
 #################################
 # ARDUINO_PROTOCOL
 # if upload is done by makefile
@@ -21,22 +24,28 @@
 # usb interface to upload
 # look at: $ lsusb or $ ls /dev/tty*
 #################################
+# ARDUINO_PATH
+# Arduino folder
+# e.g: /usr/share/arduino or ~/.local/share/kdevelop/arduino-x.x.x
+#################################
 
-# compile
-set(ARDUINO_BOARD     "mega")
-set(ARDUINO_MCU       "atmega2560")
-set(ARDUINO_FCPU      "16000000")
+# Compile
+set(ARDUINO_BOARD        "mega")
+set(ARDUINO_MCU          "atmega2560")
+set(ARDUINO_FCPU         "16000000")
 
-# upload
+# Upload
 set(ARDUINO_UPLOAD_SPEED "115200")
 set(ARDUINO_PROTOCOL     "stk500v1")
 set(ARDUINO_PORT         "/dev/ttyACM0")
 
+# Arduino path
+set(ARDUINO_PATH         "/usr/share/arduino")
 #################################
 
 project(%{APPNAMELC})
 
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 2.8)
 
 include(${CMAKE_SOURCE_DIR}/arduino.cmake)
 

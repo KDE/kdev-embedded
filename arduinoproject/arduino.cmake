@@ -1,22 +1,24 @@
-# This file is based on the work of:
-#
-# http://mjo.tc/atelier/2009/02/arduino-cli.html
-# http://johanneshoff.com/arduino-command-line.html
-# http://www.arduino.cc/playground/Code/CmakeBuild
-# http://www.tmpsantos.com.br/en/2010/12/arduino-uno-ubuntu-cmake/
-# The libarduino-1.0 version is based on the work of:
-# http://playground.arduino.cc/Code/Kdevelop
-
-
 set(CMAKE_SYSTEM_NAME Generic)
+
 enable_language(C)
 enable_language(ASM)
 
-set(CMAKE_ASM_COMPILER  /usr/bin/avr-gcc)
-set(CMAKE_AR            /usr/bin/avr-ar)
-set(CMAKE_C_COMPILER    /usr/bin/avr-gcc)
-set(CMAKE_CXX_COMPILER  /usr/bin/avr-g++)
-set(CMAKE_OBJCOPY       /usr/bin/avr-objcopy)
+cmake_policy(SET CMP0046 OLD)
+
+#Arduino path
+set(ARDUINO_CORE_DIR "${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino/")
+set(ARDUINO_PINS_DIR "${ARDUINO_PATH}/hardware/arduino/avr/variants/${ARDUINO_BOARD}")
+set(ARDUINO_BIN_DIR  "${ARDUINO_PATH}/hardware/tools/avr/bin/")
+
+set(CMAKE_ASM_COMPILER  "${ARDUINO_BIN_DIR}/avr-gcc")
+set(CMAKE_AR            "${ARDUINO_BIN_DIR}/avr-ar")
+set(CMAKE_C_COMPILER    "${ARDUINO_BIN_DIR}/avr-gcc")
+set(CMAKE_CXX_COMPILER  "${ARDUINO_BIN_DIR}/avr-g++")
+set(CMAKE_OBJCOPY       "${ARDUINO_BIN_DIR}/avr-objcopy")
+
+set(AVROBJCOPY "${ARDUINO_BIN_DIR}/avr-objcopy")
+set(AVRDUDE "${ARDUINO_BIN_DIR}/avrdude")
+
 set(CMAKE_SHARED_LIBRARY_LINK_CXX_FLAGS "")
 
 # C only fine tunning
@@ -25,8 +27,6 @@ set(TUNNING_FLAGS "-funsigned-char -funsigned-bitfields -fpack-struct -fshort-en
 set(CMAKE_CXX_FLAGS "-w -Os -Wl,--gc-sections -mmcu=${ARDUINO_MCU} -DF_CPU=${ARDUINO_FCPU} -Os -std=c++11")
 set(CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} ${TUNNING_FLAGS} -Wstrict-prototypes -w")
 
-set(ARDUINO_CORE_DIR "/usr/share/arduino/hardware/arduino/avr/cores/arduino/")
-set(ARDUINO_PINS_DIR "/usr/share/arduino/hardware/arduino/avr/variants/${ARDUINO_BOARD}")
 include_directories(${ARDUINO_PINS_DIR})
 include_directories(${ARDUINO_CORE_DIR})
 
@@ -64,9 +64,6 @@ set(PORT $ENV{ARDUINO_PORT})
 if (NOT PORT)
     set(PORT ${ARDUINO_PORT})
 endif()
-
-set(AVROBJCOPY "/usr/bin/avr-objcopy")
-set(AVRDUDE "/usr/bin/avrdude")
 
 # FIXME: Forcing target name to be "firmware"
 if(AVROBJCOPY AND AVRDUDE)
