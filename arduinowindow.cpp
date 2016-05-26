@@ -107,12 +107,12 @@ ArduinoWindow::ArduinoWindow(QWidget *parent) :
     hexPathButton->setEnabled(false);
     verboseCheck->setEnabled(false);
     buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
-    buttonBox->button(QDialogButtonBox::Ok)->setText("Upload");
+    buttonBox->button(QDialogButtonBox::Ok)->setText(i18n("Upload"));
 
     // Start output box configuration
     output->setTextBackgroundColor(QColor(0, 0, 0, 255));
     output->setTextColor(QColor(0, 255, 0, 255));
-    output->append("Welcome,\n\nKDev-Embedded is still in alpha,\nplease be careful and report any problems you find.\n\nHave fun !");
+    output->append(i18n("Welcome,\n\nKDev-Embedded is still in alpha,\nplease be careful and report any problems you find.\n\nHave fun !"));
 
     devices = Solid::DeviceNotifier::instance();
 
@@ -281,7 +281,7 @@ void ArduinoWindow::buttonBoxOk()
         m_avrdudeProcess->close();
 
     output->clear();
-    output->append("Running...\n");
+    output->append(i18n("Running...\n"));
     qCDebug(AwMsg) << QString(arduinoPath+Toolkit::avrdudePath()) << flags;
     m_avrdudeProcess->start(QString(arduinoPath+Toolkit::avrdudePath()),flags);
 }
@@ -292,12 +292,12 @@ void ArduinoWindow::avrdudeStderr(int exitCode, QProcess::ExitStatus exitStatus)
     if(exitCode != 0)
     {
         qCDebug(AwMsg) << QString("Error during upload.\n" + perr) << exitCode << exitStatus;
-        output->append(QString("Error during upload. ☹\nCode: %0\n%1").arg(exitCode).arg(perr));
+        output->append(QString(i18n("Error during upload. ☹\nCode: %0\n%1")).arg(exitCode).arg(perr));
     }
     else
     {
         qCDebug(AwMsg) << QString("Upload complete.\n" + perr) << exitCode << exitStatus;
-        output->append(QString("Upload complete. ☺\n%0").arg(perr));
+        output->append(QString(i18n("Upload complete. ☺\n%0")).arg(perr));
     }
 }
 
@@ -340,7 +340,7 @@ QString ArduinoWindow::richTextDescription()
     QString sram = getRedRichTextSelected(srams, index);
 
     // TODO: add a better board description
-    return QString("<p>Processor:</p> \
+    return QString(i18n("<p>Processor:</p> \
                     <ul>  \
                     <li>%2</li> \
                     </ul> \
@@ -352,7 +352,7 @@ QString ArduinoWindow::richTextDescription()
                     <ul>  \
                     <li>Flash (kB): %4</li> \
                     <li>SRAM (kB): %5</li> \
-                    </ul>").arg(mcu).arg(freq).arg(flash).arg(sram);
+                    </ul>")).arg(mcu).arg(freq).arg(flash).arg(sram);
 }
 
 QString ArduinoWindow::getRedRichTextSelected(QStringList list, int index)
