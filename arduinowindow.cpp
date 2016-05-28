@@ -110,8 +110,9 @@ ArduinoWindow::ArduinoWindow(QWidget *parent) :
     buttonBox->button(QDialogButtonBox::Ok)->setText(i18n("Upload"));
 
     // Start output box configuration
-    output->setTextBackgroundColor(QColor(0, 0, 0, 255));
-    output->setTextColor(QColor(0, 255, 0, 255));
+    this->palette();
+    output->setTextBackgroundColor(QPalette::Shadow);
+    output->setTextColor(Qt::green);
     output->append(i18n("Welcome,\n\nKDev-Embedded is still in alpha,\nplease be careful and report any problems you find.\n\nHave fun !"));
 
     devices = Solid::DeviceNotifier::instance();
