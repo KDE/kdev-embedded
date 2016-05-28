@@ -9,16 +9,20 @@
 QString Toolkit::getBoardFile(const QString &path)
 {
     QFile file(path + boardFilePath());
-    if(!file.open(QFile::ReadOnly))
+    if (!file.open(QFile::ReadOnly))
+    {
         return QString();
+    }
     return path + boardFilePath();
 }
 
 QString Toolkit::toolkitVersion(const QString &path)
 {
     QFile file(QDir(path).filePath("revisions.txt"));
-    if(!file.open(QFile::ReadOnly))
+    if (!file.open(QFile::ReadOnly))
+    {
         return QString();
+    }
 
     QByteArray arduinoVersion = file.readLine();
     while (arduinoVersion == "\n" && ! file.atEnd())
@@ -27,13 +31,15 @@ QString Toolkit::toolkitVersion(const QString &path)
     }
     QList<QByteArray> list = arduinoVersion.split(' ');
     if (list.size() >= 2)
+    {
         return  list.at(1).trimmed();
+    }
     return QString();
 }
 
 QString Toolkit::avrdudePath()
 {
-    return QString(avrProgramPath()+"/avrdude");
+    return QString(avrProgramPath() + "/avrdude");
 }
 
 QString Toolkit::boardFilePath()

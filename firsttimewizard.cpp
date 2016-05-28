@@ -72,16 +72,22 @@ bool FirstTimeWizard::validateCurrentPage()
     switch (currentId())
     {
     case 0:
-        if(existingInstallButton->isChecked() && !Toolkit::isValidArduinoPath(arduinoPathEdit->text()))
+        if (existingInstallButton->isChecked() && !Toolkit::isValidArduinoPath(arduinoPathEdit->text()))
+        {
             return false;
+        }
         break;
 
     case 1:
     {
-        if(m_downloadFinished && m_installFinished)
+        if (m_downloadFinished && m_installFinished)
+        {
             return true;
+        }
         else
+        {
             download();
+        }
 
         return false;
         break;
@@ -90,7 +96,7 @@ bool FirstTimeWizard::validateCurrentPage()
     case 2:
     {
         KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
-        settings.writeEntry("arduinoFolder",arduinoPathEdit->text());
+        settings.writeEntry("arduinoFolder", arduinoPathEdit->text());
         settings.writeEntry("sketchbookFolder", sketchbookPathEdit->text());
     }
     break;
@@ -121,7 +127,9 @@ void FirstTimeWizard::install()
     qCDebug(FtwIo) << "at install m_downloadFinished" << m_downloadFinished;
 
     if (m_downloadFinished)
+    {
         downloadStatusLabel->setText(i18n("Downloaded !"));
+    }
     else
     {
         downloadStatusLabel->setText(i18n("Downloaded canceled !"));
@@ -135,7 +143,9 @@ void FirstTimeWizard::install()
     QDir destinationDir(destinationPath);
 
     if (!extractSuccess)
+    {
         qCDebug(FtwIo) << "Cant open file" << archive.fileName();
+    }
 
     if (!destinationDir.exists())
     {
@@ -168,7 +178,7 @@ void FirstTimeWizard::install()
         qCDebug(FtwIo) << archive.fileName() << "extracted in" << destinationPath;
 
         installStatusLabel->setText(i18n("Extracted !"));
-        arduinoPathEdit->setText(destinationPath+"/arduino-"+ ARDUINO_SDK_VERSION_NAME);
+        arduinoPathEdit->setText(destinationPath + "/arduino-" + ARDUINO_SDK_VERSION_NAME);
         m_installFinished = true;
     }
     this->button(QWizard::NextButton)->setEnabled(true);
@@ -184,13 +194,17 @@ void FirstTimeWizard::cancelButtonClicked(bool state)
 void FirstTimeWizard::validateCurrentId(int id)
 {
     if (id == 1 && !existingInstallButton->isChecked())
+    {
         download();
+    }
 }
 
 int FirstTimeWizard::nextId() const
 {
     if (currentId() == 0 && existingInstallButton->isChecked())
+    {
         return 2;
+    }
 
     return QWizard::nextId();
 }
@@ -212,7 +226,7 @@ QString FirstTimeWizard::getArduinoPath()
             << QString("/usr/share/arduino");
 #endif
 
-    foreach(const auto& path, defaultArduinoPaths)
+    foreach (const auto& path, defaultArduinoPaths)
     {
         if (Toolkit::isValidArduinoPath(path))
         {
@@ -236,8 +250,10 @@ QString FirstTimeWizard::getSketchbookPath()
     sketchbookPath = QDir(QDir::homePath()).filePath("sketchbook");
 #endif
 
-    if(sketchbookPath.exists())
+    if (sketchbookPath.exists())
+    {
         sketchbookPathEdit->setText(sketchbookPath.absolutePath());
+    }
 
     return QString();
 }
@@ -247,7 +263,9 @@ void FirstTimeWizard::chooseArduinoPath()
     QString path;
     path = QFileDialog::getExistingDirectory(this, i18n("Find Files"), QDir::currentPath());
     if (!path.isEmpty())
+    {
         arduinoPathEdit->setText(path);
+    }
 
 }
 
@@ -256,14 +274,18 @@ void FirstTimeWizard::chooseSketchbookPath()
     QString path;
     path = QFileDialog::getExistingDirectory(this, i18n("Find Files"), QDir::currentPath());
     if (!path.isEmpty())
+    {
         sketchbookPathEdit->setText(path);
+    }
 }
 
 void FirstTimeWizard::onDownloadProgress(qint64 received, qint64 total)
 {
     int percent = 0;
-    if(total)
+    if (total)
+    {
         percent = 100 * received / total;
+    }
 
     qCDebug(FtwIo) << "Download in Progress" << percent << "%";
     qCDebug(FtwIo) << "Download in Progress" << received << "/" << total;

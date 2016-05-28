@@ -64,9 +64,11 @@ void BoardInfo::printData()
 QString Board::getIdFromName(QString _name)
 {
     update();
-    foreach(const auto& boardId, m_boardList)
-        if(m_boards[boardId].m_name[0] == _name)
+    foreach (const auto& boardId, m_boardList)
+        if (m_boards[boardId].m_name[0] == _name)
+        {
             return boardId;
+        }
     return QString();
 }
 
@@ -83,21 +85,23 @@ Board::Board()
 
 void Board::update()
 {
-    if(!m_listed)
+    if (!m_listed)
+    {
         load();
+    }
     m_listed = true;
 }
 
 QString Board::Freq2FreqHz(QString freq)
 {
-    return QString::number(freq.left(freq.lastIndexOf("L")).toInt()/1e6)+"MHz";
+    return QString::number(freq.left(freq.lastIndexOf("L")).toInt() / 1e6) + "MHz";
 }
 
 void Board::load()
 {
 
     KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
-    QFile m_boardsFile(Toolkit::getBoardFile(settings.readEntry("arduinoFolder","")));
+    QFile m_boardsFile(Toolkit::getBoardFile(settings.readEntry("arduinoFolder", "")));
     bool fileOpened = m_boardsFile.open(QFile::ReadOnly);
     qCDebug(BoMsg) << "Board file opened" << fileOpened;
     Q_ASSERT(fileOpened);
@@ -109,7 +113,9 @@ void Board::load()
         QString line = boardsFileUTF8.readLine().trimmed();
 
         if (line.isEmpty() || line[0] == '#')
+        {
             continue;
+        }
 
         QString attrName = line.section('=', 0, 0);
         QString attrValue = line.section('=', 1);
@@ -118,116 +124,169 @@ void Board::load()
         QString productId = attrName.section('.', 0, 0);
         attrName = attrName.section('.', 1);
 
-        if(productId.contains("menu"))
+        if (productId.contains("menu"))
+        {
             continue;
+        }
 
         int lineType = attrName.split(".").size();
 
         // Normal type
-        if(lineType!=0)
+        if (lineType != 0)
         {
             // Board
-            if(attrName.contains("name"))
+            if (attrName.contains("name"))
             {
                 m_boardList << productId;
                 m_boardNameList << attrValue;
                 m_boards[productId].m_name << attrValue;
             }
 
-            else if(attrName.contains("vid"))
+            else if (attrName.contains("vid"))
+            {
                 m_boards[productId].m_vid << attrValue;
+            }
 
-            else if(attrName.contains("pid"))
+            else if (attrName.contains("pid"))
+            {
                 m_boards[productId].m_pid << attrValue;
+            }
 
             // Upload type
-            else if(attrName.contains("upload.tool"))
+            else if (attrName.contains("upload.tool"))
+            {
                 m_boards[productId].m_upTool << attrValue;
+            }
 
-            else if(attrName.contains("upload.protocol"))
+            else if (attrName.contains("upload.protocol"))
+            {
                 m_boards[productId].m_upProtocol << attrValue;
+            }
 
-            else if(attrName.contains("upload.maximum_size"))
+            else if (attrName.contains("upload.maximum_size"))
             {
                 m_boards[productId].m_upMaxSize << attrValue;
-                m_boards[productId].m_upMaxSizeKb << QString::number(attrValue.toInt()/1024);
+                m_boards[productId].m_upMaxSizeKb << QString::number(attrValue.toInt() / 1024);
             }
 
-            else if(attrName.contains("upload.maximum_data_size"))
+            else if (attrName.contains("upload.maximum_data_size"))
             {
                 m_boards[productId].m_upMaxDataSize << attrValue;
-                m_boards[productId].m_upMaxDataSizeKb << QString::number(attrValue.toInt()/1024);
+                m_boards[productId].m_upMaxDataSizeKb << QString::number(attrValue.toInt() / 1024);
             }
 
-            else if(attrName.contains("upload.speed"))
+            else if (attrName.contains("upload.speed"))
+            {
                 m_boards[productId].m_upSpeed << attrValue;
+            }
 
-            else if(attrName.contains("upload.disable_flushing"))
+            else if (attrName.contains("upload.disable_flushing"))
+            {
                 m_boards[productId].m_upDisableFlush << attrValue;
+            }
 
-            else if(attrName.contains("upload.use_1200bps_touch"))
+            else if (attrName.contains("upload.use_1200bps_touch"))
+            {
                 m_boards[productId].m_upUse1k2bpsTouch << attrValue;
+            }
 
-            else if(attrName.contains("upload.wait_for_upload_port"))
+            else if (attrName.contains("upload.wait_for_upload_port"))
+            {
                 m_boards[productId].m_upWaitForUploadPort << attrValue;
+            }
 
             // Boodloader
-            else if(attrName.contains("bootloader.tool"))
+            else if (attrName.contains("bootloader.tool"))
+            {
                 m_boards[productId].m_blTool << attrValue;
+            }
 
-            else if(attrName.contains("bootloader.low_fuses"))
+            else if (attrName.contains("bootloader.low_fuses"))
+            {
                 m_boards[productId].m_blLowFuses << attrValue;
+            }
 
-            else if(attrName.contains("bootloader.high_fuses"))
+            else if (attrName.contains("bootloader.high_fuses"))
+            {
                 m_boards[productId].m_blHighFuses << attrValue;
+            }
 
-            else if(attrName.contains("bootloader.extended_fuses"))
+            else if (attrName.contains("bootloader.extended_fuses"))
+            {
                 m_boards[productId].m_blExtendedFuses << attrValue;
+            }
 
-            else if(attrName.contains("bootloader.file"))
+            else if (attrName.contains("bootloader.file"))
+            {
                 m_boards[productId].m_blFile << attrValue;
+            }
 
-            else if(attrName.contains("bootloader.noblink"))
+            else if (attrName.contains("bootloader.noblink"))
+            {
                 m_boards[productId].m_blNoblink << attrValue;
+            }
 
-            else if(attrName.contains("bootloader.unlock_bits"))
+            else if (attrName.contains("bootloader.unlock_bits"))
+            {
                 m_boards[productId].m_blUnlockBits << attrValue;
+            }
 
-            else if(attrName.contains("bootloader.lock_bits"))
+            else if (attrName.contains("bootloader.lock_bits"))
+            {
                 m_boards[productId].m_blLockBits << attrValue;
+            }
 
             // Build
-            else if(attrName.contains("build.mcu") && !attrValue.contains("atmegang"))
+            else if (attrName.contains("build.mcu") && !attrValue.contains("atmegang"))
+            {
                 m_boards[productId].m_bMcu << attrValue;
+            }
 
-            else if(attrName.contains("build.f_cpu"))
+            else if (attrName.contains("build.f_cpu"))
             {
                 m_boards[productId].m_bFcpu << attrValue;
                 m_boards[productId].m_freqHz << Freq2FreqHz(attrValue);
             }
 
-            else if(attrName.contains("build.vid"))
+            else if (attrName.contains("build.vid"))
+            {
                 m_boards[productId].m_bVid << attrValue;
+            }
 
-            else if(attrName.contains("build.pid"))
+            else if (attrName.contains("build.pid"))
+            {
                 m_boards[productId].m_bPid << attrValue;
+            }
 
-            else if(attrName.contains("build.usb_product"))
+            else if (attrName.contains("build.usb_product"))
+            {
                 m_boards[productId].m_bUsbProduct << attrValue;
+            }
 
-            else if(attrName.contains("build.board"))
+            else if (attrName.contains("build.board"))
+            {
                 m_boards[productId].m_bUsbProduct << attrValue;
+            }
 
-            else if(attrName.contains("build.core"))
+            else if (attrName.contains("build.core"))
+            {
                 m_boards[productId].m_bCore << attrValue;
+            }
 
-            else if(attrName.contains("build.variant"))
+            else if (attrName.contains("build.variant"))
+            {
                 m_boards[productId].m_bVariant << attrValue;
+            }
 
-            else if(attrName.contains("build.extra_flags"))
+            else if (attrName.contains("build.extra_flags"))
+            {
                 m_boards[productId].m_bExtraFlags << attrValue;
+            }
 
-            else m_boards[productId].m_NaO << QString("(%1,%2,%3)").arg(productId).arg(attrName).arg(attrValue);
+            else
+            {
+                m_boards[productId].m_NaO << QString("(%1,%2,%3)").arg(productId).arg(attrName).arg(attrValue);
+            }
         }
     }
     m_boardsFile.close();

@@ -19,7 +19,7 @@ class QAbstractTableModel;
 
 namespace Solid
 {
-    class DeviceNotifier;
+class DeviceNotifier;
 };
 
 struct ArduinoWindowModelStruct

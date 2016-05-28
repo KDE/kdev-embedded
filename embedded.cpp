@@ -62,7 +62,7 @@ void Embedded::firstTimeWizardEvent()
 void Embedded::boardSettingsEvent()
 {
     KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
-    if(!settings.readEntry("arduinoFolder","").isEmpty())
+    if (!settings.readEntry("arduinoFolder", "").isEmpty())
     {
         m_arduinoBoard = new ArduinoWindow(ICore::self()->uiController()->activeMainWindow());
         m_arduinoBoard->show();
