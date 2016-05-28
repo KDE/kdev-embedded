@@ -71,7 +71,7 @@ if(AVROBJCOPY AND AVRDUDE)
     add_dependencies(hex %{APPNAMELC})
 
     add_custom_command(TARGET hex POST_BUILD
-        COMMAND ${AVROBJCOPY} -O ihex -R .eeprom ${CMAKE_CURRENT_BINARY_DIR}/%{APPNAMELC} %{APPNAMELC}.hex
+        COMMAND ${AVROBJCOPY} -O ihex -R .eeprom ${CMAKE_CURRENT_BINARY_DIR}/%{APPNAMELC}.elf %{APPNAMELC}.hex
     )
 
     add_custom_target(flash)
