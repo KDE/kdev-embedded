@@ -29,8 +29,6 @@ set(KDEVEMBEDDED_PART_UI
 )
 
 find_package(KDevPlatform REQUIRED)
-find_package(KDevelop-PG-Qt REQUIRED)
-include_directories(${KDEVPGQT_INCLUDE_DIR})
 
 find_package(KF5 REQUIRED Archive I18n NewStuff ItemModels TextEditor ThreadWeaver)
 include(KDEInstallDirs)
