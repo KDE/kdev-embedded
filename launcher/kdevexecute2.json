@@ -1,0 +1,23 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "Patrick José Pereira"
+            }
+        ],
+        "Category": "Core",
+        "Description": "This plugin allows running of programs in embedded devices.",
+        "Icon": "system-run",
+        "Id": "kdevexecute2",
+        "License": "GPL",
+        "Name": "Embedded Launcher",
+        "ServiceTypes": [
+            "KDevelop/Plugin"
+        ]
+    },
+    "X-KDevelop-Category": "Global",
+    "X-KDevelop-Interfaces": [
+        "org.kdevelop.IExecutePlugin2"
+    ],
+    "X-KDevelop-Mode": "NoGUI"
+}

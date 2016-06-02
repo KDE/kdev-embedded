@@ -22,6 +22,7 @@ set(KDEVEMBEDDED_PART_SRCS
     firsttimewizard.cpp
 )
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/launcher)
 
 set(KDEVEMBEDDED_PART_UI
     arduinowindow.ui
@@ -34,6 +35,8 @@ find_package(KF5 REQUIRED Archive I18n NewStuff ItemModels TextEditor ThreadWeav
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings)
+
+include(${CMAKE_CURRENT_SOURCE_DIR}/launcher/CMakeLists.txt)
 
 ki18n_wrap_ui(KDEVEMBEDDED_PART_SRCS ${KDEVEMBEDDED_PART_UI})
 
@@ -49,8 +52,6 @@ target_link_libraries(kdevembedded
     KDev::Util
     KDev::Language
 )
-
-message(${DATA_INSTALL_DIR})
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/firsttimewizard.h.in ${CMAKE_CURRENT_SOURCE_DIR}/firsttimewizard.h)
 install(DIRECTORY boardsimg DESTINATION ${DATA_INSTALL_DIR}/kdevembedded)
