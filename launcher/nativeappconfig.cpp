@@ -331,10 +331,11 @@ bool menuLess(QMenu* a, QMenu* b)
     return a->title() < b->title();
 }
 
+
 QMenu* NativeAppConfigType::launcherSuggestions()
 {
 
-    QMenu* ret = new QMenu(i18n("Project Executables2"));
+    QMenu* ret = new QMenu(i18n("Embedded Binary"));
 
     KDevelop::ProjectModel* model = KDevelop::ICore::self()->projectController()->projectModel();
     QList<KDevelop::IProject*> projects = KDevelop::ICore::self()->projectController()->projects();
