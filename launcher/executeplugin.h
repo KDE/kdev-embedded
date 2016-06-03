@@ -25,21 +25,21 @@
 #include <interfaces/iplugin.h>
 #include <QtCore/QVariant>
 #include <QtCore/QProcess>
-#include "iexecuteplugin2.h"
+#include "iexecuteplugin.h"
 
 class QUrl;
 class KJob;
 
 class NativeAppConfigType;
 
-class ExecutePlugin2 : public KDevelop::IPlugin, public IExecutePlugin2
+class ExecutePlugin : public KDevelop::IPlugin, public IExecutePlugin
 {
     Q_OBJECT
-    Q_INTERFACES( IExecutePlugin2 )
+    Q_INTERFACES( IExecutePlugin )
 
   public:
-    explicit ExecutePlugin2(QObject *parent, const QVariantList & = QVariantList() );
-    ~ExecutePlugin2() override;
+    explicit ExecutePlugin(QObject *parent, const QVariantList & = QVariantList() );
+    ~ExecutePlugin() override;
 
     static QString _nativeAppConfigTypeId;
     static QString workingDirEntry;

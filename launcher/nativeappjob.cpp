@@ -36,7 +36,7 @@
 #include <interfaces/iplugincontroller.h>
 #include <project/projectmodel.h>
 
-#include "iexecuteplugin2.h"
+#include "iexecuteplugin.h"
 #include "debug.h"
 
 using namespace KDevelop;
@@ -47,7 +47,7 @@ NativeAppJob::NativeAppJob(QObject* parent, KDevelop::ILaunchConfiguration* cfg)
 {
     setCapabilities(Killable);
 
-    IExecutePlugin2* iface = KDevelop::ICore::self()->pluginController()->pluginForExtension(QStringLiteral("org.kdevelop.IExecutePlugin2"), QStringLiteral("kdevexecute2"))->extension<IExecutePlugin2>();
+    IExecutePlugin* iface = KDevelop::ICore::self()->pluginController()->pluginForExtension(QStringLiteral("org.kdevelop.IExecutePlugin"), QStringLiteral("kdevembedded-launcher"))->extension<IExecutePlugin>();
     Q_ASSERT(iface);
 
     KDevelop::EnvironmentGroupList l(KSharedConfig::openConfig());

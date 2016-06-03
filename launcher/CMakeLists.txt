@@ -1,4 +1,4 @@
-add_definitions(-DTRANSLATION_DOMAIN=\"kdevexecute2\")
+add_definitions(-DTRANSLATION_DOMAIN=\"kdevembedded-launcher\")
 
 ########### next target ###############
 set(kdevexecute_PART_UIS
@@ -14,9 +14,9 @@ set(kdevexecute_PART_SRCS
 
 ki18n_wrap_ui( kdevexecute_PART_SRCS ${kdevexecute_PART_UIS} )
 
-kdevplatform_add_plugin(kdevexecute2 JSON launcher/kdevexecute2.json SOURCES ${kdevexecute_PART_SRCS})
+kdevplatform_add_plugin(kdevembedded-launcher JSON launcher/kdevembedded-launcher.json SOURCES ${kdevexecute_PART_SRCS})
 
-target_link_libraries(kdevexecute2
+target_link_libraries(kdevembedded-launcher
     #KF5::KCMUtils
     KDev::Interfaces
     KDev::Util
@@ -27,4 +27,4 @@ target_link_libraries(kdevexecute2
 
 ########### install files ###############
 
-install(FILES launcher/iexecuteplugin2.h DESTINATION ${DATA_INSTALL_DIR}/kdevembedded/launcher COMPONENT Devel)
+install(FILES launcher/iexecuteplugin.h DESTINATION ${DATA_INSTALL_DIR}/kdevembedded/launcher COMPONENT Devel)

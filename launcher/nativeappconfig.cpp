@@ -72,9 +72,9 @@ void NativeAppConfigPage::loadFromConfiguration(const KConfigGroup& cfg, KDevelo
 {
     bool b = blockSignals( true );
     projectTarget->setBaseItem( project ? project->projectItem() : 0, true);
-    projectTarget->setCurrentItemPath( cfg.readEntry( ExecutePlugin2::projectTargetEntry, QStringList() ) );
+    projectTarget->setCurrentItemPath( cfg.readEntry( ExecutePlugin::projectTargetEntry, QStringList() ) );
 
-    QUrl exe = cfg.readEntry( ExecutePlugin2::executableEntry, QUrl());
+    QUrl exe = cfg.readEntry( ExecutePlugin::executableEntry, QUrl());
     if( !exe.isEmpty() || project ){
         executablePath->setUrl( !exe.isEmpty() ? exe : project->path().toUrl() );
     }else{
@@ -87,14 +87,14 @@ void NativeAppConfigPage::loadFromConfiguration(const KConfigGroup& cfg, KDevelo
     //executablePath->setFilter("application/x-executable");
 
     executableRadio->setChecked( true );
-    if ( !cfg.readEntry( ExecutePlugin2::isExecutableEntry, false ) && projectTarget->count() ){
+    if ( !cfg.readEntry( ExecutePlugin::isExecutableEntry, false ) && projectTarget->count() ){
         projectTargetRadio->setChecked( true );
     }
 
     arguments->setClearButtonEnabled( true );
-    arguments->setText( cfg.readEntry( ExecutePlugin2::argumentsEntry, "" ) );
-    workingDirectory->setUrl( cfg.readEntry( ExecutePlugin2::workingDirEntry, QUrl() ) );
-    terminal->setEditText( cfg.readEntry( ExecutePlugin2::terminalEntry, terminal->itemText(0) ) );
+    arguments->setText( cfg.readEntry( ExecutePlugin::argumentsEntry, "" ) );
+    workingDirectory->setUrl( cfg.readEntry( ExecutePlugin::workingDirEntry, QUrl() ) );
+    terminal->setEditText( cfg.readEntry( ExecutePlugin::terminalEntry, terminal->itemText(0) ) );
     QStringList strDeps;
     blockSignals( b );
 }
@@ -167,14 +167,14 @@ void NativeAppConfigPage::removeDep()
 void NativeAppConfigPage::saveToConfiguration( KConfigGroup cfg, KDevelop::IProject* project ) const
 {
     Q_UNUSED( project );
-    cfg.writeEntry( ExecutePlugin2::isExecutableEntry, executableRadio->isChecked() );
-    cfg.writeEntry( ExecutePlugin2::executableEntry, executablePath->url() );
-    cfg.writeEntry( ExecutePlugin2::projectTargetEntry, projectTarget->currentItemPath() );
-    cfg.writeEntry( ExecutePlugin2::argumentsEntry, arguments->text() );
-    cfg.writeEntry( ExecutePlugin2::workingDirEntry, workingDirectory->url() );
-    cfg.writeEntry( ExecutePlugin2::terminalEntry, terminal->currentText() );
+    cfg.writeEntry( ExecutePlugin::isExecutableEntry, executableRadio->isChecked() );
+    cfg.writeEntry( ExecutePlugin::executableEntry, executablePath->url() );
+    cfg.writeEntry( ExecutePlugin::projectTargetEntry, projectTarget->currentItemPath() );
+    cfg.writeEntry( ExecutePlugin::argumentsEntry, arguments->text() );
+    cfg.writeEntry( ExecutePlugin::workingDirEntry, workingDirectory->url() );
+    cfg.writeEntry( ExecutePlugin::terminalEntry, terminal->currentText() );
     QVariantList deps;
-    cfg.writeEntry( ExecutePlugin2::dependencyEntry, KDevelop::qvariantToString( QVariant( deps ) ) );
+    cfg.writeEntry( ExecutePlugin::dependencyEntry, KDevelop::qvariantToString( QVariant( deps ) ) );
 }
 
 QString NativeAppConfigPage::title() const
@@ -215,7 +215,7 @@ KJob* NativeAppLauncher::start(const QString& launchMode, KDevelop::ILaunchConfi
     }
     if( launchMode == QLatin1String("execute") )
     {
-        IExecutePlugin2* iface = KDevelop::ICore::self()->pluginController()->pluginForExtension(QStringLiteral("org.kdevelop.IExecutePlugin2"), QStringLiteral("kdevexecute2"))->extension<IExecutePlugin2>();
+        IExecutePlugin* iface = KDevelop::ICore::self()->pluginController()->pluginForExtension(QStringLiteral("org.kdevelop.IExecutePlugin"), QStringLiteral("kdevembedded-launcher"))->extension<IExecutePlugin>();
         Q_ASSERT(iface);
         KJob* depjob = iface->dependencyJob( cfg );
         QList<KJob*> l;
@@ -269,7 +269,7 @@ QList<KDevelop::LaunchConfigurationPageFactory*> NativeAppConfigType::configPage
 
 QString NativeAppConfigType::id() const
 {
-    return ExecutePlugin2::_nativeAppConfigTypeId;
+    return ExecutePlugin::_nativeAppConfigTypeId;
 }
 
 QIcon NativeAppConfigType::icon() const
@@ -292,22 +292,22 @@ bool NativeAppConfigType::canLaunch ( const QUrl& file ) const
 
 void NativeAppConfigType::configureLaunchFromItem ( KConfigGroup cfg, KDevelop::ProjectBaseItem* item ) const
 {
-    cfg.writeEntry( ExecutePlugin2::isExecutableEntry, false );
+    cfg.writeEntry( ExecutePlugin::isExecutableEntry, false );
     KDevelop::ProjectModel* model = KDevelop::ICore::self()->projectController()->projectModel();
-    cfg.writeEntry( ExecutePlugin2::projectTargetEntry, model->pathFromIndex( model->indexFromItem( item ) ) );
-    cfg.writeEntry( ExecutePlugin2::workingDirEntry, item->executable()->builtUrl().adjusted(QUrl::RemoveFilename) );
+    cfg.writeEntry( ExecutePlugin::projectTargetEntry, model->pathFromIndex( model->indexFromItem( item ) ) );
+    cfg.writeEntry( ExecutePlugin::workingDirEntry, item->executable()->builtUrl().adjusted(QUrl::RemoveFilename) );
     cfg.sync();
 }
 
 void NativeAppConfigType::configureLaunchFromCmdLineArguments ( KConfigGroup cfg, const QStringList& args ) const
 {
-    cfg.writeEntry( ExecutePlugin2::isExecutableEntry, true );
+    cfg.writeEntry( ExecutePlugin::isExecutableEntry, true );
     Q_ASSERT(QFile::exists(args.first()));
 //  TODO: we probably want to flexibilize, but at least we won't be accepting wrong values anymore
-    cfg.writeEntry( ExecutePlugin2::executableEntry, QUrl::fromLocalFile(args.first()) );
+    cfg.writeEntry( ExecutePlugin::executableEntry, QUrl::fromLocalFile(args.first()) );
     QStringList a(args);
     a.removeFirst();
-    cfg.writeEntry( ExecutePlugin2::argumentsEntry, KShell::joinArgs(a) );
+    cfg.writeEntry( ExecutePlugin::argumentsEntry, KShell::joinArgs(a) );
     cfg.sync();
 }
 
@@ -405,9 +405,9 @@ void NativeAppConfigType::suggestionTriggered()
 
         QStringList splitPath = model->pathFromIndex(pitem->index());
 //         QString path = KDevelop::joinWithEscaping(splitPath,'/','\\');
-        cfg.writeEntry( ExecutePlugin2::projectTargetEntry, splitPath );
-        cfg.writeEntry( ExecutePlugin2::dependencyEntry, KDevelop::qvariantToString( QVariantList() << splitPath ) );
-        cfg.writeEntry( ExecutePlugin2::dependencyActionEntry, "Build" );
+        cfg.writeEntry( ExecutePlugin::projectTargetEntry, splitPath );
+        cfg.writeEntry( ExecutePlugin::dependencyEntry, KDevelop::qvariantToString( QVariantList() << splitPath ) );
+        cfg.writeEntry( ExecutePlugin::dependencyActionEntry, "Build" );
         cfg.sync();
 
         emit signalAddLaunchConfiguration(config);

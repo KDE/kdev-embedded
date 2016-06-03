@@ -18,8 +18,8 @@
  * 02110-1301, USA.
  */
 
-#ifndef KDEVPLATFORM_PLUGIN_IExecutePlugin2_H
-#define KDEVPLATFORM_PLUGIN_IExecutePlugin2_H
+#ifndef KDEVPLATFORM_PLUGIN_IExecutePlugin_H
+#define KDEVPLATFORM_PLUGIN_IExecutePlugin_H
 
 #include <QtCore/QString>
 
@@ -36,10 +36,10 @@ class QStringList;
 @author Andreas Pakulat
 */
 
-class IExecutePlugin2
+class IExecutePlugin
 {
 public:
-    virtual ~IExecutePlugin2() {}
+    virtual ~IExecutePlugin() {}
 
     virtual QUrl executable( KDevelop::ILaunchConfiguration* config, QString& error) const = 0;
     virtual QStringList arguments( KDevelop::ILaunchConfiguration* config, QString& error) const = 0;
@@ -51,7 +51,7 @@ public:
     virtual QString nativeAppConfigTypeId() const = 0;
 };
 
-Q_DECLARE_INTERFACE( IExecutePlugin2, "org.kdevelop.IExecutePlugin2" )
+Q_DECLARE_INTERFACE( IExecutePlugin, "org.kdevelop.IExecutePlugin" )
 
 #endif
 
