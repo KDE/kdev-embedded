@@ -94,7 +94,7 @@ void NativeAppConfigPage::loadFromConfiguration(const KConfigGroup& cfg, KDevelo
     arguments->setClearButtonEnabled( true );
     arguments->setText( cfg.readEntry( ExecutePlugin::argumentsEntry, "" ) );
     workingDirectory->setUrl( cfg.readEntry( ExecutePlugin::workingDirEntry, QUrl() ) );
-    terminal->setEditText( cfg.readEntry( ExecutePlugin::terminalEntry, terminal->itemText(0) ) );
+    //terminal->setEditText( cfg.readEntry( ExecutePlugin::terminalEntry, terminal->itemText(0) ) );
     QStringList strDeps;
     blockSignals( b );
 }
@@ -117,7 +117,7 @@ NativeAppConfigPage::NativeAppConfigPage( QWidget* parent )
     connect( arguments, &QLineEdit::textEdited, this, &NativeAppConfigPage::changed );
     connect( workingDirectory, &KUrlRequester::urlSelected, this, &NativeAppConfigPage::changed );
     connect( workingDirectory->lineEdit(), &KLineEdit::textEdited, this, &NativeAppConfigPage::changed );
-    connect( terminal, static_cast<void(KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &NativeAppConfigPage::changed );
+    //connect( terminal, static_cast<void(KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &NativeAppConfigPage::changed );
 }
 
 
@@ -172,7 +172,7 @@ void NativeAppConfigPage::saveToConfiguration( KConfigGroup cfg, KDevelop::IProj
     cfg.writeEntry( ExecutePlugin::projectTargetEntry, projectTarget->currentItemPath() );
     cfg.writeEntry( ExecutePlugin::argumentsEntry, arguments->text() );
     cfg.writeEntry( ExecutePlugin::workingDirEntry, workingDirectory->url() );
-    cfg.writeEntry( ExecutePlugin::terminalEntry, terminal->currentText() );
+    //cfg.writeEntry( ExecutePlugin::terminalEntry, terminal->currentText() );
     QVariantList deps;
     cfg.writeEntry( ExecutePlugin::dependencyEntry, KDevelop::qvariantToString( QVariant( deps ) ) );
 }
@@ -413,4 +413,3 @@ void NativeAppConfigType::suggestionTriggered()
         emit signalAddLaunchConfiguration(config);
     }
 }
-
