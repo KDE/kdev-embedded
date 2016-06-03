@@ -101,14 +101,14 @@
      </property>
      <layout class="QFormLayout" name="formLayout">
       <item row="0" column="0">
-       <widget class="QLabel" name="label_6">
+       <widget class="QLabel" name="presetsLabel">
         <property name="text">
          <string>Presets:</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QComboBox" name="comboBox">
+       <widget class="QComboBox" name="presetsCombo">
         <item>
          <property name="text">
           <string>Arduino</string>
@@ -127,14 +127,14 @@
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QLabel" name="label_9">
+       <widget class="QLabel" name="mcuLabel">
         <property name="text">
          <string>MCU:</string>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QComboBox" name="comboBox_2">
+       <widget class="QComboBox" name="mcuCombo">
         <item>
          <property name="text">
           <string>atmega2560</string>
@@ -143,14 +143,14 @@
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QLabel" name="label_10">
+       <widget class="QLabel" name="freqLabel">
         <property name="text">
          <string>Freq:</string>
         </property>
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QComboBox" name="comboBox_3">
+       <widget class="QComboBox" name="freqCombo">
         <item>
          <property name="text">
           <string>16Hz</string>
@@ -159,14 +159,14 @@
        </widget>
       </item>
       <item row="3" column="0">
-       <widget class="QLabel" name="label_11">
+       <widget class="QLabel" name="portLabel">
         <property name="text">
          <string>Port:</string>
         </property>
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QComboBox" name="comboBox_4">
+       <widget class="QComboBox" name="portCombo">
         <item>
          <property name="text">
           <string>/dev/ttyUSB0</string>
@@ -175,9 +175,9 @@
        </widget>
       </item>
       <item row="4" column="0">
-       <widget class="QLabel" name="label_3">
+       <widget class="QLabel" name="argumentsLabel">
         <property name="text">
-         <string>&amp;Arguments:</string>
+         <string>Ar&amp;guments:</string>
         </property>
         <property name="buddy">
          <cstring>arguments</cstring>
@@ -198,9 +198,9 @@
        </widget>
       </item>
       <item row="5" column="0">
-       <widget class="QLabel" name="label_4">
+       <widget class="QLabel" name="workdirLabel">
         <property name="text">
-         <string>Wor&amp;king Directory:</string>
+         <string>Work&amp;ing Directory:</string>
         </property>
         <property name="buddy">
          <cstring>workingDirectory</cstring>
@@ -218,16 +218,16 @@
        </widget>
       </item>
       <item row="6" column="0">
-       <widget class="QLabel" name="label_5">
+       <widget class="QLabel" name="commandLabel">
         <property name="text">
-         <string>Co&amp;mmand:</string>
+         <string>Command:</string>
         </property>
        </widget>
       </item>
       <item row="6" column="1">
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="KComboBox" name="terminal">
+         <widget class="KComboBox" name="commandBox">
           <property name="enabled">
            <bool>true</bool>
           </property>
