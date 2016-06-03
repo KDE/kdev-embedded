@@ -8,7 +8,7 @@
         "Category": "Core",
         "Description": "This plugin allows running of programs in embedded devices.",
         "Icon": "system-run",
-        "Id": "kdevexecute2",
+        "Id": "kdevembedded-launcher",
         "License": "GPL",
         "Name": "Embedded Launcher",
         "ServiceTypes": [
@@ -17,7 +17,7 @@
     },
     "X-KDevelop-Category": "Global",
     "X-KDevelop-Interfaces": [
-        "org.kdevelop.IExecutePlugin2"
+        "org.kdevelop.IExecutePlugin"
     ],
     "X-KDevelop-Mode": "NoGUI"
 }
