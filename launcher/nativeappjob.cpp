@@ -144,3 +144,15 @@ void NativeAppJob::start()
 
     OutputExecuteJob::start();
 }
+
+void NativeAppJob::output(const QStringList& l )
+{
+    if (KDevelop::OutputModel* m = model()) {
+        m->appendLines( l );
+    }
+}
+
+KDevelop::OutputModel* NativeAppJob::model()
+{
+    return dynamic_cast<KDevelop::OutputModel*>( KDevelop::OutputJob::model() );
+}

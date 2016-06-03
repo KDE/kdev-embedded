@@ -42,6 +42,9 @@ public:
 
 private:
     QString m_cfgname;
+
+    void output(const QStringList& l );
+    KDevelop::OutputModel* model();
 };
 
 #endif
