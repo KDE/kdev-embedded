@@ -120,15 +120,6 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage( QWidget* parent )
     //connect( terminal, static_cast<void(KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &EmbeddedLauncherConfigPage::changed );
 }
 
-
-void EmbeddedLauncherConfigPage::depEdited( const QString& str )
-{
-}
-
-void EmbeddedLauncherConfigPage::activateDeps( int idx )
-{
-}
-
 void EmbeddedLauncherConfigPage::checkActions( const QItemSelection& selected, const QItemSelection& unselected )
 {
     Q_UNUSED( unselected );
@@ -144,23 +135,7 @@ void EmbeddedLauncherConfigPage::checkActions( const QItemSelection& selected, c
     }
 }
 
-void EmbeddedLauncherConfigPage::moveDependencyDown()
-{
-}
-
-void EmbeddedLauncherConfigPage::moveDependencyUp()
-{
-}
-
-void EmbeddedLauncherConfigPage::addDep()
-{
-}
-
 void EmbeddedLauncherConfigPage::selectItemDialog()
-{
-}
-
-void EmbeddedLauncherConfigPage::removeDep()
 {
 }
 
