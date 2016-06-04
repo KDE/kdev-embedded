@@ -24,7 +24,7 @@
 #include <interfaces/ilauncher.h>
 #include <interfaces/ilaunchmode.h>
 
-#include "ui_nativeappconfig.h"
+#include "ui_embeddedlauncher.h"
 
 //TODO: Split the page into two, one concerning executable/arguments/behaviour the other for dependencies
 
