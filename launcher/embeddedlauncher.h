@@ -29,11 +29,11 @@
 
 //TODO: Split the page into two, one concerning executable/arguments/behaviour the other for dependencies
 
-class NativeAppConfigPage : public KDevelop::LaunchConfigurationPage, Ui::NativeAppPage
+class EmbeddedLauncherConfigPage : public KDevelop::LaunchConfigurationPage, Ui::NativeAppPage
 {
 Q_OBJECT
 public:
-    explicit NativeAppConfigPage( QWidget* parent );
+    explicit EmbeddedLauncherConfigPage( QWidget* parent );
     void loadFromConfiguration( const KConfigGroup& cfg, KDevelop::IProject* project = nullptr ) override;
     void saveToConfiguration( KConfigGroup cfg, KDevelop::IProject* project = nullptr ) const override;
     QString title() const override;
@@ -49,10 +49,10 @@ private slots:
     void selectItemDialog();
 };
 
-class NativeAppLauncher : public KDevelop::ILauncher
+class EmbeddedLauncher : public KDevelop::ILauncher
 {
 public:
-    NativeAppLauncher();
+    EmbeddedLauncher();
     QList< KDevelop::LaunchConfigurationPageFactory* > configPages() const override;
     QString description() const override;
     QString id() override;

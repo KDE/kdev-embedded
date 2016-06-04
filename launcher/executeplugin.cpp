@@ -38,8 +38,8 @@
 #include <interfaces/iuicontroller.h>
 #include <util/environmentgrouplist.h>
 
-#include "nativeappconfig.h"
 #include "debug.h"
+#include "embeddedlauncher.h"
 #include <project/projectmodel.h>
 #include <project/builderjob.h>
 #include <util/kdevstringhandler.h>
@@ -67,7 +67,7 @@ ExecutePlugin::ExecutePlugin(QObject *parent, const QVariantList&)
 {
     KDEV_USE_EXTENSION_INTERFACE( IExecutePlugin)
     m_configType = new NativeAppConfigType();
-    m_configType->addLauncher( new NativeAppLauncher() );
+    m_configType->addLauncher( new EmbeddedLauncher() );
     qCDebug(PLUGIN_EXECUTE) << "adding native app launch config";
     core()->runController()->addConfigurationType( m_configType );
 }

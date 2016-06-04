@@ -17,7 +17,7 @@
     Boston, MA 02110-1301, USA.
 */
 
-#include "nativeappjob.h"
+#include "launcherjob.h"
 
 #include <QDebug>
 #include <QFileInfo>
@@ -41,7 +41,7 @@
 
 using namespace KDevelop;
 
-NativeAppJob::NativeAppJob(QObject* parent, KDevelop::ILaunchConfiguration* cfg)
+LauncherJob::LauncherJob(QObject* parent, KDevelop::ILaunchConfiguration* cfg)
     : KDevelop::OutputExecuteJob( parent )
     , m_cfgname(cfg->name())
 {
@@ -119,22 +119,22 @@ NativeAppJob::NativeAppJob(QObject* parent, KDevelop::ILaunchConfiguration* cfg)
     setJobName(cfg->name());
 }
 
-NativeAppJob* findNativeJob(KJob* j)
+LauncherJob* findNativeJob(KJob* j)
 {
-    NativeAppJob* job = qobject_cast<NativeAppJob*>(j);
+    LauncherJob* job = qobject_cast<LauncherJob*>(j);
     if (!job) {
-        const QList<NativeAppJob*> jobs = j->findChildren<NativeAppJob*>();
+        const QList<LauncherJob*> jobs = j->findChildren<LauncherJob*>();
         if (!jobs.isEmpty())
             job = jobs.first();
     }
     return job;
 }
 
-void NativeAppJob::start()
+void LauncherJob::start()
 {
     // we kill any execution of the configuration
     foreach(KJob* j, ICore::self()->runController()->currentJobs()) {
-        NativeAppJob* job = findNativeJob(j);
+        LauncherJob* job = findNativeJob(j);
         if (job && job != this && job->m_cfgname == m_cfgname) {
             QMessageBox::StandardButton button = QMessageBox::question(nullptr, i18n("Job already running"), i18n("'%1' is already being executed. Should we kill the previous instance?", m_cfgname));
             if (button != QMessageBox::No)
@@ -145,14 +145,14 @@ void NativeAppJob::start()
     OutputExecuteJob::start();
 }
 
-void NativeAppJob::output(const QStringList& l )
+void LauncherJob::output(const QStringList& l )
 {
     if (KDevelop::OutputModel* m = model()) {
         m->appendLines( l );
     }
 }
 
-KDevelop::OutputModel* NativeAppJob::model()
+KDevelop::OutputModel* LauncherJob::model()
 {
     return dynamic_cast<KDevelop::OutputModel*>( KDevelop::OutputJob::model() );
 }

@@ -18,7 +18,7 @@
     Boston, MA 02110-1301, USA.
 */
 
-#include "nativeappconfig.h"
+#include "embeddedlauncher.h"
 
 #include <interfaces/icore.h>
 #include <interfaces/iprojectcontroller.h>
@@ -26,7 +26,7 @@
 
 #include <project/projectmodel.h>
 
-#include "nativeappjob.h"
+#include "launcherjob.h"
 #include <interfaces/iproject.h>
 #include <project/interfaces/iprojectfilemanager.h>
 #include <project/interfaces/ibuildsystemmanager.h>
@@ -56,7 +56,7 @@
 
 using namespace KDevelop;
 
-QIcon NativeAppConfigPage::icon() const
+QIcon EmbeddedLauncherConfigPage::icon() const
 {
     return QIcon::fromTheme(QStringLiteral("system-run"));
 }
@@ -68,7 +68,7 @@ static KDevelop::ProjectBaseItem* itemForPath(const QStringList& path, KDevelop:
 
 //TODO: Make sure to auto-add the executable target to the dependencies when its used.
 
-void NativeAppConfigPage::loadFromConfiguration(const KConfigGroup& cfg, KDevelop::IProject* project )
+void EmbeddedLauncherConfigPage::loadFromConfiguration(const KConfigGroup& cfg, KDevelop::IProject* project )
 {
     bool b = blockSignals( true );
     projectTarget->setBaseItem( project ? project->projectItem() : 0, true);
@@ -99,7 +99,7 @@ void NativeAppConfigPage::loadFromConfiguration(const KConfigGroup& cfg, KDevelo
     blockSignals( b );
 }
 
-NativeAppConfigPage::NativeAppConfigPage( QWidget* parent )
+EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage( QWidget* parent )
     : LaunchConfigurationPage( parent )
 {
     setupUi(this);
@@ -109,27 +109,27 @@ NativeAppConfigPage::NativeAppConfigPage( QWidget* parent )
     workingDirectory->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
 
     //connect signals to changed signal
-    connect( projectTarget, static_cast<void(ProjectTargetsComboBox::*)(const QString&)>(&ProjectTargetsComboBox::currentIndexChanged), this, &NativeAppConfigPage::changed );
-    connect( projectTargetRadio, &QRadioButton::toggled, this, &NativeAppConfigPage::changed );
-    connect( executableRadio, &QRadioButton::toggled, this, &NativeAppConfigPage::changed );
-    connect( executablePath->lineEdit(), &KLineEdit::textEdited, this, &NativeAppConfigPage::changed );
-    connect( executablePath, &KUrlRequester::urlSelected, this, &NativeAppConfigPage::changed );
-    connect( arguments, &QLineEdit::textEdited, this, &NativeAppConfigPage::changed );
-    connect( workingDirectory, &KUrlRequester::urlSelected, this, &NativeAppConfigPage::changed );
-    connect( workingDirectory->lineEdit(), &KLineEdit::textEdited, this, &NativeAppConfigPage::changed );
-    //connect( terminal, static_cast<void(KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &NativeAppConfigPage::changed );
+    connect( projectTarget, static_cast<void(ProjectTargetsComboBox::*)(const QString&)>(&ProjectTargetsComboBox::currentIndexChanged), this, &EmbeddedLauncherConfigPage::changed );
+    connect( projectTargetRadio, &QRadioButton::toggled, this, &EmbeddedLauncherConfigPage::changed );
+    connect( executableRadio, &QRadioButton::toggled, this, &EmbeddedLauncherConfigPage::changed );
+    connect( executablePath->lineEdit(), &KLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed );
+    connect( executablePath, &KUrlRequester::urlSelected, this, &EmbeddedLauncherConfigPage::changed );
+    connect( arguments, &QLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed );
+    connect( workingDirectory, &KUrlRequester::urlSelected, this, &EmbeddedLauncherConfigPage::changed );
+    connect( workingDirectory->lineEdit(), &KLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed );
+    //connect( terminal, static_cast<void(KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &EmbeddedLauncherConfigPage::changed );
 }
 
 
-void NativeAppConfigPage::depEdited( const QString& str )
+void EmbeddedLauncherConfigPage::depEdited( const QString& str )
 {
 }
 
-void NativeAppConfigPage::activateDeps( int idx )
+void EmbeddedLauncherConfigPage::activateDeps( int idx )
 {
 }
 
-void NativeAppConfigPage::checkActions( const QItemSelection& selected, const QItemSelection& unselected )
+void EmbeddedLauncherConfigPage::checkActions( const QItemSelection& selected, const QItemSelection& unselected )
 {
     Q_UNUSED( unselected );
     qCDebug(PLUGIN_EXECUTE) << "checkActions";
@@ -144,27 +144,27 @@ void NativeAppConfigPage::checkActions( const QItemSelection& selected, const QI
     }
 }
 
-void NativeAppConfigPage::moveDependencyDown()
+void EmbeddedLauncherConfigPage::moveDependencyDown()
 {
 }
 
-void NativeAppConfigPage::moveDependencyUp()
+void EmbeddedLauncherConfigPage::moveDependencyUp()
 {
 }
 
-void NativeAppConfigPage::addDep()
+void EmbeddedLauncherConfigPage::addDep()
 {
 }
 
-void NativeAppConfigPage::selectItemDialog()
+void EmbeddedLauncherConfigPage::selectItemDialog()
 {
 }
 
-void NativeAppConfigPage::removeDep()
+void EmbeddedLauncherConfigPage::removeDep()
 {
 }
 
-void NativeAppConfigPage::saveToConfiguration( KConfigGroup cfg, KDevelop::IProject* project ) const
+void EmbeddedLauncherConfigPage::saveToConfiguration( KConfigGroup cfg, KDevelop::IProject* project ) const
 {
     Q_UNUSED( project );
     cfg.writeEntry( ExecutePlugin::isExecutableEntry, executableRadio->isChecked() );
@@ -177,36 +177,36 @@ void NativeAppConfigPage::saveToConfiguration( KConfigGroup cfg, KDevelop::IProj
     cfg.writeEntry( ExecutePlugin::dependencyEntry, KDevelop::qvariantToString( QVariant( deps ) ) );
 }
 
-QString NativeAppConfigPage::title() const
+QString EmbeddedLauncherConfigPage::title() const
 {
-    return i18n("Configure Native Application");
+    return i18n("Configure Embedded Application");
 }
 
-QList< KDevelop::LaunchConfigurationPageFactory* > NativeAppLauncher::configPages() const
+QList< KDevelop::LaunchConfigurationPageFactory* > EmbeddedLauncher::configPages() const
 {
     return QList<KDevelop::LaunchConfigurationPageFactory*>();
 }
 
-QString NativeAppLauncher::description() const
+QString EmbeddedLauncher::description() const
 {
-    return QStringLiteral("Executes Native Applications");
+    return QStringLiteral("Upload applications to embedded platforms");
 }
 
-QString NativeAppLauncher::id()
+QString EmbeddedLauncher::id()
 {
-    return QStringLiteral("nativeAppLauncher");
+    return QStringLiteral("EmbeddedLauncher");
 }
 
-QString NativeAppLauncher::name() const
+QString EmbeddedLauncher::name() const
 {
     return i18n("Embedded Launcher");
 }
 
-NativeAppLauncher::NativeAppLauncher()
+EmbeddedLauncher::EmbeddedLauncher()
 {
 }
 
-KJob* NativeAppLauncher::start(const QString& launchMode, KDevelop::ILaunchConfiguration* cfg)
+KJob* EmbeddedLauncher::start(const QString& launchMode, KDevelop::ILaunchConfiguration* cfg)
 {
     Q_ASSERT(cfg);
     if( !cfg )
@@ -223,7 +223,7 @@ KJob* NativeAppLauncher::start(const QString& launchMode, KDevelop::ILaunchConfi
         {
             l << depjob;
         }
-        l << new NativeAppJob( KDevelop::ICore::self()->runController(), cfg );
+        l << new LauncherJob( KDevelop::ICore::self()->runController(), cfg );
         return new KDevelop::ExecuteCompositeJob( KDevelop::ICore::self()->runController(), l );
 
     }
@@ -231,14 +231,14 @@ KJob* NativeAppLauncher::start(const QString& launchMode, KDevelop::ILaunchConfi
     return 0;
 }
 
-QStringList NativeAppLauncher::supportedModes() const
+QStringList EmbeddedLauncher::supportedModes() const
 {
     return QStringList() << QStringLiteral("execute2");
 }
 
 KDevelop::LaunchConfigurationPage* NativeAppPageFactory::createWidget(QWidget* parent)
 {
-    return new NativeAppConfigPage( parent );
+    return new EmbeddedLauncherConfigPage( parent );
 }
 
 NativeAppPageFactory::NativeAppPageFactory()

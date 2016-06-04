@@ -31,12 +31,12 @@ class ILaunchConfiguration;
 
 class KProcess;
 
-class NativeAppJob : public KDevelop::OutputExecuteJob
+class LauncherJob : public KDevelop::OutputExecuteJob
 {
     Q_OBJECT
 
 public:
-    NativeAppJob( QObject* parent, KDevelop::ILaunchConfiguration* cfg );
+    LauncherJob( QObject* parent, KDevelop::ILaunchConfiguration* cfg );
 
     void start() override;
 

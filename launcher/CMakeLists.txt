@@ -1,20 +1,20 @@
 add_definitions(-DTRANSLATION_DOMAIN=\"kdevembedded-launcher\")
 
 ########### next target ###############
-set(kdevexecute_PART_UIS
-    launcher/nativeappconfig.ui
+set(kdevembedded-launcher_PART_UIS
+    launcher/embeddedlauncher.ui
 )
 
-set(kdevexecute_PART_SRCS
+set(kdevembedded-launcher_PART_SRCS
     launcher/projecttargetscombobox.cpp
     launcher/executeplugin.cpp
-    launcher/nativeappconfig.cpp
-    launcher/nativeappjob.cpp
+    launcher/embeddedlauncher.cpp
+    launcher/launcherjob.cpp
 )
 
-ki18n_wrap_ui( kdevexecute_PART_SRCS ${kdevexecute_PART_UIS} )
+ki18n_wrap_ui( kdevembedded-launcher_PART_SRCS ${kdevembedded-launcher_PART_UIS} )
 
-kdevplatform_add_plugin(kdevembedded-launcher JSON launcher/kdevembedded-launcher.json SOURCES ${kdevexecute_PART_SRCS})
+kdevplatform_add_plugin(kdevembedded-launcher JSON launcher/kdevembedded-launcher.json SOURCES ${kdevembedded-launcher_PART_SRCS})
 
 target_link_libraries(kdevembedded-launcher
     #KF5::KCMUtils
