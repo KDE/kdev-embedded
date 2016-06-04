@@ -1,5 +1,4 @@
-#ifndef EMBEDDED_TOOLKIT_H
-#define EMBEDDED_TOOLKIT_H
+#pragma once
 
 // file to manage tools
 
@@ -29,5 +28,3 @@ public:
     static QString getBoardFile(const QString &path);
     static QString avrdudePath();
 };
-
-#endif // EMBEDDED_TOOLKIT_H

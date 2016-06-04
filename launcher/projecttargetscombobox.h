@@ -17,8 +17,7 @@
     Boston, MA 02110-1301, USA.
 */
 
-#ifndef KDEVPLATFORM_PLUGIN_PROJECTTARGETSCOMBOBOX_H
-#define KDEVPLATFORM_PLUGIN_PROJECTTARGETSCOMBOBOX_H
+#pragma once
 
 #include <QComboBox>
 #include <project/projectmodel.h>
@@ -39,5 +38,3 @@ class ProjectTargetsComboBox : public QComboBox
         QStringList currentItemPath() const;
 
 };
-
-#endif // KDEVPLATFORM_PLUGIN_PROJECTTARGETSCOMBOBOX_H

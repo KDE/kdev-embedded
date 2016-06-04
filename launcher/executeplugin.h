@@ -19,8 +19,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef KDEVPLATFORM_PLUGIN_EXECUTEPLUGIN_H
-#define KDEVPLATFORM_PLUGIN_EXECUTEPLUGIN_H
+#pragma once
 
 #include <interfaces/iplugin.h>
 #include <QtCore/QVariant>
@@ -67,7 +66,5 @@ class ExecutePlugin : public KDevelop::IPlugin, public IExecutePlugin
 
     NativeAppConfigType* m_configType;
 };
-
-#endif // KDEVPLATFORM_PLUGIN_EXECUTEPLUGIN_H
 
 // kate: space-indent on; indent-width 2; tab-width 4; replace-tabs on; auto-insert-doxygen on

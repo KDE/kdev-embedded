@@ -18,8 +18,7 @@
  * 02110-1301, USA.
  */
 
-#ifndef KDEVPLATFORM_PLUGIN_IExecutePlugin_H
-#define KDEVPLATFORM_PLUGIN_IExecutePlugin_H
+#pragma once
 
 #include <QtCore/QString>
 
@@ -52,6 +51,4 @@ public:
 };
 
 Q_DECLARE_INTERFACE( IExecutePlugin, "org.kdevelop.IExecutePlugin" )
-
-#endif
 

@@ -1,5 +1,4 @@
-#ifndef EMBEDDED_BOARD_H
-#define EMBEDDED_BOARD_H
+#pragma once
 
 #include <QString>
 #include <QStringList>
@@ -88,5 +87,3 @@ private:
     QString Freq2FreqHz(QString freq);
     bool m_listed;
 };
-
-#endif // EMBEDDED_BOARD_H

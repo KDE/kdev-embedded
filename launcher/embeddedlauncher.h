@@ -17,8 +17,7 @@
     Boston, MA 02110-1301, USA.
 */
 
-#ifndef KDEVPLATFORM_PLUGIN_NATIVEAPPCONFIGTYPE_H
-#define KDEVPLATFORM_PLUGIN_NATIVEAPPCONFIGTYPE_H
+#pragma once
 
 #include <interfaces/launchconfigurationtype.h>
 #include <interfaces/launchconfigurationpage.h>
@@ -97,5 +96,4 @@ private:
 public slots:
     void suggestionTriggered();
 };
-#endif
 

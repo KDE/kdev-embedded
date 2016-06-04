@@ -1,5 +1,4 @@
-#ifndef KDEVPLATFORM_PLUGIN_EMBEDDED_H
-#define KDEVPLATFORM_PLUGIN_EMBEDDED_H
+#pragma once
 
 #include <interfaces/iplugin.h>
 
@@ -25,6 +24,3 @@ public:
     void firstTimeWizardEvent();
     void boardSettingsEvent();
 };
-
-
-#endif // KDEVPLATFORM_PLUGIN_EMBEDDED_PLUGIN_H

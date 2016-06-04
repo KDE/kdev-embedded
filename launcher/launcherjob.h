@@ -17,8 +17,7 @@
     Boston, MA 02110-1301, USA.
 */
 
-#ifndef KDEVPLATFORM_PLUGIN_NATIVEAPPJOB_H
-#define KDEVPLATFORM_PLUGIN_NATIVEAPPJOB_H
+#pragma once
 
 #include <outputview/outputexecutejob.h>
 
@@ -46,5 +45,3 @@ private:
     void output(const QStringList& l );
     KDevelop::OutputModel* model();
 };
-
-#endif

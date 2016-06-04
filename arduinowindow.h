@@ -1,5 +1,4 @@
-#ifndef EMBEDDED_ARDUINOWINDOW_H
-#define EMBEDDED_ARDUINOWINDOW_H
+#pragma once
 
 // Configure Arduino board and interface
 
@@ -85,5 +84,3 @@ private:
     QDir m_boardImgsDir;
     Solid::DeviceNotifier *devices;
 };
-
-#endif // EMBEDDED_ARDUINOWINDOW_H

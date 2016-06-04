@@ -17,10 +17,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#ifndef KDEVPLATFORM_EXECUTE_DEBUG_H
-#define KDEVPLATFORM_EXECUTE_DEBUG_H
+#pragma once
 
 #include <QLoggingCategory>
 Q_DECLARE_LOGGING_CATEGORY(PLUGIN_EXECUTE)
-
-#endif
