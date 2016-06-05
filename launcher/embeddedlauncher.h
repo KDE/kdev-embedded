@@ -31,7 +31,40 @@ namespace Solid
 class DeviceNotifier;
 }
 
-//TODO: Split the page into two, one concerning executable/arguments/behaviour the other for dependencies
+class Board;
+
+struct ArduinoWindowModelStruct
+{
+    QString m_id;
+    QString m_name;
+};
+
+class ArduinoWindowModel : public QAbstractTableModel
+{
+    Q_OBJECT
+private:
+    QVector<ArduinoWindowModelStruct> m_db;
+
+public:
+    ArduinoWindowModel(QObject *parent);
+    enum {NAME, ID, COLUMNS};
+    void populate(const QVector<ArduinoWindowModelStruct> &tdb);
+
+    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+
+    ArduinoWindowModelStruct getData(int index);
+
+    int columnCount(const QModelIndex &parent) const
+    {
+        Q_UNUSED(parent)
+        return COLUMNS;
+    }
+    int rowCount(const QModelIndex &parent) const
+    {
+        Q_UNUSED(parent)
+        return m_db.count();
+    }
+};
 
 class EmbeddedLauncherConfigPage : public KDevelop::LaunchConfigurationPage, Ui::NativeAppPage
 {
@@ -44,10 +77,13 @@ public:
     QIcon icon() const override;
 private:
     void checkActions(const QItemSelection& , const QItemSelection&);
+    void boardComboChanged(const QString& text);
     void devicesChanged(const QString& udi);
     void selectItemDialog();
 
+    Board *m_board;
     QString m_interface;
+    ArduinoWindowModel *m_model;
     Solid::DeviceNotifier *m_devices;
 };
 

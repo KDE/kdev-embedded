@@ -39,6 +39,8 @@
 
 #include "executeplugin.h"
 #include "debug.h"
+#include "board.h"
+
 #include <util/kdevstringhandler.h>
 #include <util/environmentgrouplist.h>
 #include <project/projectitemlineedit.h>
@@ -59,7 +61,50 @@
 using namespace KDevelop;
 using namespace Solid;
 
-Q_LOGGING_CATEGORY(WlMsg, "Kdev.embedded.aw.msg");
+Q_LOGGING_CATEGORY(ElMsg, "Kdev.embedded.aw.msg");
+
+ArduinoWindowModel::ArduinoWindowModel(QObject *parent)
+    : QAbstractTableModel(parent)
+{
+}
+
+void ArduinoWindowModel::populate(const QVector<ArduinoWindowModelStruct> &tdb)
+{
+    beginResetModel();
+    m_db = tdb;
+    endResetModel();
+}
+
+QVariant ArduinoWindowModel::data(const QModelIndex& index, int role) const
+{
+    if (!index.isValid())
+    {
+        return QVariant();
+    }
+
+    if (role == Qt::DisplayRole)
+    {
+        if (index.column() == ID)
+        {
+            return m_db.at(index.row()).m_id;
+        }
+        else if (index.column() == NAME)
+        {
+            return m_db.at(index.row()).m_name;
+        }
+    }
+
+    return QVariant();
+}
+
+ArduinoWindowModelStruct ArduinoWindowModel::getData(int index)
+{
+    if (index > -1)
+    {
+        return m_db.at(index);
+    }
+    return ArduinoWindowModelStruct{QString(""), QString("")};
+}
 
 QIcon EmbeddedLauncherConfigPage::icon() const
 {
@@ -111,7 +156,8 @@ void EmbeddedLauncherConfigPage::loadFromConfiguration(const KConfigGroup& cfg, 
 
 EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
     : LaunchConfigurationPage(parent),
-      m_devices(new Solid::DeviceNotifier)
+      m_devices(new Solid::DeviceNotifier),
+      m_model(new ArduinoWindowModel(parent))
 {
     setupUi(this);
     //Setup data info for combobox
@@ -120,7 +166,21 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
     workingDirectory->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
 
     m_devices = Solid::DeviceNotifier::instance();
+    devicesChanged(QString());
 
+    Board::instance().update();
+
+    // Populate model
+    QVector<ArduinoWindowModelStruct> data;
+    Q_ASSERT(Board::instance().m_boardList.size() == Board::instance().m_boardNameList.size());
+    for (int i = 0; i < Board::instance().m_boardNameList.size(); i++)
+        data.push_back(ArduinoWindowModelStruct{Board::instance().m_boardList[i], Board::instance().m_boardNameList[i]});
+    m_model->populate(data);
+
+    // Start ComboBoxes
+    boardCombo->clear();
+    boardCombo->setModel(m_model);
+    //boardComboChanged(boardCombo->currentText());
     devicesChanged(QString());
 
     //connect signals to changed signal
@@ -140,13 +200,13 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
 void EmbeddedLauncherConfigPage::checkActions(const QItemSelection& selected, const QItemSelection& unselected)
 {
     Q_UNUSED(unselected);
-    qCDebug(WlMsg) << "checkActions";
+    qCDebug(ElMsg) << "checkActions";
     if (!selected.indexes().isEmpty())
     {
-        qCDebug(WlMsg) << "have selection";
+        qCDebug(ElMsg) << "have selection";
         Q_ASSERT(selected.indexes().count() == 1);
         QModelIndex idx = selected.indexes().at(0);
-        qCDebug(WlMsg) << "index" << idx;
+        qCDebug(ElMsg) << "index" << idx;
     }
     else
     {
@@ -192,7 +252,7 @@ QString EmbeddedLauncher::id()
 
 QString EmbeddedLauncher::name() const
 {
-    return i18n("Embedded Launcher");
+    return i18n("Embedded");
 }
 
 EmbeddedLauncher::EmbeddedLauncher()
@@ -251,7 +311,7 @@ NativeAppConfigType::~NativeAppConfigType()
 
 QString NativeAppConfigType::name() const
 {
-    return i18n("Embedded Launcher");
+    return i18n("Embedded");
 }
 
 
@@ -433,15 +493,15 @@ void EmbeddedLauncherConfigPage::devicesChanged(const QString& udi)
         {
             interfaceExist = true;
             interfaceCombo->addItem(device.product());
-            qCDebug(WlMsg) << "INTERFACE ############ INTERFACE";
-            qCDebug(WlMsg) << "Description\t:" << device.description();
-            qCDebug(WlMsg) << "Parent Udi\t:" << device.parentUdi();
-            qCDebug(WlMsg) << "Product\t:" << device.product();
-            qCDebug(WlMsg) << "Udi\t:" << device.udi();
-            qCDebug(WlMsg) << "Vendor\t:" << device.vendor();
-            qCDebug(WlMsg) << "Icon\t:" << device.icon();
-            qCDebug(WlMsg) << "Emblems\t:" << device.emblems();
-            qCDebug(WlMsg) << "Interface\t:" << device.udi().split("/").takeLast();
+            qCDebug(ElMsg) << "INTERFACE ############ INTERFACE";
+            qCDebug(ElMsg) << "Description\t:" << device.description();
+            qCDebug(ElMsg) << "Parent Udi\t:" << device.parentUdi();
+            qCDebug(ElMsg) << "Product\t:" << device.product();
+            qCDebug(ElMsg) << "Udi\t:" << device.udi();
+            qCDebug(ElMsg) << "Vendor\t:" << device.vendor();
+            qCDebug(ElMsg) << "Icon\t:" << device.icon();
+            qCDebug(ElMsg) << "Emblems\t:" << device.emblems();
+            qCDebug(ElMsg) << "Interface\t:" << device.udi().split("/").takeLast();
             m_interface = QString(device.udi().split("/").takeLast());
         }
     }
@@ -459,3 +519,57 @@ void EmbeddedLauncherConfigPage::devicesChanged(const QString& udi)
         interfaceLabel->setStyleSheet("color: rgb(0, 0, 0);");
     }
 }
+
+/*
+void EmbeddedLauncherConfigPage::boardComboChanged(const QString& text)
+{
+    Q_UNUSED(text);
+    //mcuFreqCombo->clear();
+    QString id = m_model->getData(boardCombo->currentIndex()).m_id;
+
+    QStringList mcus = Board::instance().m_boards[id].m_bMcu;
+    QStringList freqs = Board::instance().m_boards[id].m_freqHz;
+
+    QString freq;
+    int index = 0;
+    foreach (const auto& mcu, mcus)
+    {
+        if (mcus.size() == freqs.size())
+        {
+            freq = freqs[index];
+        }
+        else
+        {
+            freq = freqs[0];
+        }
+
+        //mcuFreqCombo->addItem(mcu + ", " + freq);
+        index += 1;
+    }
+    Board::instance().m_boards[id].printData();
+
+    // TODO: select image from board selection
+    QPixmap pix(QString("%1/%2.svg").arg(m_boardImgsDir.absolutePath(), id));
+    if (pix.isNull())
+    {
+        pix = QPixmap(m_boardImgsDir.absolutePath() + "/arduino.svg");
+    }
+
+    if (pix.width() > image->width() || pix.height() > image->height())
+    {
+        pix = pix.scaled(image->width(), image->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    }
+
+
+    m_pixBuffer = QPixmap(image->width(), image->height());
+    QPainter painter(&m_pixBuffer);
+    painter.fillRect(QRect(0, 0, image->width(), image->height()), palette().background());
+    painter.drawPixmap(m_pixBuffer.width() / 2 - pix.width() / 2, m_pixBuffer.height() / 2 - pix.height() / 2, pix);
+    painter.end();
+
+    //qCDebug(ElMsg) << "Baord image path" << id << pix;
+    //image->setPixmap(m_pixBuffer);
+
+    //mcuFreqComboChanged(0);
+}
+*/

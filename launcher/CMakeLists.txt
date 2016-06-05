@@ -10,6 +10,8 @@ set(kdevembedded-launcher_PART_SRCS
     launcher/executeplugin.cpp
     launcher/embeddedlauncher.cpp
     launcher/launcherjob.cpp
+    toolkit.cpp
+    board.cpp
 )
 
 ki18n_wrap_ui( kdevembedded-launcher_PART_SRCS ${kdevembedded-launcher_PART_UIS} )

@@ -10,7 +10,7 @@
         "Icon": "system-run",
         "Id": "kdevembedded-launcher",
         "License": "GPL",
-        "Name": "Embedded Launcher",
+        "Name": "Embedded",
         "ServiceTypes": [
             "KDevelop/Plugin"
         ]
