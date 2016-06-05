@@ -53,8 +53,13 @@
 #include <KLocalizedString>
 #include <KShell>
 
+#include <solid/device.h>
+#include <solid/devicenotifier.h>
 
 using namespace KDevelop;
+using namespace Solid;
+
+Q_LOGGING_CATEGORY(WlMsg, "Kdev.embedded.aw.msg");
 
 QIcon EmbeddedLauncherConfigPage::icon() const
 {
@@ -100,13 +105,18 @@ void EmbeddedLauncherConfigPage::loadFromConfiguration(const KConfigGroup& cfg, 
 }
 
 EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage( QWidget* parent )
-    : LaunchConfigurationPage( parent )
+    : LaunchConfigurationPage( parent ),
+    m_devices (new Solid::DeviceNotifier)
 {
     setupUi(this);
     //Setup data info for combobox
 
     //Set workingdirectory widget to ask for directories rather than files
     workingDirectory->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
+
+    m_devices = Solid::DeviceNotifier::instance();
+
+    devicesChanged(QString());
 
     //connect signals to changed signal
     connect( projectTarget, static_cast<void(ProjectTargetsComboBox::*)(const QString&)>(&ProjectTargetsComboBox::currentIndexChanged), this, &EmbeddedLauncherConfigPage::changed );
@@ -117,19 +127,21 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage( QWidget* parent )
     connect( arguments, &QLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed );
     connect( workingDirectory, &KUrlRequester::urlSelected, this, &EmbeddedLauncherConfigPage::changed );
     connect( workingDirectory->lineEdit(), &KLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed );
+    connect( m_devices, &Solid::DeviceNotifier::deviceAdded, this, &EmbeddedLauncherConfigPage::devicesChanged );
+    connect( m_devices, &Solid::DeviceNotifier::deviceRemoved, this, &EmbeddedLauncherConfigPage::devicesChanged );
     //connect( terminal, static_cast<void(KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &EmbeddedLauncherConfigPage::changed );
 }
 
 void EmbeddedLauncherConfigPage::checkActions( const QItemSelection& selected, const QItemSelection& unselected )
 {
     Q_UNUSED( unselected );
-    qCDebug(PLUGIN_EXECUTE) << "checkActions";
+    qCDebug(WlMsg) << "checkActions";
     if( !selected.indexes().isEmpty() )
     {
-        qCDebug(PLUGIN_EXECUTE) << "have selection";
+        qCDebug(WlMsg) << "have selection";
         Q_ASSERT( selected.indexes().count() == 1 );
         QModelIndex idx = selected.indexes().at( 0 );
-        qCDebug(PLUGIN_EXECUTE) << "index" << idx;
+        qCDebug(WlMsg) << "index" << idx;
     } else
     {
     }
@@ -387,5 +399,45 @@ void NativeAppConfigType::suggestionTriggered()
         cfg.sync();
 
         emit signalAddLaunchConfiguration(config);
+    }
+}
+
+void EmbeddedLauncherConfigPage::devicesChanged(const QString& udi)
+{
+    Q_UNUSED(udi);
+    interfaceCombo->clear();
+    auto devices = Solid::Device::allDevices();
+
+    bool interfaceExist = false;
+    foreach (const auto& device, devices)
+    {
+        if (device.product() != "" and device.udi().contains("tty"))
+        {
+            interfaceExist = true;
+            interfaceCombo->addItem(device.product());
+            qCDebug(WlMsg) << "INTERFACE ############ INTERFACE";
+            qCDebug(WlMsg) << "Description\t:" << device.description();
+            qCDebug(WlMsg) << "Parent Udi\t:" << device.parentUdi();
+            qCDebug(WlMsg) << "Product\t:" << device.product();
+            qCDebug(WlMsg) << "Udi\t:" << device.udi();
+            qCDebug(WlMsg) << "Vendor\t:" << device.vendor();
+            qCDebug(WlMsg) << "Icon\t:" << device.icon();
+            qCDebug(WlMsg) << "Emblems\t:" << device.emblems();
+            qCDebug(WlMsg) << "Interface\t:" << device.udi().split("/").takeLast();
+            m_interface = QString(device.udi().split("/").takeLast());
+        }
+    }
+
+    if (interfaceExist == false)
+    {
+        interfaceCombo->setEnabled(false);
+        interfaceCombo->addItem("Please connect one !");
+        interfaceLabel->setStyleSheet("color: rgb(255, 0, 0);");
+    }
+    else
+    {
+        interfaceCombo->setEnabled(true);
+        interfaceLabel->setText("Interface:");
+        interfaceLabel->setStyleSheet("color: rgb(0, 0, 0);");
     }
 }

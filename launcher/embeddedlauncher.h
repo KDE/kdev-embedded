@@ -26,6 +26,11 @@
 
 #include "ui_embeddedlauncher.h"
 
+namespace Solid
+{
+    class DeviceNotifier;
+}
+
 //TODO: Split the page into two, one concerning executable/arguments/behaviour the other for dependencies
 
 class EmbeddedLauncherConfigPage : public KDevelop::LaunchConfigurationPage, Ui::NativeAppPage
@@ -37,9 +42,13 @@ public:
     void saveToConfiguration( KConfigGroup cfg, KDevelop::IProject* project = nullptr ) const override;
     QString title() const override;
     QIcon icon() const override;
-private slots:
+private:
     void checkActions( const QItemSelection& , const QItemSelection& );
+    void devicesChanged(const QString& udi);
     void selectItemDialog();
+
+    QString m_interface;
+    Solid::DeviceNotifier *m_devices;
 };
 
 class EmbeddedLauncher : public KDevelop::ILauncher

@@ -17,7 +17,7 @@ ki18n_wrap_ui( kdevembedded-launcher_PART_SRCS ${kdevembedded-launcher_PART_UIS}
 kdevplatform_add_plugin(kdevembedded-launcher JSON launcher/kdevembedded-launcher.json SOURCES ${kdevembedded-launcher_PART_SRCS})
 
 target_link_libraries(kdevembedded-launcher
-    #KF5::KCMUtils
+    KF5::Solid
     KDev::Interfaces
     KDev::Util
     KDev::Project

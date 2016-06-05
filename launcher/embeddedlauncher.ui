@@ -20,7 +20,7 @@
       <item row="0" column="0">
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>Pro&amp;ject Target:</string>
+         <string>Project &amp;Target:</string>
         </property>
         <property name="buddy">
          <cstring>projectTargetRadio</cstring>
@@ -60,7 +60,7 @@
       <item row="1" column="0">
        <widget class="QLabel" name="label_2">
         <property name="text">
-         <string>E&amp;xecutable:</string>
+         <string>Exe&amp;cutable:</string>
         </property>
         <property name="buddy">
          <cstring>executableRadio</cstring>
@@ -159,14 +159,14 @@
        </widget>
       </item>
       <item row="3" column="0">
-       <widget class="QLabel" name="portLabel">
+       <widget class="QLabel" name="interfaceLabel">
         <property name="text">
-         <string>Port:</string>
+         <string>Interface:</string>
         </property>
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QComboBox" name="portCombo">
+       <widget class="QComboBox" name="interfaceCombo">
         <item>
          <property name="text">
           <string>/dev/ttyUSB0</string>
@@ -177,7 +177,7 @@
       <item row="4" column="0">
        <widget class="QLabel" name="argumentsLabel">
         <property name="text">
-         <string>Ar&amp;guments:</string>
+         <string>&amp;Arguments:</string>
         </property>
         <property name="buddy">
          <cstring>arguments</cstring>
@@ -200,7 +200,7 @@
       <item row="5" column="0">
        <widget class="QLabel" name="workdirLabel">
         <property name="text">
-         <string>Work&amp;ing Directory:</string>
+         <string>Wor&amp;king Directory:</string>
         </property>
         <property name="buddy">
          <cstring>workingDirectory</cstring>
