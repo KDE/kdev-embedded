@@ -35,13 +35,13 @@ class LauncherJob : public KDevelop::OutputExecuteJob
     Q_OBJECT
 
 public:
-    LauncherJob( QObject* parent, KDevelop::ILaunchConfiguration* cfg );
+    LauncherJob(QObject* parent, KDevelop::ILaunchConfiguration* cfg);
 
     void start() override;
 
 private:
     QString m_cfgname;
 
-    void output(const QStringList& l );
+    void output(const QStringList& l);
     KDevelop::OutputModel* model();
 };

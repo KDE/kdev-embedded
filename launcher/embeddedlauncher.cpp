@@ -73,40 +73,45 @@ static KDevelop::ProjectBaseItem* itemForPath(const QStringList& path, KDevelop:
 
 //TODO: Make sure to auto-add the executable target to the dependencies when its used.
 
-void EmbeddedLauncherConfigPage::loadFromConfiguration(const KConfigGroup& cfg, KDevelop::IProject* project )
+void EmbeddedLauncherConfigPage::loadFromConfiguration(const KConfigGroup& cfg, KDevelop::IProject* project)
 {
-    bool b = blockSignals( true );
-    projectTarget->setBaseItem( project ? project->projectItem() : 0, true);
-    projectTarget->setCurrentItemPath( cfg.readEntry( ExecutePlugin::projectTargetEntry, QStringList() ) );
+    bool b = blockSignals(true);
+    projectTarget->setBaseItem(project ? project->projectItem() : 0, true);
+    projectTarget->setCurrentItemPath(cfg.readEntry(ExecutePlugin::projectTargetEntry, QStringList()));
 
-    QUrl exe = cfg.readEntry( ExecutePlugin::executableEntry, QUrl());
-    if( !exe.isEmpty() || project ){
-        executablePath->setUrl( !exe.isEmpty() ? exe : project->path().toUrl() );
-    }else{
+    QUrl exe = cfg.readEntry(ExecutePlugin::executableEntry, QUrl());
+    if (!exe.isEmpty() || project)
+    {
+        executablePath->setUrl(!exe.isEmpty() ? exe : project->path().toUrl());
+    }
+    else
+    {
         KDevelop::IProjectController* pc = KDevelop::ICore::self()->projectController();
-        if( pc ){
-            executablePath->setUrl( pc->projects().isEmpty() ? QUrl() : pc->projects().at(0)->path().toUrl() );
+        if (pc)
+        {
+            executablePath->setUrl(pc->projects().isEmpty() ? QUrl() : pc->projects().at(0)->path().toUrl());
         }
     }
 
     //executablePath->setFilter("application/x-executable");
 
-    executableRadio->setChecked( true );
-    if ( !cfg.readEntry( ExecutePlugin::isExecutableEntry, false ) && projectTarget->count() ){
-        projectTargetRadio->setChecked( true );
+    executableRadio->setChecked(true);
+    if (!cfg.readEntry(ExecutePlugin::isExecutableEntry, false) && projectTarget->count())
+    {
+        projectTargetRadio->setChecked(true);
     }
 
-    arguments->setClearButtonEnabled( true );
-    arguments->setText( cfg.readEntry( ExecutePlugin::argumentsEntry, "" ) );
-    workingDirectory->setUrl( cfg.readEntry( ExecutePlugin::workingDirEntry, QUrl() ) );
+    arguments->setClearButtonEnabled(true);
+    arguments->setText(cfg.readEntry(ExecutePlugin::argumentsEntry, ""));
+    workingDirectory->setUrl(cfg.readEntry(ExecutePlugin::workingDirEntry, QUrl()));
     //terminal->setEditText( cfg.readEntry( ExecutePlugin::terminalEntry, terminal->itemText(0) ) );
     QStringList strDeps;
-    blockSignals( b );
+    blockSignals(b);
 }
 
-EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage( QWidget* parent )
-    : LaunchConfigurationPage( parent ),
-    m_devices (new Solid::DeviceNotifier)
+EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
+    : LaunchConfigurationPage(parent),
+      m_devices(new Solid::DeviceNotifier)
 {
     setupUi(this);
     //Setup data info for combobox
@@ -119,30 +124,31 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage( QWidget* parent )
     devicesChanged(QString());
 
     //connect signals to changed signal
-    connect( projectTarget, static_cast<void(ProjectTargetsComboBox::*)(const QString&)>(&ProjectTargetsComboBox::currentIndexChanged), this, &EmbeddedLauncherConfigPage::changed );
-    connect( projectTargetRadio, &QRadioButton::toggled, this, &EmbeddedLauncherConfigPage::changed );
-    connect( executableRadio, &QRadioButton::toggled, this, &EmbeddedLauncherConfigPage::changed );
-    connect( executablePath->lineEdit(), &KLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed );
-    connect( executablePath, &KUrlRequester::urlSelected, this, &EmbeddedLauncherConfigPage::changed );
-    connect( arguments, &QLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed );
-    connect( workingDirectory, &KUrlRequester::urlSelected, this, &EmbeddedLauncherConfigPage::changed );
-    connect( workingDirectory->lineEdit(), &KLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed );
-    connect( m_devices, &Solid::DeviceNotifier::deviceAdded, this, &EmbeddedLauncherConfigPage::devicesChanged );
-    connect( m_devices, &Solid::DeviceNotifier::deviceRemoved, this, &EmbeddedLauncherConfigPage::devicesChanged );
+    connect(projectTarget, static_cast<void(ProjectTargetsComboBox::*)(const QString&)>(&ProjectTargetsComboBox::currentIndexChanged), this, &EmbeddedLauncherConfigPage::changed);
+    connect(projectTargetRadio, &QRadioButton::toggled, this, &EmbeddedLauncherConfigPage::changed);
+    connect(executableRadio, &QRadioButton::toggled, this, &EmbeddedLauncherConfigPage::changed);
+    connect(executablePath->lineEdit(), &KLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed);
+    connect(executablePath, &KUrlRequester::urlSelected, this, &EmbeddedLauncherConfigPage::changed);
+    connect(arguments, &QLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed);
+    connect(workingDirectory, &KUrlRequester::urlSelected, this, &EmbeddedLauncherConfigPage::changed);
+    connect(workingDirectory->lineEdit(), &KLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed);
+    connect(m_devices, &Solid::DeviceNotifier::deviceAdded, this, &EmbeddedLauncherConfigPage::devicesChanged);
+    connect(m_devices, &Solid::DeviceNotifier::deviceRemoved, this, &EmbeddedLauncherConfigPage::devicesChanged);
     //connect( terminal, static_cast<void(KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &EmbeddedLauncherConfigPage::changed );
 }
 
-void EmbeddedLauncherConfigPage::checkActions( const QItemSelection& selected, const QItemSelection& unselected )
+void EmbeddedLauncherConfigPage::checkActions(const QItemSelection& selected, const QItemSelection& unselected)
 {
-    Q_UNUSED( unselected );
+    Q_UNUSED(unselected);
     qCDebug(WlMsg) << "checkActions";
-    if( !selected.indexes().isEmpty() )
+    if (!selected.indexes().isEmpty())
     {
         qCDebug(WlMsg) << "have selection";
-        Q_ASSERT( selected.indexes().count() == 1 );
-        QModelIndex idx = selected.indexes().at( 0 );
+        Q_ASSERT(selected.indexes().count() == 1);
+        QModelIndex idx = selected.indexes().at(0);
         qCDebug(WlMsg) << "index" << idx;
-    } else
+    }
+    else
     {
     }
 }
@@ -151,17 +157,17 @@ void EmbeddedLauncherConfigPage::selectItemDialog()
 {
 }
 
-void EmbeddedLauncherConfigPage::saveToConfiguration( KConfigGroup cfg, KDevelop::IProject* project ) const
+void EmbeddedLauncherConfigPage::saveToConfiguration(KConfigGroup cfg, KDevelop::IProject* project) const
 {
-    Q_UNUSED( project );
-    cfg.writeEntry( ExecutePlugin::isExecutableEntry, executableRadio->isChecked() );
-    cfg.writeEntry( ExecutePlugin::executableEntry, executablePath->url() );
-    cfg.writeEntry( ExecutePlugin::projectTargetEntry, projectTarget->currentItemPath() );
-    cfg.writeEntry( ExecutePlugin::argumentsEntry, arguments->text() );
-    cfg.writeEntry( ExecutePlugin::workingDirEntry, workingDirectory->url() );
+    Q_UNUSED(project);
+    cfg.writeEntry(ExecutePlugin::isExecutableEntry, executableRadio->isChecked());
+    cfg.writeEntry(ExecutePlugin::executableEntry, executablePath->url());
+    cfg.writeEntry(ExecutePlugin::projectTargetEntry, projectTarget->currentItemPath());
+    cfg.writeEntry(ExecutePlugin::argumentsEntry, arguments->text());
+    cfg.writeEntry(ExecutePlugin::workingDirEntry, workingDirectory->url());
     //cfg.writeEntry( ExecutePlugin::terminalEntry, terminal->currentText() );
     QVariantList deps;
-    cfg.writeEntry( ExecutePlugin::dependencyEntry, KDevelop::qvariantToString( QVariant( deps ) ) );
+    cfg.writeEntry(ExecutePlugin::dependencyEntry, KDevelop::qvariantToString(QVariant(deps)));
 }
 
 QString EmbeddedLauncherConfigPage::title() const
@@ -196,22 +202,22 @@ EmbeddedLauncher::EmbeddedLauncher()
 KJob* EmbeddedLauncher::start(const QString& launchMode, KDevelop::ILaunchConfiguration* cfg)
 {
     Q_ASSERT(cfg);
-    if( !cfg )
+    if (!cfg)
     {
         return 0;
     }
-    if( launchMode == QLatin1String("execute") )
+    if (launchMode == QLatin1String("execute"))
     {
         IExecutePlugin* iface = KDevelop::ICore::self()->pluginController()->pluginForExtension(QStringLiteral("org.kdevelop.IExecutePlugin"), QStringLiteral("kdevembedded-launcher"))->extension<IExecutePlugin>();
         Q_ASSERT(iface);
-        KJob* depjob = iface->dependencyJob( cfg );
+        KJob* depjob = iface->dependencyJob(cfg);
         QList<KJob*> l;
-        if( depjob )
+        if (depjob)
         {
             l << depjob;
         }
-        l << new LauncherJob( KDevelop::ICore::self()->runController(), cfg );
-        return new KDevelop::ExecuteCompositeJob( KDevelop::ICore::self()->runController(), l );
+        l << new LauncherJob(KDevelop::ICore::self()->runController(), cfg);
+        return new KDevelop::ExecuteCompositeJob(KDevelop::ICore::self()->runController(), l);
 
     }
     qWarning() << "Unknown launch mode " << launchMode << "for config:" << cfg->name();
@@ -225,7 +231,7 @@ QStringList EmbeddedLauncher::supportedModes() const
 
 KDevelop::LaunchConfigurationPage* NativeAppPageFactory::createWidget(QWidget* parent)
 {
-    return new EmbeddedLauncherConfigPage( parent );
+    return new EmbeddedLauncherConfigPage(parent);
 }
 
 NativeAppPageFactory::NativeAppPageFactory()
@@ -234,7 +240,7 @@ NativeAppPageFactory::NativeAppPageFactory()
 
 NativeAppConfigType::NativeAppConfigType()
 {
-    factoryList.append( new NativeAppPageFactory() );
+    factoryList.append(new NativeAppPageFactory());
 }
 
 NativeAppConfigType::~NativeAppConfigType()
@@ -264,44 +270,45 @@ QIcon NativeAppConfigType::icon() const
     return QIcon::fromTheme(QStringLiteral("application-x-executable"));
 }
 
-bool NativeAppConfigType::canLaunch ( KDevelop::ProjectBaseItem* item ) const
+bool NativeAppConfigType::canLaunch(KDevelop::ProjectBaseItem* item) const
 {
-    if( item->target() && item->target()->executable() ) {
-        return canLaunch( item->target()->executable()->builtUrl() );
+    if (item->target() && item->target()->executable())
+    {
+        return canLaunch(item->target()->executable()->builtUrl());
     }
     return false;
 }
 
-bool NativeAppConfigType::canLaunch ( const QUrl& file ) const
+bool NativeAppConfigType::canLaunch(const QUrl& file) const
 {
-    return ( file.isLocalFile() && QFileInfo( file.toLocalFile() ).isExecutable() );
+    return (file.isLocalFile() && QFileInfo(file.toLocalFile()).isExecutable());
 }
 
-void NativeAppConfigType::configureLaunchFromItem ( KConfigGroup cfg, KDevelop::ProjectBaseItem* item ) const
+void NativeAppConfigType::configureLaunchFromItem(KConfigGroup cfg, KDevelop::ProjectBaseItem* item) const
 {
-    cfg.writeEntry( ExecutePlugin::isExecutableEntry, false );
+    cfg.writeEntry(ExecutePlugin::isExecutableEntry, false);
     KDevelop::ProjectModel* model = KDevelop::ICore::self()->projectController()->projectModel();
-    cfg.writeEntry( ExecutePlugin::projectTargetEntry, model->pathFromIndex( model->indexFromItem( item ) ) );
-    cfg.writeEntry( ExecutePlugin::workingDirEntry, item->executable()->builtUrl().adjusted(QUrl::RemoveFilename) );
+    cfg.writeEntry(ExecutePlugin::projectTargetEntry, model->pathFromIndex(model->indexFromItem(item)));
+    cfg.writeEntry(ExecutePlugin::workingDirEntry, item->executable()->builtUrl().adjusted(QUrl::RemoveFilename));
     cfg.sync();
 }
 
-void NativeAppConfigType::configureLaunchFromCmdLineArguments ( KConfigGroup cfg, const QStringList& args ) const
+void NativeAppConfigType::configureLaunchFromCmdLineArguments(KConfigGroup cfg, const QStringList& args) const
 {
-    cfg.writeEntry( ExecutePlugin::isExecutableEntry, true );
+    cfg.writeEntry(ExecutePlugin::isExecutableEntry, true);
     Q_ASSERT(QFile::exists(args.first()));
 //  TODO: we probably want to flexibilize, but at least we won't be accepting wrong values anymore
-    cfg.writeEntry( ExecutePlugin::executableEntry, QUrl::fromLocalFile(args.first()) );
+    cfg.writeEntry(ExecutePlugin::executableEntry, QUrl::fromLocalFile(args.first()));
     QStringList a(args);
     a.removeFirst();
-    cfg.writeEntry( ExecutePlugin::argumentsEntry, KShell::joinArgs(a) );
+    cfg.writeEntry(ExecutePlugin::argumentsEntry, KShell::joinArgs(a));
     cfg.sync();
 }
 
 QList<KDevelop::ProjectTargetItem*> targetsInFolder(KDevelop::ProjectFolderItem* folder)
 {
     QList<KDevelop::ProjectTargetItem*> ret;
-    foreach(KDevelop::ProjectFolderItem* f, folder->folderList())
+    foreach (KDevelop::ProjectFolderItem* f, folder->folderList())
         ret += targetsInFolder(f);
 
     ret += folder->targetList();
@@ -327,15 +334,20 @@ QMenu* NativeAppConfigType::launcherSuggestions()
     KDevelop::ProjectModel* model = KDevelop::ICore::self()->projectController()->projectModel();
     QList<KDevelop::IProject*> projects = KDevelop::ICore::self()->projectController()->projects();
 
-    foreach(KDevelop::IProject* project, projects) {
-        if(project->projectFileManager()->features() & KDevelop::IProjectFileManager::Targets) {
+    foreach (KDevelop::IProject* project, projects)
+    {
+        if (project->projectFileManager()->features() & KDevelop::IProjectFileManager::Targets)
+        {
             QList<KDevelop::ProjectTargetItem*> targets=targetsInFolder(project->projectItem());
             QHash<KDevelop::ProjectBaseItem*, QList<QAction*> > targetsContainer;
             QMenu* projectMenu = ret->addMenu(QIcon::fromTheme(QStringLiteral("project-development")), project->name());
-            foreach(KDevelop::ProjectTargetItem* target, targets) {
-                if(target->executable()) {
+            foreach (KDevelop::ProjectTargetItem* target, targets)
+            {
+                if (target->executable())
+                {
                     QStringList path = model->pathFromIndex(target->index());
-                    if(!path.isEmpty()){
+                    if (!path.isEmpty())
+                    {
                         QAction* act = new QAction(projectMenu);
                         act->setData(KDevelop::joinWithEscaping(path, '/','\\'));
                         act->setProperty("name", target->text());
@@ -350,12 +362,17 @@ QMenu* NativeAppConfigType::launcherSuggestions()
 
             QList<QAction*> separateActions;
             QList<QMenu*> submenus;
-            foreach(KDevelop::ProjectBaseItem* folder, targetsContainer.keys()) {
+            foreach (KDevelop::ProjectBaseItem* folder, targetsContainer.keys())
+            {
                 QList<QAction*> actions = targetsContainer.value(folder);
-                if(actions.size()==1 || !folder->parent()) {
+                if (actions.size()==1 || !folder->parent())
+                {
                     separateActions += actions.first();
-                } else {
-                    foreach(QAction* a, actions) {
+                }
+                else
+                {
+                    foreach (QAction* a, actions)
+                    {
                         a->setText(a->property("name").toString());
                     }
                     QStringList path = model->pathFromIndex(folder->index());
@@ -368,7 +385,7 @@ QMenu* NativeAppConfigType::launcherSuggestions()
             }
             std::sort(separateActions.begin(), separateActions.end(), actionLess);
             std::sort(submenus.begin(), submenus.end(), menuLess);
-            foreach(QMenu* m, submenus)
+            foreach (QMenu* m, submenus)
                 projectMenu->addMenu(m);
             projectMenu->addActions(separateActions);
 
@@ -384,8 +401,9 @@ void NativeAppConfigType::suggestionTriggered()
     QAction* action = qobject_cast<QAction*>(sender());
     KDevelop::ProjectModel* model = KDevelop::ICore::self()->projectController()->projectModel();
     KDevelop::ProjectTargetItem* pitem = dynamic_cast<KDevelop::ProjectTargetItem*>(itemForPath(KDevelop::splitWithEscaping(action->data().toString(),'/', '\\'), model));
-    if(pitem) {
-        QPair<QString,QString> launcher = qMakePair( launchers().at( 0 )->supportedModes().at(0), launchers().at( 0 )->id() );
+    if (pitem)
+    {
+        QPair<QString,QString> launcher = qMakePair(launchers().at(0)->supportedModes().at(0), launchers().at(0)->id());
         KDevelop::IProject* p = pitem->project();
 
         KDevelop::ILaunchConfiguration* config = KDevelop::ICore::self()->runController()->createLaunchConfiguration(this, launcher, p, pitem->text());
@@ -393,9 +411,9 @@ void NativeAppConfigType::suggestionTriggered()
 
         QStringList splitPath = model->pathFromIndex(pitem->index());
 //         QString path = KDevelop::joinWithEscaping(splitPath,'/','\\');
-        cfg.writeEntry( ExecutePlugin::projectTargetEntry, splitPath );
-        cfg.writeEntry( ExecutePlugin::dependencyEntry, KDevelop::qvariantToString( QVariantList() << splitPath ) );
-        cfg.writeEntry( ExecutePlugin::dependencyActionEntry, "Build" );
+        cfg.writeEntry(ExecutePlugin::projectTargetEntry, splitPath);
+        cfg.writeEntry(ExecutePlugin::dependencyEntry, KDevelop::qvariantToString(QVariantList() << splitPath));
+        cfg.writeEntry(ExecutePlugin::dependencyActionEntry, "Build");
         cfg.sync();
 
         emit signalAddLaunchConfiguration(config);

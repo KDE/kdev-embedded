@@ -22,19 +22,20 @@
 #include <QComboBox>
 #include <project/projectmodel.h>
 
-namespace KDevelop {
+namespace KDevelop
+{
 class ProjectFolderItem;
 }
 
 class ProjectTargetsComboBox : public QComboBox
 {
     Q_OBJECT
-    public:
-        explicit ProjectTargetsComboBox(QWidget* parent = nullptr);
+public:
+    explicit ProjectTargetsComboBox(QWidget* parent = nullptr);
 
-        void setBaseItem(KDevelop::ProjectFolderItem* item, bool exec);
-        void setCurrentItemPath(const QStringList& str);
+    void setBaseItem(KDevelop::ProjectFolderItem* item, bool exec);
+    void setCurrentItemPath(const QStringList& str);
 
-        QStringList currentItemPath() const;
+    QStringList currentItemPath() const;
 
 };

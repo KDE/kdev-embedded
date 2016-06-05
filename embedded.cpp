@@ -30,10 +30,10 @@ Q_LOGGING_CATEGORY(PLUGIN_EMBEDDED, "kdevplatform.plugins.embedded");
 using namespace KDevelop;
 using namespace KTextEditor;
 
-K_PLUGIN_FACTORY_WITH_JSON(EmbeddedFactory, "kdevembedded.json", registerPlugin<Embedded>(); )
+K_PLUGIN_FACTORY_WITH_JSON(EmbeddedFactory, "kdevembedded.json", registerPlugin<Embedded>();)
 
-Embedded::Embedded (QObject* parent, const QVariantList&)
-    : IPlugin (QStringLiteral("kdevembedded"), parent)
+Embedded::Embedded(QObject* parent, const QVariantList&)
+    : IPlugin(QStringLiteral("kdevembedded"), parent)
 {
     setXMLFile(QStringLiteral("kdevembedded.rc"));
 

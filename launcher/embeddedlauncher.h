@@ -28,22 +28,22 @@
 
 namespace Solid
 {
-    class DeviceNotifier;
+class DeviceNotifier;
 }
 
 //TODO: Split the page into two, one concerning executable/arguments/behaviour the other for dependencies
 
 class EmbeddedLauncherConfigPage : public KDevelop::LaunchConfigurationPage, Ui::NativeAppPage
 {
-Q_OBJECT
+    Q_OBJECT
 public:
-    explicit EmbeddedLauncherConfigPage( QWidget* parent );
-    void loadFromConfiguration( const KConfigGroup& cfg, KDevelop::IProject* project = nullptr ) override;
-    void saveToConfiguration( KConfigGroup cfg, KDevelop::IProject* project = nullptr ) const override;
+    explicit EmbeddedLauncherConfigPage(QWidget* parent);
+    void loadFromConfiguration(const KConfigGroup& cfg, KDevelop::IProject* project = nullptr) override;
+    void saveToConfiguration(KConfigGroup cfg, KDevelop::IProject* project = nullptr) const override;
     QString title() const override;
     QIcon icon() const override;
 private:
-    void checkActions( const QItemSelection& , const QItemSelection& );
+    void checkActions(const QItemSelection& , const QItemSelection&);
     void devicesChanged(const QString& udi);
     void selectItemDialog();
 
@@ -77,7 +77,7 @@ public:
  */
 class NativeAppConfigType : public KDevelop::LaunchConfigurationType
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     NativeAppConfigType();
     ~NativeAppConfigType() override;
@@ -86,12 +86,12 @@ public:
     QString name() const override;
     QList<KDevelop::LaunchConfigurationPageFactory*> configPages() const override;
     QIcon icon() const override;
-    bool canLaunch( KDevelop::ProjectBaseItem* item ) const override;
-    bool canLaunch( const QUrl& file ) const override;
-    void configureLaunchFromItem ( KConfigGroup cfg,
-                                   KDevelop::ProjectBaseItem* item ) const override;
-    void configureLaunchFromCmdLineArguments ( KConfigGroup cfg,
-                                               const QStringList& args ) const override;
+    bool canLaunch(KDevelop::ProjectBaseItem* item) const override;
+    bool canLaunch(const QUrl& file) const override;
+    void configureLaunchFromItem(KConfigGroup cfg,
+                                 KDevelop::ProjectBaseItem* item) const override;
+    void configureLaunchFromCmdLineArguments(KConfigGroup cfg,
+            const QStringList& args) const override;
     QMenu* launcherSuggestions() override;
 private:
     QList<KDevelop::LaunchConfigurationPageFactory*> factoryList;

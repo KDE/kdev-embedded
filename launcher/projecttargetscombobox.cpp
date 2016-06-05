@@ -38,19 +38,23 @@ ProjectTargetsComboBox::ProjectTargetsComboBox(QWidget* parent)
 class ExecutablePathsVisitor
     : public ProjectVisitor
 {
-    public:
-        ExecutablePathsVisitor(bool exec) : m_onlyExecutables(exec) {}
-        using ProjectVisitor::visit;
-        void visit(ProjectExecutableTargetItem* eit) override {
-            if(!m_onlyExecutables || eit->type()==ProjectTargetItem::ExecutableTarget)
-                m_paths += KDevelop::joinWithEscaping(eit->model()->pathFromIndex(eit->index()), '/', '\\');
-        }
+public:
+    ExecutablePathsVisitor(bool exec) : m_onlyExecutables(exec) {}
+    using ProjectVisitor::visit;
+    void visit(ProjectExecutableTargetItem* eit) override
+    {
+        if (!m_onlyExecutables || eit->type()==ProjectTargetItem::ExecutableTarget)
+            m_paths += KDevelop::joinWithEscaping(eit->model()->pathFromIndex(eit->index()), '/', '\\');
+    }
 
-        QStringList paths() const { return m_paths; }
+    QStringList paths() const
+    {
+        return m_paths;
+    }
 
-    private:
-        bool m_onlyExecutables;
-        QStringList m_paths;
+private:
+    bool m_onlyExecutables;
+    QStringList m_paths;
 };
 
 
@@ -59,20 +63,25 @@ void ProjectTargetsComboBox::setBaseItem(ProjectFolderItem* item, bool exec)
     clear();
 
     QList<ProjectFolderItem*> items;
-    if(item) {
+    if (item)
+    {
         items += item;
-    } else {
-        foreach(IProject* p, ICore::self()->projectController()->projects()) {
+    }
+    else
+    {
+        foreach (IProject* p, ICore::self()->projectController()->projects())
+        {
             items += p->projectItem();
         }
     }
 
     ExecutablePathsVisitor walker(exec);
-    foreach(ProjectFolderItem* item, items) {
+    foreach (ProjectFolderItem* item, items)
+    {
         walker.visit(item);
     }
 
-    foreach(const QString& item, walker.paths())
+    foreach (const QString& item, walker.paths())
         addItem(QIcon::fromTheme(QStringLiteral("system-run")), item);
 
 }

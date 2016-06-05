@@ -76,9 +76,9 @@ ArduinoWindowModelStruct ArduinoWindowModel::getData(int index)
 //TODO: create document to add board ID, description and image
 ArduinoWindow::ArduinoWindow(QWidget *parent) :
     QDialog(parent),
-    m_model (new ArduinoWindowModel(parent)),
-    m_avrdudeProcess (new QProcess(parent)),
-    devices (new Solid::DeviceNotifier)
+    m_model(new ArduinoWindowModel(parent)),
+    m_avrdudeProcess(new QProcess(parent)),
+    devices(new Solid::DeviceNotifier)
 {
     qCDebug(AwMsg) << "AW opened";
     setupUi(this);

@@ -42,7 +42,7 @@
 using namespace KDevelop;
 
 LauncherJob::LauncherJob(QObject* parent, KDevelop::ILaunchConfiguration* cfg)
-    : KDevelop::OutputExecuteJob( parent )
+    : KDevelop::OutputExecuteJob(parent)
     , m_cfgname(cfg->name())
 {
     setCapabilities(Killable);
@@ -54,32 +54,32 @@ LauncherJob::LauncherJob(QObject* parent, KDevelop::ILaunchConfiguration* cfg)
     QString envgrp = iface->environmentGroup(cfg);
 
     QString err;
-    QUrl executable = iface->executable( cfg, err );
+    QUrl executable = iface->executable(cfg, err);
 
-    if( !err.isEmpty() )
+    if (!err.isEmpty())
     {
-        setError( -1 );
-        setErrorText( err );
+        setError(-1);
+        setErrorText(err);
         return;
     }
 
-    if( envgrp.isEmpty() )
+    if (envgrp.isEmpty())
     {
         qWarning() << "Launch Configuration:" << cfg->name() << i18n("No environment group specified, looks like a broken "
-                       "configuration, please check run configuration '%1'. "
-                       "Using default environment group.", cfg->name() );
+                   "configuration, please check run configuration '%1'. "
+                   "Using default environment group.", cfg->name());
         envgrp = l.defaultGroup();
     }
     setEnvironmentProfile(envgrp);
 
-    QStringList arguments = iface->arguments( cfg, err );
-    if( !err.isEmpty() )
+    QStringList arguments = iface->arguments(cfg, err);
+    if (!err.isEmpty())
     {
-        setError( -2 );
-        setErrorText( err );
+        setError(-2);
+        setErrorText(err);
     }
 
-    if( error() != 0 )
+    if (error() != 0)
     {
         qWarning() << "Launch Configuration:" << cfg->name() << "oops, problem" << errorText();
         return;
@@ -92,26 +92,34 @@ LauncherJob::LauncherJob(QObject* parent, KDevelop::ILaunchConfiguration* cfg)
 
     // Now setup the process parameters
 
-    QUrl wc = iface->workingDirectory( cfg );
-    if( !wc.isValid() || wc.isEmpty() ) {
-        wc = QUrl::fromLocalFile( QFileInfo( executable.toLocalFile() ).absolutePath() );
+    QUrl wc = iface->workingDirectory(cfg);
+    if (!wc.isValid() || wc.isEmpty())
+    {
+        wc = QUrl::fromLocalFile(QFileInfo(executable.toLocalFile()).absolutePath());
     }
-    setWorkingDirectory( wc );
+    setWorkingDirectory(wc);
 
     qCDebug(PLUGIN_EXECUTE) << "setting app:" << executable << arguments;
 
-    if (iface->useTerminal(cfg)) {
+    if (iface->useTerminal(cfg))
+    {
         QStringList args = KShell::splitArgs(iface->terminal(cfg));
-        for (QStringList::iterator it = args.begin(); it != args.end(); ++it) {
-            if (*it == QLatin1String("%exe")) {
+        for (QStringList::iterator it = args.begin(); it != args.end(); ++it)
+        {
+            if (*it == QLatin1String("%exe"))
+            {
                 *it = KShell::quoteArg(executable.toLocalFile());
-            } else if (*it == QLatin1String("%workdir")) {
+            }
+            else if (*it == QLatin1String("%workdir"))
+            {
                 *it = KShell::quoteArg(wc.toLocalFile());
             }
         }
-        args.append( arguments );
+        args.append(arguments);
         *this << args;
-    } else {
+    }
+    else
+    {
         *this << executable.toLocalFile();
         *this << arguments;
     }
@@ -122,7 +130,8 @@ LauncherJob::LauncherJob(QObject* parent, KDevelop::ILaunchConfiguration* cfg)
 LauncherJob* findNativeJob(KJob* j)
 {
     LauncherJob* job = qobject_cast<LauncherJob*>(j);
-    if (!job) {
+    if (!job)
+    {
         const QList<LauncherJob*> jobs = j->findChildren<LauncherJob*>();
         if (!jobs.isEmpty())
             job = jobs.first();
@@ -133,9 +142,11 @@ LauncherJob* findNativeJob(KJob* j)
 void LauncherJob::start()
 {
     // we kill any execution of the configuration
-    foreach(KJob* j, ICore::self()->runController()->currentJobs()) {
+    foreach (KJob* j, ICore::self()->runController()->currentJobs())
+    {
         LauncherJob* job = findNativeJob(j);
-        if (job && job != this && job->m_cfgname == m_cfgname) {
+        if (job && job != this && job->m_cfgname == m_cfgname)
+        {
             QMessageBox::StandardButton button = QMessageBox::question(nullptr, i18n("Job already running"), i18n("'%1' is already being executed. Should we kill the previous instance?", m_cfgname));
             if (button != QMessageBox::No)
                 j->kill();
@@ -145,14 +156,15 @@ void LauncherJob::start()
     OutputExecuteJob::start();
 }
 
-void LauncherJob::output(const QStringList& l )
+void LauncherJob::output(const QStringList& l)
 {
-    if (KDevelop::OutputModel* m = model()) {
-        m->appendLines( l );
+    if (KDevelop::OutputModel* m = model())
+    {
+        m->appendLines(l);
     }
 }
 
 KDevelop::OutputModel* LauncherJob::model()
 {
-    return dynamic_cast<KDevelop::OutputModel*>( KDevelop::OutputJob::model() );
+    return dynamic_cast<KDevelop::OutputModel*>(KDevelop::OutputJob::model());
 }

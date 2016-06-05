@@ -65,11 +65,11 @@ K_PLUGIN_FACTORY_WITH_JSON(KDevExecuteFactory, "kdevembedded-launcher.json", reg
 ExecutePlugin::ExecutePlugin(QObject *parent, const QVariantList&)
     : KDevelop::IPlugin(QStringLiteral("kdevembedded-launcher"), parent)
 {
-    KDEV_USE_EXTENSION_INTERFACE( IExecutePlugin)
+    KDEV_USE_EXTENSION_INTERFACE(IExecutePlugin)
     m_configType = new NativeAppConfigType();
-    m_configType->addLauncher( new EmbeddedLauncher() );
+    m_configType->addLauncher(new EmbeddedLauncher());
     qCDebug(PLUGIN_EXECUTE) << "adding native app launch config";
-    core()->runController()->addConfigurationType( m_configType );
+    core()->runController()->addConfigurationType(m_configType);
 }
 
 ExecutePlugin::~ExecutePlugin()
@@ -78,33 +78,34 @@ ExecutePlugin::~ExecutePlugin()
 
 void ExecutePlugin::unload()
 {
-    core()->runController()->removeConfigurationType( m_configType );
+    core()->runController()->removeConfigurationType(m_configType);
     delete m_configType;
     m_configType = 0;
 }
 
-QStringList ExecutePlugin::arguments( KDevelop::ILaunchConfiguration* cfg, QString& err_ ) const
+QStringList ExecutePlugin::arguments(KDevelop::ILaunchConfiguration* cfg, QString& err_) const
 {
 
-    if( !cfg )
+    if (!cfg)
     {
         return QStringList();
     }
 
     KShell::Errors err;
-    QStringList args = KShell::splitArgs( cfg->config().readEntry( ExecutePlugin::argumentsEntry, "" ), KShell::TildeExpand | KShell::AbortOnMeta, &err );
-    if( err != KShell::NoError )
+    QStringList args = KShell::splitArgs(cfg->config().readEntry(ExecutePlugin::argumentsEntry, ""), KShell::TildeExpand | KShell::AbortOnMeta, &err);
+    if (err != KShell::NoError)
     {
 
-        if( err == KShell::BadQuoting )
+        if (err == KShell::BadQuoting)
         {
             err_ = i18n("There is a quoting error in the arguments for "
-            "the launch configuration '%1'. Aborting start.", cfg->name() );
-        } else
+                        "the launch configuration '%1'. Aborting start.", cfg->name());
+        }
+        else
         {
             err_ = i18n("A shell meta character was included in the "
-            "arguments for the launch configuration '%1', "
-            "this is not supported currently. Aborting start.", cfg->name() );
+                        "arguments for the launch configuration '%1', "
+                        "this is not supported currently. Aborting start.", cfg->name());
         }
         args = QStringList();
         qWarning() << "Launch Configuration:" << cfg->name() << "arguments have meta characters";
@@ -113,18 +114,18 @@ QStringList ExecutePlugin::arguments( KDevelop::ILaunchConfiguration* cfg, QStri
 }
 
 
-KJob* ExecutePlugin::dependencyJob( KDevelop::ILaunchConfiguration* cfg ) const
+KJob* ExecutePlugin::dependencyJob(KDevelop::ILaunchConfiguration* cfg) const
 {
-    QVariantList deps = KDevelop::stringToQVariant( cfg->config().readEntry( dependencyEntry, QString() ) ).toList();
-    QString depAction = cfg->config().readEntry( dependencyActionEntry, "Nothing" );
-    if( depAction != QLatin1String("Nothing") && !deps.isEmpty() )
+    QVariantList deps = KDevelop::stringToQVariant(cfg->config().readEntry(dependencyEntry, QString())).toList();
+    QString depAction = cfg->config().readEntry(dependencyActionEntry, "Nothing");
+    if (depAction != QLatin1String("Nothing") && !deps.isEmpty())
     {
         KDevelop::ProjectModel* model = KDevelop::ICore::self()->projectController()->projectModel();
         QList<KDevelop::ProjectBaseItem*> items;
-        foreach( const QVariant& dep, deps )
+        foreach (const QVariant& dep, deps)
         {
-            KDevelop::ProjectBaseItem* item = model->itemFromIndex( model->pathToIndex( dep.toStringList() ) );
-            if( item )
+            KDevelop::ProjectBaseItem* item = model->itemFromIndex(model->pathToIndex(dep.toStringList()));
+            if (item)
             {
                 items << item;
             }
@@ -135,12 +136,13 @@ KJob* ExecutePlugin::dependencyJob( KDevelop::ILaunchConfiguration* cfg ) const
             }
         }
         KDevelop::BuilderJob* job = new KDevelop::BuilderJob();
-        if( depAction == QLatin1String("Build") )
+        if (depAction == QLatin1String("Build"))
         {
-            job->addItems( KDevelop::BuilderJob::Build, items );
-        } else if( depAction == QLatin1String("Install") )
+            job->addItems(KDevelop::BuilderJob::Build, items);
+        }
+        else if (depAction == QLatin1String("Install"))
         {
-            job->addItems( KDevelop::BuilderJob::Install, items );
+            job->addItems(KDevelop::BuilderJob::Install, items);
         }
         job->updateJobName();
         return job;
@@ -149,59 +151,62 @@ KJob* ExecutePlugin::dependencyJob( KDevelop::ILaunchConfiguration* cfg ) const
 }
 
 
-QString ExecutePlugin::environmentGroup( KDevelop::ILaunchConfiguration* cfg ) const
+QString ExecutePlugin::environmentGroup(KDevelop::ILaunchConfiguration* cfg) const
 {
-    if( !cfg )
+    if (!cfg)
     {
         return QLatin1String("");
     }
 
-    return cfg->config().readEntry( ExecutePlugin::environmentGroupEntry, "" );
+    return cfg->config().readEntry(ExecutePlugin::environmentGroupEntry, "");
 }
 
 
-QUrl ExecutePlugin::executable( KDevelop::ILaunchConfiguration* cfg, QString& err ) const
+QUrl ExecutePlugin::executable(KDevelop::ILaunchConfiguration* cfg, QString& err) const
 {
     QUrl executable;
-    if( !cfg )
+    if (!cfg)
     {
         return executable;
     }
     KConfigGroup grp = cfg->config();
-    if( grp.readEntry(ExecutePlugin::isExecutableEntry, false ) )
+    if (grp.readEntry(ExecutePlugin::isExecutableEntry, false))
     {
-        executable = grp.readEntry( ExecutePlugin::executableEntry, QUrl() );
-    } else
+        executable = grp.readEntry(ExecutePlugin::executableEntry, QUrl());
+    }
+    else
     {
-        QStringList prjitem = grp.readEntry( ExecutePlugin::projectTargetEntry, QStringList() );
+        QStringList prjitem = grp.readEntry(ExecutePlugin::projectTargetEntry, QStringList());
         KDevelop::ProjectModel* model = KDevelop::ICore::self()->projectController()->projectModel();
-        KDevelop::ProjectBaseItem* item = model->itemFromIndex( model->pathToIndex(prjitem) );
-        if( item && item->executable() )
+        KDevelop::ProjectBaseItem* item = model->itemFromIndex(model->pathToIndex(prjitem));
+        if (item && item->executable())
         {
             // TODO: Need an option in the gui to choose between installed and builddir url here, currently cmake only supports builddir url
             executable = item->executable()->builtUrl();
         }
     }
-    if( executable.isEmpty() )
+    if (executable.isEmpty())
     {
         err = i18n("No valid executable specified");
         qWarning() << "Launch Configuration:" << cfg->name() << "no valid executable set";
-    } else
+    }
+    else
     {
         KShell::Errors err_;
-        if( KShell::splitArgs( executable.toLocalFile(), KShell::TildeExpand | KShell::AbortOnMeta, &err_ ).isEmpty() || err_ != KShell::NoError )
+        if (KShell::splitArgs(executable.toLocalFile(), KShell::TildeExpand | KShell::AbortOnMeta, &err_).isEmpty() || err_ != KShell::NoError)
         {
             executable = QUrl();
-            if( err_ == KShell::BadQuoting )
+            if (err_ == KShell::BadQuoting)
             {
                 err = i18n("There is a quoting error in the executable "
-                "for the launch configuration '%1'. "
-                "Aborting start.", cfg->name() );
-            } else
+                           "for the launch configuration '%1'. "
+                           "Aborting start.", cfg->name());
+            }
+            else
             {
                 err = i18n("A shell meta character was included in the "
-                "executable for the launch configuration '%1', "
-                "this is not supported currently. Aborting start.", cfg->name() );
+                           "executable for the launch configuration '%1', "
+                           "this is not supported currently. Aborting start.", cfg->name());
             }
             qWarning() << "Launch Configuration:" << cfg->name() << "executable has meta characters";
         }
@@ -210,36 +215,36 @@ QUrl ExecutePlugin::executable( KDevelop::ILaunchConfiguration* cfg, QString& er
 }
 
 
-bool ExecutePlugin::useTerminal( KDevelop::ILaunchConfiguration* cfg ) const
+bool ExecutePlugin::useTerminal(KDevelop::ILaunchConfiguration* cfg) const
 {
-    if( !cfg )
+    if (!cfg)
     {
         return false;
     }
 
-    return cfg->config().readEntry( ExecutePlugin::useTerminalEntry, false );
+    return cfg->config().readEntry(ExecutePlugin::useTerminalEntry, false);
 }
 
 
-QString ExecutePlugin::terminal( KDevelop::ILaunchConfiguration* cfg ) const
+QString ExecutePlugin::terminal(KDevelop::ILaunchConfiguration* cfg) const
 {
-    if( !cfg )
+    if (!cfg)
     {
         return QString();
     }
 
-    return cfg->config().readEntry( ExecutePlugin::terminalEntry, QString() );
+    return cfg->config().readEntry(ExecutePlugin::terminalEntry, QString());
 }
 
 
-QUrl ExecutePlugin::workingDirectory( KDevelop::ILaunchConfiguration* cfg ) const
+QUrl ExecutePlugin::workingDirectory(KDevelop::ILaunchConfiguration* cfg) const
 {
-    if( !cfg )
+    if (!cfg)
     {
         return QUrl();
     }
 
-    return cfg->config().readEntry( ExecutePlugin::workingDirEntry, QUrl() );
+    return cfg->config().readEntry(ExecutePlugin::workingDirEntry, QUrl());
 }
 
 
