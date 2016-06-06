@@ -182,6 +182,8 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
     boardComboChanged(boardCombo->currentText());
     devicesChanged(QString());
 
+    presetsCombo->setEnabled(false);
+
     //connect signals to changed signal
     connect(projectTarget, static_cast<void(ProjectTargetsComboBox::*)(const QString&)>(&ProjectTargetsComboBox::currentIndexChanged), this, &EmbeddedLauncherConfigPage::changed);
     connect(projectTargetRadio, &QRadioButton::toggled, this, &EmbeddedLauncherConfigPage::changed);
