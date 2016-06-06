@@ -166,7 +166,6 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
     workingDirectory->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
 
     m_devices = Solid::DeviceNotifier::instance();
-    devicesChanged(QString());
 
     Board::instance().update();
 
@@ -180,7 +179,7 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
     // Start ComboBoxes
     boardCombo->clear();
     boardCombo->setModel(m_model);
-    //boardComboChanged(boardCombo->currentText());
+    boardComboChanged(boardCombo->currentText());
     devicesChanged(QString());
 
     //connect signals to changed signal
@@ -194,7 +193,8 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
     connect(workingDirectory->lineEdit(), &KLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed);
     connect(m_devices, &Solid::DeviceNotifier::deviceAdded, this, &EmbeddedLauncherConfigPage::devicesChanged);
     connect(m_devices, &Solid::DeviceNotifier::deviceRemoved, this, &EmbeddedLauncherConfigPage::devicesChanged);
-    //connect( terminal, static_cast<void(KComboBox::*)(int)>(&KComboBox::currentIndexChanged), this, &EmbeddedLauncherConfigPage::changed );
+    connect(boardCombo, &QComboBox::currentTextChanged, this,  &EmbeddedLauncherConfigPage::boardComboChanged);
+    connect(mcuFreqCombo, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,  &EmbeddedLauncherConfigPage::mcuFreqComboChanged);
 }
 
 void EmbeddedLauncherConfigPage::checkActions(const QItemSelection& selected, const QItemSelection& unselected)
@@ -520,11 +520,10 @@ void EmbeddedLauncherConfigPage::devicesChanged(const QString& udi)
     }
 }
 
-/*
 void EmbeddedLauncherConfigPage::boardComboChanged(const QString& text)
 {
     Q_UNUSED(text);
-    //mcuFreqCombo->clear();
+    mcuFreqCombo->clear();
     QString id = m_model->getData(boardCombo->currentIndex()).m_id;
 
     QStringList mcus = Board::instance().m_boards[id].m_bMcu;
@@ -542,34 +541,29 @@ void EmbeddedLauncherConfigPage::boardComboChanged(const QString& text)
         {
             freq = freqs[0];
         }
-
-        //mcuFreqCombo->addItem(mcu + ", " + freq);
+        mcuFreqCombo->addItem(mcu + ", " + freq);
         index += 1;
     }
     Board::instance().m_boards[id].printData();
-
-    // TODO: select image from board selection
-    QPixmap pix(QString("%1/%2.svg").arg(m_boardImgsDir.absolutePath(), id));
-    if (pix.isNull())
-    {
-        pix = QPixmap(m_boardImgsDir.absolutePath() + "/arduino.svg");
-    }
-
-    if (pix.width() > image->width() || pix.height() > image->height())
-    {
-        pix = pix.scaled(image->width(), image->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    }
-
-
-    m_pixBuffer = QPixmap(image->width(), image->height());
-    QPainter painter(&m_pixBuffer);
-    painter.fillRect(QRect(0, 0, image->width(), image->height()), palette().background());
-    painter.drawPixmap(m_pixBuffer.width() / 2 - pix.width() / 2, m_pixBuffer.height() / 2 - pix.height() / 2, pix);
-    painter.end();
-
-    //qCDebug(ElMsg) << "Baord image path" << id << pix;
-    //image->setPixmap(m_pixBuffer);
-
-    //mcuFreqComboChanged(0);
+    mcuFreqComboChanged(0);
 }
-*/
+
+void EmbeddedLauncherConfigPage::mcuFreqComboChanged(int index)
+{
+    if (index < 0)
+    {
+        return;
+    }
+
+    qCDebug(ElMsg) << "mcuFreqComboBox Index: " << index;
+    qCDebug(ElMsg) << "mcuFreqComboBox Count: " << mcuFreqCombo->count();
+
+    if (mcuFreqCombo->count() <= 1)
+    {
+        mcuFreqCombo->setEnabled(false);
+    }
+    else
+    {
+        mcuFreqCombo->setEnabled(true);
+    }
+}

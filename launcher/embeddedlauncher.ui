@@ -60,7 +60,7 @@
       <item row="1" column="0">
        <widget class="QLabel" name="label_2">
         <property name="text">
-         <string>Exe&amp;cutable:</string>
+         <string>E&amp;xecutable:</string>
         </property>
         <property name="buddy">
          <cstring>executableRadio</cstring>
@@ -126,31 +126,31 @@
         </item>
        </widget>
       </item>
-      <item row="2" column="0">
-       <widget class="QLabel" name="mcuLabel">
+      <item row="1" column="0">
+       <widget class="QLabel" name="boardLabel">
         <property name="text">
-         <string>MCU:</string>
+         <string>Board:</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
-       <widget class="QComboBox" name="mcuCombo">
+      <item row="1" column="1">
+       <widget class="QComboBox" name="boardCombo">
         <item>
          <property name="text">
-          <string>atmega2560</string>
+          <string>Nano</string>
          </property>
         </item>
        </widget>
       </item>
-      <item row="3" column="0">
+      <item row="2" column="0">
        <widget class="QLabel" name="freqLabel">
         <property name="text">
-         <string>Freq:</string>
+         <string>MCU and Freq:</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
-       <widget class="QComboBox" name="freqCombo">
+      <item row="2" column="1">
+       <widget class="QComboBox" name="mcuFreqCombo">
         <item>
          <property name="text">
           <string>16Hz</string>
@@ -158,14 +158,14 @@
         </item>
        </widget>
       </item>
-      <item row="4" column="0">
+      <item row="3" column="0">
        <widget class="QLabel" name="interfaceLabel">
         <property name="text">
          <string>Interface:</string>
         </property>
        </widget>
       </item>
-      <item row="4" column="1">
+      <item row="3" column="1">
        <widget class="QComboBox" name="interfaceCombo">
         <item>
          <property name="text">
@@ -174,7 +174,7 @@
         </item>
        </widget>
       </item>
-      <item row="5" column="0">
+      <item row="4" column="0">
        <widget class="QLabel" name="argumentsLabel">
         <property name="text">
          <string>&amp;Arguments:</string>
@@ -184,7 +184,7 @@
         </property>
        </widget>
       </item>
-      <item row="5" column="1">
+      <item row="4" column="1">
        <widget class="QLineEdit" name="arguments">
         <property name="toolTip">
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter arguments to give to the executable.&lt;br/&gt;You can pass arguments containing space characters by putting them in double-quotes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
@@ -197,7 +197,7 @@
         </property>
        </widget>
       </item>
-      <item row="6" column="0">
+      <item row="5" column="0">
        <widget class="QLabel" name="workdirLabel">
         <property name="text">
          <string>Wor&amp;king Directory:</string>
@@ -207,7 +207,7 @@
         </property>
        </widget>
       </item>
-      <item row="6" column="1">
+      <item row="5" column="1">
        <widget class="KUrlRequester" name="workingDirectory">
         <property name="toolTip">
          <string>Select a working directory for the executable</string>
@@ -217,14 +217,14 @@
         </property>
        </widget>
       </item>
-      <item row="7" column="0">
+      <item row="6" column="0">
        <widget class="QLabel" name="commandLabel">
         <property name="text">
          <string>Command:</string>
         </property>
        </widget>
       </item>
-      <item row="7" column="1">
+      <item row="6" column="1">
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="KComboBox" name="commandBox">
@@ -273,22 +273,6 @@
          </widget>
         </item>
        </layout>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="boardLabel">
-        <property name="text">
-         <string>Board:</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <widget class="QComboBox" name="boardCombo">
-        <item>
-         <property name="text">
-          <string>Nano</string>
-         </property>
-        </item>
-       </widget>
       </item>
      </layout>
     </widget>

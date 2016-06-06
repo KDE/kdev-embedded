@@ -76,6 +76,7 @@ public:
     QString title() const override;
     QIcon icon() const override;
 private:
+    void mcuFreqComboChanged(int index);
     void checkActions(const QItemSelection& , const QItemSelection&);
     void boardComboChanged(const QString& text);
     void devicesChanged(const QString& udi);
@@ -83,8 +84,8 @@ private:
 
     Board *m_board;
     QString m_interface;
-    ArduinoWindowModel *m_model;
     Solid::DeviceNotifier *m_devices;
+    ArduinoWindowModel *m_model;
 };
 
 class EmbeddedLauncher : public KDevelop::ILauncher
