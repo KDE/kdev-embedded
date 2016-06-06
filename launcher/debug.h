@@ -1,5 +1,8 @@
 /*
- * This file is part of KDevelop
+ * This file is part of KDevelop project
+ * Copyright 2016 Patrick José Pereira <patrickelectric@gmail.com>
+ * Based onde the work of:
+ *  Andreas Pakulat <apaku@gmx.de> work
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Library General Public License as

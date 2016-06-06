@@ -1,7 +1,8 @@
 /*
- * This file is part of KDevelop
- *
- * Copyright 2007 Hamish Rodda <rodda@kde.org>
+ * This file is part of KDevelop project
+ * Copyright 2016 Patrick José Pereira <patrickelectric@gmail.com>
+ * Based onde the work of:
+ *  Hamish Rodda <rodda@kde.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Library General Public License as
