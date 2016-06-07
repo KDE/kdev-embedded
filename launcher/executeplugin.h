@@ -25,17 +25,17 @@
 #include <interfaces/iplugin.h>
 #include <QtCore/QVariant>
 #include <QtCore/QProcess>
-#include "iexecuteplugin.h"
+#include "iembeddedexecuteplugin.h"
 
 class QUrl;
 class KJob;
 
 class NativeAppConfigType;
 
-class ExecutePlugin : public KDevelop::IPlugin, public IExecutePlugin
+class EmbeddedExecutePlugin : public KDevelop::IPlugin, public IEmbeddedExecutePlugin
 {
     Q_OBJECT
-    Q_INTERFACES(IExecutePlugin)
+    Q_INTERFACES(IEmbeddedExecutePlugin)
 
 public:
     explicit ExecutePlugin(QObject *parent, const QVariantList & = QVariantList());

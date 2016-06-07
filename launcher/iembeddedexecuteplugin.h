@@ -37,10 +37,10 @@ class QStringList;
 @author Andreas Pakulat
 */
 
-class IExecutePlugin
+class IEmbeddedExecutePlugin
 {
 public:
-    virtual ~IExecutePlugin() {}
+    virtual ~IEmbeddedExecutePlugin() {}
 
     virtual QUrl executable(KDevelop::ILaunchConfiguration* config, QString& error) const = 0;
     virtual QStringList arguments(KDevelop::ILaunchConfiguration* config, QString& error) const = 0;
@@ -52,5 +52,5 @@ public:
     virtual QString nativeAppConfigTypeId() const = 0;
 };
 
-Q_DECLARE_INTERFACE(IExecutePlugin, "org.kdevelop.IExecutePlugin")
+Q_DECLARE_INTERFACE(IEmbeddedExecutePlugin, "org.kdevelop.IEmbeddedExecutePlugin")
 

@@ -39,7 +39,7 @@
 #include <interfaces/iplugincontroller.h>
 #include <project/projectmodel.h>
 
-#include "iexecuteplugin.h"
+#include "iembeddedexecuteplugin.h"
 #include "debug.h"
 
 using namespace KDevelop;
@@ -50,7 +50,7 @@ LauncherJob::LauncherJob(QObject* parent, KDevelop::ILaunchConfiguration* cfg)
 {
     setCapabilities(Killable);
 
-    IExecutePlugin* iface = KDevelop::ICore::self()->pluginController()->pluginForExtension(QStringLiteral("org.kdevelop.IExecutePlugin"), QStringLiteral("kdevembedded-launcher"))->extension<IExecutePlugin>();
+    IEmbeddedExecutePlugin* iface = KDevelop::ICore::self()->pluginController()->pluginForExtension(QStringLiteral("org.kdevelop.IEmbeddedExecutePlugin"), QStringLiteral("kdevembedded-launcher"))->extension<IEmbeddedExecutePlugin>();
     Q_ASSERT(iface);
 
     KDevelop::EnvironmentGroupList l(KSharedConfig::openConfig());
