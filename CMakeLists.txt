@@ -43,6 +43,10 @@ set(KDEVEMBEDDED_LAUNCHER_PART_UIS
     launcher/embeddedlauncher.ui
 )
 
+add_definitions(
+    -DQT_NO_CAST_FROM_ASCII
+)
+
 find_package(KDevPlatform REQUIRED)
 
 find_package(KF5 REQUIRED Archive I18n NewStuff ItemModels TextEditor ThreadWeaver)
