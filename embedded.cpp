@@ -99,6 +99,8 @@ Embedded::~Embedded()
 {
     delete m_embeddedWindow;
     delete m_arduinoBoard;
+    delete m_embeddedWindow;
+    delete m_arduinoBoard;
 }
 
 #include "embedded.moc"

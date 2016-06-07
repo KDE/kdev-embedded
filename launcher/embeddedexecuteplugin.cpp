@@ -75,6 +75,7 @@ EmbeddedExecutePlugin::EmbeddedExecutePlugin(QObject *parent, const QVariantList
 
 EmbeddedExecutePlugin::~EmbeddedExecutePlugin()
 {
+    delete m_configType;
 }
 
 void EmbeddedExecutePlugin::unload()

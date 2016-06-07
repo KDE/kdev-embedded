@@ -454,4 +454,7 @@ void ArduinoWindow::buttonBoxCancel()
 
 ArduinoWindow::~ArduinoWindow()
 {
+    delete m_model;
+    delete m_avrdudeProcess;
+    delete devices;
 }
