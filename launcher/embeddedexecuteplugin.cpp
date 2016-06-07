@@ -20,7 +20,7 @@
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  */
 
-#include "executeplugin.h"
+#include "embeddedexecuteplugin.h"
 
 #include <QDebug>
 
@@ -45,46 +45,46 @@
 #include <project/builderjob.h>
 #include <util/kdevstringhandler.h>
 
-QString ExecutePlugin::_nativeAppConfigTypeId = QStringLiteral("Embedded Application");
-QString ExecutePlugin::workingDirEntry = QStringLiteral("Working Directory");
-QString ExecutePlugin::executableEntry = QStringLiteral("Executable");
-QString ExecutePlugin::argumentsEntry = QStringLiteral("Arguments");
-QString ExecutePlugin::isExecutableEntry = QStringLiteral("isExecutable");
-QString ExecutePlugin::dependencyEntry = QStringLiteral("Dependencies");
-QString ExecutePlugin::environmentGroupEntry = QStringLiteral("EnvironmentGroup");
-QString ExecutePlugin::useTerminalEntry = QStringLiteral("Use External Terminal");
-QString ExecutePlugin::terminalEntry = QStringLiteral("External Terminal");
-QString ExecutePlugin::userIdToRunEntry = QStringLiteral("User Id to Run");
-QString ExecutePlugin::dependencyActionEntry = QStringLiteral("Dependency Action");
-QString ExecutePlugin::projectTargetEntry = QStringLiteral("Project Target");
+QString EmbeddedExecutePlugin::_nativeAppConfigTypeId = QStringLiteral("Embedded Application");
+QString EmbeddedExecutePlugin::workingDirEntry = QStringLiteral("Working Directory");
+QString EmbeddedExecutePlugin::executableEntry = QStringLiteral("Executable");
+QString EmbeddedExecutePlugin::argumentsEntry = QStringLiteral("Arguments");
+QString EmbeddedExecutePlugin::isExecutableEntry = QStringLiteral("isExecutable");
+QString EmbeddedExecutePlugin::dependencyEntry = QStringLiteral("Dependencies");
+QString EmbeddedExecutePlugin::environmentGroupEntry = QStringLiteral("EnvironmentGroup");
+QString EmbeddedExecutePlugin::useTerminalEntry = QStringLiteral("Use External Terminal");
+QString EmbeddedExecutePlugin::terminalEntry = QStringLiteral("External Terminal");
+QString EmbeddedExecutePlugin::userIdToRunEntry = QStringLiteral("User Id to Run");
+QString EmbeddedExecutePlugin::dependencyActionEntry = QStringLiteral("Dependency Action");
+QString EmbeddedExecutePlugin::projectTargetEntry = QStringLiteral("Project Target");
 
 using namespace KDevelop;
 
 Q_LOGGING_CATEGORY(PLUGIN_EXECUTE, "kdevplatform.plugins.kdevembedded.launcher")
-K_PLUGIN_FACTORY_WITH_JSON(KDevExecuteFactory, "kdevembedded-launcher.json", registerPlugin<ExecutePlugin>();)
+K_PLUGIN_FACTORY_WITH_JSON(KDevExecuteFactory, "kdevembedded-launcher.json", registerPlugin<EmbeddedExecutePlugin>();)
 
-ExecutePlugin::ExecutePlugin(QObject *parent, const QVariantList&)
+EmbeddedExecutePlugin::EmbeddedExecutePlugin(QObject *parent, const QVariantList&)
     : KDevelop::IPlugin(QStringLiteral("kdevembedded-launcher"), parent)
 {
-    KDEV_USE_EXTENSION_INTERFACE(IExecutePlugin)
+    KDEV_USE_EXTENSION_INTERFACE(IEmbeddedExecutePlugin)
     m_configType = new NativeAppConfigType();
     m_configType->addLauncher(new EmbeddedLauncher());
     qCDebug(PLUGIN_EXECUTE) << "adding native app launch config";
     core()->runController()->addConfigurationType(m_configType);
 }
 
-ExecutePlugin::~ExecutePlugin()
+EmbeddedExecutePlugin::~EmbeddedExecutePlugin()
 {
 }
 
-void ExecutePlugin::unload()
+void EmbeddedExecutePlugin::unload()
 {
     core()->runController()->removeConfigurationType(m_configType);
     delete m_configType;
     m_configType = 0;
 }
 
-QStringList ExecutePlugin::arguments(KDevelop::ILaunchConfiguration* cfg, QString& err_) const
+QStringList EmbeddedExecutePlugin::arguments(KDevelop::ILaunchConfiguration* cfg, QString& err_) const
 {
 
     if (!cfg)
@@ -93,7 +93,7 @@ QStringList ExecutePlugin::arguments(KDevelop::ILaunchConfiguration* cfg, QStrin
     }
 
     KShell::Errors err;
-    QStringList args = KShell::splitArgs(cfg->config().readEntry(ExecutePlugin::argumentsEntry, ""), KShell::TildeExpand | KShell::AbortOnMeta, &err);
+    QStringList args = KShell::splitArgs(cfg->config().readEntry(EmbeddedExecutePlugin::argumentsEntry, ""), KShell::TildeExpand | KShell::AbortOnMeta, &err);
     if (err != KShell::NoError)
     {
 
@@ -115,7 +115,7 @@ QStringList ExecutePlugin::arguments(KDevelop::ILaunchConfiguration* cfg, QStrin
 }
 
 
-KJob* ExecutePlugin::dependencyJob(KDevelop::ILaunchConfiguration* cfg) const
+KJob* EmbeddedExecutePlugin::dependencyJob(KDevelop::ILaunchConfiguration* cfg) const
 {
     QVariantList deps = KDevelop::stringToQVariant(cfg->config().readEntry(dependencyEntry, QString())).toList();
     QString depAction = cfg->config().readEntry(dependencyActionEntry, "Nothing");
@@ -152,18 +152,18 @@ KJob* ExecutePlugin::dependencyJob(KDevelop::ILaunchConfiguration* cfg) const
 }
 
 
-QString ExecutePlugin::environmentGroup(KDevelop::ILaunchConfiguration* cfg) const
+QString EmbeddedExecutePlugin::environmentGroup(KDevelop::ILaunchConfiguration* cfg) const
 {
     if (!cfg)
     {
         return QLatin1String("");
     }
 
-    return cfg->config().readEntry(ExecutePlugin::environmentGroupEntry, "");
+    return cfg->config().readEntry(EmbeddedExecutePlugin::environmentGroupEntry, "");
 }
 
 
-QUrl ExecutePlugin::executable(KDevelop::ILaunchConfiguration* cfg, QString& err) const
+QUrl EmbeddedExecutePlugin::executable(KDevelop::ILaunchConfiguration* cfg, QString& err) const
 {
     QUrl executable;
     if (!cfg)
@@ -171,13 +171,13 @@ QUrl ExecutePlugin::executable(KDevelop::ILaunchConfiguration* cfg, QString& err
         return executable;
     }
     KConfigGroup grp = cfg->config();
-    if (grp.readEntry(ExecutePlugin::isExecutableEntry, false))
+    if (grp.readEntry(EmbeddedExecutePlugin::isExecutableEntry, false))
     {
-        executable = grp.readEntry(ExecutePlugin::executableEntry, QUrl());
+        executable = grp.readEntry(EmbeddedExecutePlugin::executableEntry, QUrl());
     }
     else
     {
-        QStringList prjitem = grp.readEntry(ExecutePlugin::projectTargetEntry, QStringList());
+        QStringList prjitem = grp.readEntry(EmbeddedExecutePlugin::projectTargetEntry, QStringList());
         KDevelop::ProjectModel* model = KDevelop::ICore::self()->projectController()->projectModel();
         KDevelop::ProjectBaseItem* item = model->itemFromIndex(model->pathToIndex(prjitem));
         if (item && item->executable())
@@ -216,43 +216,43 @@ QUrl ExecutePlugin::executable(KDevelop::ILaunchConfiguration* cfg, QString& err
 }
 
 
-bool ExecutePlugin::useTerminal(KDevelop::ILaunchConfiguration* cfg) const
+bool EmbeddedExecutePlugin::useTerminal(KDevelop::ILaunchConfiguration* cfg) const
 {
     if (!cfg)
     {
         return false;
     }
 
-    return cfg->config().readEntry(ExecutePlugin::useTerminalEntry, false);
+    return cfg->config().readEntry(EmbeddedExecutePlugin::useTerminalEntry, false);
 }
 
 
-QString ExecutePlugin::terminal(KDevelop::ILaunchConfiguration* cfg) const
+QString EmbeddedExecutePlugin::terminal(KDevelop::ILaunchConfiguration* cfg) const
 {
     if (!cfg)
     {
         return QString();
     }
 
-    return cfg->config().readEntry(ExecutePlugin::terminalEntry, QString());
+    return cfg->config().readEntry(EmbeddedExecutePlugin::terminalEntry, QString());
 }
 
 
-QUrl ExecutePlugin::workingDirectory(KDevelop::ILaunchConfiguration* cfg) const
+QUrl EmbeddedExecutePlugin::workingDirectory(KDevelop::ILaunchConfiguration* cfg) const
 {
     if (!cfg)
     {
         return QUrl();
     }
 
-    return cfg->config().readEntry(ExecutePlugin::workingDirEntry, QUrl());
+    return cfg->config().readEntry(EmbeddedExecutePlugin::workingDirEntry, QUrl());
 }
 
 
-QString ExecutePlugin::nativeAppConfigTypeId() const
+QString EmbeddedExecutePlugin::nativeAppConfigTypeId() const
 {
     return _nativeAppConfigTypeId;
 }
 
 
-#include "executeplugin.moc"
+#include "embeddedexecuteplugin.moc"

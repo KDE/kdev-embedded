@@ -32,7 +32,7 @@ set(KDEVEMBEDDED_PART_UI
 
 set(KDEVEMBEDDED_LAUNCHER_PART_SRCS
     launcher/projecttargetscombobox.cpp
-    launcher/executeplugin.cpp
+    launcher/embeddedexecuteplugin.cpp
     launcher/embeddedlauncher.cpp
     launcher/launcherjob.cpp
     toolkit.cpp

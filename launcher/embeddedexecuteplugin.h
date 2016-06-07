@@ -38,8 +38,8 @@ class EmbeddedExecutePlugin : public KDevelop::IPlugin, public IEmbeddedExecuteP
     Q_INTERFACES(IEmbeddedExecutePlugin)
 
 public:
-    explicit ExecutePlugin(QObject *parent, const QVariantList & = QVariantList());
-    ~ExecutePlugin() override;
+    explicit EmbeddedExecutePlugin(QObject *parent, const QVariantList & = QVariantList());
+    ~EmbeddedExecutePlugin() override;
 
     static QString _nativeAppConfigTypeId;
     static QString workingDirEntry;
