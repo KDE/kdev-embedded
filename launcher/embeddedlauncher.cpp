@@ -106,7 +106,7 @@ ArduinoWindowModelStruct ArduinoWindowModel::getData(int index)
     {
         return m_db.at(index);
     }
-    return ArduinoWindowModelStruct{QString(""), QString("")};
+    return ArduinoWindowModelStruct{QStringLiteral(""), QStringLiteral("")};
 }
 
 QIcon EmbeddedLauncherConfigPage::icon() const
@@ -414,7 +414,7 @@ QMenu* NativeAppConfigType::launcherSuggestions()
                     if (!path.isEmpty())
                     {
                         QAction* act = new QAction(projectMenu);
-                        act->setData(KDevelop::joinWithEscaping(path, '/','\\'));
+                        act->setData(KDevelop::joinWithEscaping(path, QChar::fromLatin1('/'),QChar::fromLatin1('\\')));
                         act->setProperty("name", target->text());
                         path.removeFirst();
                         act->setText(path.join(QStringLiteral("/")));
@@ -465,7 +465,9 @@ void NativeAppConfigType::suggestionTriggered()
 {
     QAction* action = qobject_cast<QAction*>(sender());
     KDevelop::ProjectModel* model = KDevelop::ICore::self()->projectController()->projectModel();
-    KDevelop::ProjectTargetItem* pitem = dynamic_cast<KDevelop::ProjectTargetItem*>(itemForPath(KDevelop::splitWithEscaping(action->data().toString(),'/', '\\'), model));
+    KDevelop::ProjectTargetItem* pitem =
+        dynamic_cast<KDevelop::ProjectTargetItem*>
+        (itemForPath(KDevelop::splitWithEscaping(action->data().toString(),QChar::fromLatin1('/'),QChar::fromLatin1('\\')), model));
     if (pitem)
     {
         QPair<QString,QString> launcher = qMakePair(launchers().at(0)->supportedModes().at(0), launchers().at(0)->id());
@@ -494,7 +496,7 @@ void EmbeddedLauncherConfigPage::devicesChanged(const QString& udi)
     bool interfaceExist = false;
     foreach (const auto& device, devices)
     {
-        if (device.product() != "" and device.udi().contains("tty"))
+        if (device.product() != QStringLiteral("") and device.udi().contains(QStringLiteral("tty")))
         {
             interfaceExist = true;
             interfaceCombo->addItem(device.product());
@@ -506,22 +508,22 @@ void EmbeddedLauncherConfigPage::devicesChanged(const QString& udi)
             qCDebug(ElMsg) << "Vendor\t:" << device.vendor();
             qCDebug(ElMsg) << "Icon\t:" << device.icon();
             qCDebug(ElMsg) << "Emblems\t:" << device.emblems();
-            qCDebug(ElMsg) << "Interface\t:" << device.udi().split("/").takeLast();
-            m_interface = QString(device.udi().split("/").takeLast());
+            qCDebug(ElMsg) << "Interface\t:" << device.udi().split(QStringLiteral("/")).takeLast();
+            m_interface = QString(device.udi().split(QStringLiteral("/")).takeLast());
         }
     }
 
     if (interfaceExist == false)
     {
         interfaceCombo->setEnabled(false);
-        interfaceCombo->addItem("Please connect one !");
-        interfaceLabel->setStyleSheet("color: rgb(255, 0, 0);");
+        interfaceCombo->addItem(i18n("Please connect one !"));
+        interfaceLabel->setStyleSheet(QStringLiteral("color: rgb(255, 0, 0);"));
     }
     else
     {
         interfaceCombo->setEnabled(true);
-        interfaceLabel->setText("Interface:");
-        interfaceLabel->setStyleSheet("color: rgb(0, 0, 0);");
+        interfaceLabel->setText(i18n("Interface:"));
+        interfaceLabel->setStyleSheet(QStringLiteral("color: rgb(0, 0, 0);"));
     }
 }
 
@@ -546,7 +548,7 @@ void EmbeddedLauncherConfigPage::boardComboChanged(const QString& text)
         {
             freq = freqs[0];
         }
-        mcuFreqCombo->addItem(mcu + ", " + freq);
+        mcuFreqCombo->addItem(QStringLiteral("%0,%1").arg(mcu).arg(freq));
         index += 1;
     }
     Board::instance().m_boards[id].printData();

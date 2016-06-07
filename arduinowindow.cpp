@@ -90,7 +90,7 @@ ArduinoWindowModelStruct ArduinoWindowModel::getData(int index)
     {
         return m_db.at(index);
     }
-    return ArduinoWindowModelStruct{QString(""), QString("")};
+    return ArduinoWindowModelStruct{QString(), QString()};
 }
 
 //TODO: create document to add board ID, description and image
@@ -107,7 +107,7 @@ ArduinoWindow::ArduinoWindow(QWidget *parent) :
                               QStandardPaths::GenericDataLocation,
                               QLatin1String("kdevembedded/boardsimg"),
                               QStandardPaths::LocateDirectory
-                          ) + '/');
+                          ) + QChar::fromLatin1('/'));
 
     // Just select the options
     boardCombo->setEditable(false);
@@ -218,10 +218,10 @@ void ArduinoWindow::boardComboChanged(const QString& text)
     Board::instance().m_boards[id].printData();
 
     // TODO: select image from board selection
-    QPixmap pix(QString("%1/%2.svg").arg(m_boardImgsDir.absolutePath(), id));
+    QPixmap pix(QStringLiteral("%1/%2.svg").arg(m_boardImgsDir.absolutePath(), id));
     if (pix.isNull())
     {
-        pix = QPixmap(m_boardImgsDir.absolutePath() + "/arduino.svg");
+        pix = QPixmap(m_boardImgsDir.absolutePath() + QStringLiteral("/arduino.svg"));
     }
 
     if (pix.width() > image->width() || pix.height() > image->height())
@@ -250,7 +250,7 @@ void ArduinoWindow::devicesChanged(const QString& udi)
     bool interfaceExist = false;
     foreach (const auto& device, devices)
     {
-        if (device.product() != "" and device.udi().contains("tty"))
+        if (!device.product().isEmpty() and device.udi().contains(QStringLiteral("tty")))
         {
             interfaceExist = true;
             interfaceCombo->addItem(device.product());
@@ -262,8 +262,8 @@ void ArduinoWindow::devicesChanged(const QString& udi)
             qCDebug(AwMsg) << "Vendor\t:" << device.vendor();
             qCDebug(AwMsg) << "Icon\t:" << device.icon();
             qCDebug(AwMsg) << "Emblems\t:" << device.emblems();
-            qCDebug(AwMsg) << "Interface\t:" << device.udi().split("/").takeLast();
-            m_interface = QString(device.udi().split("/").takeLast());
+            qCDebug(AwMsg) << "Interface\t:" << device.udi().split(QChar::fromLatin1('/')).takeLast();
+            m_interface = QString(device.udi().split(QChar::fromLatin1('/')).takeLast());
         }
     }
 
@@ -271,13 +271,13 @@ void ArduinoWindow::devicesChanged(const QString& udi)
     {
         interfaceCombo->setEnabled(false);
         interfacelabel->setText(i18n("Interface (please connect one):"));
-        interfacelabel->setStyleSheet("color: rgb(255, 0, 0);");
+        interfacelabel->setStyleSheet(QStringLiteral("color: rgb(255, 0, 0);"));
     }
     else
     {
         interfaceCombo->setEnabled(true);
         interfacelabel->setText(i18n("Interface:"));
-        interfacelabel->setStyleSheet("color: rgb(0, 0, 0);");
+        interfacelabel->setStyleSheet(QStringLiteral("color: rgb(0, 0, 0);"));
     }
 }
 
@@ -313,21 +313,21 @@ void ArduinoWindow::buttonBoxOk()
     QStringList flags;
     if (verboseCheck->checkState() == Qt::Checked)
     {
-        flags << "-v" << "-v" << "-v" << "-v";
+        flags << QStringLiteral("-v") << QStringLiteral("-v") << QStringLiteral("-v") << QStringLiteral("-v");
     }
     else
     {
-        flags << "-q" << "-q";
+        flags << QStringLiteral("-q") << QStringLiteral("-q");
     }
 
-    flags << "-C"
-          << QString(arduinoPath + "/hardware/tools/avr/etc/avrdude.conf")
-          << QString("-p%0").arg(mcu)
-          << "-c" << Board::instance().m_boards[id].m_upProtocol[0]
-          << "-P" << "/dev/" + m_interface
-          << "-b" << Board::instance().m_boards[id].m_upSpeed
-          << "-D"
-          << QString("-Uflash:w:%0:i").arg(hexPathEdit->text());
+    flags << QStringLiteral("-C")
+          << QStringLiteral("%0/hardware/tools/avr/etc/avrdude.conf").arg(arduinoPath)
+          << QStringLiteral("-p%0").arg(mcu)
+          << QStringLiteral("-c") << Board::instance().m_boards[id].m_upProtocol[0]
+          << QStringLiteral("-P") << QStringLiteral("/dev/%0").arg(m_interface)
+          << QStringLiteral("-b") << Board::instance().m_boards[id].m_upSpeed
+          << QStringLiteral("-D")
+          << QStringLiteral("-Uflash:w:%0:i").arg(hexPathEdit->text());
 
     if (m_avrdudeProcess->state() != QProcess::NotRunning)
     {
@@ -342,16 +342,18 @@ void ArduinoWindow::buttonBoxOk()
 
 void ArduinoWindow::avrdudeStderr(int exitCode, QProcess::ExitStatus exitStatus)
 {
-    QString perr = m_avrdudeProcess->readAllStandardError();
+    QString perr;
+    perr.fromLocal8Bit(m_avrdudeProcess->readAllStandardError());
     if (exitCode != 0)
     {
-        qCDebug(AwMsg) << QString("Error during upload.\n" + perr) << exitCode << exitStatus;
-        output->append(i18n("Error during upload.\nCode: %1\n%2", exitCode, perr));
+        qCDebug(AwMsg) << QStringLiteral("Error during upload.\n") << perr << exitCode << exitStatus;
+        output->append(i18n("Error during upload. ☹\nCode: %0\n%1", exitCode, perr));
     }
     else
     {
-        qCDebug(AwMsg) << QString("Upload complete.\n" + perr) << exitCode << exitStatus;
-        output->append(i18n("Upload complete.\n%1", perr));
+        qCDebug(AwMsg) << QStringLiteral("Upload complete") << perr << exitCode << exitStatus;
+        output->append(i18n("Upload complete. ☺\n"));
+        output->append(perr);
     }
 }
 
@@ -419,7 +421,7 @@ QString ArduinoWindow::getRedRichTextSelected(QStringList list, int index)
 
     if (list.size() <= 1)
     {
-        item = "<font color='red'>" + list[0] + "</font>";
+        item = QStringLiteral("<font color='red'>%0</font>").arg(list[0]);
     }
     else
     {
@@ -428,7 +430,7 @@ QString ArduinoWindow::getRedRichTextSelected(QStringList list, int index)
             temp = oitem;
             if (oitem == list[index])
             {
-                temp = "<font color='red'>" + oitem + "</font>";
+                temp = QStringLiteral("<font color='red'>%0</font>").arg(oitem);
             }
             if (item.isEmpty())
             {
@@ -436,7 +438,7 @@ QString ArduinoWindow::getRedRichTextSelected(QStringList list, int index)
             }
             else
             {
-                item = item + "," + temp;
+                item = QStringLiteral("%0,%1").arg(item).arg(temp);
             }
         }
     }

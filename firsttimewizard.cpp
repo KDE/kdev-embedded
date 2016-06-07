@@ -66,11 +66,12 @@ FirstTimeWizard::FirstTimeWizard(QWidget *parent) :
 
     downloadStatusLabel->clear();
     installStatusLabel->clear();
-    urlLabel->setText(urlLabel->text().arg(QString("mailto:%1").arg("patrickelectric@gmail.com")));
-    projectLabel->setText(projectLabel->text().arg(i18n("Embedded plugin")).arg("Patrick J. Pereira"));
 
-    existingInstallButton->setText(existingInstallButton->text().arg(ARDUINO_SDK_MIN_VERSION_NAME));
-    automaticInstallButton->setText(automaticInstallButton->text().arg(ARDUINO_SDK_VERSION_NAME));
+    urlLabel->setText(urlLabel->text().arg(QStringLiteral("mailto:%1").arg(QStringLiteral("patrickelectric@gmail.com"))));
+    projectLabel->setText(projectLabel->text().arg(i18n("Embedded plugin")).arg(QStringLiteral("Patrick J. Pereira")));
+
+    existingInstallButton->setText(existingInstallButton->text().arg(QStringLiteral(ARDUINO_SDK_MIN_VERSION_NAME)));
+    automaticInstallButton->setText(automaticInstallButton->text().arg(QStringLiteral(ARDUINO_SDK_VERSION_NAME)));
 
 
     // Download mode is default
@@ -81,8 +82,8 @@ FirstTimeWizard::FirstTimeWizard(QWidget *parent) :
     getSketchbookPath();
 
     //TODO support others OS
-    QString mDownloadOs = "Linux";
-    downloadLabel->setText(downloadLabel->text().arg(ARDUINO_SDK_VERSION_NAME).arg(mDownloadOs));
+    QString mDownloadOs = QStringLiteral("Linux");
+    downloadLabel->setText(downloadLabel->text().arg(QStringLiteral(ARDUINO_SDK_VERSION_NAME)).arg(mDownloadOs));
 
     connect(arduinoPathButton, &QToolButton::clicked, this, &FirstTimeWizard::chooseArduinoPath);
     connect(sketchbookPathButton, &QToolButton::clicked, this, &FirstTimeWizard::chooseSketchbookPath);
@@ -135,8 +136,12 @@ void FirstTimeWizard::download()
     button(QWizard::NextButton)->setEnabled(false);
     downloadProgressBar->setValue(0);
     // TODO update to generic links, create to linux and mac
-    QNetworkRequest request(QUrl(QString("https://downloads.arduino.cc/arduino-%0-linux64.tar.xz").arg(ARDUINO_SDK_VERSION_NAME)));
-    qCDebug(FtwIo) << "Download : " << QString("https://downloads.arduino.cc/arduino-%0-linux64.tar.xz").arg(ARDUINO_SDK_VERSION_NAME);
+    QNetworkRequest request(QUrl(
+        QStringLiteral("https://downloads.arduino.cc/arduino-%0-linux64.tar.xz").arg(QStringLiteral(ARDUINO_SDK_VERSION_NAME))));
+
+    qCDebug(FtwIo) << "Download : "
+    << QStringLiteral("https://downloads.arduino.cc/arduino-%0-linux64.tar.xz").arg(QStringLiteral(ARDUINO_SDK_VERSION_NAME));
+
     request.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
     m_reply = m_mDownloadManager->get(request);
     connect(m_reply, &QNetworkReply::downloadProgress, this, &FirstTimeWizard::onDownloadProgress);
@@ -173,7 +178,7 @@ void FirstTimeWizard::install()
     if (!destinationDir.exists())
     {
         qCDebug(FtwIo) << "Destination directory already exists at" << destinationPath;
-        extractSuccess = extractSuccess && destinationDir.mkpath(".");
+        extractSuccess = extractSuccess && destinationDir.mkpath(QStringLiteral("."));
     }
 
     if (extractSuccess)
@@ -195,14 +200,14 @@ void FirstTimeWizard::install()
         archive.seek(0);
 
         // Call tar to extract
-        KTar extract(archive.fileName(), "application/x-xz");
+        KTar extract(archive.fileName(), QStringLiteral("application/x-xz"));
         extract.open(QIODevice::ReadOnly);
         extractSuccess = extract.directory()->copyTo(destinationPath, true);
         qCDebug(FtwIo) << "Downloaded file extracted with success ? :" << extractSuccess;
         qCDebug(FtwIo) << archive.fileName() << "extracted in" << destinationPath;
 
         installStatusLabel->setText(i18n("Extracted"));
-        arduinoPathEdit->setText(destinationPath + "/arduino-" + ARDUINO_SDK_VERSION_NAME);
+        arduinoPathEdit->setText(QStringLiteral("%0/arduino-%1").arg(destinationPath).arg(QStringLiteral(ARDUINO_SDK_VERSION_NAME)));
         m_installFinished = true;
     }
     this->button(QWizard::NextButton)->setEnabled(true);
@@ -242,12 +247,12 @@ QString FirstTimeWizard::getArduinoPath()
     QString applicationPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
     // Paths to search for an existing installation
     static QStringList defaultArduinoPaths = QStringList()
-            << QDir(applicationPath).filePath(QString("arduino-") + QString(ARDUINO_SDK_VERSION_NAME))
-            << QDir(applicationPath).filePath("arduino")
-            << QString("/usr/local/share/arduino-") + ARDUINO_SDK_VERSION_NAME
-            << QString("/usr/local/share/arduino")
-            << QString("/usr/share/arduino-") + ARDUINO_SDK_VERSION_NAME
-            << QString("/usr/share/arduino");
+            << QDir(applicationPath).filePath(QStringLiteral("arduino-") + QStringLiteral(ARDUINO_SDK_VERSION_NAME))
+            << QDir(applicationPath).filePath(QStringLiteral("arduino"))
+            << QStringLiteral("/usr/local/share/arduino-") + QStringLiteral(ARDUINO_SDK_VERSION_NAME)
+            << QStringLiteral("/usr/local/share/arduino")
+            << QStringLiteral("/usr/share/arduino-") + QStringLiteral(ARDUINO_SDK_VERSION_NAME)
+            << QStringLiteral("/usr/share/arduino");
 #endif
 
     foreach (const auto& path, defaultArduinoPaths)
@@ -271,7 +276,7 @@ QString FirstTimeWizard::getSketchbookPath()
 #ifdef Q_OS_DARWIN
 #elif defined(Q_OS_WIN32) || defined(Q_OS_WIN64)
 #else
-    sketchbookPath = QDir(QDir::homePath()).filePath("sketchbook");
+    sketchbookPath = QDir(QDir::homePath()).filePath(QStringLiteral("sketchbook"));
 #endif
 
     if (sketchbookPath.exists())

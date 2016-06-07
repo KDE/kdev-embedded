@@ -41,18 +41,19 @@ QString Toolkit::getBoardFile(const QString &path)
 
 QString Toolkit::toolkitVersion(const QString &path)
 {
-    QFile file(QDir(path).filePath("revisions.txt"));
+    QFile file(QDir(path).filePath(QStringLiteral("revisions.txt")));
     if (!file.open(QFile::ReadOnly))
     {
         return QString();
     }
 
-    QByteArray arduinoVersion = file.readLine();
-    while (arduinoVersion == "\n" && ! file.atEnd())
+    QTextStream reader(&file);
+    QString arduinoVersion = reader.readLine();
+    while (arduinoVersion == QChar::fromLatin1('\n') && ! reader.atEnd())
     {
-        arduinoVersion = file.readLine();
+        arduinoVersion = reader.readLine();
     }
-    QList<QByteArray> list = arduinoVersion.split(' ');
+    QList<QString> list = arduinoVersion.split(QChar::fromLatin1(' '));
     if (list.size() >= 2)
     {
         return  list.at(1).trimmed();
@@ -62,21 +63,21 @@ QString Toolkit::toolkitVersion(const QString &path)
 
 QString Toolkit::avrdudePath()
 {
-    return QString(avrProgramPath() + "/avrdude");
+    return QString(avrProgramPath() + QStringLiteral("/avrdude"));
 }
 
 QString Toolkit::boardFilePath()
 {
-    return "/hardware/arduino/avr/boards.txt";
+    return QStringLiteral("/hardware/arduino/avr/boards.txt");
 }
 
 QString Toolkit::avrProgramPath()
 {
-    return "/hardware/tools/avr/bin";
+    return QStringLiteral("/hardware/tools/avr/bin");
 }
 
 bool Toolkit::isValidArduinoPath(const QString &path)
 {
     QString version = Toolkit::toolkitVersion(path);
-    return (version == "1.6.8" || version == "1.6.7");
+    return (version == QStringLiteral("1.6.8") || version == QStringLiteral("1.6.7"));
 }
