@@ -45,18 +45,18 @@
 #include <project/builderjob.h>
 #include <util/kdevstringhandler.h>
 
-QString ExecutePlugin::_nativeAppConfigTypeId = QStringLiteral("Embedded Application");
-QString ExecutePlugin::workingDirEntry = QStringLiteral("Working Directory");
-QString ExecutePlugin::executableEntry = QStringLiteral("Executable");
-QString ExecutePlugin::argumentsEntry = QStringLiteral("Arguments");
-QString ExecutePlugin::isExecutableEntry = QStringLiteral("isExecutable");
-QString ExecutePlugin::dependencyEntry = QStringLiteral("Dependencies");
-QString ExecutePlugin::environmentGroupEntry = QStringLiteral("EnvironmentGroup");
-QString ExecutePlugin::useTerminalEntry = QStringLiteral("Use External Terminal");
-QString ExecutePlugin::terminalEntry = QStringLiteral("External Terminal");
-QString ExecutePlugin::userIdToRunEntry = QStringLiteral("User Id to Run");
-QString ExecutePlugin::dependencyActionEntry = QStringLiteral("Dependency Action");
-QString ExecutePlugin::projectTargetEntry = QStringLiteral("Project Target");
+QString ExecutePlugin::_nativeAppConfigTypeId = i18n("Embedded Application");
+QString ExecutePlugin::workingDirEntry = i18n("Working Directory");
+QString ExecutePlugin::executableEntry = i18n("Executable");
+QString ExecutePlugin::argumentsEntry = i18n("Arguments");
+QString ExecutePlugin::isExecutableEntry = i18n("isExecutable");
+QString ExecutePlugin::dependencyEntry = i18n("Dependencies");
+QString ExecutePlugin::environmentGroupEntry = i18n("EnvironmentGroup");
+QString ExecutePlugin::useTerminalEntry = i18n("Use External Terminal");
+QString ExecutePlugin::terminalEntry = i18n("External Terminal");
+QString ExecutePlugin::userIdToRunEntry = i18n("User Id to Run");
+QString ExecutePlugin::dependencyActionEntry = i18n("Dependency Action");
+QString ExecutePlugin::projectTargetEntry = i18n("Project Target");
 
 using namespace KDevelop;
 

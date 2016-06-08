@@ -114,7 +114,7 @@ void Board::update()
 
 QString Board::Freq2FreqHz(QString freq)
 {
-    return QStringLiteral("%0% 1").arg(QString::number(freq.left(freq.lastIndexOf(QStringLiteral("L"))).toInt() /  1e6)).arg(QStringLiteral("MHz"));
+    return QStringLiteral("%0 %1").arg(QString::number(freq.left(freq.lastIndexOf(QChar::fromLatin1('L'))).toInt() /  1e6)).arg(QStringLiteral("MHz"));
 }
 
 void Board::load()

@@ -106,7 +106,7 @@ ArduinoWindowModelStruct ArduinoWindowModel::getData(int index)
     {
         return m_db.at(index);
     }
-    return ArduinoWindowModelStruct{QStringLiteral(""), QStringLiteral("")};
+    return ArduinoWindowModelStruct{QString(), QString()};
 }
 
 QIcon EmbeddedLauncherConfigPage::icon() const
@@ -252,7 +252,7 @@ QList< KDevelop::LaunchConfigurationPageFactory* > EmbeddedLauncher::configPages
 
 QString EmbeddedLauncher::description() const
 {
-    return QStringLiteral("Upload applications to embedded platforms");
+    return i18n("Upload applications to embedded platforms");
 }
 
 QString EmbeddedLauncher::id()
@@ -296,7 +296,7 @@ KJob* EmbeddedLauncher::start(const QString& launchMode, KDevelop::ILaunchConfig
 
 QStringList EmbeddedLauncher::supportedModes() const
 {
-    return QStringList() << QStringLiteral("execute2");
+    return QStringList() << QStringLiteral("execute");
 }
 
 KDevelop::LaunchConfigurationPage* NativeAppPageFactory::createWidget(QWidget* parent)
@@ -422,7 +422,7 @@ QMenu* NativeAppConfigType::launcherSuggestions()
                         act->setData(KDevelop::joinWithEscaping(path, QChar::fromLatin1('/'),QChar::fromLatin1('\\')));
                         act->setProperty("name", target->text());
                         path.removeFirst();
-                        act->setText(path.join(QStringLiteral("/")));
+                        act->setText(path.join(QChar::fromLatin1('/')));
                         act->setIcon(QIcon::fromTheme(QStringLiteral("system-run")));
                         connect(act, &QAction::triggered, this, &NativeAppConfigType::suggestionTriggered);
                         targetsContainer[target->parent()].append(act);
@@ -553,7 +553,7 @@ void EmbeddedLauncherConfigPage::boardComboChanged(const QString& text)
         {
             freq = freqs[0];
         }
-        mcuFreqCombo->addItem(QStringLiteral("%0,%1").arg(mcu).arg(freq));
+        mcuFreqCombo->addItem(QStringLiteral("%0, %1").arg(mcu).arg(freq));
         index += 1;
     }
     Board::instance().m_boards[id].printData();
