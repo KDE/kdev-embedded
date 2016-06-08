@@ -273,7 +273,7 @@ KJob* EmbeddedLauncher::start(const QString& launchMode, KDevelop::ILaunchConfig
     }
     if (launchMode == QLatin1String("execute"))
     {
-        IEmbeddedExecutePlugin* iface = KDevelop::ICore::self()->pluginController()->pluginForExtension(QStringLiteral("org.kdevelop.IEmbeddedExecutePlugin"), QStringLiteral("kdevembedded-launcher"))->extension<IEmbeddedExecutePlugin>();
+        IExecutePlugin* iface = KDevelop::ICore::self()->pluginController()->pluginForExtension(QStringLiteral("org.kdevelop.IExecutePlugin"), QStringLiteral("kdevembedded-launcher"))->extension<IExecutePlugin>();
         Q_ASSERT(iface);
         KJob* depjob = iface->dependencyJob(cfg);
         QList<KJob*> l;
