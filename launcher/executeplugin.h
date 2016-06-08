@@ -25,7 +25,8 @@
 #include <interfaces/iplugin.h>
 #include <QtCore/QVariant>
 #include <QtCore/QProcess>
-#include "iexecuteplugin.h"
+
+#include <execute/iexecuteplugin.h>
 
 class QUrl;
 class KJob;

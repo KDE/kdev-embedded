@@ -87,7 +87,6 @@ target_link_libraries(kdevembedded-launcher
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/firsttimewizard.h.in ${CMAKE_CURRENT_SOURCE_DIR}/firsttimewizard.h)
 
 install(DIRECTORY boardsimg DESTINATION ${DATA_INSTALL_DIR}/kdevembedded)
-install(FILES launcher/iexecuteplugin.h DESTINATION ${DATA_INSTALL_DIR}/kdevembedded/launcher COMPONENT Devel)
 
 add_subdirectory(doc_templates)
 

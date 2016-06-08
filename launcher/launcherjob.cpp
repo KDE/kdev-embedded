@@ -39,7 +39,8 @@
 #include <interfaces/iplugincontroller.h>
 #include <project/projectmodel.h>
 
-#include "iexecuteplugin.h"
+#include <execute/iexecuteplugin.h>
+
 #include "debug.h"
 
 using namespace KDevelop;
