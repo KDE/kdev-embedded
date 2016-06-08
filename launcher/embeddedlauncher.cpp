@@ -240,6 +240,11 @@ QString EmbeddedLauncherConfigPage::title() const
     return i18n("Configure Embedded Application");
 }
 
+EmbeddedLauncherConfigPage::~EmbeddedLauncherConfigPage()
+{
+    delete m_devices;
+}
+
 QList< KDevelop::LaunchConfigurationPageFactory* > EmbeddedLauncher::configPages() const
 {
     return QList<KDevelop::LaunchConfigurationPageFactory*>();
