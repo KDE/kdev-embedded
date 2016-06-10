@@ -88,7 +88,6 @@ private:
 
     Board *m_board;
     QString m_interface;
-    QScopedPointer<Solid::DeviceNotifier> *m_devices;
     ArduinoWindowModel *m_model;
 };
 
