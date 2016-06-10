@@ -71,6 +71,13 @@ Embedded::Embedded(QObject* parent, const QVariantList&)
     actionConfigureBoard->setWhatsThis(i18n("Project and upload manager for embedded systems."));
     actionConfigureBoard->setIcon(QIcon::fromTheme(QStringLiteral("project-development-new-template")));
     connect(actionConfigureBoard, &QAction::triggered, this, &Embedded::boardSettingsEvent);
+
+    KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
+    if (settings.readEntry("arduinoFolder", "").isEmpty())
+    {
+        QMessageBox::warning(0, i18n("kdev-embedded"), i18n("Please, run the first time wizard."));
+        firstTimeWizardEvent();
+    }
 }
 
 void Embedded::firstTimeWizardEvent()
