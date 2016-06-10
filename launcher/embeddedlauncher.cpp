@@ -159,7 +159,7 @@ void EmbeddedLauncherConfigPage::loadFromConfiguration(const KConfigGroup& cfg, 
 
 EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
     : LaunchConfigurationPage(parent),
-      m_devices(new Solid::DeviceNotifier),
+      m_devices(new QScopedPointer<Solid::DeviceNotifier>),
       m_model(new ArduinoWindowModel(parent))
 {
     setupUi(this);
@@ -168,7 +168,7 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
     //Set workingdirectory widget to ask for directories rather than files
     workingDirectory->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
 
-    m_devices = Solid::DeviceNotifier::instance();
+    m_devices->reset(Solid::DeviceNotifier::instance());
 
     Board::instance().update();
 
@@ -196,8 +196,8 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
     connect(arguments, &QLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed);
     connect(workingDirectory, &KUrlRequester::urlSelected, this, &EmbeddedLauncherConfigPage::changed);
     connect(workingDirectory->lineEdit(), &KLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed);
-    connect(m_devices, &Solid::DeviceNotifier::deviceAdded, this, &EmbeddedLauncherConfigPage::devicesChanged);
-    connect(m_devices, &Solid::DeviceNotifier::deviceRemoved, this, &EmbeddedLauncherConfigPage::devicesChanged);
+    connect(m_devices->data(), &Solid::DeviceNotifier::deviceAdded, this, &EmbeddedLauncherConfigPage::devicesChanged);
+    connect(m_devices->data(), &Solid::DeviceNotifier::deviceRemoved, this, &EmbeddedLauncherConfigPage::devicesChanged);
     connect(boardCombo, &QComboBox::currentTextChanged, this,  &EmbeddedLauncherConfigPage::boardComboChanged);
     connect(mcuFreqCombo, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,  &EmbeddedLauncherConfigPage::mcuFreqComboChanged);
 }
@@ -242,7 +242,6 @@ QString EmbeddedLauncherConfigPage::title() const
 
 EmbeddedLauncherConfigPage::~EmbeddedLauncherConfigPage()
 {
-    delete m_devices;
 }
 
 QList< KDevelop::LaunchConfigurationPageFactory* > EmbeddedLauncher::configPages() const
@@ -271,6 +270,7 @@ EmbeddedLauncher::EmbeddedLauncher()
 
 KJob* EmbeddedLauncher::start(const QString& launchMode, KDevelop::ILaunchConfiguration* cfg)
 {
+    qCDebug(ElMsg) << "EmbeddedLauncher::start launchMode" << launchMode;
     Q_ASSERT(cfg);
     if (!cfg)
     {
@@ -498,6 +498,7 @@ void EmbeddedLauncherConfigPage::devicesChanged(const QString& udi)
     interfaceCombo->clear();
     auto devices = Solid::Device::allDevices();
 
+    qCDebug(ElMsg) << "devicesChanged";
     bool interfaceExist = false;
     foreach (const auto& device, devices)
     {
