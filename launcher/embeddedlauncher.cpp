@@ -64,7 +64,7 @@
 using namespace KDevelop;
 using namespace Solid;
 
-Q_LOGGING_CATEGORY(ElMsg, "Kdev.embedded.aw.msg");
+Q_LOGGING_CATEGORY(ElMsg, "Kdev.embedded.el.msg");
 
 ArduinoWindowModel::ArduinoWindowModel(QObject *parent)
     : QAbstractTableModel(parent)
