@@ -47,13 +47,15 @@ public:
     static QString executableEntry;
     static QString argumentsEntry;
     static QString isExecutableEntry;
-    static QString dependencyEntry;
     static QString environmentGroupEntry;
     static QString useTerminalEntry;
     static QString terminalEntry;
     static QString userIdToRunEntry;
     static QString dependencyActionEntry;
     static QString projectTargetEntry;
+    static QString presetsEntry;
+    static QString boardEntry;
+    static QString mcuFreqEntry;
 
     void unload() override;
 
@@ -68,5 +70,3 @@ public:
 
     NativeAppConfigType* m_configType;
 };
-
-// kate: space-indent on; indent-width 2; tab-width 4; replace-tabs on; auto-insert-doxygen on

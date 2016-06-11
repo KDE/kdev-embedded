@@ -123,7 +123,8 @@ static KDevelop::ProjectBaseItem* itemForPath(const QStringList& path, KDevelop:
 
 void EmbeddedLauncherConfigPage::loadFromConfiguration(const KConfigGroup& cfg, KDevelop::IProject* project)
 {
-    qCDebug(ElMsg) << "EmbeddedLauncherConfigPage::loadFromConfiguration" << cfg.groupList();
+    qCDebug(ElMsg) << "EmbeddedLauncherConfigPage::loadFromConfiguration" << cfg.groupList() << cfg.keyList() << cfg.entryMap();
+
     bool b = blockSignals(true);
     projectTarget->setBaseItem(project ? project->projectItem() : 0, true);
     projectTarget->setCurrentItemPath(cfg.readEntry(ExecutePlugin::projectTargetEntry, QStringList()));
@@ -142,8 +143,6 @@ void EmbeddedLauncherConfigPage::loadFromConfiguration(const KConfigGroup& cfg, 
         }
     }
 
-    //executablePath->setFilter("application/x-executable");
-
     executableRadio->setChecked(true);
     if (!cfg.readEntry(ExecutePlugin::isExecutableEntry, false) && projectTarget->count())
     {
@@ -153,7 +152,21 @@ void EmbeddedLauncherConfigPage::loadFromConfiguration(const KConfigGroup& cfg, 
     arguments->setClearButtonEnabled(true);
     arguments->setText(cfg.readEntry(ExecutePlugin::argumentsEntry, ""));
     workingDirectory->setUrl(cfg.readEntry(ExecutePlugin::workingDirEntry, QUrl()));
-    //terminal->setEditText( cfg.readEntry( ExecutePlugin::terminalEntry, terminal->itemText(0) ) );
+    commandBox->setEditText(cfg.readEntry(ExecutePlugin::terminalEntry, commandBox->itemText(0)));
+
+    const int boardIndex = cfg.readEntry(ExecutePlugin::boardEntry, 0);
+    const int mcuFreqIndex = cfg.readEntry(ExecutePlugin::mcuFreqEntry, 0);
+    qCDebug(ElMsg) << "Board index from cfg" << QString(cfg.readEntry(ExecutePlugin::boardEntry, 0)).toInt() << cfg.readEntry(ExecutePlugin::boardEntry, 0);
+    qCDebug(ElMsg) << "BoardCombo size" << boardCombo->count();
+    if (boardIndex < boardCombo->count())
+    {
+        boardCombo->setCurrentIndex(boardIndex);
+    }
+    if (mcuFreqIndex < mcuFreqCombo->count())
+    {
+        mcuFreqCombo->setCurrentIndex(mcuFreqIndex);
+    }
+
     QStringList strDeps;
     blockSignals(b);
 }
@@ -163,7 +176,6 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
       m_model(new ArduinoWindowModel(parent))
 {
     setupUi(this);
-    //Setup data info for combobox
 
     //Set workingdirectory widget to ask for directories rather than files
     workingDirectory->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
@@ -196,6 +208,9 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
     connect(arguments, &QLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed);
     connect(workingDirectory, &KUrlRequester::urlSelected, this, &EmbeddedLauncherConfigPage::changed);
     connect(workingDirectory->lineEdit(), &KLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed);
+    connect(boardCombo, &QComboBox::currentTextChanged, this, &EmbeddedLauncherConfigPage::changed);
+    connect(commandBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &EmbeddedLauncherConfigPage::changed);
+
     connect(devices, &Solid::DeviceNotifier::deviceAdded, this, &EmbeddedLauncherConfigPage::devicesChanged);
     connect(devices, &Solid::DeviceNotifier::deviceRemoved, this, &EmbeddedLauncherConfigPage::devicesChanged);
     connect(boardCombo, &QComboBox::currentTextChanged, this,  &EmbeddedLauncherConfigPage::boardComboChanged);
@@ -231,9 +246,10 @@ void EmbeddedLauncherConfigPage::saveToConfiguration(KConfigGroup cfg, KDevelop:
     cfg.writeEntry(ExecutePlugin::projectTargetEntry, projectTarget->currentItemPath());
     cfg.writeEntry(ExecutePlugin::argumentsEntry, arguments->text());
     cfg.writeEntry(ExecutePlugin::workingDirEntry, workingDirectory->url());
-    //cfg.writeEntry( ExecutePlugin::terminalEntry, terminal->currentText() );
-    QVariantList deps;
-    cfg.writeEntry(ExecutePlugin::dependencyEntry, KDevelop::qvariantToString(QVariant(deps)));
+    cfg.writeEntry(ExecutePlugin::terminalEntry, commandBox->currentText());
+    cfg.writeEntry(ExecutePlugin::boardEntry, boardCombo->currentIndex());
+    cfg.writeEntry(ExecutePlugin::mcuFreqEntry, mcuFreqCombo->currentIndex());
+    qCDebug(ElMsg) << "EmbeddedLauncherConfigPage::saveToConfiguration" << cfg.groupList() << cfg.keyList() << cfg.entryMap();
 }
 
 QString EmbeddedLauncherConfigPage::title() const
@@ -485,9 +501,7 @@ void NativeAppConfigType::suggestionTriggered()
         KConfigGroup cfg = config->config();
         qCDebug(ElMsg) << "NativeAppConfigType::suggestionTriggered" << cfg.groupList();
         QStringList splitPath = model->pathFromIndex(pitem->index());
-//         QString path = KDevelop::joinWithEscaping(splitPath,'/','\\');
         cfg.writeEntry(ExecutePlugin::projectTargetEntry, splitPath);
-        cfg.writeEntry(ExecutePlugin::dependencyEntry, KDevelop::qvariantToString(QVariantList() << splitPath));
         cfg.writeEntry(ExecutePlugin::dependencyActionEntry, "Build");
         cfg.sync();
 

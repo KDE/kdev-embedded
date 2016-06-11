@@ -50,10 +50,11 @@ QString ExecutePlugin::workingDirEntry = i18n("Working Directory");
 QString ExecutePlugin::executableEntry = i18n("Executable");
 QString ExecutePlugin::argumentsEntry = i18n("Arguments");
 QString ExecutePlugin::isExecutableEntry = i18n("isExecutable");
-QString ExecutePlugin::dependencyEntry = i18n("Dependencies");
 QString ExecutePlugin::environmentGroupEntry = i18n("EnvironmentGroup");
 QString ExecutePlugin::useTerminalEntry = i18n("Use External Terminal");
 QString ExecutePlugin::terminalEntry = i18n("External Terminal");
+QString ExecutePlugin::boardEntry = i18n("Board Index");
+QString ExecutePlugin::mcuFreqEntry = i18n("mcuFreq Index");
 QString ExecutePlugin::userIdToRunEntry = i18n("User Id to Run");
 QString ExecutePlugin::dependencyActionEntry = i18n("Dependency Action");
 QString ExecutePlugin::projectTargetEntry = i18n("Project Target");
@@ -118,37 +119,7 @@ QStringList ExecutePlugin::arguments(KDevelop::ILaunchConfiguration* cfg, QStrin
 
 KJob* ExecutePlugin::dependencyJob(KDevelop::ILaunchConfiguration* cfg) const
 {
-    QVariantList deps = KDevelop::stringToQVariant(cfg->config().readEntry(dependencyEntry, QString())).toList();
-    QString depAction = cfg->config().readEntry(dependencyActionEntry, "Nothing");
-    if (depAction != QLatin1String("Nothing") && !deps.isEmpty())
-    {
-        KDevelop::ProjectModel* model = KDevelop::ICore::self()->projectController()->projectModel();
-        QList<KDevelop::ProjectBaseItem*> items;
-        foreach (const QVariant& dep, deps)
-        {
-            KDevelop::ProjectBaseItem* item = model->itemFromIndex(model->pathToIndex(dep.toStringList()));
-            if (item)
-            {
-                items << item;
-            }
-            else
-            {
-                KMessageBox::error(core()->uiController()->activeMainWindow(),
-                                   i18n("Couldn't resolve the dependency: %1", dep.toString()));
-            }
-        }
-        KDevelop::BuilderJob* job = new KDevelop::BuilderJob();
-        if (depAction == QLatin1String("Build"))
-        {
-            job->addItems(KDevelop::BuilderJob::Build, items);
-        }
-        else if (depAction == QLatin1String("Install"))
-        {
-            job->addItems(KDevelop::BuilderJob::Install, items);
-        }
-        job->updateJobName();
-        return job;
-    }
+    Q_UNUSED(cfg)
     return 0;
 }
 

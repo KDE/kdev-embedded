@@ -145,7 +145,7 @@ LauncherJob* findNativeJob(KJob* j)
 
 void LauncherJob::start()
 {
-    // we kill any execution of the configuration
+    // We kill any execution of the configuration
     foreach (KJob* j, ICore::self()->runController()->currentJobs())
     {
         LauncherJob* job = findNativeJob(j);

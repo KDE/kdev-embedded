@@ -89,6 +89,7 @@ private:
     Board *m_board;
     QString m_interface;
     ArduinoWindowModel *m_model;
+
 };
 
 class EmbeddedLauncher : public KDevelop::ILauncher
