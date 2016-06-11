@@ -51,6 +51,7 @@ public:
     QNetworkAccessManager *m_mDownloadManager;
     QNetworkReply *m_reply;
 
+    bool m_downloadRunning;
     bool m_downloadFinished;
     bool m_installFinished;
 

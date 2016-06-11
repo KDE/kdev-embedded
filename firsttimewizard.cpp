@@ -76,6 +76,7 @@ FirstTimeWizard::FirstTimeWizard(QWidget *parent) :
 
     // Download mode is default
     automaticInstallButton->setChecked(true);
+    m_downloadRunning = false;
     // Arduino path
     getArduinoPath();
     // Sketchbook path
@@ -134,6 +135,18 @@ bool FirstTimeWizard::validateCurrentPage()
 void FirstTimeWizard::download()
 {
     button(QWizard::NextButton)->setEnabled(false);
+
+    if (m_downloadRunning == true && !m_downloadFinished)
+    {
+        return;
+    }
+    else if (m_downloadFinished)
+    {
+        button(QWizard::NextButton)->setEnabled(true);
+        return;
+    }
+
+    m_downloadRunning = true;
     downloadProgressBar->setValue(0);
     // TODO update to generic links, create to linux and mac
     QNetworkRequest request(QUrl(
@@ -147,6 +160,7 @@ void FirstTimeWizard::download()
     connect(m_reply, &QNetworkReply::downloadProgress, this, &FirstTimeWizard::onDownloadProgress);
     connect(m_reply, &QNetworkReply::finished, this, &FirstTimeWizard::install);
     downloadStatusLabel->setText(i18n("Downloading..."));
+
 }
 
 void FirstTimeWizard::install()
