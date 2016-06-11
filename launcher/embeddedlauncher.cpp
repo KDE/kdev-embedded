@@ -123,6 +123,7 @@ static KDevelop::ProjectBaseItem* itemForPath(const QStringList& path, KDevelop:
 
 void EmbeddedLauncherConfigPage::loadFromConfiguration(const KConfigGroup& cfg, KDevelop::IProject* project)
 {
+    qCDebug(ElMsg) << "EmbeddedLauncherConfigPage::loadFromConfiguration" << cfg.groupList();
     bool b = blockSignals(true);
     projectTarget->setBaseItem(project ? project->projectItem() : 0, true);
     projectTarget->setCurrentItemPath(cfg.readEntry(ExecutePlugin::projectTargetEntry, QStringList()));
@@ -223,6 +224,7 @@ void EmbeddedLauncherConfigPage::selectItemDialog()
 
 void EmbeddedLauncherConfigPage::saveToConfiguration(KConfigGroup cfg, KDevelop::IProject* project) const
 {
+    qCDebug(ElMsg) << "EmbeddedLauncherConfigPage::saveToConfiguration" << cfg.config()->groupList();
     Q_UNUSED(project);
     cfg.writeEntry(ExecutePlugin::isExecutableEntry, executableRadio->isChecked());
     cfg.writeEntry(ExecutePlugin::executableEntry, executablePath->url());
@@ -269,7 +271,7 @@ EmbeddedLauncher::EmbeddedLauncher()
 
 KJob* EmbeddedLauncher::start(const QString& launchMode, KDevelop::ILaunchConfiguration* cfg)
 {
-    qCDebug(ElMsg) << "EmbeddedLauncher::start launchMode" << launchMode;
+    qCDebug(ElMsg) << "EmbeddedLauncher::start" << launchMode << cfg->name() << cfg->config().groupList();
     Q_ASSERT(cfg);
     if (!cfg)
     {
@@ -355,6 +357,7 @@ bool NativeAppConfigType::canLaunch(const QUrl& file) const
 
 void NativeAppConfigType::configureLaunchFromItem(KConfigGroup cfg, KDevelop::ProjectBaseItem* item) const
 {
+    qCDebug(ElMsg) << "EmbeddedLauncher::configureLaunchFromItem" << cfg.config()->groupList();
     cfg.writeEntry(ExecutePlugin::isExecutableEntry, false);
     KDevelop::ProjectModel* model = KDevelop::ICore::self()->projectController()->projectModel();
     cfg.writeEntry(ExecutePlugin::projectTargetEntry, model->pathFromIndex(model->indexFromItem(item)));
@@ -364,6 +367,7 @@ void NativeAppConfigType::configureLaunchFromItem(KConfigGroup cfg, KDevelop::Pr
 
 void NativeAppConfigType::configureLaunchFromCmdLineArguments(KConfigGroup cfg, const QStringList& args) const
 {
+    qCDebug(ElMsg) << "EmbeddedLauncher::configureLaunchFromCmdLineArguments" << cfg.config()->groupList();
     cfg.writeEntry(ExecutePlugin::isExecutableEntry, true);
     Q_ASSERT(QFile::exists(args.first()));
 //  TODO: we probably want to flexibilize, but at least we won't be accepting wrong values anymore
@@ -479,7 +483,7 @@ void NativeAppConfigType::suggestionTriggered()
 
         KDevelop::ILaunchConfiguration* config = KDevelop::ICore::self()->runController()->createLaunchConfiguration(this, launcher, p, pitem->text());
         KConfigGroup cfg = config->config();
-
+        qCDebug(ElMsg) << "NativeAppConfigType::suggestionTriggered" << cfg.groupList();
         QStringList splitPath = model->pathFromIndex(pitem->index());
 //         QString path = KDevelop::joinWithEscaping(splitPath,'/','\\');
         cfg.writeEntry(ExecutePlugin::projectTargetEntry, splitPath);
