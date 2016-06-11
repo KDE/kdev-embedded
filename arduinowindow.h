@@ -102,5 +102,4 @@ private:
 
     QPixmap m_pixBuffer;
     QDir m_boardImgsDir;
-    Solid::DeviceNotifier *devices;
 };

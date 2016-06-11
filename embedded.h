@@ -24,6 +24,7 @@
 
 #include <QtCore/QVariant>
 #include <QLoggingCategory>
+#include <QScopedPointer>
 
 class ArduinoWindow;
 class FirstTimeWizard;
@@ -37,9 +38,6 @@ class Embedded : public KDevelop::IPlugin
 public:
     explicit Embedded(QObject *parent, const QVariantList & = QVariantList());
     ~Embedded() override;
-
-    FirstTimeWizard* m_embeddedWindow = nullptr;
-    ArduinoWindow* m_arduinoBoard = nullptr;
 
     void firstTimeWizardEvent();
     void boardSettingsEvent();

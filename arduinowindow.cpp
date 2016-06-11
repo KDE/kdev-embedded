@@ -97,8 +97,7 @@ ArduinoWindowModelStruct ArduinoWindowModel::getData(int index)
 ArduinoWindow::ArduinoWindow(QWidget *parent) :
     QDialog(parent),
     m_model(new ArduinoWindowModel(parent)),
-    m_avrdudeProcess(new QProcess(parent)),
-    devices(new Solid::DeviceNotifier)
+    m_avrdudeProcess(new QProcess(parent))
 {
     qCDebug(AwMsg) << "AW opened";
     setupUi(this);
@@ -143,7 +142,7 @@ ArduinoWindow::ArduinoWindow(QWidget *parent) :
     output->setTextColor(Qt::green);
     output->append(i18n("Welcome,\n\nKDev-Embedded is still in alpha,\nplease be careful and report any problems you find.\n\nHave fun!"));
 
-    devices = Solid::DeviceNotifier::instance();
+    Solid::DeviceNotifier *devices = Solid::DeviceNotifier::instance();
 
     connect(hexPathButton, &QToolButton::clicked, this, &ArduinoWindow::chooseHexPath);
     m_avrdudeProcess->connect(m_avrdudeProcess, &QProcess::readyReadStandardOutput, this, &ArduinoWindow::avrdudeStdout);
@@ -454,7 +453,4 @@ void ArduinoWindow::buttonBoxCancel()
 
 ArduinoWindow::~ArduinoWindow()
 {
-    delete m_model;
-    delete m_avrdudeProcess;
-    delete devices;
 }

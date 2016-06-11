@@ -82,8 +82,8 @@ Embedded::Embedded(QObject* parent, const QVariantList&)
 
 void Embedded::firstTimeWizardEvent()
 {
-    m_embeddedWindow = new FirstTimeWizard(ICore::self()->uiController()->activeMainWindow());
-    m_embeddedWindow->show();
+    FirstTimeWizard *embeddedWindow = new FirstTimeWizard(ICore::self()->uiController()->activeMainWindow());
+    embeddedWindow->show();
 }
 
 void Embedded::boardSettingsEvent()
@@ -91,8 +91,9 @@ void Embedded::boardSettingsEvent()
     KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
     if (!settings.readEntry("arduinoFolder", "").isEmpty())
     {
-        m_arduinoBoard = new ArduinoWindow(ICore::self()->uiController()->activeMainWindow());
-        m_arduinoBoard->show();
+
+        ArduinoWindow *arduinoBoard = new ArduinoWindow(ICore::self()->uiController()->activeMainWindow());
+        arduinoBoard->show();
     }
     else
     {
@@ -104,10 +105,6 @@ void Embedded::boardSettingsEvent()
 
 Embedded::~Embedded()
 {
-    delete m_embeddedWindow;
-    delete m_arduinoBoard;
-    delete m_embeddedWindow;
-    delete m_arduinoBoard;
 }
 
 #include "embedded.moc"
