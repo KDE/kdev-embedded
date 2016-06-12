@@ -6,7 +6,7 @@
 # if upload is done by makefile
 # protocol list http://www.nongnu.org/avrdude/user-manual/avrdude_4.html
 #################################
-# ARDUINO_BOARD
+# ARDUINO_VAR
 # board variant
 # types can be found here: arduino/hardware/arduino/avr/variants/*
 #################################
@@ -30,7 +30,7 @@
 #################################
 
 # Compile
-set(ARDUINO_BOARD        "mega")
+set(ARDUINO_VAR          "mega")
 set(ARDUINO_MCU          "atmega2560")
 set(ARDUINO_FCPU         "16000000")
 

@@ -7,7 +7,7 @@ cmake_policy(SET CMP0046 OLD)
 
 #Arduino path
 set(ARDUINO_CORE_DIR "${ARDUINO_PATH}/hardware/arduino/avr/cores/arduino/")
-set(ARDUINO_PINS_DIR "${ARDUINO_PATH}/hardware/arduino/avr/variants/${ARDUINO_BOARD}")
+set(ARDUINO_PINS_DIR "${ARDUINO_PATH}/hardware/arduino/avr/variants/${ARDUINO_VAR}")
 set(ARDUINO_BIN_DIR  "${ARDUINO_PATH}/hardware/tools/avr/bin/")
 
 set(CMAKE_ASM_COMPILER  "${ARDUINO_BIN_DIR}/avr-gcc")
