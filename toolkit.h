@@ -50,4 +50,5 @@ public:
 
     static QString getBoardFile(const QString &path);
     static QString avrdudePath();
+    static QString avrdudeConfigPath();
 };

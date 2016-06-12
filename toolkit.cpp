@@ -61,6 +61,11 @@ QString Toolkit::toolkitVersion(const QString &path)
     return QString();
 }
 
+QString Toolkit::avrdudeConfigPath()
+{
+    return QStringLiteral("/hardware/tools/avr/etc/avrdude.conf");
+}
+
 QString Toolkit::avrdudePath()
 {
     return QString(avrProgramPath() + QStringLiteral("/avrdude"));
