@@ -24,6 +24,7 @@
 #include "embeddedlauncher.h"
 
 #include <interfaces/icore.h>
+#include <interfaces/isession.h>
 #include <interfaces/iprojectcontroller.h>
 #include <interfaces/ilaunchconfiguration.h>
 
@@ -41,6 +42,7 @@
 #include <interfaces/iplugincontroller.h>
 
 #include "executeplugin.h"
+#include "toolkit.h"
 #include "debug.h"
 #include "board.h"
 
@@ -119,8 +121,6 @@ static KDevelop::ProjectBaseItem* itemForPath(const QStringList& path, KDevelop:
     return model->itemFromIndex(model->pathToIndex(path));
 }
 
-//TODO: Make sure to auto-add the executable target to the dependencies when its used.
-
 void EmbeddedLauncherConfigPage::loadFromConfiguration(const KConfigGroup& cfg, KDevelop::IProject* project)
 {
     qCDebug(ElMsg) << "EmbeddedLauncherConfigPage::loadFromConfiguration" << cfg.groupList() << cfg.keyList() << cfg.entryMap();
@@ -152,19 +152,21 @@ void EmbeddedLauncherConfigPage::loadFromConfiguration(const KConfigGroup& cfg, 
     arguments->setClearButtonEnabled(true);
     arguments->setText(cfg.readEntry(ExecutePlugin::argumentsEntry, ""));
     workingDirectory->setUrl(cfg.readEntry(ExecutePlugin::workingDirEntry, QUrl()));
-    commandBox->setEditText(cfg.readEntry(ExecutePlugin::terminalEntry, commandBox->itemText(0)));
+    commandBox->setEditText(cfg.readEntry(ExecutePlugin::commandEntry, commandBox->itemText(0)));
 
     const int boardIndex = cfg.readEntry(ExecutePlugin::boardEntry, 0);
-    const int mcuFreqIndex = cfg.readEntry(ExecutePlugin::mcuFreqEntry, 0);
+    const int mcuIndex = cfg.readEntry(ExecutePlugin::mcuEntry, 0);
+
     qCDebug(ElMsg) << "Board index from cfg" << QString(cfg.readEntry(ExecutePlugin::boardEntry, 0)).toInt() << cfg.readEntry(ExecutePlugin::boardEntry, 0);
     qCDebug(ElMsg) << "BoardCombo size" << boardCombo->count();
+
     if (boardIndex < boardCombo->count())
     {
         boardCombo->setCurrentIndex(boardIndex);
     }
-    if (mcuFreqIndex < mcuFreqCombo->count())
+    if (mcuIndex < mcuCombo->count())
     {
-        mcuFreqCombo->setCurrentIndex(mcuFreqIndex);
+        mcuCombo->setCurrentIndex(mcuIndex);
     }
 
     QStringList strDeps;
@@ -214,7 +216,7 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
     connect(devices, &Solid::DeviceNotifier::deviceAdded, this, &EmbeddedLauncherConfigPage::devicesChanged);
     connect(devices, &Solid::DeviceNotifier::deviceRemoved, this, &EmbeddedLauncherConfigPage::devicesChanged);
     connect(boardCombo, &QComboBox::currentTextChanged, this,  &EmbeddedLauncherConfigPage::boardComboChanged);
-    connect(mcuFreqCombo, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,  &EmbeddedLauncherConfigPage::mcuFreqComboChanged);
+    connect(mcuCombo, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,  &EmbeddedLauncherConfigPage::mcuComboChanged);
 }
 
 void EmbeddedLauncherConfigPage::checkActions(const QItemSelection& selected, const QItemSelection& unselected)
@@ -227,9 +229,6 @@ void EmbeddedLauncherConfigPage::checkActions(const QItemSelection& selected, co
         Q_ASSERT(selected.indexes().count() == 1);
         QModelIndex idx = selected.indexes().at(0);
         qCDebug(ElMsg) << "index" << idx;
-    }
-    else
-    {
     }
 }
 
@@ -245,11 +244,28 @@ void EmbeddedLauncherConfigPage::saveToConfiguration(KConfigGroup cfg, KDevelop:
     cfg.writeEntry(ExecutePlugin::executableEntry, executablePath->url());
     cfg.writeEntry(ExecutePlugin::projectTargetEntry, projectTarget->currentItemPath());
     cfg.writeEntry(ExecutePlugin::argumentsEntry, arguments->text());
+    cfg.writeEntry(ExecutePlugin::commandEntry, commandBox->currentText());
     cfg.writeEntry(ExecutePlugin::workingDirEntry, workingDirectory->url());
-    cfg.writeEntry(ExecutePlugin::terminalEntry, commandBox->currentText());
     cfg.writeEntry(ExecutePlugin::boardEntry, boardCombo->currentIndex());
-    cfg.writeEntry(ExecutePlugin::mcuFreqEntry, mcuFreqCombo->currentIndex());
+    cfg.writeEntry(ExecutePlugin::mcuEntry, mcuCombo->currentIndex());
+
+    // Arduino configuration
+    KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
+    QString arduinoPath = settings.readEntry("arduinoFolder", "");
+    QString avrdudeConf = arduinoPath + Toolkit::avrdudeConfigPath();;
+
+    QStringList arduinoConf;
+    arduinoConf
+        << m_model->getData(boardCombo->currentIndex()).m_id
+        << (m_mcu.isEmpty() ? QString() : m_mcu[mcuCombo->currentIndex()])
+        << (m_baud.isEmpty() ? QString() : m_baud[mcuCombo->currentIndex()])
+        << (m_interface.isEmpty() ? QString() : m_interface[interfaceCombo->currentIndex()])
+        << executablePath->text()
+        << avrdudeConf;
+    cfg.writeEntry(ExecutePlugin::arduinoEntry, arduinoConf);
+
     qCDebug(ElMsg) << "EmbeddedLauncherConfigPage::saveToConfiguration" << cfg.groupList() << cfg.keyList() << cfg.entryMap();
+    qCDebug(ElMsg) << "EmbeddedLauncherConfigPage::saveToConfiguration" << "arduinoConf" << arduinoConf << m_mcu << m_baud << m_interface;
 }
 
 QString EmbeddedLauncherConfigPage::title() const
@@ -297,6 +313,7 @@ KJob* EmbeddedLauncher::start(const QString& launchMode, KDevelop::ILaunchConfig
     {
         IExecutePlugin* iface = KDevelop::ICore::self()->pluginController()->pluginForExtension(QStringLiteral("org.kdevelop.IExecutePlugin"), QStringLiteral("kdevembedded-launcher"))->extension<IExecutePlugin>();
         Q_ASSERT(iface);
+
         KJob* depjob = iface->dependencyJob(cfg);
         QList<KJob*> l;
         if (depjob)
@@ -386,7 +403,7 @@ void NativeAppConfigType::configureLaunchFromCmdLineArguments(KConfigGroup cfg, 
     qCDebug(ElMsg) << "EmbeddedLauncher::configureLaunchFromCmdLineArguments" << cfg.config()->groupList();
     cfg.writeEntry(ExecutePlugin::isExecutableEntry, true);
     Q_ASSERT(QFile::exists(args.first()));
-//  TODO: we probably want to flexibilize, but at least we won't be accepting wrong values anymore
+
     cfg.writeEntry(ExecutePlugin::executableEntry, QUrl::fromLocalFile(args.first()));
     QStringList a(args);
     a.removeFirst();
@@ -513,7 +530,9 @@ void EmbeddedLauncherConfigPage::devicesChanged(const QString& udi)
 {
     Q_UNUSED(udi);
     interfaceCombo->clear();
+    // It's necessary to implement a better way to check the interface
     auto devices = Solid::Device::allDevices();
+    //auto devices = Solid::Device::listFromType(Solid::DeviceInterface::Type::Block);
 
     qCDebug(ElMsg) << "devicesChanged";
     bool interfaceExist = false;
@@ -532,7 +551,7 @@ void EmbeddedLauncherConfigPage::devicesChanged(const QString& udi)
             qCDebug(ElMsg) << "Icon\t:" << device.icon();
             qCDebug(ElMsg) << "Emblems\t:" << device.emblems();
             qCDebug(ElMsg) << "Interface\t:" << device.udi().split(QStringLiteral("/")).takeLast();
-            m_interface = QString(device.udi().split(QStringLiteral("/")).takeLast());
+            m_interface << QString(QStringLiteral("/dev/") + device.udi().split(QStringLiteral("/")).takeLast());
         }
     }
 
@@ -553,47 +572,37 @@ void EmbeddedLauncherConfigPage::devicesChanged(const QString& udi)
 void EmbeddedLauncherConfigPage::boardComboChanged(const QString& text)
 {
     Q_UNUSED(text);
-    mcuFreqCombo->clear();
     QString id = m_model->getData(boardCombo->currentIndex()).m_id;
-
-    QStringList mcus = Board::instance().m_boards[id].m_bMcu;
-    QStringList freqs = Board::instance().m_boards[id].m_freqHz;
-
-    QString freq;
-    int index = 0;
-    foreach (const auto& mcu, mcus)
-    {
-        if (mcus.size() == freqs.size())
-        {
-            freq = freqs[index];
-        }
-        else
-        {
-            freq = freqs[0];
-        }
-        mcuFreqCombo->addItem(QStringLiteral("%0, %1").arg(mcu).arg(freq));
-        index += 1;
-    }
     Board::instance().m_boards[id].printData();
-    mcuFreqComboChanged(0);
+
+    m_mcu = Board::instance().m_boards[id].m_bMcu;
+    m_baud = Board::instance().m_boards[id].m_upSpeed;
+    m_mcu.removeDuplicates();
+    m_baud.removeDuplicates();
+
+    mcuCombo->clear();
+    mcuCombo->addItems(m_mcu);
+
+    mcuComboChanged(0);
+    qCDebug(ElMsg) << "EmbeddedLauncherConfigPage::boardComboChanged" << "mcus"  << m_mcu;
 }
 
-void EmbeddedLauncherConfigPage::mcuFreqComboChanged(int index)
+void EmbeddedLauncherConfigPage::mcuComboChanged(int index)
 {
     if (index < 0)
     {
         return;
     }
 
-    qCDebug(ElMsg) << "mcuFreqComboBox Index: " << index;
-    qCDebug(ElMsg) << "mcuFreqComboBox Count: " << mcuFreqCombo->count();
+    qCDebug(ElMsg) << "mcuComboBox Index: " << index;
+    qCDebug(ElMsg) << "mcuComboBox Count: " << mcuCombo->count();
 
-    if (mcuFreqCombo->count() <= 1)
+    if (mcuCombo->count() <= 1)
     {
-        mcuFreqCombo->setEnabled(false);
+        mcuCombo->setEnabled(false);
     }
     else
     {
-        mcuFreqCombo->setEnabled(true);
+        mcuCombo->setEnabled(true);
     }
 }

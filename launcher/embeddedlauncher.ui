@@ -107,25 +107,6 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QComboBox" name="presetsCombo">
-        <item>
-         <property name="text">
-          <string>Arduino</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Arduino</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>Arm</string>
-         </property>
-        </item>
-       </widget>
-      </item>
       <item row="1" column="0">
        <widget class="QLabel" name="boardLabel">
         <property name="text">
@@ -145,15 +126,15 @@
       <item row="2" column="0">
        <widget class="QLabel" name="freqLabel">
         <property name="text">
-         <string>MCU and Freq:</string>
+         <string>MCU:</string>
         </property>
        </widget>
       </item>
       <item row="2" column="1">
-       <widget class="QComboBox" name="mcuFreqCombo">
+       <widget class="QComboBox" name="mcuCombo">
         <item>
          <property name="text">
-          <string>16Hz</string>
+          <string>atmega328p</string>
          </property>
         </item>
        </widget>
@@ -190,7 +171,7 @@
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter arguments to give to the executable.&lt;br/&gt;You can pass arguments containing space characters by putting them in double-quotes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="text">
-         <string>$exe -p %mcu -f %freq -i %port</string>
+         <string>-C%avrdudeconf -v true -p%mcu -carduino -P%interface -b%baud -D -Uflash:w:%hex:i</string>
         </property>
         <property name="placeholderText">
          <string>Enter arguments to give to the executable</string>
@@ -257,17 +238,7 @@
           </item>
           <item>
            <property name="text">
-            <string notr="true">konsole --noclose --workdir %workdir -e %exe</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string notr="true">xterm -hold -e %exe</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string notr="true">gnome-terminal -e %exe</string>
+            <string>/usr/bin/avrdude</string>
            </property>
           </item>
          </widget>
@@ -286,6 +257,25 @@
          </size>
         </property>
        </spacer>
+      </item>
+      <item row="0" column="1">
+       <widget class="QComboBox" name="presetsCombo">
+        <item>
+         <property name="text">
+          <string>Arduino</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Arduino</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Arm</string>
+         </property>
+        </item>
+       </widget>
       </item>
      </layout>
     </widget>

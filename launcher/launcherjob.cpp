@@ -21,6 +21,8 @@
  */
 
 #include "launcherjob.h"
+#include "executeplugin.h"
+#include "toolkit.h"
 
 #include <QDebug>
 #include <QFileInfo>
@@ -29,6 +31,7 @@
 #include <KLocalizedString>
 #include <KShell>
 #include <KSharedConfig>
+#include <KConfigGroup>
 
 #include <interfaces/ilaunchconfiguration.h>
 #include <interfaces/iruncontroller.h>
@@ -36,6 +39,7 @@
 #include <util/environmentgrouplist.h>
 
 #include <interfaces/icore.h>
+#include <interfaces/isession.h>
 #include <interfaces/iplugincontroller.h>
 #include <project/projectmodel.h>
 
@@ -45,10 +49,18 @@
 
 using namespace KDevelop;
 
+Q_LOGGING_CATEGORY(LaMsg, "Kdev.embedded.la.msg");
+
 LauncherJob::LauncherJob(QObject* parent, KDevelop::ILaunchConfiguration* cfg)
     : KDevelop::OutputExecuteJob(parent)
     , m_cfgname(cfg->name())
 {
+    qCDebug(LaMsg) << "LauncherJob::LauncherJob";
+    qCDebug(LaMsg) << "name" << cfg->name();
+    qCDebug(LaMsg) << "entryMap" << cfg->config().entryMap();
+    qCDebug(LaMsg) << "groupList" << cfg->config().groupList();
+    qCDebug(LaMsg) << "keyList" << cfg->config().keyList();
+
     setCapabilities(Killable);
 
     IExecutePlugin* iface = KDevelop::ICore::self()->pluginController()->pluginForExtension(QStringLiteral("org.kdevelop.IExecutePlugin"), QStringLiteral("kdevembedded-launcher"))->extension<IExecutePlugin>();
@@ -56,9 +68,11 @@ LauncherJob::LauncherJob(QObject* parent, KDevelop::ILaunchConfiguration* cfg)
 
     KDevelop::EnvironmentGroupList l(KSharedConfig::openConfig());
     QString envgrp = iface->environmentGroup(cfg);
+    qCDebug(LaMsg) << "LauncherJob::LauncherJob envgrp" << envgrp;
 
     QString err;
     QUrl executable = iface->executable(cfg, err);
+    qCDebug(LaMsg) << "LauncherJob::LauncherJob executable" << executable;
 
     if (!err.isEmpty())
     {
@@ -77,6 +91,7 @@ LauncherJob::LauncherJob(QObject* parent, KDevelop::ILaunchConfiguration* cfg)
     setEnvironmentProfile(envgrp);
 
     QStringList arguments = iface->arguments(cfg, err);
+    qCDebug(LaMsg) << "LauncherJob::LauncherJob arguments" << arguments;
     if (!err.isEmpty())
     {
         setError(-2);
@@ -103,7 +118,23 @@ LauncherJob::LauncherJob(QObject* parent, KDevelop::ILaunchConfiguration* cfg)
     }
     setWorkingDirectory(wc);
 
-    qCDebug(PLUGIN_EXECUTE) << "setting app:" << executable << arguments;
+    qCDebug(EpMsg) << "setting app:" << executable << arguments;
+    ///////////////////////////////////////////////////////////////////////////////////
+    QStringList arduinoConfig = cfg->config().readEntry(ExecutePlugin::arduinoEntry, QStringList());
+
+    for (QStringList::iterator it = arguments.begin(); it != arguments.end(); ++it)
+    {
+        qCDebug(EpMsg) << *it;
+        if (!arduinoConfig.empty())
+        {
+            it->replace(QLatin1String("%mcu"), KShell::quoteArg(arduinoConfig[1]));
+            it->replace(QLatin1String("%baud"), KShell::quoteArg(arduinoConfig[2]));
+            it->replace(QLatin1String("%interface"), KShell::quoteArg(arduinoConfig[3]));
+            it->replace(QLatin1String("%hex"), KShell::quoteArg(arduinoConfig[4]));
+            it->replace(QLatin1String("%avrdudeconf"), KShell::quoteArg(arduinoConfig[5]));
+        }
+    }
+    ///////////////////////////////////////////////////////////////////////////////////
 
     if (iface->useTerminal(cfg))
     {

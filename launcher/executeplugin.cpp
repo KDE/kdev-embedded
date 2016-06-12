@@ -33,6 +33,7 @@
 #include <KShell>
 
 #include <interfaces/icore.h>
+#include <interfaces/isession.h>
 #include <interfaces/iruncontroller.h>
 #include <interfaces/ilaunchconfiguration.h>
 #include <interfaces/iprojectcontroller.h>
@@ -40,6 +41,7 @@
 #include <util/environmentgrouplist.h>
 
 #include "debug.h"
+#include "toolkit.h"
 #include "embeddedlauncher.h"
 #include <project/projectmodel.h>
 #include <project/builderjob.h>
@@ -52,16 +54,17 @@ QString ExecutePlugin::argumentsEntry = i18n("Arguments");
 QString ExecutePlugin::isExecutableEntry = i18n("isExecutable");
 QString ExecutePlugin::environmentGroupEntry = i18n("EnvironmentGroup");
 QString ExecutePlugin::useTerminalEntry = i18n("Use External Terminal");
-QString ExecutePlugin::terminalEntry = i18n("External Terminal");
+QString ExecutePlugin::commandEntry = i18n("Command");
 QString ExecutePlugin::boardEntry = i18n("Board Index");
-QString ExecutePlugin::mcuFreqEntry = i18n("mcuFreq Index");
+QString ExecutePlugin::mcuEntry = i18n("mcu Index");
 QString ExecutePlugin::userIdToRunEntry = i18n("User Id to Run");
 QString ExecutePlugin::dependencyActionEntry = i18n("Dependency Action");
 QString ExecutePlugin::projectTargetEntry = i18n("Project Target");
+QString ExecutePlugin::arduinoEntry = i18n("Arduino Entry");
 
 using namespace KDevelop;
 
-Q_LOGGING_CATEGORY(PLUGIN_EXECUTE, "kdevplatform.plugins.kdevembedded.launcher")
+Q_LOGGING_CATEGORY(EpMsg, "Kdev.embedded.ep.msg");
 K_PLUGIN_FACTORY_WITH_JSON(KDevExecuteFactory, "kdevembedded-launcher.json", registerPlugin<ExecutePlugin>();)
 
 ExecutePlugin::ExecutePlugin(QObject *parent, const QVariantList&)
@@ -70,7 +73,7 @@ ExecutePlugin::ExecutePlugin(QObject *parent, const QVariantList&)
     KDEV_USE_EXTENSION_INTERFACE(IExecutePlugin)
     m_configType = new NativeAppConfigType();
     m_configType->addLauncher(new EmbeddedLauncher());
-    qCDebug(PLUGIN_EXECUTE) << "adding native app launch config";
+    qCDebug(EpMsg) << "adding native app launch config";
     core()->runController()->addConfigurationType(m_configType);
 }
 
@@ -88,9 +91,15 @@ void ExecutePlugin::unload()
 
 QStringList ExecutePlugin::arguments(KDevelop::ILaunchConfiguration* cfg, QString& err_) const
 {
+    qCDebug(EpMsg) << "ExecutePlugin::arguments";
+    qCDebug(EpMsg) << "name" << cfg->name();
+    qCDebug(EpMsg) << "entryMap" << cfg->config().entryMap();
+    qCDebug(EpMsg) << "groupList" << cfg->config().groupList();
+    qCDebug(EpMsg) << "keyList" << cfg->config().keyList();
 
     if (!cfg)
     {
+        qCDebug(EpMsg) << "ExecutePlugin::arguments" << "!cfg";
         return QStringList();
     }
 
@@ -113,6 +122,7 @@ QStringList ExecutePlugin::arguments(KDevelop::ILaunchConfiguration* cfg, QStrin
         args = QStringList();
         qWarning() << "Launch Configuration:" << cfg->name() << "arguments have meta characters";
     }
+    qCDebug(EpMsg) << "ExecutePlugin::arguments" << args;
     return args;
 }
 
@@ -137,54 +147,28 @@ QString ExecutePlugin::environmentGroup(KDevelop::ILaunchConfiguration* cfg) con
 
 QUrl ExecutePlugin::executable(KDevelop::ILaunchConfiguration* cfg, QString& err) const
 {
-    QUrl executable;
+    Q_UNUSED(err)
     if (!cfg)
     {
-        return executable;
+        qCDebug(EpMsg) << "ExecutePlugin::executable" << "!cfg";
+        return QUrl();
     }
-    KConfigGroup grp = cfg->config();
-    if (grp.readEntry(ExecutePlugin::isExecutableEntry, false))
+
+    // Here will be chosen the correct upload program
+    // It's necessary to improve a function to get some paths
+    QString exe = cfg->config().readEntry(ExecutePlugin::commandEntry, QString());
+
+    if (!exe.isEmpty())
     {
-        executable = grp.readEntry(ExecutePlugin::executableEntry, QUrl());
-    }
-    else
-    {
-        QStringList prjitem = grp.readEntry(ExecutePlugin::projectTargetEntry, QStringList());
-        KDevelop::ProjectModel* model = KDevelop::ICore::self()->projectController()->projectModel();
-        KDevelop::ProjectBaseItem* item = model->itemFromIndex(model->pathToIndex(prjitem));
-        if (item && item->executable())
+        if (exe.contains(QLatin1String("%avrdude")))
         {
-            // TODO: Need an option in the gui to choose between installed and builddir url here, currently cmake only supports builddir url
-            executable = item->executable()->builtUrl();
+            KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
+            QString arduinoPath = settings.readEntry("arduinoFolder", "");
+            exe.replace(QLatin1String("%avrdude"), arduinoPath + Toolkit::avrdudePath());
         }
     }
-    if (executable.isEmpty())
-    {
-        err = i18n("No valid executable specified");
-        qWarning() << "Launch Configuration:" << cfg->name() << "no valid executable set";
-    }
-    else
-    {
-        KShell::Errors err_;
-        if (KShell::splitArgs(executable.toLocalFile(), KShell::TildeExpand | KShell::AbortOnMeta, &err_).isEmpty() || err_ != KShell::NoError)
-        {
-            executable = QUrl();
-            if (err_ == KShell::BadQuoting)
-            {
-                err = i18n("There is a quoting error in the executable "
-                           "for the launch configuration '%1'. "
-                           "Aborting start.", cfg->name());
-            }
-            else
-            {
-                err = i18n("A shell meta character was included in the "
-                           "executable for the launch configuration '%1', "
-                           "this is not supported currently. Aborting start.", cfg->name());
-            }
-            qWarning() << "Launch Configuration:" << cfg->name() << "executable has meta characters";
-        }
-    }
-    return executable;
+
+    return QUrl::fromLocalFile(exe);
 }
 
 
@@ -206,7 +190,7 @@ QString ExecutePlugin::terminal(KDevelop::ILaunchConfiguration* cfg) const
         return QString();
     }
 
-    return cfg->config().readEntry(ExecutePlugin::terminalEntry, QString());
+    return cfg->config().readEntry(ExecutePlugin::commandEntry, QString());
 }
 
 

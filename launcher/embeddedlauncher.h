@@ -80,16 +80,18 @@ public:
     QString title() const override;
     QIcon icon() const override;
 private:
-    void mcuFreqComboChanged(int index);
+    void mcuComboChanged(int index);
     void checkActions(const QItemSelection& , const QItemSelection&);
     void boardComboChanged(const QString& text);
     void devicesChanged(const QString& udi);
     void selectItemDialog();
 
-    Board *m_board;
-    QString m_interface;
     ArduinoWindowModel *m_model;
 
+    Board *m_board;
+    QStringList m_mcu;
+    QStringList m_interface;
+    QStringList m_baud;
 };
 
 class EmbeddedLauncher : public KDevelop::ILauncher

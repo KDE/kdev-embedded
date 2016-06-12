@@ -28,6 +28,8 @@
 
 #include <execute/iexecuteplugin.h>
 
+#include "embeddedlauncher.h"
+
 class QUrl;
 class KJob;
 
@@ -49,13 +51,15 @@ public:
     static QString isExecutableEntry;
     static QString environmentGroupEntry;
     static QString useTerminalEntry;
-    static QString terminalEntry;
+    static QString commandEntry;
     static QString userIdToRunEntry;
     static QString dependencyActionEntry;
     static QString projectTargetEntry;
     static QString presetsEntry;
     static QString boardEntry;
-    static QString mcuFreqEntry;
+    static QString mcuEntry;
+
+    static QString arduinoEntry;
 
     void unload() override;
 
