@@ -197,6 +197,8 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
         data.push_back(ArduinoWindowModelStruct{Board::instance().m_boardList[i], Board::instance().m_boardNameList[i]});
     m_model->populate(data);
 
+    // We don't gave presets yet
+    presetsCombo->setEnabled(false);
     // Start ComboBoxes
     boardCombo->clear();
     boardCombo->setModel(m_model);
