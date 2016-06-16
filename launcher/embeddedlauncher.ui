@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>551</width>
+    <width>744</width>
     <height>607</height>
    </rect>
   </property>
@@ -123,62 +123,28 @@
         </item>
        </widget>
       </item>
-      <item row="2" column="0">
+      <item row="3" column="0">
        <widget class="QLabel" name="freqLabel">
         <property name="text">
          <string>MCU:</string>
         </property>
        </widget>
       </item>
-      <item row="2" column="1">
-       <widget class="QComboBox" name="mcuCombo">
-        <item>
-         <property name="text">
-          <string>atmega328p</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="3" column="0">
+      <item row="4" column="0">
        <widget class="QLabel" name="interfaceLabel">
         <property name="text">
          <string>Interface:</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
-       <widget class="QComboBox" name="interfaceCombo">
-        <item>
-         <property name="text">
-          <string>/dev/ttyUSB0</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="4" column="0">
+      <item row="7" column="0">
        <widget class="QLabel" name="argumentsLabel">
         <property name="text">
          <string>&amp;Arguments:</string>
         </property>
-        <property name="buddy">
-         <cstring>arguments</cstring>
-        </property>
        </widget>
       </item>
-      <item row="4" column="1">
-       <widget class="QLineEdit" name="arguments">
-        <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Enter arguments to give to the executable.&lt;br/&gt;You can pass arguments containing space characters by putting them in double-quotes.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="text">
-         <string>-C%avrdudeconf -v true -p%mcu -carduino -P%interface -b%baud -D -Uflash:w:%hex:i</string>
-        </property>
-        <property name="placeholderText">
-         <string>Enter arguments to give to the executable</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="0">
+      <item row="8" column="0">
        <widget class="QLabel" name="workdirLabel">
         <property name="text">
          <string>Wor&amp;king Directory:</string>
@@ -188,7 +154,7 @@
         </property>
        </widget>
       </item>
-      <item row="5" column="1">
+      <item row="8" column="1">
        <widget class="KUrlRequester" name="workingDirectory">
         <property name="toolTip">
          <string>Select a working directory for the executable</string>
@@ -198,14 +164,14 @@
         </property>
        </widget>
       </item>
-      <item row="6" column="0">
+      <item row="9" column="0">
        <widget class="QLabel" name="commandLabel">
         <property name="text">
          <string>Command:</string>
         </property>
        </widget>
       </item>
-      <item row="6" column="1">
+      <item row="9" column="1">
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="KComboBox" name="commandBox">
@@ -231,6 +197,9 @@
           <property name="editable">
            <bool>true</bool>
           </property>
+          <property name="autoCompletion">
+           <bool>false</bool>
+          </property>
           <item>
            <property name="text">
             <string>%avrdude</string>
@@ -245,7 +214,7 @@
         </item>
        </layout>
       </item>
-      <item row="7" column="1">
+      <item row="10" column="1">
        <spacer name="verticalSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
@@ -277,6 +246,64 @@
         </item>
        </widget>
       </item>
+      <item row="3" column="1">
+       <widget class="KComboBox" name="mcuCombo">
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="editable">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="KComboBox" name="interfaceCombo">
+        <property name="toolTip">
+         <string>Please, connect an interface</string>
+        </property>
+        <property name="editable">
+         <bool>true</bool>
+        </property>
+        <property name="autoCompletion">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="KComboBox" name="arguments">
+        <property name="editable">
+         <bool>true</bool>
+        </property>
+        <property name="autoCompletion">
+         <bool>false</bool>
+        </property>
+        <item>
+         <property name="text">
+          <string>-C%avrdudeconf -v true -p%mcu -carduino -P%interface -b%baud -D -Uflash:w:%hex:i</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Interface baud rate:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="KComboBox" name="baudCombo">
+        <property name="toolTip">
+         <string/>
+        </property>
+        <property name="editable">
+         <bool>true</bool>
+        </property>
+        <property name="autoCompletion">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -301,7 +328,6 @@
  </customwidgets>
  <tabstops>
   <tabstop>executablePath</tabstop>
-  <tabstop>arguments</tabstop>
   <tabstop>workingDirectory</tabstop>
  </tabstops>
  <resources/>

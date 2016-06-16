@@ -149,8 +149,12 @@ void EmbeddedLauncherConfigPage::loadFromConfiguration(const KConfigGroup& cfg, 
         projectTargetRadio->setChecked(true);
     }
 
-    arguments->setClearButtonEnabled(true);
-    arguments->setText(cfg.readEntry(ExecutePlugin::argumentsEntry, ""));
+    QString arg = cfg.readEntry(ExecutePlugin::argumentsEntry, QString());
+    if (arguments->findText(arg) == -1 && !arg.isEmpty())
+    {
+        arguments->addItem(arg);
+    }
+
     workingDirectory->setUrl(cfg.readEntry(ExecutePlugin::workingDirEntry, QUrl()));
     commandBox->setEditText(cfg.readEntry(ExecutePlugin::commandEntry, commandBox->itemText(0)));
 
@@ -199,15 +203,13 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
     boardComboChanged(boardCombo->currentText());
     devicesChanged(QString());
 
-    presetsCombo->setEnabled(false);
-
     //connect signals to changed signal
     connect(projectTarget, static_cast<void(ProjectTargetsComboBox::*)(const QString&)>(&ProjectTargetsComboBox::currentIndexChanged), this, &EmbeddedLauncherConfigPage::changed);
     connect(projectTargetRadio, &QRadioButton::toggled, this, &EmbeddedLauncherConfigPage::changed);
     connect(executableRadio, &QRadioButton::toggled, this, &EmbeddedLauncherConfigPage::changed);
     connect(executablePath->lineEdit(), &KLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed);
     connect(executablePath, &KUrlRequester::urlSelected, this, &EmbeddedLauncherConfigPage::changed);
-    connect(arguments, &QLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed);
+    connect(arguments->lineEdit(), &KLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed);
     connect(workingDirectory, &KUrlRequester::urlSelected, this, &EmbeddedLauncherConfigPage::changed);
     connect(workingDirectory->lineEdit(), &KLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed);
     connect(boardCombo, &QComboBox::currentTextChanged, this, &EmbeddedLauncherConfigPage::changed);
@@ -216,7 +218,9 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
     connect(devices, &Solid::DeviceNotifier::deviceAdded, this, &EmbeddedLauncherConfigPage::devicesChanged);
     connect(devices, &Solid::DeviceNotifier::deviceRemoved, this, &EmbeddedLauncherConfigPage::devicesChanged);
     connect(boardCombo, &QComboBox::currentTextChanged, this,  &EmbeddedLauncherConfigPage::boardComboChanged);
-    connect(mcuCombo, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,  &EmbeddedLauncherConfigPage::mcuComboChanged);
+    connect(mcuCombo->lineEdit(), &KLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed);
+    connect(mcuCombo, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &EmbeddedLauncherConfigPage::mcuComboChanged);
+    connect(baudCombo->lineEdit(), &KLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed);
 }
 
 void EmbeddedLauncherConfigPage::checkActions(const QItemSelection& selected, const QItemSelection& unselected)
@@ -243,11 +247,11 @@ void EmbeddedLauncherConfigPage::saveToConfiguration(KConfigGroup cfg, KDevelop:
     cfg.writeEntry(ExecutePlugin::isExecutableEntry, executableRadio->isChecked());
     cfg.writeEntry(ExecutePlugin::executableEntry, executablePath->url());
     cfg.writeEntry(ExecutePlugin::projectTargetEntry, projectTarget->currentItemPath());
-    cfg.writeEntry(ExecutePlugin::argumentsEntry, arguments->text());
+    cfg.writeEntry(ExecutePlugin::argumentsEntry, arguments->currentText());
     cfg.writeEntry(ExecutePlugin::commandEntry, commandBox->currentText());
     cfg.writeEntry(ExecutePlugin::workingDirEntry, workingDirectory->url());
-    cfg.writeEntry(ExecutePlugin::boardEntry, boardCombo->currentIndex());
-    cfg.writeEntry(ExecutePlugin::mcuEntry, mcuCombo->currentIndex());
+    cfg.writeEntry(ExecutePlugin::boardEntry, boardCombo->currentText());
+    cfg.writeEntry(ExecutePlugin::mcuEntry, mcuCombo->currentText());
 
     // Arduino configuration
     KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
@@ -257,9 +261,9 @@ void EmbeddedLauncherConfigPage::saveToConfiguration(KConfigGroup cfg, KDevelop:
     QStringList arduinoConf;
     arduinoConf
         << m_model->getData(boardCombo->currentIndex()).m_id
-        << (m_mcu.isEmpty() ? QString() : m_mcu[mcuCombo->currentIndex()])
-        << (m_baud.isEmpty() ? QString() : m_baud[mcuCombo->currentIndex()])
-        << (m_interface.isEmpty() ? QString() : m_interface[interfaceCombo->currentIndex()])
+        << mcuCombo->currentText()
+        << baudCombo->currentText()
+        << interfaceCombo->currentText()
         << executablePath->text()
         << avrdudeConf;
     cfg.writeEntry(ExecutePlugin::arduinoEntry, arduinoConf);
@@ -541,7 +545,6 @@ void EmbeddedLauncherConfigPage::devicesChanged(const QString& udi)
         if (device.product() != QStringLiteral("") and device.udi().contains(QStringLiteral("tty")))
         {
             interfaceExist = true;
-            interfaceCombo->addItem(device.product());
             qCDebug(ElMsg) << "INTERFACE ############ INTERFACE";
             qCDebug(ElMsg) << "Description\t:" << device.description();
             qCDebug(ElMsg) << "Parent Udi\t:" << device.parentUdi();
@@ -554,16 +557,15 @@ void EmbeddedLauncherConfigPage::devicesChanged(const QString& udi)
             m_interface << QString(QStringLiteral("/dev/") + device.udi().split(QStringLiteral("/")).takeLast());
         }
     }
+    m_interface.removeDuplicates();
+    interfaceCombo->addItems(m_interface);
 
     if (interfaceExist == false)
     {
-        interfaceCombo->setEnabled(false);
-        interfaceCombo->addItem(i18n("Please connect one !"));
         interfaceLabel->setStyleSheet(QStringLiteral("color: rgb(255, 0, 0);"));
     }
     else
     {
-        interfaceCombo->setEnabled(true);
         interfaceLabel->setText(i18n("Interface:"));
         interfaceLabel->setStyleSheet(QStringLiteral("color: rgb(0, 0, 0);"));
     }
@@ -582,6 +584,8 @@ void EmbeddedLauncherConfigPage::boardComboChanged(const QString& text)
 
     mcuCombo->clear();
     mcuCombo->addItems(m_mcu);
+    baudCombo->clear();
+    baudCombo->addItems(m_baud);
 
     mcuComboChanged(0);
     qCDebug(ElMsg) << "EmbeddedLauncherConfigPage::boardComboChanged" << "mcus"  << m_mcu;
@@ -594,15 +598,8 @@ void EmbeddedLauncherConfigPage::mcuComboChanged(int index)
         return;
     }
 
+    baudCombo->setCurrentIndex(index);
+
     qCDebug(ElMsg) << "mcuComboBox Index: " << index;
     qCDebug(ElMsg) << "mcuComboBox Count: " << mcuCombo->count();
-
-    if (mcuCombo->count() <= 1)
-    {
-        mcuCombo->setEnabled(false);
-    }
-    else
-    {
-        mcuCombo->setEnabled(true);
-    }
 }
