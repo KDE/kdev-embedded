@@ -231,7 +231,10 @@ void FirstTimeWizard::cancelButtonClicked(bool state)
 {
     Q_UNUSED(state);
     qCDebug(FtwIo) << "CancelButton clicked";
-    m_reply->abort();
+    if (m_reply->isRunning())
+    {
+        m_reply->abort();
+    }
 }
 
 void FirstTimeWizard::validateCurrentId(int id)
