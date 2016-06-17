@@ -150,13 +150,13 @@ void EmbeddedLauncherConfigPage::loadFromConfiguration(const KConfigGroup& cfg, 
     }
 
     QString arg = cfg.readEntry(ExecutePlugin::argumentsEntry, QString());
-    if (arguments->findText(arg) == -1 && !arg.isEmpty())
+    if (argumentsCombo->findText(arg) == -1 && !arg.isEmpty())
     {
-        arguments->addItem(arg);
+        argumentsCombo->addItem(arg);
     }
 
     workingDirectory->setUrl(cfg.readEntry(ExecutePlugin::workingDirEntry, QUrl()));
-    commandBox->setEditText(cfg.readEntry(ExecutePlugin::commandEntry, commandBox->itemText(0)));
+    commandCombo->setEditText(cfg.readEntry(ExecutePlugin::commandEntry, commandCombo->itemText(0)));
 
     const int boardIndex = cfg.readEntry(ExecutePlugin::boardEntry, 0);
     const int mcuIndex = cfg.readEntry(ExecutePlugin::mcuEntry, 0);
@@ -199,11 +199,18 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
 
     // We don't gave presets yet
     presetsCombo->setEnabled(false);
+
     // Start ComboBoxes
     boardCombo->clear();
     boardCombo->setModel(m_model);
     boardComboChanged(boardCombo->currentText());
     devicesChanged(QString());
+
+    mcuCombo->setToolTip(mcuTooltip());
+    interfaceCombo->setToolTip(interfaceTooltip());
+    baudCombo->setToolTip(baudTooltip());
+    argumentsCombo->setToolTip(argumentsTooltip());
+    commandCombo->setToolTip(commandTooltip());
 
     //connect signals to changed signal
     connect(projectTarget, static_cast<void(ProjectTargetsComboBox::*)(const QString&)>(&ProjectTargetsComboBox::currentIndexChanged), this, &EmbeddedLauncherConfigPage::changed);
@@ -211,11 +218,11 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
     connect(executableRadio, &QRadioButton::toggled, this, &EmbeddedLauncherConfigPage::changed);
     connect(executablePath->lineEdit(), &KLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed);
     connect(executablePath, &KUrlRequester::urlSelected, this, &EmbeddedLauncherConfigPage::changed);
-    connect(arguments->lineEdit(), &KLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed);
+    connect(argumentsCombo->lineEdit(), &KLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed);
     connect(workingDirectory, &KUrlRequester::urlSelected, this, &EmbeddedLauncherConfigPage::changed);
     connect(workingDirectory->lineEdit(), &KLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed);
     connect(boardCombo, &QComboBox::currentTextChanged, this, &EmbeddedLauncherConfigPage::changed);
-    connect(commandBox, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &EmbeddedLauncherConfigPage::changed);
+    connect(commandCombo, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &EmbeddedLauncherConfigPage::changed);
 
     connect(devices, &Solid::DeviceNotifier::deviceAdded, this, &EmbeddedLauncherConfigPage::devicesChanged);
     connect(devices, &Solid::DeviceNotifier::deviceRemoved, this, &EmbeddedLauncherConfigPage::devicesChanged);
@@ -249,8 +256,8 @@ void EmbeddedLauncherConfigPage::saveToConfiguration(KConfigGroup cfg, KDevelop:
     cfg.writeEntry(ExecutePlugin::isExecutableEntry, executableRadio->isChecked());
     cfg.writeEntry(ExecutePlugin::executableEntry, executablePath->url());
     cfg.writeEntry(ExecutePlugin::projectTargetEntry, projectTarget->currentItemPath());
-    cfg.writeEntry(ExecutePlugin::argumentsEntry, arguments->currentText());
-    cfg.writeEntry(ExecutePlugin::commandEntry, commandBox->currentText());
+    cfg.writeEntry(ExecutePlugin::argumentsEntry, argumentsCombo->currentText());
+    cfg.writeEntry(ExecutePlugin::commandEntry, commandCombo->currentText());
     cfg.writeEntry(ExecutePlugin::workingDirEntry, workingDirectory->url());
     cfg.writeEntry(ExecutePlugin::boardEntry, boardCombo->currentText());
     cfg.writeEntry(ExecutePlugin::mcuEntry, mcuCombo->currentText());
