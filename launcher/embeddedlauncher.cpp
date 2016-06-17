@@ -232,6 +232,71 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
     connect(baudCombo->lineEdit(), &KLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed);
 }
 
+QString EmbeddedLauncherConfigPage::mcuTooltip()
+{
+    QString tooltip;
+    tooltip += i18n("Please choose one microcontroller:\n")
+        += QStringLiteral("AT32UC3A0512, AT90CAN128, AT90CAN32, AT90CAN64, AT90PWM2, AT90PWM216, AT90PWM2B, AT90PWM3\n\
+AT90PWM316, AT90PWM3B, AT90S1200, AT90S2313, AT90S2333, AT90S2343, AT90S4414\n\
+AT90S4433, AT90S4434, AT90S8515, AT90S8535, AT90USB1286, AT90USB1287, AT90USB162\n\
+AT90USB646, AT90USB647, AT90USB82, ATmega103, ATmega128, ATmega1280, ATmega1281\n\
+ATmega1284, ATmega1284P, ATmega1284RFR2, ATmega128RFA1, ATmega128RFR2, ATmega16, ATmega161\n\
+ATmega162, ATmega163, ATmega164P, ATmega168, ATmega168P, ATmega168PB, ATmega169\n\
+ATmega16U2, ATmega2560, ATmega2561, ATmega2564RFR2, ATmega256RFR2, ATmega32, ATmega324P\n\
+ATmega324PA, ATmega325, ATmega3250, ATmega328, ATmega328P, ATmega329, ATmega3290\n\
+ATmega3290P, ATmega329P, ATmega32M1, ATmega32U2, ATmega32U4, ATMEGA406, ATmega48\n\
+ATmega48P, ATmega48PB, ATmega64, ATmega640, ATmega644, ATmega644P, ATmega644RFR2\n\
+ATmega645, ATmega6450, ATmega649, ATmega6490, ATmega64RFR2, ATmega8, ATmega8515\n\
+ATmega8535, ATmega88, ATmega88P, ATmega88PB, ATmega8U2, ATtiny10, ATtiny11\n\
+ATtiny12, ATtiny13, ATtiny15, ATtiny1634, ATtiny20, ATtiny2313, ATtiny24\n\
+ATtiny25, ATtiny26, ATtiny261, ATtiny28, ATtiny4, ATtiny40, ATtiny4313\n\
+ATtiny43u, ATtiny44, ATtiny45, ATtiny461, ATtiny5, ATtiny84, ATtiny85\n\
+ATtiny861, ATtiny88, ATtiny9, ATxmega128A1, ATxmega128A1revD, ATxmega128A1U, ATxmega128A3\n\
+ATxmega128A3U, ATxmega128A4, ATxmega128A4U, ATxmega128B1, ATxmega128B3, ATxmega128C3, ATxmega128D3\n\
+ATxmega128D4, ATxmega16A4, ATxmega16A4U, ATxmega16C4, ATxmega16D4, ATxmega16E5, ATxmega192A1\n\
+ATxmega192A3, ATxmega192A3U, ATxmega192C3, ATxmega192D3, ATxmega256A1, ATxmega256A3, ATxmega256A3B\n\
+ATxmega256A3BU, ATxmega256A3U, ATxmega256C3, ATxmega256D3, ATxmega32A4, ATxmega32A4U, ATxmega32C4\n\
+ATxmega32D4, ATxmega32E5, ATxmega384C3, ATxmega384D3, ATxmega64A1, ATxmega64A1U, ATxmega64A3\n\
+ATxmega64A3U, ATxmega64A4, ATxmega64A4U, ATxmega64B1, ATxmega64B3, ATxmega64C3, ATxmega64D3\n\
+ATxmega64D4, ATxmega8E5, ...");
+        return tooltip;
+}
+
+QString EmbeddedLauncherConfigPage::interfaceTooltip()
+{
+    QString tooltip;
+    tooltip += i18n("Please, connect or select an interface like:\n")
+        += QStringLiteral("/dev/ttyUSBx, /dev/ttyACMx, COMx, ...");
+    return tooltip;
+}
+
+QString EmbeddedLauncherConfigPage::baudTooltip()
+{
+    QString tooltip;
+    tooltip += i18n("Please choose or select a baudrate:\n")
+        += QStringLiteral("19200, 57600, 115200, ...");
+    return tooltip;
+}
+
+QString EmbeddedLauncherConfigPage::argumentsTooltip()
+{
+    QString tooltip;
+    tooltip += i18n("Variables to programmer:\n")
+        += i18n("%avrdudeconf\t- Specify location of configuration file.\n")
+        += i18n("%mcu\t- Required. Specify AVR device.\n")
+        += i18n("%interface\t- Specify connection port.\n")
+        += i18n("%baud\t- Override RS-232 baud rate.\n")
+        += i18n("%hex\t- Firmware.");
+    return tooltip;
+}
+
+QString EmbeddedLauncherConfigPage::commandTooltip()
+{
+    QString tooltip;
+    tooltip += i18n("%avrdude - Avrdude is a program for downloading code and data to Atmel AVR microcontrollers.");
+    return tooltip;
+}
+
 void EmbeddedLauncherConfigPage::checkActions(const QItemSelection& selected, const QItemSelection& unselected)
 {
     Q_UNUSED(unselected);

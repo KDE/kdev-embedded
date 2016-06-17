@@ -86,6 +86,12 @@ private:
     void devicesChanged(const QString& udi);
     void selectItemDialog();
 
+    QString mcuTooltip();
+    QString baudTooltip();
+    QString commandTooltip();
+    QString argumentsTooltip();
+    QString interfaceTooltip();
+
     ArduinoWindowModel *m_model;
 
     Board *m_board;
