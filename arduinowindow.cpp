@@ -418,6 +418,11 @@ QString ArduinoWindow::getRedRichTextSelected(QStringList list, int index)
 
     qCDebug(AwMsg) << "List size" << list << list.size() << "Index" << index;
 
+    if (list.isEmpty())
+    {
+        return QString();
+    }
+
     if (list.size() <= 1)
     {
         item = QStringLiteral("<font color='red'>%0</font>").arg(list[0]);
