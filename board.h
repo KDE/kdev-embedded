@@ -23,10 +23,13 @@
 #include <QString>
 #include <QStringList>
 #include <QHash>
+#include <QFile>
 #include <QMap>
 #include <QLoggingCategory>
 
 Q_DECLARE_LOGGING_CATEGORY(BoMsg);
+
+//class QFile;
 
 class BoardInfo
 {
@@ -105,5 +108,8 @@ private:
 
     void load();
     QString Freq2FreqHz(QString freq);
+
+    bool m_arduinoFolderFail;
     bool m_listed;
+    QFile* m_arduinoFolder;
 };

@@ -81,14 +81,26 @@ void BoardInfo::printData()
     qCDebug(BoMsg) << "NaO" << m_NaO;
 }
 
+Board::Board()
+{
+    m_listed = false;
+    KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
+    m_arduinoFolder = new QFile(settings.readEntry("arduinoFolder", QString()));
+    m_arduinoFolderFail = !m_arduinoFolder->exists();
+    qCDebug(BoMsg) << "Board::Board fileOpened" << m_arduinoFolderFail;
+    Q_ASSERT(m_arduinoFolderFail);
+}
+
 QString Board::getIdFromName(QString _name)
 {
     update();
     foreach (const auto& boardId, m_boardList)
+    {
         if (m_boards[boardId].m_name[0] == _name)
         {
             return boardId;
         }
+    }
     return QString();
 }
 
@@ -96,11 +108,6 @@ Board& Board::instance()
 {
     static Board self;
     return self;
-}
-
-Board::Board()
-{
-    m_listed = false;
 }
 
 void Board::update()
@@ -119,11 +126,15 @@ QString Board::Freq2FreqHz(QString freq)
 
 void Board::load()
 {
-
+    if (m_arduinoFolderFail)
+    {
+        qCDebug(BoMsg) << "Board::load" << "error in arduino folder";
+        return;
+    }
     KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
-    QFile m_boardsFile(Toolkit::getBoardFile(settings.readEntry("arduinoFolder", "")));
+    QFile m_boardsFile(m_arduinoFolder->symLinkTarget());
     bool fileOpened = m_boardsFile.open(QFile::ReadOnly);
-    qCDebug(BoMsg) << "Board file opened" << fileOpened;
+    qCDebug(BoMsg) << "Board::load fileOpened" << fileOpened;
     Q_ASSERT(fileOpened);
     QTextStream boardsFileUTF8(&m_boardsFile);
     boardsFileUTF8.setCodec("UTF-8");
