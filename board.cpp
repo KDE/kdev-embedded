@@ -87,8 +87,8 @@ Board::Board()
     KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
     m_arduinoFolder = new QFile(settings.readEntry("arduinoFolder", QString()));
     m_arduinoFolderFail = !m_arduinoFolder->exists();
-    qCDebug(BoMsg) << "Board::Board fileOpened" << m_arduinoFolderFail;
-    Q_ASSERT(m_arduinoFolderFail);
+    qCDebug(BoMsg) << "m_arduinoFolderFail" << m_arduinoFolderFail << m_arduinoFolder->fileName();
+    Q_ASSERT(!m_arduinoFolderFail);
 }
 
 QString Board::getIdFromName(QString _name)
@@ -132,7 +132,9 @@ void Board::load()
         return;
     }
     KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
-    QFile m_boardsFile(m_arduinoFolder->symLinkTarget());
+    qCDebug(BoMsg) << "Board::load m_boardsFile m_arduinoFolder->fileName()" << m_arduinoFolder->fileName();
+    QFile m_boardsFile(Toolkit::getBoardFile(m_arduinoFolder->fileName()));
+    qCDebug(BoMsg) << "Board::load m_boardsFile local" << m_boardsFile.fileName();
     bool fileOpened = m_boardsFile.open(QFile::ReadOnly);
     qCDebug(BoMsg) << "Board::load fileOpened" << fileOpened;
     Q_ASSERT(fileOpened);
