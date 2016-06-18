@@ -307,8 +307,6 @@ void ArduinoWindow::buttonBoxOk()
     qCDebug(AwMsg) << "buildMcu " << mcu;
     qCDebug(AwMsg) << "buildFreq " << freq;
 
-    QString arduinoPath = settings.readEntry("arduinoFolder", "");
-
     QStringList flags;
     if (verboseCheck->checkState() == Qt::Checked)
     {
@@ -320,7 +318,7 @@ void ArduinoWindow::buttonBoxOk()
     }
 
     flags << QStringLiteral("-C")
-          << QStringLiteral("%0/hardware/tools/avr/etc/avrdude.conf").arg(arduinoPath)
+          << Toolkit::instance().avrConfigFile()
           << QStringLiteral("-p%0").arg(mcu)
           << QStringLiteral("-c") << Board::instance().m_boards[id].m_upProtocol[0]
           << QStringLiteral("-P") << QStringLiteral("/dev/%0").arg(m_interface)
@@ -335,8 +333,8 @@ void ArduinoWindow::buttonBoxOk()
 
     output->clear();
     output->append(i18n("Running...\n"));
-    qCDebug(AwMsg) << QString(arduinoPath + Toolkit::avrdudePath()) << flags;
-    m_avrdudeProcess->start(QString(arduinoPath + Toolkit::avrdudePath()), flags);
+    qCDebug(AwMsg) << Toolkit::instance().getAvrdudeFile() << flags;
+    m_avrdudeProcess->start(Toolkit::instance().getAvrdudeFile(), flags);
 }
 
 void ArduinoWindow::avrdudeStderr(int exitCode, QProcess::ExitStatus exitStatus)

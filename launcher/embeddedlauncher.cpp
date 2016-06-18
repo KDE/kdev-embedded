@@ -330,7 +330,7 @@ void EmbeddedLauncherConfigPage::saveToConfiguration(KConfigGroup cfg, KDevelop:
     // Arduino configuration
     KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
     QString arduinoPath = settings.readEntry("arduinoFolder", "");
-    QString avrdudeConf = arduinoPath + Toolkit::avrdudeConfigPath();;
+    QString avrdudeConf = Toolkit::instance().avrConfigFile();
 
     QStringList arduinoConf;
     arduinoConf

@@ -162,9 +162,7 @@ QUrl ExecutePlugin::executable(KDevelop::ILaunchConfiguration* cfg, QString& err
     {
         if (exe.contains(QLatin1String("%avrdude")))
         {
-            KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
-            QString arduinoPath = settings.readEntry("arduinoFolder", "");
-            exe.replace(QLatin1String("%avrdude"), arduinoPath + Toolkit::avrdudePath());
+            exe.replace(QLatin1String("%avrdude"), Toolkit::instance().getAvrdudeFile());
         }
     }
 

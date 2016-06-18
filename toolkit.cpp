@@ -29,17 +29,41 @@
 #include <QProcess>
 #include <QDebug>
 
-QString Toolkit::getBoardFile(const QString &path)
+#include <interfaces/isession.h>
+#include <interfaces/icore.h>
+#include <KConfigGroup>
+
+using namespace KDevelop;
+
+Toolkit::Toolkit()
 {
-    QFile file(path + boardFilePath());
-    if (!file.open(QFile::ReadOnly))
-    {
-        return QString();
-    }
-    return path + boardFilePath();
+    KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
+    m_arduinoFolder = new QFile(settings.readEntry("arduinoFolder", QString()));
+    m_arduinoPath = getPath(m_arduinoFolder->fileName());
 }
 
-QString Toolkit::toolkitVersion(const QString &path)
+Toolkit& Toolkit::instance()
+{
+    static Toolkit self;
+    return self;
+}
+
+QString Toolkit::arduinoPath()
+{
+    return m_arduinoPath;
+}
+
+QString Toolkit::boardFile(QString path)
+{
+    return getPath(path + boardFilePath());
+}
+
+QString Toolkit::boardFile()
+{
+    return boardFile(arduinoPath());
+}
+
+QString Toolkit::toolkitVersion(QString path)
 {
     QFile file(QDir(path).filePath(QStringLiteral("revisions.txt")));
     if (!file.open(QFile::ReadOnly))
@@ -61,14 +85,28 @@ QString Toolkit::toolkitVersion(const QString &path)
     return QString();
 }
 
+QString Toolkit::toolkitVersion()
+{
+    return toolkitVersion(arduinoPath());
+}
+
 QString Toolkit::avrdudeConfigPath()
 {
     return QStringLiteral("/hardware/tools/avr/etc/avrdude.conf");
+}
+QString Toolkit::avrConfigFile()
+{
+    return getPath(arduinoPath() + avrdudeConfigPath());
 }
 
 QString Toolkit::avrdudePath()
 {
     return QString(avrProgramPath() + QStringLiteral("/avrdude"));
+}
+
+QString Toolkit::getAvrdudeFile()
+{
+    return getPath(arduinoPath() + avrProgramPath() + QStringLiteral("/avrdude"));
 }
 
 QString Toolkit::boardFilePath()
@@ -81,8 +119,25 @@ QString Toolkit::avrProgramPath()
     return QStringLiteral("/hardware/tools/avr/bin");
 }
 
-bool Toolkit::isValidArduinoPath(const QString &path)
+bool Toolkit::isValidArduinoPath(QString path)
 {
     QString version = Toolkit::toolkitVersion(path);
     return (version == QStringLiteral("1.6.8") || version == QStringLiteral("1.6.7"));
 }
+
+QString Toolkit::getPath(QString path)
+{
+    return QFile(path).exists() ? path : QString();
+}
+
+bool Toolkit::setArduinoPath(QString path)
+{
+    if (QFile(path).exists())
+    {
+        m_arduinoFolder = new QFile(path);
+        m_arduinoPath = getPath(m_arduinoFolder->fileName());
+        return true;
+    }
+    return false;
+}
+

@@ -131,9 +131,10 @@ void Board::load()
         return;
     }
 
+    //TODO: change this to the new interface of toolkit"
     KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
     qCDebug(BoMsg) << "Board::load m_boardsFile m_arduinoFolder->fileName()" << m_arduinoFolder->fileName();
-    QFile m_boardsFile(Toolkit::getBoardFile(m_arduinoFolder->fileName()));
+    QFile m_boardsFile(Toolkit::instance().boardFile(m_arduinoFolder->fileName()));
     qCDebug(BoMsg) << "Board::load m_boardsFile local" << m_boardsFile.fileName();
     bool fileOpened = m_boardsFile.open(QFile::ReadOnly);
     qCDebug(BoMsg) << "Board::load fileOpened" << fileOpened;

@@ -27,18 +27,26 @@
 
 #include <QStringList>
 
+class QFile;
+
 class Toolkit
 {
 private:
-    static QString toolkitVersion(const QString &path);
-    static QString boardFilePath();
-    static QString avrProgramPath();
-
     Toolkit& operator = (Toolkit& other) = delete;
     Toolkit(const Toolkit& other) = delete;
     Toolkit();
+
+    QString avrdudeConfigPath();
+    QString avrProgramPath();
+    QString boardFilePath();
+    QString avrdudePath();
+    QString getPath(QString path);
+
+    QFile* m_arduinoFolder;
+    QString m_arduinoPath;
+
 public:
-    static  Toolkit& instance();
+    static Toolkit& instance();
 
     /**
      * @brief Check if path is a valid arduino folder
@@ -46,9 +54,19 @@ public:
      * @param Arduino path
      * @return bool True if valid and False if not
      */
-    static bool isValidArduinoPath(const QString &path);
+    bool isValidArduinoPath(QString path);
 
-    static QString getBoardFile(const QString &path);
-    static QString avrdudePath();
-    static QString avrdudeConfigPath();
+    QString toolkitVersion(QString path);
+    QString toolkitVersion();
+
+    QString arduinoPath();
+
+    QString boardFile(QString path);
+    QString boardFile();
+
+    QString avrConfigFile();
+
+    QString getAvrdudeFile();
+
+    bool setArduinoPath(QString path);
 };

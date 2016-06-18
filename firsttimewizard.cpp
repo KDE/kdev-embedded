@@ -97,7 +97,7 @@ bool FirstTimeWizard::validateCurrentPage()
     switch (currentId())
     {
     case 0:
-        if (existingInstallButton->isChecked() && !Toolkit::isValidArduinoPath(arduinoPathEdit->text()))
+        if (existingInstallButton->isChecked() && !Toolkit::instance().isValidArduinoPath(arduinoPathEdit->text()))
         {
             return false;
         }
@@ -274,7 +274,7 @@ QString FirstTimeWizard::getArduinoPath()
 
     foreach (const auto& path, defaultArduinoPaths)
     {
-        if (Toolkit::isValidArduinoPath(path))
+        if (Toolkit::instance().isValidArduinoPath(path))
         {
             qCDebug(FtwIo) << "Valid Arduino path at" << path;
             arduinoPathEdit->setText(path);
