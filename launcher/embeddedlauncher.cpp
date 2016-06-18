@@ -324,7 +324,7 @@ void EmbeddedLauncherConfigPage::saveToConfiguration(KConfigGroup cfg, KDevelop:
     cfg.writeEntry(ExecutePlugin::argumentsEntry, argumentsCombo->currentText());
     cfg.writeEntry(ExecutePlugin::commandEntry, commandCombo->currentText());
     cfg.writeEntry(ExecutePlugin::workingDirEntry, workingDirectory->url());
-    cfg.writeEntry(ExecutePlugin::boardEntry, boardCombo->currentText());
+    cfg.writeEntry(ExecutePlugin::boardEntry, boardCombo->currentIndex());
     cfg.writeEntry(ExecutePlugin::mcuEntry, mcuCombo->currentText());
 
     // Arduino configuration
