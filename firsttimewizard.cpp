@@ -75,7 +75,7 @@ using namespace KDevelop;
 
     QString FirstTimeWizard::arduinoDownloadUrl =
     QStringLiteral("https://downloads.arduino.cc/arduino-%0-%1.%2")
-        .arg(QStringLiteral(ARDUINO_SDK_MIN_VERSION_NAME))
+        .arg(QStringLiteral(ARDUINO_SDK_VERSION_NAME))
         .arg(downloadOsUrl+downloadArchUrl)
         .arg(downloadExtensionUrl);
 
