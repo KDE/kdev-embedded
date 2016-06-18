@@ -235,8 +235,8 @@ void FirstTimeWizard::install()
         installStatusLabel->setText(i18n("Extracting... (%1 KB)", ((int)(readBytes >> 10))));
         archive.seek(0);
 
-        // Call tar to extract
-        KTar extract(archive.fileName(), QStringLiteral("application/x-xz"));
+        // Call Ktar to extract
+        KTar extract(archive.fileName());
         extract.open(QIODevice::ReadOnly);
         extractSuccess = extract.directory()->copyTo(destinationPath, true);
         qCDebug(FtwIo) << "Downloaded file extracted with success ? :" << extractSuccess;
