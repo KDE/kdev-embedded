@@ -51,6 +51,11 @@ public:
     QNetworkAccessManager *m_mDownloadManager;
     QNetworkReply *m_reply;
 
+    static QString arduinoDownloadUrl;
+    static QString downloadExtensionUrl;
+    static QString downloadArchUrl;
+    static QString downloadOsUrl;
+
     bool m_downloadRunning;
     bool m_downloadFinished;
     bool m_installFinished;

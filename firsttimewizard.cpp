@@ -56,6 +56,29 @@ Q_LOGGING_CATEGORY(FtwMsg, "kdev.embedded.ftw.msg");
 
 using namespace KDevelop;
 
+#ifdef Q_OS_DARWIN
+    QString FirstTimeWizard::downloadOsUrl = QStringLiteral("macosx");
+    QString FirstTimeWizard::downloadExtensionUrl = QStringLiteral("zip");
+#elif defined(Q_OS_WIN32) || defined(Q_OS_WIN64)
+    QString FirstTimeWizard::downloadOsUrl = QStringLiteral("windows");
+    QString FirstTimeWizard::downloadExtensionUrl = QStringLiteral("zip");
+#else
+    QString FirstTimeWizard::downloadOsUrl = QStringLiteral("linux");
+    QString FirstTimeWizard::downloadExtensionUrl = QStringLiteral("tar.xz");
+#endif
+
+#ifdef Q_OS_WIN32
+    QString FirstTimeWizard::downloadArchUrl = QStringLiteral("32");
+#else
+    QString FirstTimeWizard::downloadArchUrl = QStringLiteral("64");
+#endif
+
+    QString FirstTimeWizard::arduinoDownloadUrl =
+    QStringLiteral("https://downloads.arduino.cc/arduino-%0-%1.%2")
+        .arg(QStringLiteral(ARDUINO_SDK_MIN_VERSION_NAME))
+        .arg(downloadOsUrl+downloadArchUrl)
+        .arg(downloadExtensionUrl);
+
 FirstTimeWizard::FirstTimeWizard(QWidget *parent) :
     QWizard(parent),
     m_mDownloadManager(new QNetworkAccessManager),
@@ -148,12 +171,11 @@ void FirstTimeWizard::download()
 
     m_downloadRunning = true;
     downloadProgressBar->setValue(0);
-    // TODO update to generic links, create to linux and mac
-    QNetworkRequest request(QUrl(
-        QStringLiteral("https://downloads.arduino.cc/arduino-%0-linux64.tar.xz").arg(QStringLiteral(ARDUINO_SDK_VERSION_NAME))));
 
-    qCDebug(FtwIo) << "Download : "
-    << QStringLiteral("https://downloads.arduino.cc/arduino-%0-linux64.tar.xz").arg(QStringLiteral(ARDUINO_SDK_VERSION_NAME));
+    const QUrl downloadLink = QUrl(arduinoDownloadUrl);
+    QNetworkRequest request(downloadLink);
+
+    qCDebug(FtwIo) << "Download :" << arduinoDownloadUrl;
 
     request.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::PreferCache);
     m_reply = m_mDownloadManager->get(request);
