@@ -9,6 +9,28 @@
 # ARDUINO_VAR
 # board variant
 # types can be found here: arduino/hardware/arduino/avr/variants/*
+# or here:
+#
+# "LilyPad Arduino USB"                  "leonardo"
+# "Arduino NG or older"                  "standard"
+# "Arduino BT"                           "eightanaloginputs"
+# "Arduino Duemilanove or Diecimila"     "standard"
+# "Arduino Esplora"                      "leonardo"
+# "Arduino Ethernet"                     "ethernet"
+# "Arduino Fio"                          "eightanaloginputs"
+# "Arduino Gemma"                        "gemma"
+# "Arduino Leonardo"                     "leonardo"
+# "LilyPad Arduino"                      "standard"
+# "Arduino/Genuino Mega or Mega 2560"    "mega"
+# "Arduino Mega ADK"                     "mega"
+# "Arduino/Genuino Micro"                "micro"
+# "Arduino Mini"                         "eightanaloginputs"
+# "Arduino Nano"                         "eightanaloginputs"
+# "Arduino Pro or Pro Mini"              "eightanaloginputs"
+# "Arduino Robot Control"                "robot_control"
+# "Arduino Robot Motor"                  "robot_motor"
+# "Arduino/Genuino Uno"                  "standard"
+# "Arduino Yún"                          "yun"
 #################################
 # ARDUINO_MCU
 # board microcontroller
