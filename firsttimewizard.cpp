@@ -82,6 +82,7 @@ using namespace KDevelop;
 FirstTimeWizard::FirstTimeWizard(QWidget *parent) :
     QWizard(parent),
     m_mDownloadManager(new QNetworkAccessManager),
+    m_reply(NULL),
     m_downloadFinished(false),
     m_installFinished(false)
 {
@@ -95,7 +96,6 @@ FirstTimeWizard::FirstTimeWizard(QWidget *parent) :
 
     existingInstallButton->setText(existingInstallButton->text().arg(QStringLiteral(ARDUINO_SDK_MIN_VERSION_NAME)));
     automaticInstallButton->setText(automaticInstallButton->text().arg(QStringLiteral(ARDUINO_SDK_VERSION_NAME)));
-
 
     // Download mode is default
     automaticInstallButton->setChecked(true);
@@ -253,9 +253,12 @@ void FirstTimeWizard::cancelButtonClicked(bool state)
 {
     Q_UNUSED(state);
     qCDebug(FtwIo) << "CancelButton clicked";
-    if (m_reply->isRunning())
+    if (m_reply)
     {
-        m_reply->abort();
+        if (m_reply->isRunning())
+        {
+            m_reply->abort();
+        }
     }
 }
 
