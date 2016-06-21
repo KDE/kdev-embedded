@@ -35,6 +35,7 @@ set(KDEVEMBEDDED_LAUNCHER_PART_SRCS
     launcher/executeplugin.cpp
     launcher/embeddedlauncher.cpp
     launcher/launcherjob.cpp
+    firsttimewizard.cpp
     toolkit.cpp
     board.cpp
 )
@@ -76,6 +77,7 @@ target_link_libraries(kdevembedded
 )
 
 target_link_libraries(kdevembedded-launcher
+    KF5::Archive
     KF5::Solid
     KDev::Interfaces
     KDev::Util

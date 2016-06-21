@@ -54,6 +54,7 @@
 #include <QDebug>
 #include <QIcon>
 #include <QMenu>
+#include <QMessageBox>
 
 #include <KConfigGroup>
 #include <KLineEdit>
@@ -62,6 +63,8 @@
 
 #include <solid/device.h>
 #include <solid/devicenotifier.h>
+
+ #include "firsttimewizard.h"
 
 using namespace KDevelop;
 using namespace Solid;
@@ -230,6 +233,14 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
     connect(mcuCombo->lineEdit(), &KLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed);
     connect(mcuCombo, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &EmbeddedLauncherConfigPage::mcuComboChanged);
     connect(baudCombo->lineEdit(), &KLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed);
+
+    KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
+    if (settings.readEntry("arduinoFolder", "").isEmpty())
+    {
+        QMessageBox::warning(0, i18n("kdev-embedded"), i18n("Please, run the first time wizard."));
+        FirstTimeWizard *embeddedWindow = new FirstTimeWizard(parent);
+        embeddedWindow->show();
+    }
 }
 
 QString EmbeddedLauncherConfigPage::mcuTooltip()
