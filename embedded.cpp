@@ -76,6 +76,7 @@ Embedded::Embedded(QObject* parent, const QVariantList&)
 void Embedded::firstTimeWizardEvent()
 {
     FirstTimeWizard *embeddedWindow = new FirstTimeWizard(ICore::self()->uiController()->activeMainWindow());
+    embeddedWindow->setAttribute(Qt::WA_DeleteOnClose);
     embeddedWindow->show();
 }
 
@@ -86,6 +87,7 @@ void Embedded::boardSettingsEvent()
     {
 
         ArduinoWindow *arduinoBoard = new ArduinoWindow(ICore::self()->uiController()->activeMainWindow());
+        arduinoBoard->setAttribute(Qt::WA_DeleteOnClose);
         arduinoBoard->show();
     }
     else

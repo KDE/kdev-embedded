@@ -35,6 +35,7 @@ private:
     Toolkit& operator = (Toolkit& other) = delete;
     Toolkit(const Toolkit& other) = delete;
     Toolkit();
+    ~Toolkit();
 
     QString avrdudeConfigPath();
     QString avrProgramPath();

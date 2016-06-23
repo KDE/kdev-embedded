@@ -42,6 +42,11 @@ Toolkit::Toolkit()
     m_arduinoPath = getPath(m_arduinoFolder->fileName());
 }
 
+Toolkit::~Toolkit()
+{
+    delete m_arduinoFolder;
+}
+
 Toolkit& Toolkit::instance()
 {
     static Toolkit self;

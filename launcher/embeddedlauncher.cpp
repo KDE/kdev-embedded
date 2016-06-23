@@ -239,6 +239,7 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
     {
         QMessageBox::warning(0, i18n("kdev-embedded"), i18n("Please, run the first time wizard."));
         FirstTimeWizard *embeddedWindow = new FirstTimeWizard(parent);
+        embeddedWindow->setAttribute(Qt::WA_DeleteOnClose);
         embeddedWindow->show();
     }
 }

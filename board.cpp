@@ -89,6 +89,11 @@ Board::Board()
     qCDebug(BoMsg) << "m_arduinoFolderFail" << m_arduinoFolderFail << m_arduinoFolder->fileName();
 }
 
+Board::~Board()
+{
+    delete m_arduinoFolder;
+}
+
 QString Board::getIdFromName(QString _name)
 {
     update();

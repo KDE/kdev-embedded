@@ -105,6 +105,7 @@ private:
     Board& operator = (Board& other) = delete;
     Board(const Board& other) = delete;
     Board();
+    ~Board();
 
     void load();
     QString Freq2FreqHz(QString freq);
