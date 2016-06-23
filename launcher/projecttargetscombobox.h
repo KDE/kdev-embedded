@@ -1,8 +1,7 @@
 /*
  * This file is part of KDevelop project
  * Copyright 2016 Patrick José Pereira <patrickelectric@gmail.com>
- * Based onde the work of:
- *  Aleix Pol Gonzalez <aleixpol@kde.org>
+ * Copyright 2010 Aleix Pol Gonzalez <aleixpol@kde.org>
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Library General Public License as
