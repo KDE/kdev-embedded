@@ -152,7 +152,7 @@ void Board::load()
 
     while (!boardsFileUTF8.atEnd())
     {
-        QString line = boardsFileUTF8.readLine().trimmed();
+        const QString line = boardsFileUTF8.readLine().trimmed();
 
         if (line.isEmpty() || line[0] == QChar::fromLatin1('#'))
         {
@@ -160,10 +160,10 @@ void Board::load()
         }
 
         QString attrName = line.section(QChar::fromLatin1('='), 0, 0);
-        QString attrValue = line.section(QChar::fromLatin1('='), 1);
+        const QString attrValue = line.section(QChar::fromLatin1('='), 1);
 
         // attrName = <product>.<attrName>
-        QString productId = attrName.section(QChar::fromLatin1('.'), 0, 0);
+        const QString productId = attrName.section(QChar::fromLatin1('.'), 0, 0);
         attrName = attrName.section(QChar::fromLatin1('.'), 1);
 
         if (productId.contains(QStringLiteral("menu")))

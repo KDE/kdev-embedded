@@ -193,7 +193,7 @@ void ArduinoWindow::boardComboChanged(const QString& text)
 {
     Q_UNUSED(text);
     mcuFreqCombo->clear();
-    QString id = m_model->getData(boardCombo->currentIndex()).m_id;
+    const QString id = m_model->getData(boardCombo->currentIndex()).m_id;
 
     QStringList mcus = Board::instance().m_boards[id].m_bMcu;
     QStringList freqs = Board::instance().m_boards[id].m_freqHz;
@@ -284,10 +284,10 @@ void ArduinoWindow::buttonBoxOk()
 {
     qCDebug(AwMsg) << "Button clicked" << "Ok";
     int index = mcuFreqCombo->currentIndex();
-    QString id = m_model->getData(boardCombo->currentIndex()).m_id;
+    const QString id = m_model->getData(boardCombo->currentIndex()).m_id;
     Q_ASSERT(Board::instance().m_boards[id].m_bMcu.size() >= index);
 
-    QString mcu = Board::instance().m_boards[id].m_bMcu[index];
+    const QString mcu = Board::instance().m_boards[id].m_bMcu[index];
     QString freq;
     if (Board::instance().m_boards[id].m_bFcpu.size() == Board::instance().m_boards[id].m_bMcu.size())
     {
@@ -361,8 +361,7 @@ void ArduinoWindow::avrdudeStdout()
     while (!stream.atEnd())
     {
         output->append(stream.readLine());
-        QString line = stream.readLine();
-        qCDebug(AwMsg) << "avrdudeStdout" << line;
+        qCDebug(AwMsg) << "avrdudeStdout" << stream.readLine();
     }
 }
 
@@ -378,13 +377,13 @@ void ArduinoWindow::uploadCheckChanged(int state)
 
 QString ArduinoWindow::richTextDescription()
 {
-    QString id = m_model->getData(boardCombo->currentIndex()).m_id;
-    QStringList mcus = Board::instance().m_boards[id].m_bMcu;
-    QStringList freqs = Board::instance().m_boards[id].m_freqHz;
-    QStringList flashs = Board::instance().m_boards[id].m_upMaxSizeKb;
-    QStringList srams = Board::instance().m_boards[id].m_upMaxDataSizeKb;
+    const QString id = m_model->getData(boardCombo->currentIndex()).m_id;
+    const QStringList mcus = Board::instance().m_boards[id].m_bMcu;
+    const QStringList freqs = Board::instance().m_boards[id].m_freqHz;
+    const QStringList flashs = Board::instance().m_boards[id].m_upMaxSizeKb;
+    const QStringList srams = Board::instance().m_boards[id].m_upMaxDataSizeKb;
 
-    int index = mcuFreqCombo->currentIndex();
+    const int index = mcuFreqCombo->currentIndex();
     QString mcu = getRedRichTextSelected(mcus, index);
     QString freq = getRedRichTextSelected(freqs, index);
     QString flash = getRedRichTextSelected(flashs, index);
@@ -409,7 +408,7 @@ QString ArduinoWindow::richTextDescription()
 
 QString ArduinoWindow::getRedRichTextSelected(QStringList list, int index)
 {
-    QStringList ulist = list.toSet().toList();
+    const QStringList ulist = list.toSet().toList();
 
     QString item;
     QString temp;

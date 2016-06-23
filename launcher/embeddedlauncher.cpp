@@ -151,7 +151,7 @@ void EmbeddedLauncherConfigPage::loadFromConfiguration(const KConfigGroup& cfg, 
         projectTargetRadio->setChecked(true);
     }
 
-    QString arg = cfg.readEntry(ExecutePlugin::argumentsEntry, QString());
+    const QString arg = cfg.readEntry(ExecutePlugin::argumentsEntry, QString());
     if (argumentsCombo->findText(arg) == -1 && !arg.isEmpty())
     {
         argumentsCombo->addItem(arg);
@@ -243,7 +243,7 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
     }
 }
 
-QString EmbeddedLauncherConfigPage::mcuTooltip()
+const QString EmbeddedLauncherConfigPage::mcuTooltip()
 {
     QString tooltip;
     tooltip += i18n("Please choose one microcontroller:\n")
@@ -273,7 +273,7 @@ ATxmega64D4, ATxmega8E5, ...");
         return tooltip;
 }
 
-QString EmbeddedLauncherConfigPage::interfaceTooltip()
+const QString EmbeddedLauncherConfigPage::interfaceTooltip()
 {
     QString tooltip;
     tooltip += i18n("Please, connect or select an interface like:\n")
@@ -281,7 +281,7 @@ QString EmbeddedLauncherConfigPage::interfaceTooltip()
     return tooltip;
 }
 
-QString EmbeddedLauncherConfigPage::baudTooltip()
+const QString EmbeddedLauncherConfigPage::baudTooltip()
 {
     QString tooltip;
     tooltip += i18n("Please choose or select a baudrate:\n")
@@ -289,7 +289,7 @@ QString EmbeddedLauncherConfigPage::baudTooltip()
     return tooltip;
 }
 
-QString EmbeddedLauncherConfigPage::argumentsTooltip()
+const QString EmbeddedLauncherConfigPage::argumentsTooltip()
 {
     QString tooltip;
     tooltip += i18n("Variables to programmer:\n")
@@ -301,7 +301,7 @@ QString EmbeddedLauncherConfigPage::argumentsTooltip()
     return tooltip;
 }
 
-QString EmbeddedLauncherConfigPage::commandTooltip()
+const QString EmbeddedLauncherConfigPage::commandTooltip()
 {
     QString tooltip;
     tooltip += i18n("%avrdude - Avrdude is a program for downloading code and data to Atmel AVR microcontrollers.");
@@ -339,9 +339,8 @@ void EmbeddedLauncherConfigPage::saveToConfiguration(KConfigGroup cfg, KDevelop:
     cfg.writeEntry(ExecutePlugin::mcuEntry, mcuCombo->currentText());
 
     // Arduino configuration
-    KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
-    QString arduinoPath = settings.readEntry("arduinoFolder", "");
-    QString avrdudeConf = Toolkit::instance().avrConfigFile();
+    const KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
+    const QString avrdudeConf = Toolkit::instance().avrConfigFile();
 
     QStringList arduinoConf;
     arduinoConf

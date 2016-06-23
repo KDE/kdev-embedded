@@ -285,7 +285,7 @@ QString FirstTimeWizard::getArduinoPath()
 #ifdef Q_OS_DARWIN
 #elif defined(Q_OS_WIN32) || defined(Q_OS_WIN64)
 #else
-    QString applicationPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
+    const QString applicationPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
     // Paths to search for an existing installation
     static QStringList defaultArduinoPaths = QStringList()
             << QDir(applicationPath).filePath(QStringLiteral("arduino-") + QStringLiteral(ARDUINO_SDK_VERSION_NAME))
@@ -330,8 +330,7 @@ QString FirstTimeWizard::getSketchbookPath()
 
 void FirstTimeWizard::chooseArduinoPath()
 {
-    QString path;
-    path = QFileDialog::getExistingDirectory(this, i18n("Find Files"), QDir::currentPath());
+    const QString path = QFileDialog::getExistingDirectory(this, i18n("Find Files"), QDir::currentPath());
     if (!path.isEmpty())
     {
         arduinoPathEdit->setText(path);
@@ -341,8 +340,7 @@ void FirstTimeWizard::chooseArduinoPath()
 
 void FirstTimeWizard::chooseSketchbookPath()
 {
-    QString path;
-    path = QFileDialog::getExistingDirectory(this, i18n("Find Files"), QDir::currentPath());
+    const QString path = QFileDialog::getExistingDirectory(this, i18n("Find Files"), QDir::currentPath());
     if (!path.isEmpty())
     {
         sketchbookPathEdit->setText(path);
