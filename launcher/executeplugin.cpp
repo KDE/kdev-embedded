@@ -130,7 +130,7 @@ QStringList ExecutePlugin::arguments(KDevelop::ILaunchConfiguration* cfg, QStrin
 KJob* ExecutePlugin::dependencyJob(KDevelop::ILaunchConfiguration* cfg) const
 {
     Q_UNUSED(cfg)
-    return 0;
+    return nullptr;
 }
 
 

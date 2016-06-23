@@ -396,7 +396,7 @@ KJob* EmbeddedLauncher::start(const QString& launchMode, KDevelop::ILaunchConfig
     Q_ASSERT(cfg);
     if (!cfg)
     {
-        return 0;
+        return nullptr;
     }
     if (launchMode == QLatin1String("execute"))
     {
@@ -414,7 +414,7 @@ KJob* EmbeddedLauncher::start(const QString& launchMode, KDevelop::ILaunchConfig
 
     }
     qWarning() << "Unknown launch mode " << launchMode << "for config:" << cfg->name();
-    return 0;
+    return nullptr;
 }
 
 QStringList EmbeddedLauncher::supportedModes() const
