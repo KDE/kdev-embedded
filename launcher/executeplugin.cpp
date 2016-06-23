@@ -138,7 +138,7 @@ QString ExecutePlugin::environmentGroup(KDevelop::ILaunchConfiguration* cfg) con
 {
     if (!cfg)
     {
-        return QLatin1String("");
+        return QString();
     }
 
     return cfg->config().readEntry(ExecutePlugin::environmentGroupEntry, "");
