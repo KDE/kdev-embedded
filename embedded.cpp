@@ -66,7 +66,7 @@ Embedded::Embedded(QObject* parent, const QVariantList&)
 
     QAction* actionConfigureBoard = actionCollection()->addAction(QStringLiteral("action_board"));
     actionConfigureBoard->setText(i18n("Board settings"));
-    actionCollection()->setDefaultShortcut(actionConfigureBoard, i18n("Alt+Shift+b"));
+    actionCollection()->setDefaultShortcut(actionConfigureBoard, QStringLiteral("Alt+Shift+b"));
     actionConfigureBoard->setToolTip(i18n("Configure board and interface configurations for embedded systems."));
     actionConfigureBoard->setWhatsThis(i18n("Project and upload manager for embedded systems."));
     actionConfigureBoard->setIcon(QIcon::fromTheme(QStringLiteral("project-development-new-template")));
