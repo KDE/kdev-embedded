@@ -646,11 +646,11 @@ void EmbeddedLauncherConfigPage::devicesChanged(const QString& udi)
 
     if (interfaceExist == false)
     {
+        interfaceCombo->clear();
         interfaceLabel->setStyleSheet(QStringLiteral("color: rgb(255, 0, 0);"));
     }
     else
     {
-        interfaceLabel->setText(i18n("Interface:"));
         interfaceLabel->setStyleSheet(QStringLiteral("color: rgb(0, 0, 0);"));
     }
 }
