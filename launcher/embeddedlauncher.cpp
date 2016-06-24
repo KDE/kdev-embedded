@@ -618,17 +618,16 @@ void EmbeddedLauncherConfigPage::devicesChanged(const QString& udi)
 {
     Q_UNUSED(udi);
     interfaceCombo->clear();
+    m_interface = QStringList();
     // It's necessary to implement a better way to check the interface
     auto devices = Solid::Device::allDevices();
     //auto devices = Solid::Device::listFromType(Solid::DeviceInterface::Type::Block);
 
     qCDebug(ElMsg) << "devicesChanged";
-    bool interfaceExist = false;
     foreach (const auto& device, devices)
     {
         if (device.product() != QStringLiteral("") and device.udi().contains(QStringLiteral("tty")))
         {
-            interfaceExist = true;
             qCDebug(ElMsg) << "INTERFACE ############ INTERFACE";
             qCDebug(ElMsg) << "Description\t:" << device.description();
             qCDebug(ElMsg) << "Parent Udi\t:" << device.parentUdi();
@@ -641,17 +640,14 @@ void EmbeddedLauncherConfigPage::devicesChanged(const QString& udi)
             m_interface << QString(QStringLiteral("/dev/") + device.udi().split(QStringLiteral("/")).takeLast());
         }
     }
+
     m_interface.removeDuplicates();
     interfaceCombo->addItems(m_interface);
 
-    if (interfaceExist == false)
+    if (interfaceCombo->count() == 0)
     {
         interfaceCombo->clear();
-        interfaceLabel->setStyleSheet(QStringLiteral("color: rgb(255, 0, 0);"));
-    }
-    else
-    {
-        interfaceLabel->setStyleSheet(QStringLiteral("color: rgb(0, 0, 0);"));
+        interfaceCombo->lineEdit()->setPlaceholderText(i18n("Could not find interface"));
     }
 }
 
