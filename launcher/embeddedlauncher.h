@@ -95,7 +95,6 @@ private:
 
     Board *m_board;
     QStringList m_mcu;
-    QStringList m_interface;
     QStringList m_baud;
 };
 

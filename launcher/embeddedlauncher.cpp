@@ -353,7 +353,7 @@ void EmbeddedLauncherConfigPage::saveToConfiguration(KConfigGroup cfg, KDevelop:
     cfg.writeEntry(ExecutePlugin::arduinoEntry, arduinoConf);
 
     qCDebug(ElMsg) << "EmbeddedLauncherConfigPage::saveToConfiguration" << cfg.groupList() << cfg.keyList() << cfg.entryMap();
-    qCDebug(ElMsg) << "EmbeddedLauncherConfigPage::saveToConfiguration" << "arduinoConf" << arduinoConf << m_mcu << m_baud << m_interface;
+    qCDebug(ElMsg) << "EmbeddedLauncherConfigPage::saveToConfiguration" << "arduinoConf" << arduinoConf << m_mcu << m_baud << interfaceCombo->currentText();
 }
 
 QString EmbeddedLauncherConfigPage::title() const
@@ -618,7 +618,7 @@ void EmbeddedLauncherConfigPage::devicesChanged(const QString& udi)
 {
     Q_UNUSED(udi);
     interfaceCombo->clear();
-    m_interface = QStringList();
+    QStringList interface;
     // It's necessary to implement a better way to check the interface
     auto devices = Solid::Device::allDevices();
     //auto devices = Solid::Device::listFromType(Solid::DeviceInterface::Type::Block);
@@ -637,12 +637,12 @@ void EmbeddedLauncherConfigPage::devicesChanged(const QString& udi)
             qCDebug(ElMsg) << "Icon\t:" << device.icon();
             qCDebug(ElMsg) << "Emblems\t:" << device.emblems();
             qCDebug(ElMsg) << "Interface\t:" << device.udi().split(QStringLiteral("/")).takeLast();
-            m_interface << QString(QStringLiteral("/dev/") + device.udi().split(QStringLiteral("/")).takeLast());
+            interface << QString(QStringLiteral("/dev/") + device.udi().split(QStringLiteral("/")).takeLast());
         }
     }
 
-    m_interface.removeDuplicates();
-    interfaceCombo->addItems(m_interface);
+    interface.removeDuplicates();
+    interfaceCombo->addItems(interface);
 
     if (interfaceCombo->count() == 0)
     {
