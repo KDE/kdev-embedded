@@ -41,6 +41,7 @@
 #include <QAbstractButton>
 
 #include <KConfigGroup>
+#include <KColorScheme>
 
 #include "board.h"
 #include "toolkit.h"
@@ -137,9 +138,7 @@ ArduinoWindow::ArduinoWindow(QWidget *parent) :
     buttonBox->button(QDialogButtonBox::Ok)->setText(i18n("Upload"));
 
     // Start output box configuration
-    this->palette();
-    output->setTextBackgroundColor(QPalette::Shadow);
-    output->setTextColor(Qt::green);
+    setOutpotStatus(Normal);
     output->append(i18n("Welcome,\n\nKDev-Embedded is still in alpha,\nplease be careful and report any problems you find.\n\nHave fun!"));
 
     Solid::DeviceNotifier *devices = Solid::DeviceNotifier::instance();
@@ -344,11 +343,13 @@ void ArduinoWindow::avrdudeStderr(int exitCode, QProcess::ExitStatus exitStatus)
     if (exitCode != 0)
     {
         qCDebug(AwMsg) << QStringLiteral("Error during upload.\n") << perr << exitCode << exitStatus;
+        setOutpotStatus(Bad);
         output->append(i18n("Error during upload. ☹\nCode: %0\n%1", exitCode, perr));
     }
     else
     {
         qCDebug(AwMsg) << QStringLiteral("Upload complete") << perr << exitCode << exitStatus;
+        setOutpotStatus(Good);
         output->append(i18n("Upload complete. ☺\n"));
         output->append(perr);
     }
@@ -451,6 +452,27 @@ void ArduinoWindow::buttonBoxCancel()
 {
     qCDebug(AwMsg) << "Button clicked" << "Cancel";
     close();
+}
+
+void ArduinoWindow::setOutpotStatus(status st)
+{
+    QPalette p = output->palette();
+    switch (st)
+    {
+        case Normal:
+            KColorScheme::adjustForeground(p, KColorScheme::ActiveText);
+            KColorScheme::adjustBackground(p, KColorScheme::ActiveBackground);
+        break;
+        case Good:
+            KColorScheme::adjustForeground(p, KColorScheme::PositiveText);
+            KColorScheme::adjustBackground(p, KColorScheme::PositiveBackground);
+        break;
+        case Bad:
+            KColorScheme::adjustForeground(p, KColorScheme::NegativeText);
+            KColorScheme::adjustBackground(p, KColorScheme::NegativeBackground);
+        break;
+    }
+    output->setPalette(p);
 }
 
 ArduinoWindow::~ArduinoWindow()

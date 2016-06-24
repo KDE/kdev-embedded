@@ -83,6 +83,8 @@ public:
     ~ArduinoWindow();
 
 private:
+    enum status {Normal, Good, Bad};
+
     ArduinoWindowModel *m_model;
     QString getRedRichTextSelected(QStringList list, int index);
     QString richTextDescription();
@@ -95,6 +97,7 @@ private:
     void avrdudeStderr(int exitCode, QProcess::ExitStatus exitStatus);
     void avrdudeStdout();
     void uploadCheckChanged(int state);
+    void setOutpotStatus(status st);
 
     QString m_interface;
     QProcess *m_avrdudeProcess;
