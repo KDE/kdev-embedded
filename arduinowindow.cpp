@@ -245,12 +245,10 @@ void ArduinoWindow::devicesChanged(const QString& udi)
     interfaceCombo->clear();
     auto devices = Solid::Device::allDevices();
 
-    bool interfaceExist = false;
     foreach (const auto& device, devices)
     {
         if (!device.product().isEmpty() and device.udi().contains(QStringLiteral("tty")))
         {
-            interfaceExist = true;
             interfaceCombo->addItem(device.product());
             qCDebug(AwMsg) << "INTERFACE ############ INTERFACE";
             qCDebug(AwMsg) << "Description\t:" << device.description();
@@ -265,17 +263,14 @@ void ArduinoWindow::devicesChanged(const QString& udi)
         }
     }
 
-    if (interfaceExist == false)
+    if (interfaceCombo->count())
     {
-        interfaceCombo->setEnabled(false);
-        interfacelabel->setText(i18n("Interface (please connect one):"));
-        interfacelabel->setStyleSheet(QStringLiteral("color: rgb(255, 0, 0);"));
+        interfaceCombo->setEnabled(true);
     }
     else
     {
-        interfaceCombo->setEnabled(true);
-        interfacelabel->setText(i18n("Interface:"));
-        interfacelabel->setStyleSheet(QStringLiteral("color: rgb(0, 0, 0);"));
+        interfaceCombo->addItem(i18n("Could not find interface"));
+        interfaceCombo->setEnabled(false);
     }
 }
 
