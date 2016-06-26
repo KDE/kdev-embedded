@@ -70,49 +70,6 @@ using namespace Solid;
 
 Q_LOGGING_CATEGORY(ElMsg, "Kdev.embedded.el.msg");
 
-ArduinoWindowModel::ArduinoWindowModel(QObject *parent)
-    : QAbstractTableModel(parent)
-{
-}
-
-void ArduinoWindowModel::populate(const QVector<ArduinoWindowModelStruct> &tdb)
-{
-    beginResetModel();
-    m_db = tdb;
-    endResetModel();
-}
-
-QVariant ArduinoWindowModel::data(const QModelIndex& index, int role) const
-{
-    if (!index.isValid())
-    {
-        return QVariant();
-    }
-
-    if (role == Qt::DisplayRole)
-    {
-        if (index.column() == ID)
-        {
-            return m_db.at(index.row()).m_id;
-        }
-        else if (index.column() == NAME)
-        {
-            return m_db.at(index.row()).m_name;
-        }
-    }
-
-    return QVariant();
-}
-
-ArduinoWindowModelStruct ArduinoWindowModel::getData(int index)
-{
-    if (index > -1)
-    {
-        return m_db.at(index);
-    }
-    return ArduinoWindowModelStruct{QString(), QString()};
-}
-
 QIcon EmbeddedLauncherConfigPage::icon() const
 {
     return QIcon::fromTheme(QStringLiteral("system-run"));

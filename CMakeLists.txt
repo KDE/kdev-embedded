@@ -23,6 +23,7 @@ set(KDEVEMBEDDED_PART_SRCS
     toolkit.cpp
     board.cpp
     firsttimewizard.cpp
+    arduinowindowmodel.cpp
 )
 
 set(KDEVEMBEDDED_PART_UI
@@ -35,6 +36,7 @@ set(KDEVEMBEDDED_LAUNCHER_PART_SRCS
     launcher/executeplugin.cpp
     launcher/embeddedlauncher.cpp
     launcher/launcherjob.cpp
+    arduinowindowmodel.cpp
     firsttimewizard.cpp
     toolkit.cpp
     board.cpp
