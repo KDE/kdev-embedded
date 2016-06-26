@@ -4,8 +4,6 @@
 #include <QModelIndex>
 #include <QAbstractTableModel>
 
-class Board;
-
 struct ArduinoWindowModelStruct
 {
     QString m_id;

@@ -26,9 +26,6 @@
 #include <QLoggingCategory>
 #include <QScopedPointer>
 
-class ArduinoWindow;
-class FirstTimeWizard;
-
 Q_DECLARE_LOGGING_CATEGORY(PLUGIN_EMBEDDED);
 
 class Embedded : public KDevelop::IPlugin

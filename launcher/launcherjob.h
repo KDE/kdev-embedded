@@ -30,8 +30,6 @@ namespace KDevelop
 class ILaunchConfiguration;
 }
 
-class KProcess;
-
 class LauncherJob : public KDevelop::OutputExecuteJob
 {
     Q_OBJECT

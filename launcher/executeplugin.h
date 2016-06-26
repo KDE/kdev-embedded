@@ -27,8 +27,6 @@
 
 #include <execute/iexecuteplugin.h>
 
-#include "embeddedlauncher.h"
-
 class QUrl;
 class KJob;
 

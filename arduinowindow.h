@@ -28,20 +28,13 @@
 // need to create a better way without this include
 #include <QProcess>
 
-#include "arduinowindowmodel.h"
-
 Q_DECLARE_LOGGING_CATEGORY(AwMsg);
 
 #include "ui_arduinowindow.h"
 
 class Board;
 class QPixmap;
-class QAbstractTableModel;
-
-namespace Solid
-{
-class DeviceNotifier;
-};
+class ArduinoWindowModel;
 
 class ArduinoWindow : public QDialog, Ui::ArduinoWindow
 {

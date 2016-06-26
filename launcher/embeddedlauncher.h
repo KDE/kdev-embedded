@@ -29,11 +29,6 @@
 #include "arduinowindowmodel.h"
 #include "ui_embeddedlauncher.h"
 
-namespace Solid
-{
-class DeviceNotifier;
-}
-
 class Board;
 
 class EmbeddedLauncherConfigPage : public KDevelop::LaunchConfigurationPage, Ui::NativeAppPage
