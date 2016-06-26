@@ -26,7 +26,7 @@
 #include <QLoggingCategory>
 #include <QScopedPointer>
 
-Q_DECLARE_LOGGING_CATEGORY(PLUGIN_EMBEDDED);
+Q_DECLARE_LOGGING_CATEGORY(PLUGIN_EMBEDDED)
 
 class Embedded : public KDevelop::IPlugin
 {

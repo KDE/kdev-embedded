@@ -28,7 +28,7 @@
 // need to create a better way without this include
 #include <QProcess>
 
-Q_DECLARE_LOGGING_CATEGORY(AwMsg);
+Q_DECLARE_LOGGING_CATEGORY(AwMsg)
 
 #include "ui_arduinowindow.h"
 

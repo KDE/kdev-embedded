@@ -68,7 +68,7 @@
 using namespace KDevelop;
 using namespace Solid;
 
-Q_LOGGING_CATEGORY(ElMsg, "Kdev.embedded.el.msg");
+Q_LOGGING_CATEGORY(ElMsg, "Kdev.embedded.el.msg")
 
 QIcon EmbeddedLauncherConfigPage::icon() const
 {

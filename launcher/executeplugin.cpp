@@ -64,7 +64,7 @@ QString ExecutePlugin::arduinoEntry = i18n("Arduino Entry");
 
 using namespace KDevelop;
 
-Q_LOGGING_CATEGORY(EpMsg, "Kdev.embedded.ep.msg");
+Q_LOGGING_CATEGORY(EpMsg, "Kdev.embedded.ep.msg")
 K_PLUGIN_FACTORY_WITH_JSON(KDevExecuteFactory, "kdevembedded-launcher.json", registerPlugin<ExecutePlugin>();)
 
 ExecutePlugin::ExecutePlugin(QObject *parent, const QVariantList&)

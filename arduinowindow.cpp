@@ -47,7 +47,7 @@
 #include "toolkit.h"
 #include "arduinowindowmodel.h"
 
-Q_LOGGING_CATEGORY(AwMsg, "Kdev.embedded.aw.msg");
+Q_LOGGING_CATEGORY(AwMsg, "Kdev.embedded.aw.msg")
 
 using namespace KDevelop;
 using namespace Solid;

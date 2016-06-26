@@ -45,7 +45,7 @@
 #include "arduinowindow.h"
 #include "firsttimewizard.h"
 
-Q_LOGGING_CATEGORY(PLUGIN_EMBEDDED, "kdevplatform.plugins.embedded");
+Q_LOGGING_CATEGORY(PLUGIN_EMBEDDED, "kdevplatform.plugins.embedded")
 
 using namespace KDevelop;
 using namespace KTextEditor;

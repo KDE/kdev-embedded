@@ -48,7 +48,7 @@
 
 using namespace KDevelop;
 
-Q_LOGGING_CATEGORY(LaMsg, "Kdev.embedded.la.msg");
+Q_LOGGING_CATEGORY(LaMsg, "Kdev.embedded.la.msg")
 
 LauncherJob::LauncherJob(QObject* parent, KDevelop::ILaunchConfiguration* cfg)
     : KDevelop::OutputExecuteJob(parent)

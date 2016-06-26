@@ -50,8 +50,8 @@
 
 #include "toolkit.h"
 
-Q_LOGGING_CATEGORY(FtwIo, "Kdev.embedded.ftw.io");
-Q_LOGGING_CATEGORY(FtwMsg, "kdev.embedded.ftw.msg");
+Q_LOGGING_CATEGORY(FtwIo, "Kdev.embedded.ftw.io")
+Q_LOGGING_CATEGORY(FtwMsg, "kdev.embedded.ftw.msg")
 
 using namespace KDevelop;
 

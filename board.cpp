@@ -31,7 +31,7 @@
 #include <interfaces/icore.h>
 #include <KConfigGroup>
 
-Q_LOGGING_CATEGORY(BoMsg, "Kdev.embedded.bo.msg");
+Q_LOGGING_CATEGORY(BoMsg, "Kdev.embedded.bo.msg")
 
 using namespace KDevelop;
 
