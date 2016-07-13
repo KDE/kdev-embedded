@@ -116,6 +116,12 @@
       </item>
       <item row="1" column="1">
        <widget class="QComboBox" name="boardCombo">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <item>
          <property name="text">
           <string>Nano</string>
@@ -229,6 +235,12 @@
       </item>
       <item row="0" column="1">
        <widget class="QComboBox" name="presetsCombo">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <item>
          <property name="text">
           <string>Arduino</string>
@@ -248,6 +260,12 @@
       </item>
       <item row="3" column="1">
        <widget class="KComboBox" name="mcuCombo">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="autoFillBackground">
          <bool>false</bool>
         </property>
@@ -258,6 +276,12 @@
       </item>
       <item row="4" column="1">
        <widget class="KComboBox" name="interfaceCombo">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="toolTip">
          <string>Please, connect an interface</string>
         </property>
@@ -293,6 +317,12 @@
       </item>
       <item row="5" column="1">
        <widget class="KComboBox" name="baudCombo">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="toolTip">
          <string/>
         </property>
