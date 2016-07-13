@@ -53,6 +53,7 @@ private:
     const QString commandTooltip();
     const QString argumentsTooltip();
     const QString interfaceTooltip();
+    const QStringList mcuList();
 
     ArduinoWindowModel *m_model;
 
