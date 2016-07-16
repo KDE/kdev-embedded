@@ -39,11 +39,12 @@ private:
     QString avrdudeConfigPath();
     QString avrProgramPath();
     QString boardFilePath();
-    QString avrdudePath();
     QString getPath(QString path);
 
     QFile* m_arduinoFolder;
     QString m_arduinoPath;
+
+    QStringList m_avrdudeMcuList;
 
 public:
     static Toolkit& instance();
@@ -66,7 +67,9 @@ public:
 
     QString avrConfigFile();
 
+    QString avrdudePath();
     QString getAvrdudeFile();
+    QStringList avrdudeMcuList();
 
     bool setArduinoPath(QString path);
 };

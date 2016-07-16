@@ -83,7 +83,8 @@ FirstTimeWizard::FirstTimeWizard(QWidget *parent) :
     m_mDownloadManager(new QNetworkAccessManager),
     m_reply(NULL),
     m_downloadFinished(false),
-    m_installFinished(false)
+    m_installFinished(false),
+    m_avrdudeProcess(new QProcess(parent))
 {
     setupUi(this);
 
@@ -112,6 +113,9 @@ FirstTimeWizard::FirstTimeWizard(QWidget *parent) :
     connect(sketchbookPathButton, &QToolButton::clicked, this, &FirstTimeWizard::chooseSketchbookPath);
     connect(this, &QWizard::currentIdChanged, this, &FirstTimeWizard::validateCurrentId);
     connect(button(QWizard::CancelButton), &QAbstractButton::clicked, this, &FirstTimeWizard::cancelButtonClicked);
+
+    m_avrdudeProcess->connect(m_avrdudeProcess, (void (QProcess::*)(int, QProcess::ExitStatus))&QProcess::finished, this, &FirstTimeWizard::avrdudeStderr);
+    m_avrdudeProcess->connect(m_avrdudeProcess, &QProcess::readyReadStandardOutput, this, &FirstTimeWizard::avrdudeStdout);
 }
 
 bool FirstTimeWizard::validateCurrentPage()
@@ -145,11 +149,24 @@ bool FirstTimeWizard::validateCurrentPage()
         KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
         settings.writeEntry("arduinoFolder", arduinoPathEdit->text());
         settings.writeEntry("sketchbookFolder", sketchbookPathEdit->text());
+
+        QStringList flags;
+        flags
+            << QStringLiteral("-p")
+            << QStringLiteral("partno")
+            << QStringLiteral("-c")
+            << QStringLiteral("alf");
+
+        QString avrdude = arduinoPathEdit->text()+Toolkit::instance().avrdudePath();
+        qCDebug(FtwMsg) << "Starting.." << avrdude << flags;
+        m_avrdudeProcess->start(avrdude, flags);
+        m_avrdudeProcess->waitForFinished();
     }
     break;
 
     default:
         break;
+
     }
     return true;
 }
@@ -361,6 +378,40 @@ void FirstTimeWizard::onDownloadProgress(qint64 received, qint64 total)
     // FIXME use KFormat::formatByteSize here instead of hardcoding KB
     downloadStatusLabel->setText(i18n("Downloading... (%1 KB / %2 KB)", ((int)(received >> 10)), ((int)(total >> 10))));
     downloadProgressBar->setValue(percent);
+}
+
+void FirstTimeWizard::avrdudeStderr(int exitCode, QProcess::ExitStatus exitStatus)
+{
+    Q_UNUSED(exitCode)
+    Q_UNUSED(exitStatus)
+
+    qCDebug(FtwMsg) << "avrdudeStderr";
+    m_avrdudeProcess->setReadChannel(QProcess::StandardError);
+    QTextStream stream(m_avrdudeProcess);
+    QStringList mcus;
+    while (!stream.atEnd())
+    {
+        QString mcu = stream.readLine().split(QChar::fromLatin1(' ')).takeLast();
+        if (mcu.contains(QStringLiteral("AT")))
+        {
+            mcus.append(mcu);
+        }
+    }
+    qCDebug(FtwMsg) << "mcus" << mcus;
+
+    KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
+    settings.writeEntry("avrdudeMCUList", mcus);
+}
+
+void FirstTimeWizard::avrdudeStdout()
+{
+    qCDebug(FtwMsg) << "avrdudeStdout";
+    m_avrdudeProcess->setReadChannel(QProcess::StandardOutput);
+    QTextStream stream(m_avrdudeProcess);
+    while (!stream.atEnd())
+    {
+        qCDebug(FtwMsg) << "avrdudeStdout" << stream.readLine();
+    }
 }
 
 FirstTimeWizard::~FirstTimeWizard()

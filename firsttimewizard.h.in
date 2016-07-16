@@ -26,6 +26,7 @@
 // first time wizard configuration
 
 #include <QWizard>
+#include <QProcess>
 #include <QLoggingCategory>
 
 #include "ui_firsttimewizard.h"
@@ -60,6 +61,9 @@ public:
     bool m_downloadFinished;
     bool m_installFinished;
 
+    //get mcu list from avrdude
+    QProcess *m_avrdudeProcess;
+
     QString getArduinoPath();
     QString getSketchbookPath();
     QString downloadAndInstallArduino();
@@ -74,5 +78,8 @@ public:
     void chooseSketchbookPath();
     void download();
     void install();
+
+    void avrdudeStdout();
+    void avrdudeStderr(int exitCode, QProcess::ExitStatus exitStatus);
 
 };

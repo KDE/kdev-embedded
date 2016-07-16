@@ -39,6 +39,7 @@ Toolkit::Toolkit()
     KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
     m_arduinoFolder = new QFile(settings.readEntry("arduinoFolder", QString()));
     m_arduinoPath = getPath(m_arduinoFolder->fileName());
+    m_avrdudeMcuList = settings.readEntry("avrdudeMCUList", QStringList());
 }
 
 Toolkit::~Toolkit()
@@ -111,6 +112,11 @@ QString Toolkit::avrdudePath()
 QString Toolkit::getAvrdudeFile()
 {
     return getPath(arduinoPath() + avrProgramPath() + QStringLiteral("/avrdude"));
+}
+
+QStringList Toolkit::avrdudeMcuList()
+{
+    return m_avrdudeMcuList;
 }
 
 QString Toolkit::boardFilePath()
