@@ -47,6 +47,7 @@ private:
     void boardComboChanged(const QString& text);
     void devicesChanged(const QString& udi);
     void selectItemDialog();
+    void presetsChanged(int index);
 
     const QString mcuTooltip();
     const QString baudTooltip();
@@ -60,6 +61,7 @@ private:
     Board *m_board;
     QStringList m_mcu;
     QStringList m_baud;
+    QString m_openocdExec;
 };
 
 class EmbeddedLauncher : public KDevelop::ILauncher

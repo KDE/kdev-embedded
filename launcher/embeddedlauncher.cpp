@@ -55,6 +55,8 @@
 #include <QMenu>
 #include <QMessageBox>
 
+#include <QStandardPaths>
+
 #include <KConfigGroup>
 #include <KLineEdit>
 #include <KLocalizedString>
@@ -123,6 +125,28 @@ void EmbeddedLauncherConfigPage::loadFromConfiguration(const KConfigGroup& cfg, 
     qCDebug(ElMsg) << "Board index from cfg" << QString(cfg.readEntry(ExecutePlugin::boardEntry, 0)).toInt() << cfg.readEntry(ExecutePlugin::boardEntry, 0);
     qCDebug(ElMsg) << "BoardCombo size" << boardCombo->count();
 
+    const int launcherIndex = cfg.readEntry(ExecutePlugin::launcherIndexEntry, 0);
+    stackedWidget->setCurrentIndex(launcherIndex);
+    presetsComboPage1->setCurrentIndex(launcherIndex);
+    presetsComboPage2->setCurrentIndex(launcherIndex);
+
+    const QString openocdArg = cfg.readEntry(ExecutePlugin::openocdArgEntry, QString());
+    const QUrl openocdWork = cfg.readEntry(ExecutePlugin::openocdWorkEntry, QUrl());
+    const QString openocdComm = cfg.readEntry(ExecutePlugin::openocdCommEntry, QString());
+
+    if (!openocdArg.isEmpty())
+    {
+        openocdArgumentsCombo->setCurrentText(openocdArg);
+    }
+    if (!openocdWork.isEmpty())
+    {
+        openocdWorkingDirectory->setUrl(openocdWork);
+    }
+    if (!openocdComm.isEmpty())
+    {
+        openocdCommand->setCurrentText(openocdComm);
+    }
+
     if (boardIndex < boardCombo->count())
     {
         boardCombo->setCurrentIndex(boardIndex);
@@ -132,7 +156,6 @@ void EmbeddedLauncherConfigPage::loadFromConfiguration(const KConfigGroup& cfg, 
         mcuCombo->setCurrentIndex(mcuIndex);
     }
 
-    QStringList strDeps;
     blockSignals(b);
 }
 
@@ -156,8 +179,9 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
         data.push_back(ArduinoWindowModelStruct{Board::instance().m_boardList[i], Board::instance().m_boardNameList[i]});
     m_model->populate(data);
 
-    // We don't gave presets yet
-    presetsCombo->setEnabled(false);
+    // Temporary method to find openocd executable
+    m_openocdExec = QStandardPaths::findExecutable(QStringLiteral("openocd"));
+    qCDebug(ElMsg) << "m_openocdExec" << m_openocdExec;
 
     // Start ComboBoxes
     boardCombo->clear();
@@ -170,6 +194,12 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
     baudCombo->setToolTip(baudTooltip());
     argumentsCombo->setToolTip(argumentsTooltip());
     commandCombo->setToolTip(commandTooltip());
+
+    // Start in the first widget and in the first preset
+    stackedWidget->setCurrentIndex(0);
+    presetsComboPage1->setCurrentIndex(0);
+    presetsComboPage2->setCurrentIndex(0);
+
 
     //connect signals to changed signal
     connect(projectTarget, static_cast<void(ProjectTargetsComboBox::*)(const QString&)>(&ProjectTargetsComboBox::currentIndexChanged), this, &EmbeddedLauncherConfigPage::changed);
@@ -189,6 +219,9 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
     connect(mcuCombo->lineEdit(), &KLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed);
     connect(mcuCombo, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &EmbeddedLauncherConfigPage::mcuComboChanged);
     connect(baudCombo->lineEdit(), &KLineEdit::textEdited, this, &EmbeddedLauncherConfigPage::changed);
+
+    connect(presetsComboPage1, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &EmbeddedLauncherConfigPage::presetsChanged);
+    connect(presetsComboPage2, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &EmbeddedLauncherConfigPage::presetsChanged);
 
     KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
     if (settings.readEntry("arduinoFolder", "").isEmpty())
@@ -263,8 +296,9 @@ void EmbeddedLauncherConfigPage::selectItemDialog()
 
 void EmbeddedLauncherConfigPage::saveToConfiguration(KConfigGroup cfg, KDevelop::IProject* project) const
 {
-    qCDebug(ElMsg) << "EmbeddedLauncherConfigPage::saveToConfiguration" << cfg.config()->groupList();
     Q_UNUSED(project);
+
+    qCDebug(ElMsg) << "EmbeddedLauncherConfigPage::saveToConfiguration" << cfg.config()->groupList();
     cfg.writeEntry(ExecutePlugin::isExecutableEntry, executableRadio->isChecked());
     cfg.writeEntry(ExecutePlugin::executableEntry, executablePath->url());
     cfg.writeEntry(ExecutePlugin::projectTargetEntry, projectTarget->currentItemPath());
@@ -273,6 +307,10 @@ void EmbeddedLauncherConfigPage::saveToConfiguration(KConfigGroup cfg, KDevelop:
     cfg.writeEntry(ExecutePlugin::workingDirEntry, workingDirectory->url());
     cfg.writeEntry(ExecutePlugin::boardEntry, boardCombo->currentIndex());
     cfg.writeEntry(ExecutePlugin::mcuEntry, mcuCombo->currentText());
+    cfg.writeEntry(ExecutePlugin::launcherIndexEntry, stackedWidget->currentIndex());
+    cfg.writeEntry(ExecutePlugin::openocdArgEntry, openocdArgumentsCombo->currentText());
+    cfg.writeEntry(ExecutePlugin::openocdWorkEntry, openocdWorkingDirectory->url());
+    cfg.writeEntry(ExecutePlugin::openocdCommEntry, openocdCommand->currentText());
 
     // Arduino configuration
     const KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
@@ -622,4 +660,18 @@ void EmbeddedLauncherConfigPage::mcuComboChanged(int index)
 
     qCDebug(ElMsg) << "mcuComboBox Index: " << index;
     qCDebug(ElMsg) << "mcuComboBox Count: " << mcuCombo->count();
+}
+
+void EmbeddedLauncherConfigPage::presetsChanged(int index)
+{
+    if (index < 0)
+    {
+        return;
+    }
+
+    qCDebug(ElMsg) << "presetsCombo Index: " << index;
+
+    stackedWidget->setCurrentIndex(index);
+    presetsComboPage1->setCurrentIndex(index);
+    presetsComboPage2->setCurrentIndex(index);
 }

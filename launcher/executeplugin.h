@@ -55,8 +55,11 @@ public:
     static QString presetsEntry;
     static QString boardEntry;
     static QString mcuEntry;
-
     static QString arduinoEntry;
+    static QString launcherIndexEntry;
+    static QString openocdArgEntry;
+    static QString openocdWorkEntry;
+    static QString openocdCommEntry;
 
     void unload() override;
 

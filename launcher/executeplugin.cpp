@@ -61,6 +61,10 @@ QString ExecutePlugin::userIdToRunEntry = i18n("User Id to Run");
 QString ExecutePlugin::dependencyActionEntry = i18n("Dependency Action");
 QString ExecutePlugin::projectTargetEntry = i18n("Project Target");
 QString ExecutePlugin::arduinoEntry = i18n("Arduino Entry");
+QString ExecutePlugin::launcherIndexEntry = i18n("Embedded Launcher Index");
+QString ExecutePlugin::openocdArgEntry = i18n("Openocd Arg Entry");
+QString ExecutePlugin::openocdWorkEntry = i18n("Openocd Work Entry");
+QString ExecutePlugin::openocdCommEntry = i18n("Openocd Command Entry");
 
 using namespace KDevelop;
 
