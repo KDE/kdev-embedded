@@ -159,8 +159,12 @@ bool FirstTimeWizard::validateCurrentPage()
 
         QString avrdude = arduinoPathEdit->text()+Toolkit::instance().avrdudePath();
         qCDebug(FtwMsg) << "Starting.." << avrdude << flags;
-        m_avrdudeProcess->start(avrdude, flags);
-        m_avrdudeProcess->waitForFinished();
+        // Check if file exist to not create a zombie
+        if (QFileInfo(avrdude).exists())
+        {
+            m_avrdudeProcess->start(avrdude, flags);
+            m_avrdudeProcess->waitForFinished();
+        }
     }
     break;
 

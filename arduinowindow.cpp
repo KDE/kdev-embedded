@@ -286,7 +286,11 @@ void ArduinoWindow::buttonBoxOk()
     output->clear();
     output->append(i18n("Running...\n"));
     qCDebug(AwMsg) << Toolkit::instance().getAvrdudeFile() << flags;
-    m_avrdudeProcess->start(Toolkit::instance().getAvrdudeFile(), flags);
+    // Check if file exist to not create a zombie
+    if (QFileInfo(Toolkit::instance().getAvrdudeFile()).exists())
+    {
+        m_avrdudeProcess->start(Toolkit::instance().getAvrdudeFile(), flags);
+    }
 }
 
 void ArduinoWindow::avrdudeStderr(int exitCode, QProcess::ExitStatus exitStatus)
