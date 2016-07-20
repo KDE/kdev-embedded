@@ -22,7 +22,7 @@
 
 #include <interfaces/iplugin.h>
 
-#include <QtCore/QVariant>
+#include <QVariant>
 #include <QLoggingCategory>
 #include <QScopedPointer>
 

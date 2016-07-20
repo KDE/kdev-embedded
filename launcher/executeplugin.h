@@ -21,10 +21,9 @@
 
 #pragma once
 
-#include <interfaces/iplugin.h>
-#include <QtCore/QVariant>
-#include <QtCore/QProcess>
+#include <QVariant>
 
+#include <interfaces/iplugin.h>
 #include <execute/iexecuteplugin.h>
 
 class QUrl;

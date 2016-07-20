@@ -25,7 +25,6 @@
 #include <QStringList>
 #include <QDir>
 #include <QFile>
-#include <QProcess>
 #include <QDebug>
 
 #include <interfaces/isession.h>

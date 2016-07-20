@@ -23,8 +23,6 @@
 
 #include <outputview/outputexecutejob.h>
 
-#include <QtCore/QProcess>
-
 namespace KDevelop
 {
 class ILaunchConfiguration;
