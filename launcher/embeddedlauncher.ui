@@ -28,7 +28,7 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <layout class="QHBoxLayout" name="horizontalLayout3">
         <item>
          <widget class="QRadioButton" name="projectTargetRadio">
           <property name="sizePolicy">
@@ -58,7 +58,7 @@
        </layout>
       </item>
       <item row="1" column="0">
-       <widget class="QLabel" name="label_2">
+       <widget class="QLabel" name="label2">
         <property name="text">
          <string>E&amp;xecutable:</string>
         </property>
@@ -68,7 +68,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <layout class="QHBoxLayout" name="horizontalLayout_3">
+       <layout class="QHBoxLayout" name="horizontalLayout4">
         <item>
          <widget class="QRadioButton" name="executableRadio">
           <property name="enabled">
@@ -203,7 +203,7 @@
         </widget>
        </item>
        <item row="4" column="0">
-        <widget class="QLabel" name="label_3">
+        <widget class="QLabel" name="interfaceBRLabel">
          <property name="text">
           <string>Interface baud rate:</string>
          </property>
@@ -333,9 +333,9 @@
       </layout>
      </widget>
      <widget class="QGroupBox" name="stackedWidgetPage2">
-      <layout class="QFormLayout" name="formLayout">
+      <layout class="QFormLayout" name="formLayout2">
        <item row="0" column="0">
-        <widget class="QLabel" name="presetsLabel">
+        <widget class="QLabel" name="presetsLabel2">
          <property name="text">
           <string>Presets:</string>
          </property>
@@ -362,7 +362,7 @@
         </widget>
        </item>
        <item row="2" column="0">
-        <widget class="QLabel" name="argumentsLabel">
+        <widget class="QLabel" name="argumentsLabel2">
          <property name="text">
           <string>Arguments:</string>
          </property>
@@ -395,7 +395,7 @@
         </widget>
        </item>
        <item row="3" column="0">
-        <widget class="QLabel" name="workdirLabel">
+        <widget class="QLabel" name="workdirLabel2">
          <property name="text">
           <string>Working Directory:</string>
          </property>
@@ -412,14 +412,14 @@
         </widget>
        </item>
        <item row="4" column="0">
-        <widget class="QLabel" name="commandLabel">
+        <widget class="QLabel" name="commandLabel2">
          <property name="text">
           <string>Command:</string>
          </property>
         </widget>
        </item>
        <item row="4" column="1">
-        <layout class="QHBoxLayout" name="horizontalLayout">
+        <layout class="QHBoxLayout" name="horizontalLayout2">
          <item>
           <widget class="KComboBox" name="openocdCommand">
            <property name="enabled">
@@ -462,7 +462,7 @@
         </layout>
        </item>
        <item row="5" column="1">
-        <spacer name="verticalSpacer">
+        <spacer name="verticalSpacer2">
          <property name="orientation">
           <enum>Qt::Vertical</enum>
          </property>
