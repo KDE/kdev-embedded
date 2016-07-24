@@ -100,7 +100,7 @@
       <bool>true</bool>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QGroupBox" name="stackedWidgetPage1">
       <layout class="QFormLayout" name="formLayout">
@@ -384,12 +384,12 @@
          </property>
          <item>
           <property name="text">
-           <string>-f %openocd/scripts/board/board.cfg</string>
+           <string>-f board/board.cfg</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>-f %openocd/scripts/interface/interface.cfg -f %openocd/scripts/target/target.cfg</string>
+           <string>-f interface/interface.cfg -f target/target.cfg</string>
           </property>
          </item>
         </widget>
