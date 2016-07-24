@@ -127,6 +127,22 @@ QStringList ExecutePlugin::arguments(KDevelop::ILaunchConfiguration* cfg, QStrin
         qWarning() << "Launch Configuration:" << cfg->name() << "arguments have meta characters";
     }
     qCDebug(EpMsg) << "ExecutePlugin::arguments" << args;
+
+    QStringList arduinoConfig = cfg->config().readEntry(ExecutePlugin::arduinoEntry, QStringList());
+
+    for (QStringList::iterator it = args.begin(); it != args.end(); ++it)
+    {
+        qCDebug(EpMsg) << *it;
+        if (!arduinoConfig.empty())
+        {
+            it->replace(QLatin1String("%mcu"), KShell::quoteArg(arduinoConfig[1]));
+            it->replace(QLatin1String("%baud"), KShell::quoteArg(arduinoConfig[2]));
+            it->replace(QLatin1String("%interface"), KShell::quoteArg(arduinoConfig[3]));
+            it->replace(QLatin1String("%hex"), KShell::quoteArg(arduinoConfig[4]));
+            it->replace(QLatin1String("%avrdudeconf"), KShell::quoteArg(arduinoConfig[5]));
+        }
+    }
+
     return args;
 }
 

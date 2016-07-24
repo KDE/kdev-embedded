@@ -302,12 +302,17 @@ void EmbeddedLauncherConfigPage::saveToConfiguration(KConfigGroup cfg, KDevelop:
     cfg.writeEntry(ExecutePlugin::isExecutableEntry, executableRadio->isChecked());
     cfg.writeEntry(ExecutePlugin::executableEntry, executablePath->url());
     cfg.writeEntry(ExecutePlugin::projectTargetEntry, projectTarget->currentItemPath());
-    cfg.writeEntry(ExecutePlugin::argumentsEntry, argumentsCombo->currentText());
-    cfg.writeEntry(ExecutePlugin::commandEntry, commandCombo->currentText());
-    cfg.writeEntry(ExecutePlugin::workingDirEntry, workingDirectory->url());
+
+    cfg.writeEntry(ExecutePlugin::launcherIndexEntry, stackedWidget->currentIndex());
+
     cfg.writeEntry(ExecutePlugin::boardEntry, boardCombo->currentIndex());
     cfg.writeEntry(ExecutePlugin::mcuEntry, mcuCombo->currentText());
-    cfg.writeEntry(ExecutePlugin::launcherIndexEntry, stackedWidget->currentIndex());
+    // interface
+    // interface baud rate
+    cfg.writeEntry(ExecutePlugin::argumentsEntry, argumentsCombo->currentText());
+    cfg.writeEntry(ExecutePlugin::workingDirEntry, workingDirectory->url());
+    cfg.writeEntry(ExecutePlugin::commandEntry, commandCombo->currentText());
+
     cfg.writeEntry(ExecutePlugin::openocdArgEntry, openocdArgumentsCombo->currentText());
     cfg.writeEntry(ExecutePlugin::openocdWorkEntry, openocdWorkingDirectory->url());
     cfg.writeEntry(ExecutePlugin::openocdCommEntry, openocdCommand->currentText());
