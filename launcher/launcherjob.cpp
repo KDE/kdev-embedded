@@ -119,6 +119,8 @@ LauncherJob::LauncherJob(QObject* parent, KDevelop::ILaunchConfiguration* cfg)
 
     qCDebug(EpMsg) << "setting app:" << executable << arguments;
 
+    // Add terminal support in the future
+    /*
     if (iface->useTerminal(cfg))
     {
         QStringList args = KShell::splitArgs(iface->terminal(cfg));
@@ -136,11 +138,9 @@ LauncherJob::LauncherJob(QObject* parent, KDevelop::ILaunchConfiguration* cfg)
         args.append(arguments);
         *this << args;
     }
-    else
-    {
-        *this << executable.toLocalFile();
-        *this << arguments;
-    }
+    */
+    *this << executable.toLocalFile();
+    *this << arguments;
 
     setJobName(cfg->name());
 }
