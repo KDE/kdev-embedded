@@ -108,7 +108,20 @@ QStringList ExecutePlugin::arguments(KDevelop::ILaunchConfiguration* cfg, QStrin
     }
 
     KShell::Errors err;
-    QStringList args = KShell::splitArgs(cfg->config().readEntry(ExecutePlugin::argumentsEntry, ""), KShell::TildeExpand | KShell::AbortOnMeta, &err);
+    uint launcherIndex = cfg->config().readEntry(ExecutePlugin::launcherIndexEntry, 0);
+
+    QStringList args;
+    switch (launcherIndex)
+    {
+        case index::arduino:
+            args = KShell::splitArgs(cfg->config().readEntry(ExecutePlugin::argumentsEntry, ""), KShell::TildeExpand | KShell::AbortOnMeta, &err);
+        break;
+
+        case index::openocd:
+            args = KShell::splitArgs(cfg->config().readEntry(ExecutePlugin::openocdArgEntry, ""), KShell::TildeExpand | KShell::AbortOnMeta, &err);
+        break;
+    }
+
     if (err != KShell::NoError)
     {
 
@@ -126,23 +139,35 @@ QStringList ExecutePlugin::arguments(KDevelop::ILaunchConfiguration* cfg, QStrin
         args = QStringList();
         qWarning() << "Launch Configuration:" << cfg->name() << "arguments have meta characters";
     }
-    qCDebug(EpMsg) << "ExecutePlugin::arguments" << args;
 
-    QStringList arduinoConfig = cfg->config().readEntry(ExecutePlugin::arduinoEntry, QStringList());
-
-    for (QStringList::iterator it = args.begin(); it != args.end(); ++it)
+    switch (launcherIndex)
     {
-        qCDebug(EpMsg) << *it;
-        if (!arduinoConfig.empty())
+        case index::arduino:
         {
-            it->replace(QLatin1String("%mcu"), KShell::quoteArg(arduinoConfig[1]));
-            it->replace(QLatin1String("%baud"), KShell::quoteArg(arduinoConfig[2]));
-            it->replace(QLatin1String("%interface"), KShell::quoteArg(arduinoConfig[3]));
-            it->replace(QLatin1String("%hex"), KShell::quoteArg(arduinoConfig[4]));
-            it->replace(QLatin1String("%avrdudeconf"), KShell::quoteArg(arduinoConfig[5]));
+            QStringList arduinoConfig = cfg->config().readEntry(ExecutePlugin::arduinoEntry, QStringList());
+
+            for (QStringList::iterator it = args.begin(); it != args.end(); ++it)
+            {
+                qCDebug(EpMsg) << *it;
+                if (!arduinoConfig.empty())
+                {
+                    it->replace(QLatin1String("%mcu"), KShell::quoteArg(arduinoConfig[1]));
+                    it->replace(QLatin1String("%baud"), KShell::quoteArg(arduinoConfig[2]));
+                    it->replace(QLatin1String("%interface"), KShell::quoteArg(arduinoConfig[3]));
+                    it->replace(QLatin1String("%hex"), KShell::quoteArg(arduinoConfig[4]));
+                    it->replace(QLatin1String("%avrdudeconf"), KShell::quoteArg(arduinoConfig[5]));
+                }
+            }
         }
+
+        case index::openocd:
+        {
+
+        }
+
     }
 
+    qCDebug(EpMsg) << "ExecutePlugin::arguments" << args;
     return args;
 }
 
@@ -174,16 +199,31 @@ QUrl ExecutePlugin::executable(KDevelop::ILaunchConfiguration* cfg, QString& err
         return QUrl();
     }
 
-    // Here will be chosen the correct upload program
-    // It's necessary to improve a function to get some paths
-    QString exe = cfg->config().readEntry(ExecutePlugin::commandEntry, QString());
-
+    QString exe;
+    uint launcherIndex = cfg->config().readEntry(ExecutePlugin::launcherIndexEntry, 0);
+    qCDebug(EpMsg) << "ExecutePlugin::executable" << "launcherIndex" << launcherIndex;
+    switch (launcherIndex)
+    {
+        case index::arduino:
+            exe = cfg->config().readEntry(ExecutePlugin::commandEntry, QString());
+        break;
+        case index::openocd:
+            exe = cfg->config().readEntry(ExecutePlugin::openocdCommEntry, QString());
+        break;
+    }
+    qCDebug(EpMsg) << "ExecutePlugin::executable" << "exe" << exe;
     if (!exe.isEmpty())
     {
         if (exe.contains(QLatin1String("%avrdude")))
         {
             exe.replace(QLatin1String("%avrdude"), Toolkit::instance().getAvrdudeFile());
         }
+
+        if  (exe.contains(QLatin1String("%openocd")))
+        {
+            exe.replace(QLatin1String("%openocd"), Toolkit::instance().getOpenocdFile());
+        }
+
     }
 
     return QUrl::fromLocalFile(exe);
@@ -219,7 +259,20 @@ QUrl ExecutePlugin::workingDirectory(KDevelop::ILaunchConfiguration* cfg) const
         return QUrl();
     }
 
-    return cfg->config().readEntry(ExecutePlugin::workingDirEntry, QUrl());
+    uint launcherIndex = cfg->config().readEntry(ExecutePlugin::launcherIndexEntry, 0);
+
+    switch (launcherIndex)
+    {
+        case index::arduino:
+            return cfg->config().readEntry(ExecutePlugin::openocdWorkEntry, QUrl());
+        break;
+
+        case index::openocd:
+            return cfg->config().readEntry(ExecutePlugin::workingDirEntry, QUrl());
+        break;
+    }
+
+    return QUrl();
 }
 
 

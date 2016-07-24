@@ -72,4 +72,6 @@ public:
     QString nativeAppConfigTypeId() const override;
 
     NativeAppConfigType* m_configType;
+
+    enum index {arduino, openocd};
 };
