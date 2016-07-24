@@ -100,7 +100,7 @@
       <bool>true</bool>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QGroupBox" name="stackedWidgetPage1">
       <layout class="QFormLayout" name="formLayout">
@@ -253,7 +253,7 @@
        <item row="6" column="0">
         <widget class="QLabel" name="workdirLabel">
          <property name="text">
-          <string>Wor&amp;king Directory:</string>
+          <string>Working Directory:</string>
          </property>
         </widget>
        </item>
