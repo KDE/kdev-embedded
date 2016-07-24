@@ -179,10 +179,6 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
         data.push_back(ArduinoWindowModelStruct{Board::instance().m_boardList[i], Board::instance().m_boardNameList[i]});
     m_model->populate(data);
 
-    // Temporary method to find openocd executable
-    m_openocdExec = QStandardPaths::findExecutable(QStringLiteral("openocd"));
-    qCDebug(ElMsg) << "m_openocdExec" << m_openocdExec;
-
     // Start ComboBoxes
     boardCombo->clear();
     boardCombo->setModel(m_model);

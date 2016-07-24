@@ -71,5 +71,7 @@ public:
     QString getAvrdudeFile();
     QStringList avrdudeMcuList();
 
+    QString getOpenocdFile();
+
     bool setArduinoPath(QString path);
 };

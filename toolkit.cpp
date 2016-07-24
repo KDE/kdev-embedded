@@ -113,6 +113,11 @@ QString Toolkit::getAvrdudeFile()
     return getPath(arduinoPath() + avrProgramPath() + QStringLiteral("/avrdude"));
 }
 
+QString Toolkit::getOpenocdFile()
+{
+    return QStandardPaths::findExecutable(QStringLiteral("openocd"));
+}
+
 QStringList Toolkit::avrdudeMcuList()
 {
     return m_avrdudeMcuList;
