@@ -398,7 +398,7 @@ void FirstTimeWizard::avrdudeStderr(int exitCode, QProcess::ExitStatus exitStatu
         QString mcu = stream.readLine().split(QChar::fromLatin1(' ')).takeLast();
         if (mcu.contains(QStringLiteral("AT")))
         {
-            mcus.append(mcu);
+            mcus.append(mcu.toLower());
         }
     }
     qCDebug(FtwMsg) << "mcus" << mcus;
