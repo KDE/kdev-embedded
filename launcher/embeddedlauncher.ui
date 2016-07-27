@@ -404,6 +404,11 @@
            <string>-f interface/interface.cfg -f target/target.cfg</string>
           </property>
          </item>
+         <item>
+          <property name="text">
+           <string>-f board/board.cfg -c init -c targets -c &quot;halt&quot; -c &quot;flash write_image erase %hex&quot; -c &quot;verify_image %hex&quot; -c &quot;reset run&quot; -c shutdown</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="3" column="0">
