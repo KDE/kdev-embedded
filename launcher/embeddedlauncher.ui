@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>714</width>
+    <width>970</width>
     <height>518</height>
    </rect>
   </property>
@@ -406,7 +406,7 @@
          </item>
          <item>
           <property name="text">
-           <string>-f board/board.cfg -c init -c targets -c &quot;halt&quot; -c &quot;flash write_image erase %hex&quot; -c &quot;verify_image %hex&quot; -c &quot;reset run&quot; -c shutdown</string>
+           <string>-f board/board.cfg -c init -c targets -c &quot;reset&quot; -c &quot;halt&quot; -c &quot;flash write_image erase %hex&quot; -c &quot;verify_image %hex&quot; -c &quot;reset run&quot; -c shutdown</string>
           </property>
          </item>
         </widget>
