@@ -296,7 +296,7 @@ void EmbeddedLauncherConfigPage::saveToConfiguration(KConfigGroup cfg, KDevelop:
 
     qCDebug(ElMsg) << "EmbeddedLauncherConfigPage::saveToConfiguration" << cfg.config()->groupList();
     cfg.writeEntry(ExecutePlugin::isExecutableEntry, executableRadio->isChecked());
-    cfg.writeEntry(ExecutePlugin::executableEntry, executablePath->url());
+    cfg.writeEntry(ExecutePlugin::executableEntry, executablePath->text());
     cfg.writeEntry(ExecutePlugin::projectTargetEntry, projectTarget->currentItemPath());
 
     cfg.writeEntry(ExecutePlugin::launcherIndexEntry, stackedWidget->currentIndex());

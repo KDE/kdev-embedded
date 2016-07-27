@@ -162,7 +162,16 @@ QStringList ExecutePlugin::arguments(KDevelop::ILaunchConfiguration* cfg, QStrin
 
         case index::openocd:
         {
+            QString binary = cfg->config().readEntry(ExecutePlugin::executableEntry, QString());
 
+            for (QStringList::iterator it = args.begin(); it != args.end(); ++it)
+            {
+                qCDebug(EpMsg) << *it;
+                if (!binary.isEmpty())
+                {
+                    it->replace(QLatin1String("%hex"), binary);
+                }
+            }
         }
 
     }
