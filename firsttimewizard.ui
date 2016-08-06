@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>598</width>
+    <width>605</width>
     <height>383</height>
    </rect>
   </property>
@@ -37,7 +37,7 @@
     <item>
      <widget class="QRadioButton" name="existingInstallButton">
       <property name="text">
-       <string>E&amp;xisting installation (Arduino SDK %0 or superior)</string>
+       <string>E&amp;xisting installation (Arduino SDK %1 or superior)</string>
       </property>
      </widget>
     </item>
@@ -92,7 +92,7 @@
     <item>
      <widget class="QRadioButton" name="automaticInstallButton">
       <property name="text">
-       <string>Auto&amp;matic installation (Arduino SDK %0)</string>
+       <string>Auto&amp;matic installation (Arduino SDK %1)</string>
       </property>
      </widget>
     </item>
@@ -117,7 +117,7 @@
       <item>
        <widget class="QLabel" name="label_3">
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;This will download and install the software automatically from &lt;a href=&quot;http://arduino.cc/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#2980b9;&quot;&gt;the Arduino website&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;p&gt;This will download and install the software automatically from &lt;a href=&quot;http://arduino.cc/&quot;&gt;the Arduino website&lt;/a&gt;.&lt;/p&gt;</string>
         </property>
         <property name="openExternalLinks">
          <bool>true</bool>
@@ -136,7 +136,7 @@
     <item>
      <widget class="QLabel" name="label_4">
       <property name="text">
-       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;The sketchbook folder is where the plugin will look for existing projects.&lt;br/&gt;It will be created if it does not already exist.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       <string>&lt;p&gt;The sketchbook folder is where the plugin will look for existing projects.&lt;br/&gt;It will be created if it does not exist already.&lt;/p&gt;</string>
       </property>
      </widget>
     </item>
@@ -206,7 +206,7 @@
       <item>
        <widget class="QLabel" name="downloadStatusLabel">
         <property name="text">
-         <string>TextLabel</string>
+         <string notr="true">TextLabel</string>
         </property>
        </widget>
       </item>
@@ -235,7 +235,7 @@
         <item>
          <widget class="QLabel" name="downloadLabel">
           <property name="text">
-           <string>Arduino %0 for %1</string>
+           <string>Arduino %1 for %2</string>
           </property>
          </widget>
         </item>
@@ -282,7 +282,7 @@
       <item>
        <widget class="QLabel" name="installStatusLabel">
         <property name="text">
-         <string>TextLabel</string>
+         <string notr="true">TextLabel</string>
         </property>
        </widget>
       </item>
@@ -305,7 +305,7 @@
   </widget>
   <widget class="QWizardPage" name="wizardPage3">
    <property name="title">
-    <string>Configuration successful !</string>
+    <string>Configuration successful</string>
    </property>
    <property name="subTitle">
     <string>The plugin is now ready.</string>
@@ -339,14 +339,14 @@
       <item>
        <widget class="QLabel" name="projectLabel">
         <property name="text">
-         <string>%0 is an unofficial project by %1.</string>
+         <string>%1 is an unofficial project by %2.</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLabel" name="urlLabel">
         <property name="text">
-         <string>More information at: &lt;a href=&quot;%0&quot;&gt;%0&lt;/a&gt;</string>
+         <string>&lt;p&gt;More information at: &lt;a href=&quot;%1&quot;&gt;%1&lt;/a&gt;&lt;/p&gt;</string>
         </property>
         <property name="openExternalLinks">
          <bool>true</bool>

@@ -40,7 +40,7 @@ Embedded::Embedded (QObject* parent, const QVariantList&)
     QAction* actionProject = actionCollection()->addAction(QStringLiteral("action_project"));
     actionProject->setText(i18n("Arduino Setup"));
     actionProject->setToolTip(i18n("Configure Arduino Toolkit."));
-    actionProject->setWhatsThis(i18n("Toolkit manager for Arduino programs,"));
+    actionProject->setWhatsThis(i18n("Toolkit manager for Arduino programs."));
     actionProject->setIcon(QIcon::fromTheme(QStringLiteral("project-development-new-template")));
     connect(actionProject, &QAction::triggered, this, &Embedded::firstTimeWizardEvent);
 
@@ -69,7 +69,7 @@ void Embedded::boardSettingsEvent()
     }
     else
     {
-        QMessageBox::warning(0, i18n("kdev-embedded"), i18n("Please, run the first time wizard."));
+        QMessageBox::warning(0, i18n("kdev-embedded"), i18n("Please run the first time wizard."));
         firstTimeWizardEvent();
     }
 

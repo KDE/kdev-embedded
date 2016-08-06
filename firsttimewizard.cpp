@@ -43,7 +43,7 @@ FirstTimeWizard::FirstTimeWizard(QWidget *parent) :
 
     downloadStatusLabel->clear();
     installStatusLabel->clear();
-    urlLabel->setText(urlLabel->text().arg(i18n("mailto:%1").arg("patrickelectric@gmail.com")));
+    urlLabel->setText(urlLabel->text().arg(QString("mailto:%1").arg("patrickelectric@gmail.com")));
     projectLabel->setText(projectLabel->text().arg(i18n("Embedded plugin")).arg("Patrick J. Pereira"));
 
     existingInstallButton->setText(existingInstallButton->text().arg(ARDUINO_SDK_MIN_VERSION_NAME));
@@ -128,11 +128,11 @@ void FirstTimeWizard::install()
 
     if (m_downloadFinished)
     {
-        downloadStatusLabel->setText(i18n("Downloaded !"));
+        downloadStatusLabel->setText(i18n("Downloaded"));
     }
     else
     {
-        downloadStatusLabel->setText(i18n("Downloaded canceled !"));
+        downloadStatusLabel->setText(i18n("Download cancelled"));
         return;
     }
 
@@ -167,7 +167,8 @@ void FirstTimeWizard::install()
             archive.write(buffer.data(), readBytes);
             readBytes = m_reply->read(buffer.data(), bufferSize);
         }
-        installStatusLabel->setText(i18n("Extracting... ( %1KB )").arg(((int)(readBytes >> 10))));
+        // FIXME use KFormat::formatByteSize here instead of hardcoding KB
+        installStatusLabel->setText(i18n("Extracting... (%1 KB)", ((int)(readBytes >> 10))));
         archive.seek(0);
 
         // Call tar to extract
@@ -177,7 +178,7 @@ void FirstTimeWizard::install()
         qCDebug(FtwIo) << "Downloaded file extracted with success ? :" << extractSuccess;
         qCDebug(FtwIo) << archive.fileName() << "extracted in" << destinationPath;
 
-        installStatusLabel->setText(i18n("Extracted !"));
+        installStatusLabel->setText(i18n("Extracted"));
         arduinoPathEdit->setText(destinationPath + "/arduino-" + ARDUINO_SDK_VERSION_NAME);
         m_installFinished = true;
     }
@@ -290,7 +291,8 @@ void FirstTimeWizard::onDownloadProgress(qint64 received, qint64 total)
     qCDebug(FtwIo) << "Download in Progress" << percent << "%";
     qCDebug(FtwIo) << "Download in Progress" << received << "/" << total;
 
-    downloadStatusLabel->setText(i18n("Downloading... ( %1KB / %2KB )").arg((int)(received >> 10)).arg((int)(total >> 10)));
+    // FIXME use KFormat::formatByteSize here instead of hardcoding KB
+    downloadStatusLabel->setText(i18n("Downloading... (%1 KB / %2 KB)", ((int)(received >> 10)), ((int)(total >> 10))));
     downloadProgressBar->setValue(percent);
 }
 

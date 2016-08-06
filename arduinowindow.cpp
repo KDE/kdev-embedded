@@ -121,7 +121,7 @@ ArduinoWindow::ArduinoWindow(QWidget *parent) :
     this->palette();
     output->setTextBackgroundColor(QPalette::Shadow);
     output->setTextColor(Qt::green);
-    output->append(i18n("Welcome,\n\nKDev-Embedded is still in alpha,\nplease be careful and report any problems you find.\n\nHave fun !"));
+    output->append(i18n("Welcome,\n\nKDev-Embedded is still in alpha,\nplease be careful and report any problems you find.\n\nHave fun!"));
 
     devices = Solid::DeviceNotifier::instance();
 
@@ -192,7 +192,7 @@ void ArduinoWindow::boardComboChanged(const QString& text)
             freq = freqs[0];
         }
 
-        mcuFreqCombo->addItem(mcu + ", " + freq);
+        mcuFreqCombo->addItem(i18nc("<MCU name>, <MCU frequency>", "%1, %2", mcu, freq));
         index += 1;
     }
     Board::instance().m_boards[id].printData();
@@ -250,13 +250,13 @@ void ArduinoWindow::devicesChanged(const QString& udi)
     if (interfaceExist == false)
     {
         interfaceCombo->setEnabled(false);
-        interfacelabel->setText("Interface (please connect one):");
+        interfacelabel->setText(i18n("Interface (please connect one):"));
         interfacelabel->setStyleSheet("color: rgb(255, 0, 0);");
     }
     else
     {
         interfaceCombo->setEnabled(true);
-        interfacelabel->setText("Interface:");
+        interfacelabel->setText(i18n("Interface:"));
         interfacelabel->setStyleSheet("color: rgb(0, 0, 0);");
     }
 }
@@ -326,12 +326,12 @@ void ArduinoWindow::avrdudeStderr(int exitCode, QProcess::ExitStatus exitStatus)
     if (exitCode != 0)
     {
         qCDebug(AwMsg) << QString("Error during upload.\n" + perr) << exitCode << exitStatus;
-        output->append(QString(i18n("Error during upload. ☹\nCode: %0\n%1")).arg(exitCode).arg(perr));
+        output->append(i18n("Error during upload.\nCode: %1\n%2", exitCode, perr));
     }
     else
     {
         qCDebug(AwMsg) << QString("Upload complete.\n" + perr) << exitCode << exitStatus;
-        output->append(QString(i18n("Upload complete. ☺\n%0")).arg(perr));
+        output->append(i18n("Upload complete.\n%1", perr));
     }
 }
 
@@ -372,19 +372,20 @@ QString ArduinoWindow::richTextDescription()
     QString sram = getRedRichTextSelected(srams, index);
 
     // TODO: add a better board description
-    return QString(i18n("<p>Processor:</p> \
-                    <ul>  \
-                    <li>%2</li> \
-                    </ul> \
-                <p>Frequency:</p> \
-                    <ul>  \
-                    <li>%3</li>\
-                    </ul> \
-                <p>Memory:</p> \
-                    <ul>  \
-                    <li>Flash (kB): %4</li> \
-                    <li>SRAM (kB): %5</li> \
-                    </ul>")).arg(mcu).arg(freq).arg(flash).arg(sram);
+    return i18n("<p>Processor:</p>"
+                "<ul>"
+                "<li>%1</li>"
+                "</ul>"
+                "<p>Frequency:</p>"
+                "<ul>"
+                "<li>%2</li>"
+                "</ul>"
+                "<p>Memory:</p>"
+                "<ul>"
+                "<li>Flash (kB): %3</li>"
+                "<li>SRAM (kB): %4</li>"
+                "</ul>",
+                mcu, freq, flash, sram);
 }
 
 QString ArduinoWindow::getRedRichTextSelected(QStringList list, int index)

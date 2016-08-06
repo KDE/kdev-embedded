@@ -42,7 +42,7 @@
           <item>
            <widget class="QCheckBox" name="projectCheck">
             <property name="text">
-             <string>Arduino Project</string>
+             <string>Arduino project</string>
             </property>
            </widget>
           </item>
@@ -193,7 +193,7 @@
           <item>
            <widget class="QLabel" name="buadLabel">
             <property name="text">
-             <string>MC&amp;U and Frequency:</string>
+             <string>MC&amp;U and frequency:</string>
             </property>
             <property name="buddy">
              <cstring>boardCombo</cstring>
@@ -306,7 +306,7 @@
              </sizepolicy>
             </property>
             <property name="text">
-             <string>descriptive text</string>
+             <string notr="true">descriptive text</string>
             </property>
            </widget>
           </item>
