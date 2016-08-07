@@ -192,7 +192,7 @@
           </sizepolicy>
          </property>
          <property name="toolTip">
-          <string>Please, connect an interface</string>
+          <string>Please connect an interface</string>
          </property>
          <property name="editable">
           <bool>true</bool>

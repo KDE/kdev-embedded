@@ -47,24 +47,24 @@
 #include <project/builderjob.h>
 #include <util/kdevstringhandler.h>
 
-QString ExecutePlugin::_nativeAppConfigTypeId = i18n("Embedded Application");
-QString ExecutePlugin::workingDirEntry = i18n("Working Directory");
-QString ExecutePlugin::executableEntry = i18n("Executable");
-QString ExecutePlugin::argumentsEntry = i18n("Arguments");
-QString ExecutePlugin::isExecutableEntry = i18n("isExecutable");
-QString ExecutePlugin::environmentGroupEntry = i18n("EnvironmentGroup");
-QString ExecutePlugin::useTerminalEntry = i18n("Use External Terminal");
-QString ExecutePlugin::commandEntry = i18n("Command");
-QString ExecutePlugin::boardEntry = i18n("Board Index");
-QString ExecutePlugin::mcuEntry = i18n("mcu Index");
-QString ExecutePlugin::userIdToRunEntry = i18n("User Id to Run");
-QString ExecutePlugin::dependencyActionEntry = i18n("Dependency Action");
-QString ExecutePlugin::projectTargetEntry = i18n("Project Target");
-QString ExecutePlugin::arduinoEntry = i18n("Arduino Entry");
-QString ExecutePlugin::launcherIndexEntry = i18n("Embedded Launcher Index");
-QString ExecutePlugin::openocdArgEntry = i18n("Openocd Arg Entry");
-QString ExecutePlugin::openocdWorkEntry = i18n("Openocd Work Entry");
-QString ExecutePlugin::openocdCommEntry = i18n("Openocd Command Entry");
+QString ExecutePlugin::_nativeAppConfigTypeId = QStringLiteral("Embedded Application");
+QString ExecutePlugin::workingDirEntry = QStringLiteral("Working Directory");
+QString ExecutePlugin::executableEntry = QStringLiteral("Executable");
+QString ExecutePlugin::argumentsEntry = QStringLiteral("Arguments");
+QString ExecutePlugin::isExecutableEntry = QStringLiteral("isExecutable");
+QString ExecutePlugin::environmentGroupEntry = QStringLiteral("EnvironmentGroup");
+QString ExecutePlugin::useTerminalEntry = QStringLiteral("Use External Terminal");
+QString ExecutePlugin::commandEntry = QStringLiteral("Command");
+QString ExecutePlugin::boardEntry = QStringLiteral("Board Index");
+QString ExecutePlugin::mcuEntry = QStringLiteral("mcu Index");
+QString ExecutePlugin::userIdToRunEntry = QStringLiteral("User Id to Run");
+QString ExecutePlugin::dependencyActionEntry = QStringLiteral("Dependency Action");
+QString ExecutePlugin::projectTargetEntry = QStringLiteral("Project Target");
+QString ExecutePlugin::arduinoEntry = QStringLiteral("Arduino Entry");
+QString ExecutePlugin::launcherIndexEntry = QStringLiteral("Embedded Launcher Index");
+QString ExecutePlugin::openocdArgEntry = QStringLiteral("Openocd Arg Entry");
+QString ExecutePlugin::openocdWorkEntry = QStringLiteral("Openocd Work Entry");
+QString ExecutePlugin::openocdCommEntry = QStringLiteral("Openocd Command Entry");
 
 using namespace KDevelop;
 

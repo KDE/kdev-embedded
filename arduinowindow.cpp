@@ -301,13 +301,13 @@ void ArduinoWindow::avrdudeStderr(int exitCode, QProcess::ExitStatus exitStatus)
     {
         qCDebug(AwMsg) << QStringLiteral("Error during upload.\n") << perr << exitCode << exitStatus;
         setOutpotStatus(Bad);
-        output->append(i18n("Error during upload. ☹\nCode: %0\n%1", exitCode, perr));
+        output->append(i18n("Error during upload.\nCode: %1\n%2", exitCode, perr));
     }
     else
     {
         qCDebug(AwMsg) << QStringLiteral("Upload complete") << perr << exitCode << exitStatus;
         setOutpotStatus(Good);
-        output->append(i18n("Upload complete. ☺\n"));
+        output->append(i18n("Upload complete.\n"));
         output->append(perr);
     }
 }

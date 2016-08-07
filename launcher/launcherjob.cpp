@@ -82,9 +82,9 @@ LauncherJob::LauncherJob(QObject* parent, KDevelop::ILaunchConfiguration* cfg)
 
     if (envgrp.isEmpty())
     {
-        qWarning() << "Launch Configuration:" << cfg->name() << i18n("No environment group specified, looks like a broken "
-                   "configuration, please check run configuration '%1'. "
-                   "Using default environment group.", cfg->name());
+        qWarning() << "Launch Configuration:" << cfg->name() << "no environment group specified, looks like a broken "
+                   "configuration, please check run configuration" << cfg->name()
+                   << "Using default environment group.";
         envgrp = l.defaultGroup();
     }
     setEnvironmentProfile(envgrp);

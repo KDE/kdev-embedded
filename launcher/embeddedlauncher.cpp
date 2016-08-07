@@ -222,7 +222,7 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
     KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
     if (settings.readEntry("arduinoFolder", "").isEmpty())
     {
-        QMessageBox::warning(0, i18n("kdev-embedded"), i18n("Please, run the first time wizard."));
+        QMessageBox::warning(0, i18n("kdev-embedded"), i18n("Please run the first time wizard."));
         FirstTimeWizard *embeddedWindow = new FirstTimeWizard(parent);
         embeddedWindow->setAttribute(Qt::WA_DeleteOnClose);
         embeddedWindow->show();
@@ -241,16 +241,16 @@ const QStringList EmbeddedLauncherConfigPage::mcuList()
 const QString EmbeddedLauncherConfigPage::interfaceTooltip()
 {
     QString tooltip;
-    tooltip += i18n("Please, connect or select an interface like:\n")
-        += QStringLiteral("/dev/ttyUSBx, /dev/ttyACMx, COMx, ...");
+    tooltip += i18n("Please connect or select an interface, for example:\n"
+                    "/dev/ttyUSBx, /dev/ttyACMx, COMx, etc");
     return tooltip;
 }
 
 const QString EmbeddedLauncherConfigPage::baudTooltip()
 {
     QString tooltip;
-    tooltip += i18n("Please choose or select a baudrate:\n")
-        += QStringLiteral("19200, 57600, 115200, ...");
+    tooltip += i18n("Please choose or select a baudrate:\n"
+                    "19200, 57600, 115200, etc");
     return tooltip;
 }
 
