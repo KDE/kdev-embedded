@@ -89,6 +89,7 @@ target_link_libraries(kdevembedded-launcher
 )
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/firsttimewizard.h.in ${CMAKE_CURRENT_SOURCE_DIR}/firsttimewizard.h)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/toolkit.h.in ${CMAKE_CURRENT_SOURCE_DIR}/toolkit.h)
 
 install(DIRECTORY boardsimg DESTINATION ${DATA_INSTALL_DIR}/kdevembedded)
 

@@ -136,7 +136,21 @@ QString Toolkit::avrProgramPath()
 bool Toolkit::isValidArduinoPath(QString path)
 {
     QString version = Toolkit::toolkitVersion(path);
-    return (version == QStringLiteral("1.6.8") || version == QStringLiteral("1.6.7"));
+    QStringList versionList = version.split(QChar::fromLatin1('.'));
+    if (versionList.size() != 3)
+    {
+        return false;
+    }
+
+    QStringList validVersionList = QStringLiteral(ARDUINO_SDK_MIN_VERSION_NAME).split(QChar::fromLatin1('.'));
+    if (versionList[0].toInt() >= validVersionList[0].toInt()
+        && versionList[1].toInt() >= validVersionList[1].toInt()
+        && versionList[2].toInt() >= validVersionList[2].toInt()
+    )
+    {
+        return true;
+    }
+    return false;
 }
 
 QString Toolkit::getPath(QString path)
