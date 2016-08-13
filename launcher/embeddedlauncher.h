@@ -62,6 +62,8 @@ private:
     QStringList m_mcu;
     QStringList m_baud;
     QString m_openocdExec;
+    QDir m_boardImgsDir;
+    QPixmap m_pixBuffer;
 };
 
 class EmbeddedLauncher : public KDevelop::ILauncher

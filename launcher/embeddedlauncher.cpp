@@ -53,6 +53,8 @@
 #include <QDebug>
 #include <QIcon>
 #include <QMenu>
+#include <QPixmap>
+#include <QPainter>
 #include <QMessageBox>
 
 #include <QStandardPaths>
@@ -164,6 +166,12 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
       m_model(new ArduinoWindowModel(parent))
 {
     setupUi(this);
+
+    m_boardImgsDir = QDir(QStandardPaths::locate(
+                              QStandardPaths::GenericDataLocation,
+                              QLatin1String("kdevembedded/boardsimg"),
+                              QStandardPaths::LocateDirectory
+                          ) + QChar::fromLatin1('/'));
 
     //Set workingdirectory widget to ask for directories rather than files
     workingDirectory->setMode(KFile::Directory | KFile::ExistingOnly | KFile::LocalOnly);
@@ -646,8 +654,41 @@ void EmbeddedLauncherConfigPage::boardComboChanged(const QString& text)
     qCDebug(ElMsg) << "SIZEOF MCUCOMBO" << sizeof(mcuCombo);
     qCDebug(ElMsg) << "SIZEOF BAUDCOMBO" << sizeof(baudCombo);
 
+
+    // TODO: select image from board selection
+    QPixmap pix(QStringLiteral("%1/%2.svg").arg(m_boardImgsDir.absolutePath(), id));
+    if (pix.isNull())
+    {
+        pix = QPixmap(m_boardImgsDir.absolutePath() + QStringLiteral("/arduino.svg"));
+    }
+
+    qCDebug(ElMsg) << "EmbeddedLauncherConfigPage::boardComboChanged Pixmap" << pix;
+
+    if (pix.width() > pix.height())
+    {
+        qCDebug(ElMsg) << "EmbeddedLauncherConfigPage::boardComboChanged Start rotation" << id << pix;
+        QTransform rotate_disc;
+        pix = pix.transformed(QTransform().rotate(90));
+        qCDebug(ElMsg) << "EmbeddedLauncherConfigPage::boardComboChanged End rotation" << id << pix;
+    }
+
+    if (pix.width() > image->width() || pix.height() > image->height())
+    {
+        pix = pix.scaled(image->width(), image->height(), Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    }
+
+    m_pixBuffer = QPixmap(image->width(), image->height());
+    QPainter painter(&m_pixBuffer);
+    painter.fillRect(QRect(0, 0, image->width(), image->height()), palette().background());
+    painter.drawPixmap(m_pixBuffer.width() / 2 - pix.width() / 2, m_pixBuffer.height() / 2 - pix.height() / 2, pix);
+    painter.end();
+
+    qCDebug(ElMsg) << "EmbeddedLauncherConfigPage::boardComboChanged Baord image path" << id << pix;
+    image->setPixmap(m_pixBuffer);
+
     mcuComboChanged(0);
     qCDebug(ElMsg) << "EmbeddedLauncherConfigPage::boardComboChanged" << "mcus"  << m_mcu;
+    qCDebug(ElMsg) << "EmbeddedLauncherConfigPage::boardComboChanged" << image->width() << image->height();
 }
 
 void EmbeddedLauncherConfigPage::mcuComboChanged(int index)
