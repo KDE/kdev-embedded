@@ -2,22 +2,46 @@
     "KPlugin": {
         "Authors": [
             {
-                "Name": "Patrick José Pereira"
+                "Name": "Patrick José Pereira", 
+                "Name[x-test]": "xxPatrick José Pereiraxx"
             }
-        ],
-        "Category": "Core",
-        "Description": "This plugin allows running of programs in embedded devices.",
-        "Icon": "system-run",
-        "Id": "kdevembedded-launcher",
-        "License": "GPL",
-        "Name": "Embedded",
+        ], 
+        "Category": "Core", 
+        "Description": "This plugin allows running of programs in embedded devices.", 
+        "Description[ca@valencia]": "Este connector permet executar programes en sistemes incrustats.", 
+        "Description[ca]": "Aquest connector permet executar programes en sistemes incrustats.", 
+        "Description[de]": "Dieses Modul ermöglicht das Ausführen von Programmen auf eingebetteten Systemen.", 
+        "Description[es]": "Este complemento permite la ejecución de programas en dispositivos empotrados.", 
+        "Description[it]": "Questa estensione permette l'esecuzione di programmi su dispositivi embedded", 
+        "Description[nl]": "Deze plugin staat het uitvoeren van programma's toe in ingebedde apparaten.", 
+        "Description[pl]": "Wtyczka ta umożliwia uruchamianie programów na urządzeniach osadzonych.", 
+        "Description[pt]": "Este 'plugin' permite a execução de programas em dispositivos embebidos.", 
+        "Description[sk]": "Tento plugin umožní spustenie programov na vložených zariadeniach.", 
+        "Description[sv]": "Insticksprogrammet gör det möjligt att köra program på inbäddade enheter.", 
+        "Description[uk]": "За допомогою цього додатка ви зможете запускати програми на вбудовуваних пристроях.", 
+        "Description[x-test]": "xxThis plugin allows running of programs in embedded devices.xx", 
+        "Icon": "system-run", 
+        "Id": "kdevembedded-launcher", 
+        "License": "GPL", 
+        "Name": "Embedded", 
+        "Name[ca@valencia]": "Incrustat", 
+        "Name[ca]": "Incrustat", 
+        "Name[de]": "Eingebettet", 
+        "Name[es]": "Empotrado", 
+        "Name[nl]": "Ingebed", 
+        "Name[pl]": "Osadzony", 
+        "Name[pt]": "Embebido", 
+        "Name[sk]": "Vložené", 
+        "Name[sv]": "Inbäddade", 
+        "Name[uk]": "Вбудована система", 
+        "Name[x-test]": "xxEmbeddedxx", 
         "ServiceTypes": [
             "KDevelop/Plugin"
         ]
-    },
-    "X-KDevelop-Category": "Global",
+    }, 
+    "X-KDevelop-Category": "Global", 
     "X-KDevelop-Interfaces": [
         "org.kdevelop.IExecutePlugin"
-    ],
+    ], 
     "X-KDevelop-Mode": "NoGUI"
 }
