@@ -14,6 +14,7 @@
         "Description[sv]": "Inbäddat insticksprogram", 
         "Description[uk]": "Додаток вбудованих систем", 
         "Description[x-test]": "xxEmbedded Pluginxx", 
+        "Description[zh_CN]": "嵌入式插件", 
         "Icon": "project-development-new-template", 
         "Id": "kdevembedded", 
         "Name": "Embedded systems", 
@@ -29,6 +30,7 @@
         "Name[sv]": "Inbäddade system", 
         "Name[uk]": "Вбудовані системи", 
         "Name[x-test]": "xxEmbedded systemsxx", 
+        "Name[zh_CN]": "嵌入式系统", 
         "ServiceTypes": [
             "KDevelop/Plugin"
         ]

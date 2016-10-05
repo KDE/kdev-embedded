@@ -20,6 +20,7 @@
         "Description[sv]": "Insticksprogrammet gör det möjligt att köra program på inbäddade enheter.", 
         "Description[uk]": "За допомогою цього додатка ви зможете запускати програми на вбудовуваних пристроях.", 
         "Description[x-test]": "xxThis plugin allows running of programs in embedded devices.xx", 
+        "Description[zh_CN]": "此插件可以在嵌入式设备上执行程序。", 
         "Icon": "system-run", 
         "Id": "kdevembedded-launcher", 
         "License": "GPL", 
@@ -35,6 +36,7 @@
         "Name[sv]": "Inbäddade", 
         "Name[uk]": "Вбудована система", 
         "Name[x-test]": "xxEmbeddedxx", 
+        "Name[zh_CN]": "嵌入式", 
         "ServiceTypes": [
             "KDevelop/Plugin"
         ]
