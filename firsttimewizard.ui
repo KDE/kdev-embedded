@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0">
+<ui version="4.2">
  <class>FirstTimeWizard</class>
  <widget class="QWizard" name="FirstTimeWizard">
   <property name="geometry">
@@ -37,7 +37,7 @@
     <item>
      <widget class="QRadioButton" name="existingInstallButton">
       <property name="text">
-       <string>E&amp;xisting installation (Arduino SDK %1 or superior)</string>
+       <string>E&amp;xisting installation</string>
       </property>
      </widget>
     </item>
@@ -92,7 +92,7 @@
     <item>
      <widget class="QRadioButton" name="automaticInstallButton">
       <property name="text">
-       <string>Auto&amp;matic installation (Arduino SDK %1)</string>
+       <string>Auto&amp;matic installation</string>
       </property>
      </widget>
     </item>
@@ -235,7 +235,7 @@
         <item>
          <widget class="QLabel" name="downloadLabel">
           <property name="text">
-           <string>Arduino %1 for %2</string>
+           <string></string>
           </property>
          </widget>
         </item>
@@ -339,14 +339,14 @@
       <item>
        <widget class="QLabel" name="projectLabel">
         <property name="text">
-         <string>%1 is an unofficial project by %2.</string>
+         <string></string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLabel" name="urlLabel">
         <property name="text">
-         <string>&lt;p&gt;More information at: &lt;a href=&quot;%1&quot;&gt;%1&lt;/a&gt;&lt;/p&gt;</string>
+         <string></string>
         </property>
         <property name="openExternalLinks">
          <bool>true</bool>

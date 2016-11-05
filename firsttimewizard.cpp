@@ -41,11 +41,13 @@
 #include <QDir>
 #include <QDebug>
 #include <QStringList>
+#include <QLocale>
 
 #include <interfaces/isession.h>
 #include <interfaces/icore.h>
 
 #include <KConfigGroup>
+#include <KFormat>
 #include <KTar>
 
 #include "toolkit.h"
@@ -84,18 +86,20 @@ FirstTimeWizard::FirstTimeWizard(QWidget *parent) :
     m_reply(NULL),
     m_downloadFinished(false),
     m_installFinished(false),
-    m_avrdudeProcess(new QProcess(parent))
+    m_avrdudeProcess(new QProcess(parent)),
+    m_format(new KFormat(*new QLocale()))
 {
     setupUi(this);
 
     downloadStatusLabel->clear();
     installStatusLabel->clear();
 
-    urlLabel->setText(urlLabel->text().arg(QStringLiteral("mailto:%1").arg(QStringLiteral("patrickelectric@gmail.com"))));
-    projectLabel->setText(projectLabel->text().arg(i18n("Embedded plugin")).arg(QStringLiteral("Patrick J. Pereira")));
+	urlLabel->setTextFormat(Qt::TextFormat::RichText);
+	urlLabel->setText(i18n("<p>More information at: <a href=\"mailto:%1\">%1</a></p>", QStringLiteral("patrickelectric@gmail.com")));
+	projectLabel->setText(i18n("Embedded plugin is an unofficial project by Patrick J. Pereira."));
 
-    existingInstallButton->setText(existingInstallButton->text().arg(QStringLiteral(ARDUINO_SDK_MIN_VERSION_NAME)));
-    automaticInstallButton->setText(automaticInstallButton->text().arg(QStringLiteral(ARDUINO_SDK_VERSION_NAME)));
+	existingInstallButton->setText(existingInstallButton->text()+QStringLiteral("(Arduino SDK " ARDUINO_SDK_MIN_VERSION_NAME " or superior)"));
+	automaticInstallButton->setText(automaticInstallButton->text()+QStringLiteral("(Arduino SDK " ARDUINO_SDK_VERSION_NAME ")"));
 
     // Download mode is default
     automaticInstallButton->setChecked(true);
@@ -107,7 +111,8 @@ FirstTimeWizard::FirstTimeWizard(QWidget *parent) :
 
     //TODO support others OS
     QString mDownloadOs = QStringLiteral("Linux");
-    downloadLabel->setText(downloadLabel->text().arg(QStringLiteral(ARDUINO_SDK_VERSION_NAME)).arg(mDownloadOs));
+
+	downloadLabel->setText(i18n("Arduino %1 for %2", QStringLiteral(ARDUINO_SDK_VERSION_NAME), mDownloadOs));
 
     connect(arduinoPathButton, &QToolButton::clicked, this, &FirstTimeWizard::chooseArduinoPath);
     connect(sketchbookPathButton, &QToolButton::clicked, this, &FirstTimeWizard::chooseSketchbookPath);
@@ -251,8 +256,7 @@ void FirstTimeWizard::install()
             archive.write(buffer.data(), readBytes);
             readBytes = m_reply->read(buffer.data(), bufferSize);
         }
-        // FIXME use KFormat::formatByteSize here instead of hardcoding KB
-        installStatusLabel->setText(i18n("Extracting... (%1 KB)", ((int)(readBytes >> 10))));
+        installStatusLabel->setText(i18n("Extracting... ")+m_format->formatByteSize(readBytes));
         archive.seek(0);
 
         // Call Ktar to extract
@@ -381,8 +385,7 @@ void FirstTimeWizard::onDownloadProgress(qint64 received, qint64 total)
     qCDebug(FtwIo) << "Download in Progress" << percent << "%";
     qCDebug(FtwIo) << "Download in Progress" << received << "/" << total;
 
-    // FIXME use KFormat::formatByteSize here instead of hardcoding KB
-    downloadStatusLabel->setText(i18n("Downloading... (%1 KB / %2 KB)", ((int)(received >> 10)), ((int)(total >> 10))));
+    downloadStatusLabel->setText(i18n("Downloading... (%1 / %2)", m_format->formatByteSize(received), m_format->formatByteSize(total)));
     downloadProgressBar->setValue(percent);
 }
 
