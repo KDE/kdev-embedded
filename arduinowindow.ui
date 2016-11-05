@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ui version="4.0">
+<ui version="4.1">
  <class>ArduinoWindow</class>
  <widget class="QDialog" name="ArduinoWindow">
   <property name="geometry">
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>arduinowindow</string>
+   <string>Board Settings</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <property name="sizeConstraint">
