@@ -262,8 +262,10 @@ void FirstTimeWizard::install()
         qCDebug(FtwIo) << "Downloaded file extracted with success ? :" << extractSuccess;
         qCDebug(FtwIo) << archive.fileName() << "extracted in" << destinationPath;
 
+		QDir(destinationPath).rename(QStringLiteral("arduino-") + QStringLiteral(ARDUINO_SDK_VERSION_NAME), QStringLiteral("arduino"));
+		destinationPath += QStringLiteral("/arduino");
         installStatusLabel->setText(i18n("Extracted"));
-        arduinoPathEdit->setText(QStringLiteral("%0/arduino-%1").arg(destinationPath).arg(QStringLiteral(ARDUINO_SDK_VERSION_NAME)));
+        arduinoPathEdit->setText(destinationPath);
         m_installFinished = true;
     }
     this->button(QWizard::NextButton)->setEnabled(true);
