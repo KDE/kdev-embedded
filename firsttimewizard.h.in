@@ -40,6 +40,7 @@ Q_DECLARE_LOGGING_CATEGORY(FtwMsg)
 
 class QNetworkAccessManager;
 class QNetworkReply;
+class KFormat;
 
 class FirstTimeWizard : public QWizard, Ui::FirstTimeWizard
 {
@@ -63,6 +64,7 @@ public:
 
     //get mcu list from avrdude
     QProcess *m_avrdudeProcess;
+    KFormat  *m_format;
 
     QString getArduinoPath();
     QString getSketchbookPath();
