@@ -11,6 +11,7 @@ cmake_minimum_required(VERSION 3.5)
 ########### install target ###############
 
 find_package(ECM REQUIRED)
+find_package(KDevPlatform REQUIRED 5.0)
 
 set(CMAKE_MODULE_PATH ${KDevPlatform_SOURCE_DIR}/cmake/modules ${ECM_MODULE_PATH})
 
@@ -28,7 +29,6 @@ set(KDEVEMBEDDED_PART_SRCS
 
 set(KDEVEMBEDDED_PART_UI
     arduinowindow.ui
-    firsttimewizard.ui
 )
 
 set(KDEVEMBEDDED_LAUNCHER_PART_SRCS
@@ -44,28 +44,31 @@ set(KDEVEMBEDDED_LAUNCHER_PART_SRCS
 
 set(KDEVEMBEDDED_LAUNCHER_PART_UIS
     launcher/embeddedlauncher.ui
+    firsttimewizard.ui
 )
 
 add_definitions(
     -DQT_NO_CAST_FROM_ASCII
 )
 
-find_package(KDevPlatform REQUIRED)
-
 find_package(KF5 REQUIRED Archive I18n NewStuff ItemModels TextEditor ThreadWeaver)
 include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings)
-
-#include(${CMAKE_CURRENT_SOURCE_DIR}/launcher/CMakeLists.txt)
 
 ki18n_wrap_ui(KDEVEMBEDDED_PART_SRCS ${KDEVEMBEDDED_PART_UI})
 ki18n_wrap_ui(KDEVEMBEDDED_LAUNCHER_PART_SRCS ${KDEVEMBEDDED_LAUNCHER_PART_UIS})
 
 qt5_add_resources(KDEVEMBEDDED_PART_SRCS kdevembedded.qrc)
 
-kdevplatform_add_plugin(kdevembedded JSON kdevembedded.json SOURCES ${KDEVEMBEDDED_PART_SRCS})
-kdevplatform_add_plugin(kdevembedded-launcher JSON launcher/kdevembedded-launcher.json SOURCES ${KDEVEMBEDDED_LAUNCHER_PART_SRCS})
+kdevplatform_add_plugin(kdevembedded
+                        JSON kdevembedded.json
+                        SOURCES ${KDEVEMBEDDED_PART_SRCS}
+)
+kdevplatform_add_plugin(kdevembedded-launcher
+                        JSON launcher/kdevembedded-launcher.json
+                        SOURCES ${KDEVEMBEDDED_LAUNCHER_PART_SRCS}
+)
 
 target_link_libraries(kdevembedded
     KF5::Archive
@@ -88,8 +91,9 @@ target_link_libraries(kdevembedded-launcher
     KDev::Shell
 )
 
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/firsttimewizard.h.in ${CMAKE_CURRENT_SOURCE_DIR}/firsttimewizard.h)
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/toolkit.h.in ${CMAKE_CURRENT_SOURCE_DIR}/toolkit.h)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/arduinoversion.h.in
+            ${CMAKE_CURRENT_BINARY_DIR}/arduinoversion.h
+)
 
 install(DIRECTORY boardsimg DESTINATION ${DATA_INSTALL_DIR}/kdevembedded)
 
