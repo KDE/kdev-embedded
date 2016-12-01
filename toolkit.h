@@ -26,7 +26,7 @@
 
 #include <QStringList>
 
-#define ARDUINO_SDK_MIN_VERSION_NAME "${ARDUINO_SDK_MIN_VERSION_NAME}"
+#include "arduinoversion.h"
 
 class QFile;
 

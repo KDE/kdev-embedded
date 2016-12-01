@@ -67,7 +67,7 @@
 #include <solid/device.h>
 #include <solid/devicenotifier.h>
 
- #include "firsttimewizard.h"
+#include "firsttimewizard.h"
 
 using namespace KDevelop;
 using namespace Solid;
