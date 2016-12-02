@@ -64,8 +64,20 @@ public:
     QProcess *m_avrdudeProcess;
     KFormat  *m_format;
 
-    QString getArduinoPath();
-    QString getSketchbookPath();
+    /**
+     * @brief Populate `Arduino Path` field with valid path to a Arduino install.
+     *
+     * If a setting exists, it is used, otherwise standard paths are verified
+     * and if a valid one is found, it is used.
+     */
+    void fetchArduinoPath();
+    /**
+     * @brief Populate `Sketchbook Path` field with valid projects path.
+     *
+     * If a setting exists, it is used, otherwise standard paths are verified
+     * and if a valid one is found, it is used.
+     */
+    void fetchSketchbookPath();
     QString downloadAndInstallArduino();
     bool validateCurrentPage();
     int  nextId() const;

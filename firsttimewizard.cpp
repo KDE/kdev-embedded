@@ -105,9 +105,9 @@ FirstTimeWizard::FirstTimeWizard(QWidget *parent) :
     automaticInstallButton->setChecked(true);
     m_downloadRunning = false;
     // Arduino path
-    getArduinoPath();
+    fetchArduinoPath();
     // Sketchbook path
-    getSketchbookPath();
+    fetchSketchbookPath();
 
     //TODO support others OS
     QString mDownloadOs = QStringLiteral("Linux");
@@ -306,8 +306,16 @@ int FirstTimeWizard::nextId() const
     return QWizard::nextId();
 }
 
-QString FirstTimeWizard::getArduinoPath()
+void FirstTimeWizard::fetchArduinoPath()
 {
+    KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
+    if (settings.hasKey("arduinoFolder"))
+    {
+        arduinoPathEdit->setText(settings.readEntry("arduinoFolder"));
+        existingInstallButton->setChecked(true);
+        return;
+    }
+
     // Find Arduino path
 #ifdef Q_OS_DARWIN
 #elif defined(Q_OS_WIN32) || defined(Q_OS_WIN64)
@@ -330,15 +338,19 @@ QString FirstTimeWizard::getArduinoPath()
             qCDebug(FtwIo) << "Valid Arduino path at" << path;
             arduinoPathEdit->setText(path);
             existingInstallButton->setChecked(true);
-            return path;
         }
     }
     qCDebug(FtwIo) << "No valid Arduino path";
-    return QString();
 }
 
-QString FirstTimeWizard::getSketchbookPath()
+void FirstTimeWizard::fetchSketchbookPath()
 {
+    KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
+    if (settings.hasKey("sketchbookFolder"))
+    {
+        sketchbookPathEdit->setText(settings.readEntry("sketchbookFolder"));
+        return;
+    }
     // Find Sketchbook path
     QDir sketchbookPath;
 #ifdef Q_OS_DARWIN
@@ -351,8 +363,6 @@ QString FirstTimeWizard::getSketchbookPath()
     {
         sketchbookPathEdit->setText(sketchbookPath.absolutePath());
     }
-
-    return QString();
 }
 
 void FirstTimeWizard::chooseArduinoPath()
