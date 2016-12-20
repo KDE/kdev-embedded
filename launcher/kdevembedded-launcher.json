@@ -8,7 +8,6 @@
         ], 
         "Category": "Core", 
         "Description": "This plugin allows running of programs in embedded devices.", 
-        "Description[ast]": "Esti complementu permite la execución de programes en preseos empotraos.", 
         "Description[ca@valencia]": "Este connector permet executar programes en sistemes incrustats.", 
         "Description[ca]": "Aquest connector permet executar programes en sistemes incrustats.", 
         "Description[de]": "Dieses Modul ermöglicht das Ausführen von Programmen auf eingebetteten Systemen.", 
