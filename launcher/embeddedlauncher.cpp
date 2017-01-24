@@ -609,7 +609,7 @@ void EmbeddedLauncherConfigPage::devicesChanged(const QString& udi)
     qCDebug(ElMsg) << "devicesChanged";
     foreach (const auto& device, devices)
     {
-        if (device.product() != QStringLiteral("") and device.udi().contains(QStringLiteral("tty")))
+        if (device.product() != QStringLiteral("") && device.udi().contains(QStringLiteral("tty")))
         {
             qCDebug(ElMsg) << "INTERFACE ############ INTERFACE";
             qCDebug(ElMsg) << "Description\t:" << device.description();

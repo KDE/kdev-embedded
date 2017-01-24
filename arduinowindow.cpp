@@ -205,7 +205,7 @@ void ArduinoWindow::devicesChanged(const QString& udi)
 
     foreach (const auto& device, devices)
     {
-        if (!device.product().isEmpty() and device.udi().contains(QStringLiteral("tty")))
+        if (!device.product().isEmpty() && device.udi().contains(QStringLiteral("tty")))
         {
             interfaceCombo->addItem(device.product());
             qCDebug(AwMsg) << "INTERFACE ############ INTERFACE";
