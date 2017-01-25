@@ -154,13 +154,16 @@ bool FirstTimeWizard::validateCurrentPage()
         KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
         settings.writeEntry("arduinoFolder", arduinoPathEdit->text());
         settings.writeEntry("sketchbookFolder", sketchbookPathEdit->text());
-
+        qCDebug(FtwMsg) << "Saving settings " << settings.groupList();
+        QString avrdudeConf = arduinoPathEdit->text()+Toolkit::instance().avrdudeConfigPath();
         QStringList flags;
         flags
             << QStringLiteral("-p")
             << QStringLiteral("partno")
             << QStringLiteral("-c")
-            << QStringLiteral("alf");
+            << QStringLiteral("alf")
+            << QStringLiteral("-C") // need after 1.6.10 Arduino version
+            << avrdudeConf;
 
         QString avrdude = arduinoPathEdit->text()+Toolkit::instance().avrdudePath();
         qCDebug(FtwMsg) << "Starting.." << avrdude << flags;

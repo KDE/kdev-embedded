@@ -38,7 +38,6 @@ private:
     Toolkit();
     ~Toolkit();
 
-    QString avrdudeConfigPath();
     QString avrProgramPath();
     QString boardFilePath();
     QString getPath(QString path);
@@ -67,6 +66,7 @@ public:
     QString boardFile(QString path);
     QString boardFile();
 
+    QString avrdudeConfigPath();
     QString avrConfigFile();
 
     QString avrdudePath();
