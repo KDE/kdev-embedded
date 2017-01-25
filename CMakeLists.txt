@@ -96,6 +96,7 @@ configure_file(${CMAKE_CURRENT_SOURCE_DIR}/arduinoversion.h.in
 )
 
 install(DIRECTORY boardsimg DESTINATION ${DATA_INSTALL_DIR}/kdevembedded)
+install(FILES kdevembedded.rc DESTINATION ${KXMLGUI_INSTALL_DIR}/kdevembedded)
 
 add_subdirectory(doc_templates)
 
