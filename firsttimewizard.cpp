@@ -336,6 +336,7 @@ void FirstTimeWizard::fetchArduinoPath()
 
     foreach (const auto& path, defaultArduinoPaths)
     {
+        qCDebug(FtwIo) << "Looking for valid arduino path in " << path;
         if (Toolkit::instance().isValidArduinoPath(path))
         {
             qCDebug(FtwIo) << "Valid Arduino path at" << path;

@@ -25,8 +25,11 @@
 // file to manage tools
 
 #include <QStringList>
+#include <QLoggingCategory>
 
 #include "arduinoversion.h"
+
+Q_DECLARE_LOGGING_CATEGORY(TkMsg)
 
 class QFile;
 

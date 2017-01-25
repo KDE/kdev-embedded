@@ -31,11 +31,14 @@
 #include <interfaces/icore.h>
 #include <KConfigGroup>
 
+Q_LOGGING_CATEGORY(TkMsg, "Kdev.embedded.tk.msg")
+
 using namespace KDevelop;
 
 Toolkit::Toolkit()
 {
     KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
+    qCDebug(TkMsg) << "Toolkit settings" << settings.groupList();
     m_arduinoFolder = new QFile(settings.readEntry("arduinoFolder", QString()));
     m_arduinoPath = getPath(m_arduinoFolder->fileName());
     m_avrdudeMcuList = settings.readEntry("avrdudeMCUList", QStringList());
@@ -72,6 +75,7 @@ QString Toolkit::toolkitVersion(QString path)
     QFile file(QDir(path).filePath(QStringLiteral("revisions.txt")));
     if (!file.open(QFile::ReadOnly))
     {
+        qCDebug(TkMsg) << "It's not possible to open revision.txt";
         return QString();
     }
 
@@ -80,6 +84,7 @@ QString Toolkit::toolkitVersion(QString path)
     while (arduinoVersion == QChar::fromLatin1('\n') && ! reader.atEnd())
     {
         arduinoVersion = reader.readLine();
+        qCDebug(TkMsg) << "Arduino version " << arduinoVersion;
     }
     QList<QString> list = arduinoVersion.split(QChar::fromLatin1(' '));
     if (list.size() >= 2)
