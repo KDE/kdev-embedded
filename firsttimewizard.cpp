@@ -46,6 +46,7 @@
 #include <interfaces/isession.h>
 #include <interfaces/icore.h>
 
+#include <KLocalizedString>
 #include <KConfigGroup>
 #include <KFormat>
 #include <KTar>
