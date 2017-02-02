@@ -74,7 +74,6 @@ K_PLUGIN_FACTORY_WITH_JSON(KDevExecuteFactory, "kdevembedded-launcher.json", reg
 ExecutePlugin::ExecutePlugin(QObject *parent, const QVariantList&)
     : KDevelop::IPlugin(QStringLiteral("kdevembedded-launcher"), parent)
 {
-    KDEV_USE_EXTENSION_INTERFACE(IExecutePlugin)
     m_configType = new NativeAppConfigType();
     m_configType->addLauncher(new EmbeddedLauncher());
     qCDebug(EpMsg) << "adding native app launch config";
