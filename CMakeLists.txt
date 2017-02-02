@@ -22,15 +22,10 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/launcher)
 
 set(KDEVEMBEDDED_PART_SRCS
     embedded.cpp
-    arduinowindow.cpp
     toolkit.cpp
     board.cpp
     firsttimewizard.cpp
     arduinowindowmodel.cpp
-)
-
-set(KDEVEMBEDDED_PART_UI
-    arduinowindow.ui
 )
 
 set(KDEVEMBEDDED_LAUNCHER_PART_SRCS

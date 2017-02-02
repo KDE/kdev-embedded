@@ -42,7 +42,6 @@
 #include <interfaces/isession.h>
 #include <interfaces/iuicontroller.h>
 
-#include "arduinowindow.h"
 #include "firsttimewizard.h"
 
 Q_LOGGING_CATEGORY(PLUGIN_EMBEDDED, "kdevplatform.plugins.embedded")
@@ -63,14 +62,6 @@ Embedded::Embedded(QObject* parent, const QVariantList&)
     actionProject->setWhatsThis(i18n("Toolkit manager for Arduino programs."));
     actionProject->setIcon(QIcon::fromTheme(QStringLiteral("project-development-new-template")));
     connect(actionProject, &QAction::triggered, this, &Embedded::firstTimeWizardEvent);
-
-    QAction* actionConfigureBoard = actionCollection()->addAction(QStringLiteral("action_board"));
-    actionConfigureBoard->setText(i18n("Board settings"));
-    actionCollection()->setDefaultShortcut(actionConfigureBoard, QStringLiteral("Alt+Shift+b"));
-    actionConfigureBoard->setToolTip(i18n("Configure board and interface configurations for embedded systems."));
-    actionConfigureBoard->setWhatsThis(i18n("Project and upload manager for embedded systems."));
-    actionConfigureBoard->setIcon(QIcon::fromTheme(QStringLiteral("project-development-new-template")));
-    connect(actionConfigureBoard, &QAction::triggered, this, &Embedded::boardSettingsEvent);
 }
 
 void Embedded::firstTimeWizardEvent()
@@ -78,24 +69,6 @@ void Embedded::firstTimeWizardEvent()
     FirstTimeWizard *embeddedWindow = new FirstTimeWizard(ICore::self()->uiController()->activeMainWindow());
     embeddedWindow->setAttribute(Qt::WA_DeleteOnClose);
     embeddedWindow->show();
-}
-
-void Embedded::boardSettingsEvent()
-{
-    KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
-    if (!settings.readEntry("arduinoFolder", "").isEmpty())
-    {
-
-        ArduinoWindow *arduinoBoard = new ArduinoWindow(ICore::self()->uiController()->activeMainWindow());
-        arduinoBoard->setAttribute(Qt::WA_DeleteOnClose);
-        arduinoBoard->show();
-    }
-    else
-    {
-        QMessageBox::warning(0, i18n("kdev-embedded"), i18n("Please run the first time wizard."));
-        firstTimeWizardEvent();
-    }
-
 }
 
 Embedded::~Embedded()
