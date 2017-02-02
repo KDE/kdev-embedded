@@ -10,6 +10,8 @@ set(CMAKE_CXX_STANDARD 11)
 cmake_minimum_required(VERSION 3.5)
 ########### install target ###############
 
+set(CMAKE_AUTOUIC ON)
+
 find_package(ECM REQUIRED)
 find_package(KDevPlatform REQUIRED 5.0)
 
@@ -56,9 +58,6 @@ include(KDEInstallDirs)
 include(KDECMakeSettings)
 include(KDECompilerSettings)
 
-ki18n_wrap_ui(KDEVEMBEDDED_PART_SRCS ${KDEVEMBEDDED_PART_UI})
-ki18n_wrap_ui(KDEVEMBEDDED_LAUNCHER_PART_SRCS ${KDEVEMBEDDED_LAUNCHER_PART_UIS})
-
 qt5_add_resources(KDEVEMBEDDED_PART_SRCS kdevembedded.qrc)
 
 kdevplatform_add_plugin(kdevembedded
@@ -72,6 +71,7 @@ kdevplatform_add_plugin(kdevembedded-launcher
 
 target_link_libraries(kdevembedded
     KF5::Archive
+    KF5::I18n
     KF5::Solid
     KF5::Parts
     KF5::TextEditor
@@ -83,6 +83,7 @@ target_link_libraries(kdevembedded
 
 target_link_libraries(kdevembedded-launcher
     KF5::Archive
+    KF5::I18n
     KF5::Solid
     KDev::Interfaces
     KDev::Util
