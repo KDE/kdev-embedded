@@ -2,6 +2,7 @@
     "KPlugin": {
         "Category": "Embedded", 
         "Description": "Embedded Plugin", 
+        "Description[ast]": "Complementu empotráu", 
         "Description[ca@valencia]": "Connector incrustat", 
         "Description[ca]": "Connector incrustat", 
         "Description[de]": "Modul für eingebettete Systeme", 
@@ -18,6 +19,7 @@
         "Icon": "project-development-new-template", 
         "Id": "kdevembedded", 
         "Name": "Embedded systems", 
+        "Name[ast]": "Sistemes empotraos", 
         "Name[ca@valencia]": "Sistemes incrustats", 
         "Name[ca]": "Sistemes incrustats", 
         "Name[de]": "Eingebettete Systeme", 
