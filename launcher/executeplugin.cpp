@@ -38,7 +38,6 @@
 #include <interfaces/ilaunchconfiguration.h>
 #include <interfaces/iprojectcontroller.h>
 #include <interfaces/iuicontroller.h>
-#include <util/environmentgrouplist.h>
 
 #include "debug.h"
 #include "toolkit.h"
@@ -52,7 +51,7 @@ QString ExecutePlugin::workingDirEntry = QStringLiteral("Working Directory");
 QString ExecutePlugin::executableEntry = QStringLiteral("Executable");
 QString ExecutePlugin::argumentsEntry = QStringLiteral("Arguments");
 QString ExecutePlugin::isExecutableEntry = QStringLiteral("isExecutable");
-QString ExecutePlugin::environmentGroupEntry = QStringLiteral("EnvironmentGroup");
+QString ExecutePlugin::environmentProfileEntry = QStringLiteral("EnvironmentGroup");
 QString ExecutePlugin::useTerminalEntry = QStringLiteral("Use External Terminal");
 QString ExecutePlugin::commandEntry = QStringLiteral("Command");
 QString ExecutePlugin::boardEntry = QStringLiteral("Board Index");
@@ -187,14 +186,14 @@ KJob* ExecutePlugin::dependencyJob(KDevelop::ILaunchConfiguration* cfg) const
 }
 
 
-QString ExecutePlugin::environmentGroup(KDevelop::ILaunchConfiguration* cfg) const
+QString ExecutePlugin::environmentProfileName(KDevelop::ILaunchConfiguration* cfg) const
 {
     if (!cfg)
     {
         return QString();
     }
 
-    return cfg->config().readEntry(ExecutePlugin::environmentGroupEntry, "");
+    return cfg->config().readEntry(ExecutePlugin::environmentProfileEntry, "");
 }
 
 

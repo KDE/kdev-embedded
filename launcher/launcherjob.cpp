@@ -35,7 +35,7 @@
 #include <interfaces/ilaunchconfiguration.h>
 #include <interfaces/iruncontroller.h>
 #include <outputview/outputmodel.h>
-#include <util/environmentgrouplist.h>
+#include <util/environmentprofilelist.h>
 
 #include <interfaces/icore.h>
 #include <interfaces/isession.h>
@@ -65,9 +65,9 @@ LauncherJob::LauncherJob(QObject* parent, KDevelop::ILaunchConfiguration* cfg)
     IExecutePlugin* iface = KDevelop::ICore::self()->pluginController()->pluginForExtension(QStringLiteral("org.kdevelop.IExecutePlugin"), QStringLiteral("kdevembedded-launcher"))->extension<IExecutePlugin>();
     Q_ASSERT(iface);
 
-    KDevelop::EnvironmentGroupList l(KSharedConfig::openConfig());
-    QString envgrp = iface->environmentGroup(cfg);
-    qCDebug(LaMsg) << "LauncherJob::LauncherJob envgrp" << envgrp;
+    KDevelop::EnvironmentProfileList l(KSharedConfig::openConfig());
+    QString envProfileName = iface->environmentProfileName(cfg);
+    qCDebug(LaMsg) << "LauncherJob::LauncherJob envProfileName" << envProfileName;
 
     QString err;
     QUrl executable = iface->executable(cfg, err);
@@ -80,14 +80,14 @@ LauncherJob::LauncherJob(QObject* parent, KDevelop::ILaunchConfiguration* cfg)
         return;
     }
 
-    if (envgrp.isEmpty())
+    if (envProfileName.isEmpty())
     {
-        qWarning() << "Launch Configuration:" << cfg->name() << "no environment group specified, looks like a broken "
+        qWarning() << "Launch Configuration:" << cfg->name() << "no environment profile specified, looks like a broken "
                    "configuration, please check run configuration" << cfg->name()
-                   << "Using default environment group.";
-        envgrp = l.defaultGroup();
+                   << "Using default environment profile.";
+        envProfileName = l.defaultProfileName();
     }
-    setEnvironmentProfile(envgrp);
+    setEnvironmentProfile(envProfileName);
 
     QStringList arguments = iface->arguments(cfg, err);
     qCDebug(LaMsg) << "LauncherJob::LauncherJob arguments" << arguments;

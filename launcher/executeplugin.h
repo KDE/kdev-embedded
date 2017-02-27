@@ -45,7 +45,7 @@ public:
     static QString executableEntry;
     static QString argumentsEntry;
     static QString isExecutableEntry;
-    static QString environmentGroupEntry;
+    static QString environmentProfileEntry;
     static QString useTerminalEntry;
     static QString commandEntry;
     static QString userIdToRunEntry;
@@ -66,7 +66,7 @@ public:
     QStringList arguments(KDevelop::ILaunchConfiguration*, QString& err) const override;
     QUrl workingDirectory(KDevelop::ILaunchConfiguration*) const override;
     KJob* dependencyJob(KDevelop::ILaunchConfiguration*) const override;
-    QString environmentGroup(KDevelop::ILaunchConfiguration*) const override;
+	QString environmentProfileName(KDevelop::ILaunchConfiguration* cfg) const override;
     bool useTerminal(KDevelop::ILaunchConfiguration*) const override;
     QString terminal(KDevelop::ILaunchConfiguration*) const override;
     QString nativeAppConfigTypeId() const override;
