@@ -35,6 +35,7 @@
 #include <project/interfaces/ibuildsystemmanager.h>
 #include <project/interfaces/iprojectbuilder.h>
 #include <project/builderjob.h>
+#include <interfaces/iruncontroller.h>
 #include <interfaces/iuicontroller.h>
 #include <util/executecompositejob.h>
 
