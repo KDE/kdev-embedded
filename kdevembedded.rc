@@ -1,5 +1,5 @@
-<!DOCTYPE kpartgui SYSTEM "kpartgui.dtd">
-<kpartgui name="kdevembedded" version="7" translationDomain="kdevembedded">
+<!DOCTYPE gui SYSTEM "kpartgui.dtd">
+<gui name="kdevembedded" version="7" translationDomain="kdevembedded">
 <MenuBar>
   <Menu name="Embedded">
     <Text context="@title:menu">Embedded</Text>
@@ -9,4 +9,4 @@
     <Action name="action_project" />
   </Menu>
 </MenuBar>
-</kpartgui>
+</gui>
