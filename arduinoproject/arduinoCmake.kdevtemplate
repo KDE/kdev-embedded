@@ -1,8 +1,0 @@
-# KDE Config file
-[General]
-Name=Embedded
-
-Category=Embedded/Arduino
-Icon=default-kdevelop
-ShowFilesAfterGeneration=%{PROJECTDIR}/src/main.cpp
-
