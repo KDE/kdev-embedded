@@ -322,7 +322,9 @@ void FirstTimeWizard::fetchArduinoPath()
 
     // Find Arduino path
 #ifdef Q_OS_DARWIN
+    static QStringList defaultArduinoPaths;
 #elif defined(Q_OS_WIN32) || defined(Q_OS_WIN64)
+    static QStringList defaultArduinoPaths;
 #else
     const QString applicationPath = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
     // Paths to search for an existing installation
