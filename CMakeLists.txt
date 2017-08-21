@@ -14,7 +14,8 @@ include(CMakeFindDependencyMacro)
 set(CMAKE_AUTOUIC ON)
 
 find_package(ECM REQUIRED)
-find_package(KDevPlatform REQUIRED 5.0)
+set(KDEVPLATFORM_VERSION "5.0.0")
+find_package(KDevPlatform ${KDEVPLATFORM_VERSION} CONFIG REQUIRED)
 
 set(CMAKE_MODULE_PATH ${KDevPlatform_SOURCE_DIR}/cmake/modules ${ECM_MODULE_PATH})
 
