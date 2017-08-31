@@ -1,3 +1,4 @@
+cmake_minimum_required(VERSION 3.5)
 #add_definitions(-DTRANSLATION_DOMAIN=\"kdevembedded\")
 project(embedded)
 
@@ -7,7 +8,6 @@ set(ARDUINO_SDK_MIN_VERSION_NAME "1.6.8")
 
 set(CMAKE_CXX_STANDARD 11)
 
-cmake_minimum_required(VERSION 3.5)
 include(CMakeFindDependencyMacro)
 ########### install target ###############
 
