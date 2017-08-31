@@ -15,7 +15,7 @@ include(FeatureSummary)
 set(CMAKE_AUTOUIC ON)
 
 find_package(ECM REQUIRED)
-set(KDEVPLATFORM_VERSION "5.0.0")
+set(KDEVPLATFORM_VERSION "5.1.40")
 find_package(KDevPlatform ${KDEVPLATFORM_VERSION} CONFIG REQUIRED)
 
 set(CMAKE_MODULE_PATH ${KDevPlatform_SOURCE_DIR}/cmake/modules ${ECM_MODULE_PATH})
