@@ -9,6 +9,7 @@ set(ARDUINO_SDK_MIN_VERSION_NAME "1.6.8")
 set(CMAKE_CXX_STANDARD 11)
 
 include(CMakeFindDependencyMacro)
+include(FeatureSummary)
 ########### install target ###############
 
 set(CMAKE_AUTOUIC ON)
@@ -101,3 +102,5 @@ add_subdirectory(doc_templates)
 ############################################
 set(TEMPLATE_DIRS embeddedproject arduinoproject)
 kdevplatform_add_app_templates(${TEMPLATE_DIRS})
+
+feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
