@@ -88,7 +88,7 @@ void ExecutePlugin::unload()
 {
     core()->runController()->removeConfigurationType(m_configType);
     delete m_configType;
-    m_configType = 0;
+    m_configType = nullptr;
 }
 
 QStringList ExecutePlugin::arguments(KDevelop::ILaunchConfiguration* cfg, QString& err_) const

@@ -90,7 +90,7 @@ void EmbeddedLauncherConfigPage::loadFromConfiguration(const KConfigGroup& cfg, 
     qCDebug(ElMsg) << "EmbeddedLauncherConfigPage::loadFromConfiguration" << cfg.groupList() << cfg.keyList() << cfg.entryMap();
 
     bool b = blockSignals(true);
-    projectTarget->setBaseItem(project ? project->projectItem() : 0, true);
+    projectTarget->setBaseItem(project ? project->projectItem() : nullptr, true);
     projectTarget->setCurrentItemPath(cfg.readEntry(ExecutePlugin::projectTargetEntry, QStringList()));
 
     QUrl exe = cfg.readEntry(ExecutePlugin::executableEntry, QUrl());
@@ -231,7 +231,7 @@ EmbeddedLauncherConfigPage::EmbeddedLauncherConfigPage(QWidget* parent)
     KConfigGroup settings = ICore::self()->activeSession()->config()->group("Embedded");
     if (settings.readEntry("arduinoFolder", "").isEmpty())
     {
-        QMessageBox::warning(0, i18n("kdev-embedded"), i18n("Please run the first time wizard."));
+        QMessageBox::warning(nullptr, i18n("kdev-embedded"), i18n("Please run the first time wizard."));
         FirstTimeWizard *embeddedWindow = new FirstTimeWizard(parent);
         embeddedWindow->setAttribute(Qt::WA_DeleteOnClose);
         embeddedWindow->show();

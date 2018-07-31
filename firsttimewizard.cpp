@@ -84,7 +84,7 @@ using namespace KDevelop;
 FirstTimeWizard::FirstTimeWizard(QWidget *parent) :
     QWizard(parent),
     m_mDownloadManager(new QNetworkAccessManager),
-    m_reply(NULL),
+    m_reply(nullptr),
     m_downloadFinished(false),
     m_installFinished(false),
     m_avrdudeProcess(new QProcess(parent)),

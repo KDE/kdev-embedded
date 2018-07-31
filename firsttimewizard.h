@@ -45,7 +45,7 @@ class FirstTimeWizard : public QWizard, Ui::FirstTimeWizard
     Q_OBJECT
 
 public:
-    explicit FirstTimeWizard(QWidget *parent = NULL);
+    explicit FirstTimeWizard(QWidget *parent = nullptr);
     ~FirstTimeWizard();
 
     QNetworkAccessManager *m_mDownloadManager;
