@@ -56,6 +56,7 @@
 #include <QPixmap>
 #include <QPainter>
 #include <QMessageBox>
+#include <QItemSelection>
 
 #include <QStandardPaths>
 
