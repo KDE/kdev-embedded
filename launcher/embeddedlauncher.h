@@ -36,7 +36,7 @@ class EmbeddedLauncherConfigPage : public KDevelop::LaunchConfigurationPage, Ui:
     Q_OBJECT
 public:
     explicit EmbeddedLauncherConfigPage(QWidget* parent);
-    virtual ~EmbeddedLauncherConfigPage();
+    ~EmbeddedLauncherConfigPage() override;
     void loadFromConfiguration(const KConfigGroup& cfg, KDevelop::IProject* project = nullptr) override;
     void saveToConfiguration(KConfigGroup cfg, KDevelop::IProject* project = nullptr) const override;
     QString title() const override;

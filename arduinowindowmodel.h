@@ -21,10 +21,10 @@ public:
     enum {NAME, ID, COLUMNS};
     void populate(const QVector<ArduinoWindowModelStruct> &tdb);
 
-    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
 
     ArduinoWindowModelStruct getData(int index);
 
-    int columnCount(const QModelIndex &parent) const;
-    int rowCount(const QModelIndex &parent) const;
+    int columnCount(const QModelIndex &parent) const override;
+    int rowCount(const QModelIndex &parent) const override;
 };

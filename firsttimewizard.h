@@ -46,7 +46,7 @@ class FirstTimeWizard : public QWizard, Ui::FirstTimeWizard
 
 public:
     explicit FirstTimeWizard(QWidget *parent = nullptr);
-    ~FirstTimeWizard();
+    ~FirstTimeWizard() override;
 
     QNetworkAccessManager *m_mDownloadManager;
     QNetworkReply *m_reply;
@@ -79,8 +79,8 @@ public:
      */
     void fetchSketchbookPath();
     QString downloadAndInstallArduino();
-    bool validateCurrentPage();
-    int  nextId() const;
+    bool validateCurrentPage() override;
+    int  nextId() const override;
     bool finish();
 
     void onDownloadProgress(qint64 received, qint64 total);
