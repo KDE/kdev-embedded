@@ -25,7 +25,6 @@
                 "Name[sv]": "Patrick José Pereira",
                 "Name[tr]": "Patrick José Pereira",
                 "Name[uk]": "Patrick José Pereira",
-                "Name[x-test]": "xxPatrick José Pereiraxx",
                 "Name[zh_CN]": "Patrick José Pereira",
                 "Name[zh_TW]": "Patrick José Pereira"
             }
@@ -52,7 +51,6 @@
         "Description[sv]": "Insticksprogrammet gör det möjligt att köra program på inbäddade enheter.",
         "Description[tr]": "Bu eklenti programların gömülü cihazlar içerisinde çalıştırılmasına izin verir.",
         "Description[uk]": "За допомогою цього додатка ви зможете запускати програми на вбудовуваних пристроях.",
-        "Description[x-test]": "xxThis plugin allows running of programs in embedded devices.xx",
         "Description[zh_CN]": "此插件可以在嵌入式设备上执行程序。",
         "Description[zh_TW]": "此外掛允許在嵌入式裝置中執行應用程式。",
         "Icon": "system-run",
@@ -80,7 +78,6 @@
         "Name[sv]": "Inbäddade",
         "Name[tr]": "Gömülü",
         "Name[uk]": "Вбудована система",
-        "Name[x-test]": "xxEmbeddedxx",
         "Name[zh_CN]": "图像内嵌",
         "Name[zh_TW]": "嵌入式",
         "ServiceTypes": [
