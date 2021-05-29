@@ -3,6 +3,7 @@
         "Authors": [
             {
                 "Name": "Patrick José Pereira",
+                "Name[az]": "Patrick José Pereira",
                 "Name[ca@valencia]": "Patrick José Pereira",
                 "Name[ca]": "Patrick José Pereira",
                 "Name[cs]": "Patrick José Pereira",
@@ -34,6 +35,7 @@
         ],
         "Category": "Core",
         "Description": "This plugin allows running of programs in embedded devices.",
+        "Description[az]": "Bu qoşma, daxili cihazlardakı proqramların işə düşməsinə icazə verir.",
         "Description[ca@valencia]": "Aquest connector permet executar programes en sistemes incrustats.",
         "Description[ca]": "Aquest connector permet executar programes en sistemes incrustats.",
         "Description[de]": "Dieses Modul ermöglicht das Ausführen von Programmen auf eingebetteten Systemen.",
@@ -63,6 +65,7 @@
         "Id": "kdevembedded-launcher",
         "License": "GPL",
         "Name": "Embedded",
+        "Name[az]": "Daxili",
         "Name[ca@valencia]": "Incrustat",
         "Name[ca]": "Incrustat",
         "Name[cs]": "Embedded",
