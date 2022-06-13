@@ -36,7 +36,7 @@
         "Category": "Core",
         "Description": "This plugin allows running of programs in embedded devices.",
         "Description[az]": "Bu qoşma, daxili cihazlardakı proqramların işə düşməsinə icazə verir.",
-        "Description[ca@valencia]": "Este conector permet executar programes en sistemes incrustats.",
+        "Description[ca@valencia]": "Este connector permet executar programes en sistemes incrustats.",
         "Description[ca]": "Aquest connector permet executar programes en sistemes incrustats.",
         "Description[de]": "Dieses Modul ermöglicht das Ausführen von Programmen auf eingebetteten Systemen.",
         "Description[en_GB]": "This plugin allows running of programs in embedded devices.",
