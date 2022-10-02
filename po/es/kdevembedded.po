@@ -1,0 +1,666 @@
+# Spanish translations for kdevembedded.po package.
+# Copyright (C) 2016 This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Automatically generated, 2016.
+# Eloy Cuadra <ecuadra@eloihr.net>, 2016.
+msgid ""
+msgstr ""
+"Project-Id-Version: kdevembedded\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2019-05-20 03:19+0200\n"
+"PO-Revision-Date: 2016-11-06 13:04+0100\n"
+"Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
+"Language-Team: Spanish <kde-l10n-es@kde.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Lokalize 2.0\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Eloy Cuadra"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "ecuadra@eloihr.net"
+
+#: embedded.cpp:60
+#, kde-format
+msgid "Arduino Setup"
+msgstr "Configuración de Arduino"
+
+#: embedded.cpp:61
+#, kde-format
+msgid "Configure Arduino Toolkit."
+msgstr "Configurar el juego de herramientas para Arduino."
+
+#: embedded.cpp:62
+#, kde-format
+msgid "Toolkit manager for Arduino programs."
+msgstr "Gestor de herramientas para programas de Arduino."
+
+#: firsttimewizard.cpp:99
+#, kde-format
+msgid "<p>More information at: <a href=\"mailto:%1\">%1</a></p>"
+msgstr "<p>Más información en: <a href=\"mailto:%1\">%1</a></p>"
+
+#: firsttimewizard.cpp:100
+#, kde-format
+msgid "Embedded plugin is an unofficial project by Patrick J. Pereira."
+msgstr "Complemento empotrado es un proyecto no oficial de Patrick J. Pereira."
+
+#: firsttimewizard.cpp:116
+#, kde-format
+msgid "Arduino %1 for %2"
+msgstr "Arduino %1 para %2"
+
+#: firsttimewizard.cpp:213
+#, kde-format
+msgid "Downloading..."
+msgstr "Descargando..."
+
+#: firsttimewizard.cpp:224
+#, kde-format
+msgid "Downloaded"
+msgstr "Descargado"
+
+#: firsttimewizard.cpp:228
+#, kde-format
+msgid "Download cancelled"
+msgstr "Descarga cancelada"
+
+#: firsttimewizard.cpp:251
+#, kde-format
+msgid "Extracting..."
+msgstr "Extrayendo..."
+
+#: firsttimewizard.cpp:263
+#, kde-format
+msgid "Extracting... "
+msgstr "Extrayendo... "
+
+#: firsttimewizard.cpp:275
+#, kde-format
+msgid "Extracted"
+msgstr "Extraído"
+
+#: firsttimewizard.cpp:377 firsttimewizard.cpp:387
+#, kde-format
+msgid "Find Files"
+msgstr "Buscar archivos"
+
+#: firsttimewizard.cpp:405
+#, kde-format
+msgid "Downloading... (%1 / %2)"
+msgstr "Descargando... (%1 / %2)"
+
+#. i18n: ectx: property (windowTitle), widget (QWizard, FirstTimeWizard)
+#: firsttimewizard.ui:14
+#, kde-format
+msgid "Wizard"
+msgstr "Asistente"
+
+#. i18n: ectx: property (title), widget (QWizardPage, wizardPage1)
+#: firsttimewizard.ui:21
+#, kde-format
+msgid "First-time configuration"
+msgstr "Primera configuración"
+
+#. i18n: ectx: property (subTitle), widget (QWizardPage, wizardPage1)
+#: firsttimewizard.ui:24
+#, kde-format
+msgid ""
+"The plugin needs some information in order to work correctly.<br />Please "
+"fill them in the form below:"
+msgstr ""
+"El complemento necesita información para funcionar correctamente.<br />Por "
+"favor, rellene el siguiente formulario:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: firsttimewizard.ui:33
+#, kde-format
+msgid "The Arduino location is needed to continue."
+msgstr "La ubicación de Arduino es necesaria para continuar."
+
+#. i18n: ectx: property (text), widget (QRadioButton, existingInstallButton)
+#: firsttimewizard.ui:40
+#, kde-format
+msgid "E&xisting installation"
+msgstr "Instalación e&xistente"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: firsttimewizard.ui:67
+#, kde-format
+msgid "Ard&uino path:"
+msgstr "R&uta de Arduino:"
+
+#. i18n: ectx: property (text), widget (QToolButton, arduinoPathButton)
+#. i18n: ectx: property (text), widget (QToolButton, sketchbookPathButton)
+#: firsttimewizard.ui:82 firsttimewizard.ui:163
+#, kde-format
+msgid "..."
+msgstr "..."
+
+#. i18n: ectx: property (text), widget (QRadioButton, automaticInstallButton)
+#: firsttimewizard.ui:95
+#, kde-format
+msgid "Auto&matic installation"
+msgstr "Instalación auto&mática"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: firsttimewizard.ui:120
+#, kde-format
+msgid ""
+"<p>This will download and install the software automatically from <a href="
+"\"http://arduino.cc/\">the Arduino website</a>.</p>"
+msgstr ""
+"<p>Esto descargará e instalará el software automáticamente desde <a href="
+"\"http://arduino.cc/\">el sitio web de Arduino</a>.</p>"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#: firsttimewizard.ui:132 firsttimewizard.ui:256
+#, kde-format
+msgid "<hr />"
+msgstr "<hr />"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: firsttimewizard.ui:139
+#, kde-format
+msgid ""
+"<p>The sketchbook folder is where the plugin will look for existing projects."
+"<br/>It will be created if it does not exist already.</p>"
+msgstr ""
+"<p>La carpeta de bocetos es el lugar donde el complemento buscará proyectos "
+"existentes.<br/>Se creará una nueva si no existe ninguna.</p>"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: firsttimewizard.ui:148
+#, kde-format
+msgid "S&ketchbook path:"
+msgstr "Ruta de los &bocetos:"
+
+#. i18n: ectx: property (title), widget (QWizardPage, wizardPage2)
+#: firsttimewizard.ui:175
+#, kde-format
+msgid "Automatic Installation"
+msgstr "Instalación automática"
+
+#. i18n: ectx: property (subTitle), widget (QWizardPage, wizardPage2)
+#: firsttimewizard.ui:178
+#, kde-format
+msgid "The plugin will now download and install the required software."
+msgstr "El complemento descargará e instalará ahora el software necesario."
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: firsttimewizard.ui:189
+#, kde-format
+msgid "Step 1: Download"
+msgstr "Paso 1: Descarga"
+
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: firsttimewizard.ui:265
+#, kde-format
+msgid "Step 2: Installation"
+msgstr "Paso 2: Instalación"
+
+#. i18n: ectx: property (title), widget (QWizardPage, wizardPage3)
+#: firsttimewizard.ui:308
+#, kde-format
+msgid "Configuration successful"
+msgstr "Configuración terminada con éxito"
+
+#. i18n: ectx: property (subTitle), widget (QWizardPage, wizardPage3)
+#: firsttimewizard.ui:311
+#, kde-format
+msgid "The plugin is now ready."
+msgstr "El complemento está ahora preparado."
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: firsttimewizard.ui:320
+#, kde-format
+msgid ""
+"The configuration is complete, you may now start using the IDE.<br />Thank "
+"you for using the software. Enjoy!"
+msgstr ""
+"La configuración se ha completado. Ahora puede empezar a usar el IDE.<br /"
+">Gracias por usar este software. ¡Diviértase con él!"
+
+#. i18n: ectx: Menu (Embedded)
+#: kdevembedded.rc:5
+#, kde-format
+msgctxt "@title:menu"
+msgid "Embedded"
+msgstr "Empotrado"
+
+#: launcher/embeddedlauncher.cpp:234
+#, kde-format
+msgid "kdev-embedded"
+msgstr "kdev-embedded"
+
+#: launcher/embeddedlauncher.cpp:234
+#, kde-format
+msgid "Please run the first time wizard."
+msgstr "Por favor, ejecute el asistente del primer uso."
+
+#: launcher/embeddedlauncher.cpp:243
+#, kde-format
+msgid "Please add a microcontroller"
+msgstr "Por favor, añada un microcontrolador"
+
+#: launcher/embeddedlauncher.cpp:253
+#, kde-format
+msgid ""
+"Please connect or select an interface, for example:\n"
+"/dev/ttyUSBx, /dev/ttyACMx, COMx, etc"
+msgstr ""
+"Por favor, conecte o seleccione una interfaz. Por ejemplo:\n"
+"/dev/ttyUSBx, /dev/ttyACMx, COMx, etc."
+
+#: launcher/embeddedlauncher.cpp:261
+#, kde-format
+msgid ""
+"Please choose or select a baudrate:\n"
+"19200, 57600, 115200, etc"
+msgstr ""
+"Por favor, seleccione una velocidad en baudios:\n"
+"19200, 57600, 115200, etc."
+
+#: launcher/embeddedlauncher.cpp:269
+#, kde-format
+msgid "Variables to programmer:\n"
+msgstr "Variables para el programador:\n"
+
+#: launcher/embeddedlauncher.cpp:270
+#, kde-format
+msgid "%avrdudeconf\t- Specify location of configuration file.\n"
+msgstr "%avrdudeconf\t- Indica la ubicación del archivo de configuración.\n"
+
+#: launcher/embeddedlauncher.cpp:271
+#, kde-format
+msgid "%mcu\t- Required. Specify AVR device.\n"
+msgstr "%mcu\t- Necesaria. Indica el dispositivo AVR.\n"
+
+#: launcher/embeddedlauncher.cpp:272
+#, kde-format
+msgid "%interface\t- Specify connection port.\n"
+msgstr "%interface\t- Indica el puerto de conexión.\n"
+
+#: launcher/embeddedlauncher.cpp:273
+#, kde-format
+msgid "%baud\t- Override RS-232 baud rate.\n"
+msgstr "%baud\t- Redefine la velocidad en baudios de RS-232.\n"
+
+#: launcher/embeddedlauncher.cpp:274
+#, kde-format
+msgid "%hex\t- Firmware."
+msgstr "%hex\t- Firmware."
+
+#: launcher/embeddedlauncher.cpp:281
+#, kde-format
+msgid ""
+"%avrdude - Avrdude is a program for downloading code and data to Atmel AVR "
+"microcontrollers."
+msgstr ""
+"%avrdude - Avrdude es un programa para descargar código y datos para los "
+"microcontroladores Atmel AVR."
+
+#: launcher/embeddedlauncher.cpp:345
+#, kde-format
+msgid "Configure Embedded Application"
+msgstr "Configurar la aplicación empotrada"
+
+#: launcher/embeddedlauncher.cpp:359
+#, kde-format
+msgid "Upload applications to embedded platforms"
+msgstr "Enviar aplicaciones a las plataformas empotradas"
+
+#: launcher/embeddedlauncher.cpp:369 launcher/embeddedlauncher.cpp:430
+#, kde-format
+msgid "Embedded"
+msgstr "Empotrado"
+
+#: launcher/embeddedlauncher.cpp:510
+#, kde-format
+msgid "Embedded Binary"
+msgstr "Binario empotrado"
+
+#: launcher/embeddedlauncher.cpp:634
+#, kde-format
+msgid "Could not find interface"
+msgstr "No se encuentra la interfaz"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: launcher/embeddedlauncher.ui:17
+#, kde-format
+msgid "Firmware"
+msgstr "Firmware"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: launcher/embeddedlauncher.ui:23
+#, kde-format
+msgid "Pro&ject Target:"
+msgstr "Destino del pro&yecto:"
+
+#. i18n: ectx: property (text), widget (QLabel, label2)
+#: launcher/embeddedlauncher.ui:63
+#, kde-format
+msgid "Exec&utable:"
+msgstr "Ejec&utable:"
+
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, executablePath)
+#: launcher/embeddedlauncher.ui:88
+#, kde-format
+msgid "Enter the executable name or absolute path to an executable file"
+msgstr ""
+"Introduzca el nombre del ejecutable o la ruta absoluta a un archivo "
+"ejecutable"
+
+#. i18n: ectx: property (text), widget (QLabel, freqLabel)
+#: launcher/embeddedlauncher.ui:126
+#, kde-format
+msgid "MCU:"
+msgstr "MCU:"
+
+#. i18n: ectx: property (text), widget (QLabel, boardLabel)
+#: launcher/embeddedlauncher.ui:136
+#, kde-format
+msgid "Board:"
+msgstr "Placa:"
+
+#. i18n: ectx: property (text), widget (QLabel, interfaceLabel)
+#: launcher/embeddedlauncher.ui:146
+#, kde-format
+msgid "Interface:"
+msgstr "Interfaz:"
+
+#. i18n: ectx: property (text), widget (QLabel, presetsLabel)
+#. i18n: ectx: property (text), widget (QLabel, presetsLabel2)
+#: launcher/embeddedlauncher.ui:159 launcher/embeddedlauncher.ui:391
+#, kde-format
+msgid "Presets:"
+msgstr "Preajustes:"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, presetsComboPage1)
+#. i18n: ectx: property (text), item, widget (QComboBox, presetsComboPage2)
+#: launcher/embeddedlauncher.ui:176 launcher/embeddedlauncher.ui:405
+#, kde-format
+msgid "Arduino"
+msgstr "Arduino"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, presetsComboPage1)
+#. i18n: ectx: property (text), item, widget (QComboBox, presetsComboPage2)
+#: launcher/embeddedlauncher.ui:181 launcher/embeddedlauncher.ui:410
+#, kde-format
+msgid "OpenOCD"
+msgstr "OpenOCD"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, boardCombo)
+#: launcher/embeddedlauncher.ui:196
+#, kde-format
+msgid "Nano"
+msgstr "Nano"
+
+#. i18n: ectx: property (toolTip), widget (KComboBox, interfaceCombo)
+#: launcher/embeddedlauncher.ui:210
+#, kde-format
+msgid "Please, connect an interface"
+msgstr "Por favor, conecte una interfaz"
+
+#. i18n: ectx: property (text), widget (QLabel, interfaceBRLabel)
+#: launcher/embeddedlauncher.ui:258
+#, kde-format
+msgid "            Baud rate:"
+msgstr "            Velocidad en baudios:"
+
+#. i18n: ectx: property (text), widget (QLabel, workdirLabel)
+#. i18n: ectx: property (text), widget (QLabel, workdirLabel2)
+#: launcher/embeddedlauncher.ui:265 launcher/embeddedlauncher.ui:456
+#, kde-format
+msgid "Working Directory:"
+msgstr "Directorio de trabajo:"
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, workingDirectory)
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, workingDirectory)
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, openocdWorkingDirectory)
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, openocdWorkingDirectory)
+#: launcher/embeddedlauncher.ui:281 launcher/embeddedlauncher.ui:284
+#: launcher/embeddedlauncher.ui:469 launcher/embeddedlauncher.ui:472
+#, kde-format
+msgid "Select a working directory for the executable"
+msgstr "Seleccione un directorio de trabajo para el ejecutable"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, argumentsCombo)
+#: launcher/embeddedlauncher.ui:304
+#, no-c-format, kde-format
+msgid ""
+"-C%avrdudeconf -v true -p%mcu -carduino -P%interface -b%baud -D -Uflash:w:"
+"%hex:i"
+msgstr ""
+"-C%avrdudeconf -v true -p%mcu -carduino -P%interface -b%baud -D -Uflash:w:"
+"%hex:i"
+
+#. i18n: ectx: property (text), widget (QLabel, argumentsLabel)
+#. i18n: ectx: property (text), widget (QLabel, argumentsLabel2)
+#: launcher/embeddedlauncher.ui:312 launcher/embeddedlauncher.ui:418
+#, kde-format
+msgid "Arguments:"
+msgstr "Argumentos:"
+
+#. i18n: ectx: property (text), widget (QLabel, commandLabel)
+#. i18n: ectx: property (text), widget (QLabel, commandLabel2)
+#: launcher/embeddedlauncher.ui:322 launcher/embeddedlauncher.ui:479
+#, kde-format
+msgid "Command:"
+msgstr "Orden:"
+
+#. i18n: ectx: property (toolTip), widget (KComboBox, commandCombo)
+#. i18n: ectx: property (toolTip), widget (KComboBox, openocdCommand)
+#: launcher/embeddedlauncher.ui:348 launcher/embeddedlauncher.ui:504
+#, no-c-format, kde-format
+msgid ""
+"<p>Defines the command to execute the external terminal emulator. Use the "
+"following placeholders:</p>\n"
+"<dl>\n"
+"<dt><code>%exe</code></dt>\n"
+"<dd>The path to the executable selected above.</dd>\n"
+"<dt><code>%workdir</code></dt>\n"
+"<dd>The path to the working directory selected above.</dd>\n"
+"</dl>\n"
+"<p>The arguments defined above will get appended to this command.</p>"
+msgstr ""
+"<p>Define la orden para ejecutar el emulador de terminal externo. Use las "
+"siguientes variables de sustitución:</p>\n"
+"<dl>\n"
+"<dt><code>%exe</code></dt>\n"
+"<dd>La ruta al ejecutable seleccionado más arriba.</dd>\n"
+"<dt><code>%workdir</code></dt>\n"
+"<dd>La ruta al directorio de trabajo seleccionado más arriba.</dd>\n"
+"</dl>\n"
+"<p>Los argumentos definidos anteriormente se añadirán a esta orden.</p>"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, commandCombo)
+#: launcher/embeddedlauncher.ui:358
+#, no-c-format, kde-format
+msgid "%avrdude"
+msgstr "%avrdude"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, commandCombo)
+#: launcher/embeddedlauncher.ui:363
+#, kde-format
+msgid "/usr/bin/avrdude"
+msgstr "/usr/bin/avrdude"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, openocdArgumentsCombo)
+#: launcher/embeddedlauncher.ui:438
+#, kde-format
+msgid "-f board/board.cfg"
+msgstr "-f board/board.cfg"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, openocdArgumentsCombo)
+#: launcher/embeddedlauncher.ui:443
+#, kde-format
+msgid "-f interface/interface.cfg -f target/target.cfg"
+msgstr "-f interface/interface.cfg -f target/target.cfg"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, openocdArgumentsCombo)
+#: launcher/embeddedlauncher.ui:448
+#, no-c-format, kde-format
+msgid ""
+"-f board/board.cfg -c init -c targets -c \"reset\" -c \"halt\" -c \"flash "
+"write_image erase %hex\" -c \"verify_image %hex\" -c \"reset run\" -c "
+"shutdown"
+msgstr ""
+"-f board/board.cfg -c init -c targets -c \"reset\" -c \"halt\" -c \"flash "
+"write_image erase %hex\" -c \"verify_image %hex\" -c \"reset run\" -c "
+"shutdown"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, openocdCommand)
+#: launcher/embeddedlauncher.ui:514
+#, no-c-format, kde-format
+msgid "%openocd"
+msgstr "%openocd"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, openocdCommand)
+#: launcher/embeddedlauncher.ui:519
+#, kde-format
+msgid "/usr/bin/openocd"
+msgstr "/usr/bin/openocd"
+
+#: launcher/executeplugin.cpp:128
+#, kde-format
+msgid ""
+"There is a quoting error in the arguments for the launch configuration '%1'. "
+"Aborting start."
+msgstr ""
+"Existe un error de comillas en los argumentos para la configuración del "
+"lanzador «%1». Se ha interrumpido en inicio."
+
+#: launcher/executeplugin.cpp:133
+#, kde-format
+msgid ""
+"A shell meta character was included in the arguments for the launch "
+"configuration '%1', this is not supported currently. Aborting start."
+msgstr ""
+"Se ha incluido un metacarácter de la terminal en los argumentos de la "
+"configuración de lanzamiento «%1». Esto no se permite en la actualidad. Se "
+"ha interrumpido el inicio."
+
+#: launcher/launcherjob.cpp:168
+#, kde-format
+msgid "Job already running"
+msgstr "El trabajo ya está en ejecución"
+
+#: launcher/launcherjob.cpp:168
+#, kde-format
+msgid "'%1' is already being executed. Should we kill the previous instance?"
+msgstr "Ya se está ejecutando «%1». ¿Se debe matar la instancia anterior?"
+
+#~ msgid "Upload"
+#~ msgstr "Enviar"
+
+#~ msgid ""
+#~ "Welcome,\n"
+#~ "\n"
+#~ "KDev-Embedded is still in alpha,\n"
+#~ "please be careful and report any problems you find.\n"
+#~ "\n"
+#~ "Have fun!"
+#~ msgstr ""
+#~ "Bienvenido,\n"
+#~ "\n"
+#~ "KDev-Embedded está aún en fase alfa.\n"
+#~ "Por favor, tenga cuidado y notifique cualquier problema que encuentre.\n"
+#~ "\n"
+#~ "¡Diviértase!"
+
+#~ msgid "Choose .hex file"
+#~ msgstr "Escoger archivo .hex"
+
+#~ msgctxt "<MCU name>, <MCU frequency>"
+#~ msgid "%1, %2"
+#~ msgstr "%1, %2"
+
+#~ msgid "Running...\n"
+#~ msgstr "Ejecutando...\n"
+
+#~ msgid ""
+#~ "Error during upload.\n"
+#~ "Code: %1\n"
+#~ "%2"
+#~ msgstr ""
+#~ "Ha ocurrido un error durante el envío.\n"
+#~ "Código: %1\n"
+#~ "%2"
+
+#~ msgid "Upload complete.\n"
+#~ msgstr "Envío completado.\n"
+
+#~ msgid ""
+#~ "<p>Processor:</p><ul><li>%1</li></ul><p>Frequency:</p><ul><li>%2</li></"
+#~ "ul><p>Memory:</p><ul><li>Flash (kB): %3</li><li>SRAM (kB): %4</li></ul>"
+#~ msgstr ""
+#~ "<p>Procesador:</p><ul><li>%1</li></ul><p>Frecuencia:</p><ul><li>%2</li></"
+#~ "ul><p>Memoria:</p><ul><li>Flash (kB): %3</li><li>SRAM (kB): %4</li></ul>"
+
+#~ msgid "Board Settings"
+#~ msgstr "Preferencias de la placa"
+
+#~ msgid "Arduino project"
+#~ msgstr "Proyecto para Arduino"
+
+#~ msgid "Compile"
+#~ msgstr "Compilar"
+
+#~ msgid "Upload binary"
+#~ msgstr "Enviar binario"
+
+#~ msgid "Verbose output"
+#~ msgstr "Salida detallada"
+
+#~ msgid "Binary"
+#~ msgstr "Binario"
+
+#~ msgid "Boar&d:"
+#~ msgstr "&Placa:"
+
+#~ msgid "MC&U and frequency:"
+#~ msgstr "MC&U y frecuencia:"
+
+#~ msgid "&Interface:"
+#~ msgstr "&Interfaz:"
+
+#~ msgid "Board status:"
+#~ msgstr "Estado de la placa:"
+
+#~ msgid "Board settings"
+#~ msgstr "Preferencias de la placa"
+
+#~ msgid "Configure board and interface configurations for embedded systems."
+#~ msgstr "Configurar la placa y la interfaz para sistemas empotrados."
+
+#~ msgid "Project and upload manager for embedded systems."
+#~ msgstr "Gestor de proyectos y de envíos para sistemas empotrados."
+
+#~ msgid "arduinowindow"
+#~ msgstr "ventanaarduino"
+
+#~ msgid "Embedded plugin"
+#~ msgstr "Complemento empotrado"
+
+#~ msgid "Extracting... (%1 KB)"
+#~ msgstr "Extrayendo... (%1 KB)"
+
+#~ msgid "E&xisting installation (Arduino SDK %1 or superior)"
+#~ msgstr "Instalación e&xistente (Arduino SDK %1 o superior)"
+
+#~ msgid "Auto&matic installation (Arduino SDK %1)"
+#~ msgstr "Instalación auto&mática (Arduino SDK %1)"
+
+#~ msgid "Interface baud rate:"
+#~ msgstr "Velocidad de la interfaz:"

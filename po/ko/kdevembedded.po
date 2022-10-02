@@ -1,0 +1,555 @@
+# Copyright (C) YEAR This file is copyright:
+# This file is distributed under the same license as the kdev-embedded package.
+# Shinjo Park <kde@peremen.name>, 2019, 2020.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: kdev-embedded\n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2019-05-20 03:19+0200\n"
+"PO-Revision-Date: 2020-04-05 13:24+0200\n"
+"Last-Translator: Shinjo Park <kde@peremen.name>\n"
+"Language-Team: Korean <kde-kr@kde.org>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Lokalize 19.04.3\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "박신조"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "kde@peremen.name"
+
+#: embedded.cpp:60
+#, kde-format
+msgid "Arduino Setup"
+msgstr "아두이노 설정"
+
+#: embedded.cpp:61
+#, kde-format
+msgid "Configure Arduino Toolkit."
+msgstr "아두이노 툴킷을 설정합니다."
+
+#: embedded.cpp:62
+#, kde-format
+msgid "Toolkit manager for Arduino programs."
+msgstr "아두이노 프로그램의 툴킷 관리자입니다."
+
+#: firsttimewizard.cpp:99
+#, kde-format
+msgid "<p>More information at: <a href=\"mailto:%1\">%1</a></p>"
+msgstr "<p>더 많은 정보: <a href=\"mailto:%1\">%1</a></p>"
+
+#: firsttimewizard.cpp:100
+#, kde-format
+msgid "Embedded plugin is an unofficial project by Patrick J. Pereira."
+msgstr "임베디드 플러그인은 Patrick J. Pereira의 비공식 프로젝트입니다."
+
+#: firsttimewizard.cpp:116
+#, kde-format
+msgid "Arduino %1 for %2"
+msgstr "%2의 아두이노 %1"
+
+#: firsttimewizard.cpp:213
+#, kde-format
+msgid "Downloading..."
+msgstr "다운로드 중..."
+
+#: firsttimewizard.cpp:224
+#, kde-format
+msgid "Downloaded"
+msgstr "다운로드됨"
+
+#: firsttimewizard.cpp:228
+#, kde-format
+msgid "Download cancelled"
+msgstr "다운로드 취소됨"
+
+#: firsttimewizard.cpp:251
+#, kde-format
+msgid "Extracting..."
+msgstr "압축 푸는 중..."
+
+#: firsttimewizard.cpp:263
+#, kde-format
+msgid "Extracting... "
+msgstr "압축 푸는 중..."
+
+#: firsttimewizard.cpp:275
+#, kde-format
+msgid "Extracted"
+msgstr "압축 풀림"
+
+#: firsttimewizard.cpp:377 firsttimewizard.cpp:387
+#, kde-format
+msgid "Find Files"
+msgstr "파일 찾기"
+
+#: firsttimewizard.cpp:405
+#, kde-format
+msgid "Downloading... (%1 / %2)"
+msgstr "다운로드 중...(%1/%2)"
+
+#. i18n: ectx: property (windowTitle), widget (QWizard, FirstTimeWizard)
+#: firsttimewizard.ui:14
+#, kde-format
+msgid "Wizard"
+msgstr "마법사"
+
+#. i18n: ectx: property (title), widget (QWizardPage, wizardPage1)
+#: firsttimewizard.ui:21
+#, kde-format
+msgid "First-time configuration"
+msgstr "첫 실행 설정"
+
+#. i18n: ectx: property (subTitle), widget (QWizardPage, wizardPage1)
+#: firsttimewizard.ui:24
+#, kde-format
+msgid ""
+"The plugin needs some information in order to work correctly.<br />Please "
+"fill them in the form below:"
+msgstr ""
+"이 플러그인이 올바르게 작동하려면 일부 정보가 필요합니다.<br />아래 양식에 입"
+"력하십시오:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: firsttimewizard.ui:33
+#, kde-format
+msgid "The Arduino location is needed to continue."
+msgstr "계속 진행하려면 아두이노 위치를 지정해야 합니다."
+
+#. i18n: ectx: property (text), widget (QRadioButton, existingInstallButton)
+#: firsttimewizard.ui:40
+#, kde-format
+msgid "E&xisting installation"
+msgstr "기존 설치(&X)"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: firsttimewizard.ui:67
+#, kde-format
+msgid "Ard&uino path:"
+msgstr "아두이노 경로(&U):"
+
+#. i18n: ectx: property (text), widget (QToolButton, arduinoPathButton)
+#. i18n: ectx: property (text), widget (QToolButton, sketchbookPathButton)
+#: firsttimewizard.ui:82 firsttimewizard.ui:163
+#, kde-format
+msgid "..."
+msgstr "..."
+
+#. i18n: ectx: property (text), widget (QRadioButton, automaticInstallButton)
+#: firsttimewizard.ui:95
+#, kde-format
+msgid "Auto&matic installation"
+msgstr "자동 설치(&M)"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: firsttimewizard.ui:120
+#, kde-format
+msgid ""
+"<p>This will download and install the software automatically from <a href="
+"\"http://arduino.cc/\">the Arduino website</a>.</p>"
+msgstr ""
+"<p>이 작업을 실행하면 <a href=\"http://arduino.cc/\">아두이노 웹사이트</a>에"
+"서 소프트웨어를 다운로드하여 설치합니다.</p>"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#. i18n: ectx: property (text), widget (QLabel, label_11)
+#: firsttimewizard.ui:132 firsttimewizard.ui:256
+#, kde-format
+msgid "<hr />"
+msgstr "<hr />"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: firsttimewizard.ui:139
+#, kde-format
+msgid ""
+"<p>The sketchbook folder is where the plugin will look for existing projects."
+"<br/>It will be created if it does not exist already.</p>"
+msgstr ""
+"<p>플러그인에서 기존 프로젝트를 찾을 스케치북 폴더입니다.<br/>해당 폴더가 없"
+"으면 새로 만듭니다.</p>"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: firsttimewizard.ui:148
+#, kde-format
+msgid "S&ketchbook path:"
+msgstr "스케치북 경로(&K):"
+
+#. i18n: ectx: property (title), widget (QWizardPage, wizardPage2)
+#: firsttimewizard.ui:175
+#, kde-format
+msgid "Automatic Installation"
+msgstr "자동 설치"
+
+#. i18n: ectx: property (subTitle), widget (QWizardPage, wizardPage2)
+#: firsttimewizard.ui:178
+#, kde-format
+msgid "The plugin will now download and install the required software."
+msgstr "이 플러그인에서 필요한 소프트웨어를 다운로드하여 설치합니다."
+
+#. i18n: ectx: property (text), widget (QLabel, label_8)
+#: firsttimewizard.ui:189
+#, kde-format
+msgid "Step 1: Download"
+msgstr "1단계: 다운로드"
+
+#. i18n: ectx: property (text), widget (QLabel, label_9)
+#: firsttimewizard.ui:265
+#, kde-format
+msgid "Step 2: Installation"
+msgstr "2단계: 설치"
+
+#. i18n: ectx: property (title), widget (QWizardPage, wizardPage3)
+#: firsttimewizard.ui:308
+#, kde-format
+msgid "Configuration successful"
+msgstr "설정 성공"
+
+#. i18n: ectx: property (subTitle), widget (QWizardPage, wizardPage3)
+#: firsttimewizard.ui:311
+#, kde-format
+msgid "The plugin is now ready."
+msgstr "플러그인이 준비되었습니다."
+
+#. i18n: ectx: property (text), widget (QLabel, label_7)
+#: firsttimewizard.ui:320
+#, kde-format
+msgid ""
+"The configuration is complete, you may now start using the IDE.<br />Thank "
+"you for using the software. Enjoy!"
+msgstr ""
+"설정이 완료되었습니다. IDE를 사용할 수 있습니다.<br /> 소프트웨어를 사용해 주"
+"셔서 감사합니다. 즐거운 코딩 되십시오!"
+
+#. i18n: ectx: Menu (Embedded)
+#: kdevembedded.rc:5
+#, kde-format
+msgctxt "@title:menu"
+msgid "Embedded"
+msgstr "임베디드"
+
+#: launcher/embeddedlauncher.cpp:234
+#, kde-format
+msgid "kdev-embedded"
+msgstr "kdev-embedded"
+
+#: launcher/embeddedlauncher.cpp:234
+#, kde-format
+msgid "Please run the first time wizard."
+msgstr "첫 실행 마법사를 실행하십시오."
+
+#: launcher/embeddedlauncher.cpp:243
+#, kde-format
+msgid "Please add a microcontroller"
+msgstr "마이크로컨트롤러를 추가하십시오"
+
+#: launcher/embeddedlauncher.cpp:253
+#, kde-format
+msgid ""
+"Please connect or select an interface, for example:\n"
+"/dev/ttyUSBx, /dev/ttyACMx, COMx, etc"
+msgstr ""
+"장치를 연결하거나 인터페이스를 선택하십시오. 예시:\n"
+"/dev/ttyUSBx, /dev/ttyACMx, COMx 등"
+
+#: launcher/embeddedlauncher.cpp:261
+#, kde-format
+msgid ""
+"Please choose or select a baudrate:\n"
+"19200, 57600, 115200, etc"
+msgstr ""
+"전송률을 입력하거나 선택하십시오:\n"
+"19200, 57600, 115200 등"
+
+#: launcher/embeddedlauncher.cpp:269
+#, kde-format
+msgid "Variables to programmer:\n"
+msgstr "프로그래머 변수:\n"
+
+#: launcher/embeddedlauncher.cpp:270
+#, kde-format
+msgid "%avrdudeconf\t- Specify location of configuration file.\n"
+msgstr "%avrdudeconf\t- 설정 파일의 위치를 지정하십시오.\n"
+
+#: launcher/embeddedlauncher.cpp:271
+#, kde-format
+msgid "%mcu\t- Required. Specify AVR device.\n"
+msgstr "%mcu\t- 필요합니다. AVR 장치를 지정하십시오.\n"
+
+#: launcher/embeddedlauncher.cpp:272
+#, kde-format
+msgid "%interface\t- Specify connection port.\n"
+msgstr "%interface\t- 연결 포트를 지정하십시오.\n"
+
+#: launcher/embeddedlauncher.cpp:273
+#, kde-format
+msgid "%baud\t- Override RS-232 baud rate.\n"
+msgstr "%baud\t- RS-232 전송률을 재지정합니다.\n"
+
+#: launcher/embeddedlauncher.cpp:274
+#, kde-format
+msgid "%hex\t- Firmware."
+msgstr "%hex\t- 펌웨어입니다."
+
+#: launcher/embeddedlauncher.cpp:281
+#, kde-format
+msgid ""
+"%avrdude - Avrdude is a program for downloading code and data to Atmel AVR "
+"microcontrollers."
+msgstr ""
+"%avrdude - Avrdude는 Atmel AVR 마이크로컨트롤러에 코드와 데이터를 다운로드하"
+"는 프로그램입니다."
+
+#: launcher/embeddedlauncher.cpp:345
+#, kde-format
+msgid "Configure Embedded Application"
+msgstr "임베디드 프로그램 설정"
+
+#: launcher/embeddedlauncher.cpp:359
+#, kde-format
+msgid "Upload applications to embedded platforms"
+msgstr "임베디드 플랫폼으로 프로그램 업로드"
+
+#: launcher/embeddedlauncher.cpp:369 launcher/embeddedlauncher.cpp:430
+#, kde-format
+msgid "Embedded"
+msgstr "임베디드"
+
+#: launcher/embeddedlauncher.cpp:510
+#, kde-format
+msgid "Embedded Binary"
+msgstr "임베디드 바이너리"
+
+#: launcher/embeddedlauncher.cpp:634
+#, kde-format
+msgid "Could not find interface"
+msgstr "인터페이스를 찾을 수 없음"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: launcher/embeddedlauncher.ui:17
+#, kde-format
+msgid "Firmware"
+msgstr "펌웨어"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: launcher/embeddedlauncher.ui:23
+#, kde-format
+msgid "Pro&ject Target:"
+msgstr "프로젝트 대상(&J):"
+
+#. i18n: ectx: property (text), widget (QLabel, label2)
+#: launcher/embeddedlauncher.ui:63
+#, kde-format
+msgid "Exec&utable:"
+msgstr "실행 파일(&U):"
+
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, executablePath)
+#: launcher/embeddedlauncher.ui:88
+#, kde-format
+msgid "Enter the executable name or absolute path to an executable file"
+msgstr "실행 파일의 이름이나 절대 경로를 입력하십시오"
+
+#. i18n: ectx: property (text), widget (QLabel, freqLabel)
+#: launcher/embeddedlauncher.ui:126
+#, kde-format
+msgid "MCU:"
+msgstr "MCU:"
+
+#. i18n: ectx: property (text), widget (QLabel, boardLabel)
+#: launcher/embeddedlauncher.ui:136
+#, kde-format
+msgid "Board:"
+msgstr "보드:"
+
+#. i18n: ectx: property (text), widget (QLabel, interfaceLabel)
+#: launcher/embeddedlauncher.ui:146
+#, kde-format
+msgid "Interface:"
+msgstr "인터페이스:"
+
+#. i18n: ectx: property (text), widget (QLabel, presetsLabel)
+#. i18n: ectx: property (text), widget (QLabel, presetsLabel2)
+#: launcher/embeddedlauncher.ui:159 launcher/embeddedlauncher.ui:391
+#, kde-format
+msgid "Presets:"
+msgstr "사전 설정:"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, presetsComboPage1)
+#. i18n: ectx: property (text), item, widget (QComboBox, presetsComboPage2)
+#: launcher/embeddedlauncher.ui:176 launcher/embeddedlauncher.ui:405
+#, kde-format
+msgid "Arduino"
+msgstr "아두이노"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, presetsComboPage1)
+#. i18n: ectx: property (text), item, widget (QComboBox, presetsComboPage2)
+#: launcher/embeddedlauncher.ui:181 launcher/embeddedlauncher.ui:410
+#, kde-format
+msgid "OpenOCD"
+msgstr "OpenOCD"
+
+#. i18n: ectx: property (text), item, widget (QComboBox, boardCombo)
+#: launcher/embeddedlauncher.ui:196
+#, kde-format
+msgid "Nano"
+msgstr "Nano"
+
+#. i18n: ectx: property (toolTip), widget (KComboBox, interfaceCombo)
+#: launcher/embeddedlauncher.ui:210
+#, kde-format
+msgid "Please, connect an interface"
+msgstr "인터페이스를 연결하십시오"
+
+#. i18n: ectx: property (text), widget (QLabel, interfaceBRLabel)
+#: launcher/embeddedlauncher.ui:258
+#, kde-format
+msgid "            Baud rate:"
+msgstr "            전송률:"
+
+#. i18n: ectx: property (text), widget (QLabel, workdirLabel)
+#. i18n: ectx: property (text), widget (QLabel, workdirLabel2)
+#: launcher/embeddedlauncher.ui:265 launcher/embeddedlauncher.ui:456
+#, kde-format
+msgid "Working Directory:"
+msgstr "작업 디렉터리:"
+
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, workingDirectory)
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, workingDirectory)
+#. i18n: ectx: property (toolTip), widget (KUrlRequester, openocdWorkingDirectory)
+#. i18n: ectx: property (placeholderText), widget (KUrlRequester, openocdWorkingDirectory)
+#: launcher/embeddedlauncher.ui:281 launcher/embeddedlauncher.ui:284
+#: launcher/embeddedlauncher.ui:469 launcher/embeddedlauncher.ui:472
+#, kde-format
+msgid "Select a working directory for the executable"
+msgstr "실행 파일의 작업 디렉터리를 선택하십시오"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, argumentsCombo)
+#: launcher/embeddedlauncher.ui:304
+#, no-c-format, kde-format
+msgid ""
+"-C%avrdudeconf -v true -p%mcu -carduino -P%interface -b%baud -D -Uflash:w:"
+"%hex:i"
+msgstr ""
+"-C%avrdudeconf -v true -p%mcu -carduino -P%interface -b%baud -D -Uflash:w:"
+"%hex:i"
+
+#. i18n: ectx: property (text), widget (QLabel, argumentsLabel)
+#. i18n: ectx: property (text), widget (QLabel, argumentsLabel2)
+#: launcher/embeddedlauncher.ui:312 launcher/embeddedlauncher.ui:418
+#, kde-format
+msgid "Arguments:"
+msgstr "인자:"
+
+#. i18n: ectx: property (text), widget (QLabel, commandLabel)
+#. i18n: ectx: property (text), widget (QLabel, commandLabel2)
+#: launcher/embeddedlauncher.ui:322 launcher/embeddedlauncher.ui:479
+#, kde-format
+msgid "Command:"
+msgstr "명령:"
+
+#. i18n: ectx: property (toolTip), widget (KComboBox, commandCombo)
+#. i18n: ectx: property (toolTip), widget (KComboBox, openocdCommand)
+#: launcher/embeddedlauncher.ui:348 launcher/embeddedlauncher.ui:504
+#, no-c-format, kde-format
+msgid ""
+"<p>Defines the command to execute the external terminal emulator. Use the "
+"following placeholders:</p>\n"
+"<dl>\n"
+"<dt><code>%exe</code></dt>\n"
+"<dd>The path to the executable selected above.</dd>\n"
+"<dt><code>%workdir</code></dt>\n"
+"<dd>The path to the working directory selected above.</dd>\n"
+"</dl>\n"
+"<p>The arguments defined above will get appended to this command.</p>"
+msgstr ""
+"<p>외부 터미널 에뮬레이터를 실행할 명령입니다. 다음 자리 비움자를 사용할 수 "
+"있습니다:</p>\n"
+"<dl>\n"
+"<dt><code>%exe</code></dt>\n"
+"<dd>지정한 실행 파일의 경로입니다.</dd>\n"
+"<dt><code>%workdir</code></dt>\n"
+"<dd>지정한 작업 디렉터리 경로입니다.</dd>\n"
+"</dl>\n"
+"<p>위에 지정한 인자를 이 명령에 덧붙입니다.</p>"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, commandCombo)
+#: launcher/embeddedlauncher.ui:358
+#, no-c-format, kde-format
+msgid "%avrdude"
+msgstr "%avrdude"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, commandCombo)
+#: launcher/embeddedlauncher.ui:363
+#, kde-format
+msgid "/usr/bin/avrdude"
+msgstr "/usr/bin/avrdude"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, openocdArgumentsCombo)
+#: launcher/embeddedlauncher.ui:438
+#, kde-format
+msgid "-f board/board.cfg"
+msgstr "-f board/board.cfg"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, openocdArgumentsCombo)
+#: launcher/embeddedlauncher.ui:443
+#, kde-format
+msgid "-f interface/interface.cfg -f target/target.cfg"
+msgstr "-f interface/interface.cfg -f target/target.cfg"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, openocdArgumentsCombo)
+#: launcher/embeddedlauncher.ui:448
+#, no-c-format, kde-format
+msgid ""
+"-f board/board.cfg -c init -c targets -c \"reset\" -c \"halt\" -c \"flash "
+"write_image erase %hex\" -c \"verify_image %hex\" -c \"reset run\" -c "
+"shutdown"
+msgstr ""
+"-f board/board.cfg -c init -c targets -c \"reset\" -c \"halt\" -c \"flash "
+"write_image erase %hex\" -c \"verify_image %hex\" -c \"reset run\" -c "
+"shutdown"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, openocdCommand)
+#: launcher/embeddedlauncher.ui:514
+#, no-c-format, kde-format
+msgid "%openocd"
+msgstr "%openocd"
+
+#. i18n: ectx: property (text), item, widget (KComboBox, openocdCommand)
+#: launcher/embeddedlauncher.ui:519
+#, kde-format
+msgid "/usr/bin/openocd"
+msgstr "/usr/bin/openocd"
+
+#: launcher/executeplugin.cpp:128
+#, kde-format
+msgid ""
+"There is a quoting error in the arguments for the launch configuration '%1'. "
+"Aborting start."
+msgstr "실행 설정 '%1'에서 인자의 따옴표 오류를 찾았습니다. 중단합니다."
+
+#: launcher/executeplugin.cpp:133
+#, kde-format
+msgid ""
+"A shell meta character was included in the arguments for the launch "
+"configuration '%1', this is not supported currently. Aborting start."
+msgstr ""
+"셸 메타 문자가 '%1' 실행 설정의 인자로 추가되었습니다. 현재는 지원하지 않는 "
+"설정입니다. 중단합니다."
+
+#: launcher/launcherjob.cpp:168
+#, kde-format
+msgid "Job already running"
+msgstr "작업이 이미 실행 중"
+
+#: launcher/launcherjob.cpp:168
+#, kde-format
+msgid "'%1' is already being executed. Should we kill the previous instance?"
+msgstr "'%1'이(가) 이미 실행 중입니다. 이전 인스턴스를 강제 종료하시겠습니까?"
