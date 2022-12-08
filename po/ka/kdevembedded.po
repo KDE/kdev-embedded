@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kdev-embedded\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-05-20 03:19+0200\n"
-"PO-Revision-Date: 2022-10-08 10:54+0200\n"
+"PO-Revision-Date: 2022-12-07 15:53+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.1.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -31,12 +31,12 @@ msgstr "Temuri.doghonadze@gmail.com"
 #: embedded.cpp:60
 #, kde-format
 msgid "Arduino Setup"
-msgstr ""
+msgstr "Arduino -ის მორგება"
 
 #: embedded.cpp:61
 #, kde-format
 msgid "Configure Arduino Toolkit."
-msgstr ""
+msgstr "Arduino-ის ხელსაწყოების მორგება."
 
 #: embedded.cpp:62
 #, kde-format
@@ -46,7 +46,7 @@ msgstr ""
 #: firsttimewizard.cpp:99
 #, kde-format
 msgid "<p>More information at: <a href=\"mailto:%1\">%1</a></p>"
-msgstr ""
+msgstr "<p>მეტი ინფორმაციისთვის იხილეთ: <a href=\"mailto:%1\">%1</a></p>"
 
 #: firsttimewizard.cpp:100
 #, kde-format
@@ -71,17 +71,17 @@ msgstr "გადმოწერილია"
 #: firsttimewizard.cpp:228
 #, kde-format
 msgid "Download cancelled"
-msgstr ""
+msgstr "გადმოწერა გაუქმდა"
 
 #: firsttimewizard.cpp:251
 #, kde-format
 msgid "Extracting..."
-msgstr ""
+msgstr "გაშლა..."
 
 #: firsttimewizard.cpp:263
 #, kde-format
 msgid "Extracting... "
-msgstr ""
+msgstr "გაშლა... "
 
 #: firsttimewizard.cpp:275
 #, kde-format
@@ -91,12 +91,12 @@ msgstr "გამოშლილი"
 #: firsttimewizard.cpp:377 firsttimewizard.cpp:387
 #, kde-format
 msgid "Find Files"
-msgstr ""
+msgstr "ფაილების პოვნა"
 
 #: firsttimewizard.cpp:405
 #, kde-format
 msgid "Downloading... (%1 / %2)"
-msgstr ""
+msgstr "გადმოწერა... (%1 / %2)"
 
 #. i18n: ectx: property (windowTitle), widget (QWizard, FirstTimeWizard)
 #: firsttimewizard.ui:14
@@ -108,7 +108,7 @@ msgstr "ოსტატი"
 #: firsttimewizard.ui:21
 #, kde-format
 msgid "First-time configuration"
-msgstr ""
+msgstr "პირველი გაშვების მორგება"
 
 #. i18n: ectx: property (subTitle), widget (QWizardPage, wizardPage1)
 #: firsttimewizard.ui:24
@@ -122,13 +122,13 @@ msgstr ""
 #: firsttimewizard.ui:33
 #, kde-format
 msgid "The Arduino location is needed to continue."
-msgstr ""
+msgstr "გასაგრძელებლად საჭიროა Arduino-ის მდებარეობის მითითება."
 
 #. i18n: ectx: property (text), widget (QRadioButton, existingInstallButton)
 #: firsttimewizard.ui:40
 #, kde-format
 msgid "E&xisting installation"
-msgstr ""
+msgstr "&არსებული დაყენებული"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: firsttimewizard.ui:67
@@ -147,7 +147,7 @@ msgstr "..."
 #: firsttimewizard.ui:95
 #, kde-format
 msgid "Auto&matic installation"
-msgstr ""
+msgstr "&ავტომატურად დაყენება"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: firsttimewizard.ui:120
@@ -162,7 +162,7 @@ msgstr ""
 #: firsttimewizard.ui:132 firsttimewizard.ui:256
 #, kde-format
 msgid "<hr />"
-msgstr ""
+msgstr "<hr />"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: firsttimewizard.ui:139
@@ -182,37 +182,37 @@ msgstr ""
 #: firsttimewizard.ui:175
 #, kde-format
 msgid "Automatic Installation"
-msgstr ""
+msgstr "ავტომატურად დაყენება"
 
 #. i18n: ectx: property (subTitle), widget (QWizardPage, wizardPage2)
 #: firsttimewizard.ui:178
 #, kde-format
 msgid "The plugin will now download and install the required software."
-msgstr ""
+msgstr "ეს დამატება ახლა ყველა საჭირო პროგრამას გადმოწერს და დააყენებს."
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: firsttimewizard.ui:189
 #, kde-format
 msgid "Step 1: Download"
-msgstr ""
+msgstr "ნაბიჯი 1: გადმოწერა"
 
 #. i18n: ectx: property (text), widget (QLabel, label_9)
 #: firsttimewizard.ui:265
 #, kde-format
 msgid "Step 2: Installation"
-msgstr ""
+msgstr "ნაბიჯი 2: დაყენება"
 
 #. i18n: ectx: property (title), widget (QWizardPage, wizardPage3)
 #: firsttimewizard.ui:308
 #, kde-format
 msgid "Configuration successful"
-msgstr ""
+msgstr "მორგება წარმატებულია"
 
 #. i18n: ectx: property (subTitle), widget (QWizardPage, wizardPage3)
 #: firsttimewizard.ui:311
 #, kde-format
 msgid "The plugin is now ready."
-msgstr ""
+msgstr "დამატება ახლა მზადაა."
 
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #: firsttimewizard.ui:320
@@ -232,17 +232,17 @@ msgstr "Embedded"
 #: launcher/embeddedlauncher.cpp:234
 #, kde-format
 msgid "kdev-embedded"
-msgstr ""
+msgstr "kdev-embedded"
 
 #: launcher/embeddedlauncher.cpp:234
 #, kde-format
 msgid "Please run the first time wizard."
-msgstr ""
+msgstr "გაუშვით პირველი გაშვების ოსტატი."
 
 #: launcher/embeddedlauncher.cpp:243
 #, kde-format
 msgid "Please add a microcontroller"
-msgstr ""
+msgstr "დაამატეთ მიკროკონტროლერი"
 
 #: launcher/embeddedlauncher.cpp:253
 #, kde-format
@@ -261,7 +261,7 @@ msgstr ""
 #: launcher/embeddedlauncher.cpp:269
 #, kde-format
 msgid "Variables to programmer:\n"
-msgstr ""
+msgstr "პროგრამატორის ცვლადები\n"
 
 #: launcher/embeddedlauncher.cpp:270
 #, kde-format
@@ -286,7 +286,7 @@ msgstr ""
 #: launcher/embeddedlauncher.cpp:274
 #, kde-format
 msgid "%hex\t- Firmware."
-msgstr ""
+msgstr "%hex\t- მიკროკოდი."
 
 #: launcher/embeddedlauncher.cpp:281
 #, kde-format
@@ -298,12 +298,12 @@ msgstr ""
 #: launcher/embeddedlauncher.cpp:345
 #, kde-format
 msgid "Configure Embedded Application"
-msgstr ""
+msgstr "ჩაშენებული აპლიკაციისმორგება"
 
 #: launcher/embeddedlauncher.cpp:359
 #, kde-format
 msgid "Upload applications to embedded platforms"
-msgstr ""
+msgstr "აპლიკაციების ჩაშენებულ პლატფორმებზე ატვირთვა"
 
 #: launcher/embeddedlauncher.cpp:369 launcher/embeddedlauncher.cpp:430
 #, kde-format
@@ -318,7 +318,7 @@ msgstr ""
 #: launcher/embeddedlauncher.cpp:634
 #, kde-format
 msgid "Could not find interface"
-msgstr ""
+msgstr "ინტერფეისი ვერ ვიპოვე"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: launcher/embeddedlauncher.ui:17
@@ -330,13 +330,13 @@ msgstr "მიკროკოდი"
 #: launcher/embeddedlauncher.ui:23
 #, kde-format
 msgid "Pro&ject Target:"
-msgstr ""
+msgstr "&პროექტის სამიზნე:"
 
 #. i18n: ectx: property (text), widget (QLabel, label2)
 #: launcher/embeddedlauncher.ui:63
 #, kde-format
 msgid "Exec&utable:"
-msgstr ""
+msgstr "&გამშვები:"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, executablePath)
 #: launcher/embeddedlauncher.ui:88
@@ -393,7 +393,7 @@ msgstr "Nano"
 #: launcher/embeddedlauncher.ui:210
 #, kde-format
 msgid "Please, connect an interface"
-msgstr ""
+msgstr "შეაერთეთ ინტერფეისი"
 
 #. i18n: ectx: property (text), widget (QLabel, interfaceBRLabel)
 #: launcher/embeddedlauncher.ui:258
