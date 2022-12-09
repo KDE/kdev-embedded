@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kdev-embedded\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-05-20 03:19+0200\n"
-"PO-Revision-Date: 2022-12-07 15:53+0100\n"
+"PO-Revision-Date: 2022-12-08 07:20+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -41,7 +41,7 @@ msgstr "Arduino-ის ხელსაწყოების მორგებ�
 #: embedded.cpp:62
 #, kde-format
 msgid "Toolkit manager for Arduino programs."
-msgstr ""
+msgstr "ხელსაწყოების ნაკრები Arduino-ის პროგრამებისთვის."
 
 #: firsttimewizard.cpp:99
 #, kde-format
@@ -51,12 +51,12 @@ msgstr "<p>მეტი ინფორმაციისთვის იხი�
 #: firsttimewizard.cpp:100
 #, kde-format
 msgid "Embedded plugin is an unofficial project by Patrick J. Pereira."
-msgstr ""
+msgstr "ჩადგმული დამატება Patrick J. Pereira-ის არაოფიციალური პროექტია."
 
 #: firsttimewizard.cpp:116
 #, kde-format
 msgid "Arduino %1 for %2"
-msgstr ""
+msgstr "Arduino %1-ი %2-სთვის"
 
 #: firsttimewizard.cpp:213
 #, kde-format
@@ -117,6 +117,8 @@ msgid ""
 "The plugin needs some information in order to work correctly.<br />Please "
 "fill them in the form below:"
 msgstr ""
+"სწორად სამუშაოდ ამ დამატებას ინფორმაცია ესაჭიროება. <br/>შეავსეთ ქვემო "
+"ველები:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: firsttimewizard.ui:33
@@ -156,6 +158,8 @@ msgid ""
 "<p>This will download and install the software automatically from <a href="
 "\"http://arduino.cc/\">the Arduino website</a>.</p>"
 msgstr ""
+"<p>ეს ავტომატურად გადმოწერს და დააყენებს საჭირო პროგრამებს <a href=\"http://"
+"arduino.cc/\">Arduino -ის საიტიდან</a>.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #. i18n: ectx: property (text), widget (QLabel, label_11)
@@ -171,12 +175,14 @@ msgid ""
 "<p>The sketchbook folder is where the plugin will look for existing projects."
 "<br/>It will be created if it does not exist already.</p>"
 msgstr ""
+"<p>საქაღალდე, სადაც დამატება არსებულ პროექტებს მოძებნის.<br/>თუ არ არსებობს, "
+"ისე შეიქმნება.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: firsttimewizard.ui:148
 #, kde-format
 msgid "S&ketchbook path:"
-msgstr ""
+msgstr "&პროექტების ბილიკი:"
 
 #. i18n: ectx: property (title), widget (QWizardPage, wizardPage2)
 #: firsttimewizard.ui:175
@@ -221,6 +227,8 @@ msgid ""
 "The configuration is complete, you may now start using the IDE.<br />Thank "
 "you for using the software. Enjoy!"
 msgstr ""
+"მორგება დასრულდა. IDE ახლა გამოყენებადია. <br /> მადლობა ამ პროგრამის "
+"გამოყენებისთვის. ისიამოვნეთ!"
 
 #. i18n: ectx: Menu (Embedded)
 #: kdevembedded.rc:5
@@ -250,6 +258,8 @@ msgid ""
 "Please connect or select an interface, for example:\n"
 "/dev/ttyUSBx, /dev/ttyACMx, COMx, etc"
 msgstr ""
+"მიაერთეთ ან აირჩიეთ ინტერფეისი. მაგ:\n"
+"/dev/ttyUSBx, /dev/ttyACMx, COMx, და სხვ"
 
 #: launcher/embeddedlauncher.cpp:261
 #, kde-format
@@ -257,6 +267,8 @@ msgid ""
 "Please choose or select a baudrate:\n"
 "19200, 57600, 115200, etc"
 msgstr ""
+"აირჩიეთ ან შეიყვანეთ ბოდების სიხშირე:\n"
+"19200, 57600, 115200, ა. შ"
 
 #: launcher/embeddedlauncher.cpp:269
 #, kde-format
@@ -266,22 +278,22 @@ msgstr "პროგრამატორის ცვლადები\n"
 #: launcher/embeddedlauncher.cpp:270
 #, kde-format
 msgid "%avrdudeconf\t- Specify location of configuration file.\n"
-msgstr ""
+msgstr "%avrdudeconf\t- მიუთითეთ კონფიგურაციის ფაილის მდებარეობა\n"
 
 #: launcher/embeddedlauncher.cpp:271
 #, kde-format
 msgid "%mcu\t- Required. Specify AVR device.\n"
-msgstr ""
+msgstr "%mcu\t- აუცილებელია. მიუთითეთ AVR მოწყობილობა.\n"
 
 #: launcher/embeddedlauncher.cpp:272
 #, kde-format
 msgid "%interface\t- Specify connection port.\n"
-msgstr ""
+msgstr "%interface\t- მიუთეთ მისაერთებელი პორტი.\n"
 
 #: launcher/embeddedlauncher.cpp:273
 #, kde-format
 msgid "%baud\t- Override RS-232 baud rate.\n"
-msgstr ""
+msgstr "%baud\t- RS-232 -ის ბოდური სიხშირის გადაფარვა.\n"
 
 #: launcher/embeddedlauncher.cpp:274
 #, kde-format
@@ -294,6 +306,8 @@ msgid ""
 "%avrdude - Avrdude is a program for downloading code and data to Atmel AVR "
 "microcontrollers."
 msgstr ""
+"%avrdude - Avrdude -ი Atmel AVR მიკროკონტროლერებში კოდის გადმოსაწერი "
+"პროგრამაა."
 
 #: launcher/embeddedlauncher.cpp:345
 #, kde-format
@@ -313,7 +327,7 @@ msgstr "Embedded"
 #: launcher/embeddedlauncher.cpp:510
 #, kde-format
 msgid "Embedded Binary"
-msgstr ""
+msgstr "ჩაშენებული ბინარული ფაილი"
 
 #: launcher/embeddedlauncher.cpp:634
 #, kde-format
@@ -342,7 +356,7 @@ msgstr "&გამშვები:"
 #: launcher/embeddedlauncher.ui:88
 #, kde-format
 msgid "Enter the executable name or absolute path to an executable file"
-msgstr ""
+msgstr "შეიყვანეთ გამშვები ფაილის სახელი ან აბსოლუტური ბილიკი გამშვებ ფაილამდე"
 
 #. i18n: ectx: property (text), widget (QLabel, freqLabel)
 #: launcher/embeddedlauncher.ui:126
@@ -541,3 +555,4 @@ msgstr "დავალება უკვე გაშვებულია"
 #, kde-format
 msgid "'%1' is already being executed. Should we kill the previous instance?"
 msgstr ""
+"'%1' -ის შესრულება უკვე მიმდინარეობს. გნებავთ წინა გაშვებული ასლის მოკვლა?"
