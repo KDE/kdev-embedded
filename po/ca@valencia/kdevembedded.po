@@ -123,7 +123,7 @@ msgid ""
 "fill them in the form below:"
 msgstr ""
 "El connector necessita alguna informació per tal de funcionar correctament."
-"<br />Empleneu el següent formulari:"
+"<br />Empleneu el formulari següent:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: firsttimewizard.ui:33
@@ -363,7 +363,7 @@ msgstr "Exec&utable:"
 #, kde-format
 msgid "Enter the executable name or absolute path to an executable file"
 msgstr ""
-"Introduïu el nom de l'executable o el camí absolut a un fitxer executable"
+"Introduïu el nom de l'executable o el camí absolut cap a un fitxer executable"
 
 #. i18n: ectx: property (text), widget (QLabel, freqLabel)
 #: launcher/embeddedlauncher.ui:126
