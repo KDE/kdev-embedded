@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Emir SARI <emir_sari@icloud.com>, 2022.
+# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kdevembedded\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-05-20 03:19+0200\n"
-"PO-Revision-Date: 2022-11-24 16:53+0300\n"
+"PO-Revision-Date: 2023-01-31 01:05+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.08.3\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -157,7 +157,7 @@ msgid ""
 "<p>This will download and install the software automatically from <a href="
 "\"http://arduino.cc/\">the Arduino website</a>.</p>"
 msgstr ""
-"<p>Buradan otomatik olarak yazılımı indirir ve yükler <a href=\"http://"
+"<p>Buradan otomatik olarak yazılımı indirir ve kurar: <a href=\"http://"
 "arduino.cc/\">Arduino web sitesi</a>.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
@@ -193,7 +193,7 @@ msgstr "Otomatik Kurulum"
 #: firsttimewizard.ui:178
 #, kde-format
 msgid "The plugin will now download and install the required software."
-msgstr "Eklenti şimdi istenilen yazılımı indirecek ve yükleyecektir."
+msgstr "Eklenti şimdi istenilen yazılımı indirecek ve kuracaktır."
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: firsttimewizard.ui:189
