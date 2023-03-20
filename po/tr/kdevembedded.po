@@ -174,7 +174,7 @@ msgid ""
 "<p>The sketchbook folder is where the plugin will look for existing projects."
 "<br/>It will be created if it does not exist already.</p>"
 msgstr ""
-"</p>Eskiz defteri klasörü, Eklentinin mevcut projeleri araştırdığı yerdir."
+"<p>Eskiz defteri klasörü, Eklentinin var olan projeleri araştırdığı yerdir."
 "<br/>Daha önce var olmamış ise oluşturulur.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
