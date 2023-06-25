@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2019-05-20 03:19+0200\n"
-"PO-Revision-Date: 2023-04-23 05:44+0200\n"
+"PO-Revision-Date: 2023-06-24 12:22+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.04.2\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -293,7 +293,7 @@ msgstr "%interface\t- Indique un porto de conexión.\n"
 #: launcher/embeddedlauncher.cpp:273
 #, kde-format
 msgid "%baud\t- Override RS-232 baud rate.\n"
-msgstr "%baud\t- Sobrepor a velocidade en baud RS-232.\n"
+msgstr "%baud\t- Sobredefinir a velocidade en baud RS-232.\n"
 
 #: launcher/embeddedlauncher.cpp:274
 #, kde-format
@@ -409,7 +409,7 @@ msgstr "Nano"
 #: launcher/embeddedlauncher.ui:210
 #, kde-format
 msgid "Please, connect an interface"
-msgstr "Conecte unha interface:"
+msgstr "Conecte unha interface."
 
 #. i18n: ectx: property (text), widget (QLabel, interfaceBRLabel)
 #: launcher/embeddedlauncher.ui:258
@@ -422,7 +422,7 @@ msgstr "            Velocidade en baud:"
 #: launcher/embeddedlauncher.ui:265 launcher/embeddedlauncher.ui:456
 #, kde-format
 msgid "Working Directory:"
-msgstr "Directorio de traballo:"
+msgstr "Cartafol de traballo:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, workingDirectory)
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, workingDirectory)
@@ -432,7 +432,7 @@ msgstr "Directorio de traballo:"
 #: launcher/embeddedlauncher.ui:469 launcher/embeddedlauncher.ui:472
 #, kde-format
 msgid "Select a working directory for the executable"
-msgstr "Escolla un directorio de traballo para o executábel"
+msgstr "Escolla un cartafol de traballo para o executábel."
 
 #. i18n: ectx: property (text), item, widget (KComboBox, argumentsCombo)
 #: launcher/embeddedlauncher.ui:304
@@ -479,7 +479,7 @@ msgstr ""
 "<dt><code>%exe</code></dt>\n"
 "<dd>Ruta ao executábel seleccionado máis arriba.</dd>\n"
 "<dt><code>%workdir</code></dt>\n"
-"<dd>Ruta ao directorio de traballo seleccionado máis arriba.</dd>\n"
+"<dd>Ruta ao cartafol de traballo seleccionado máis arriba.</dd>\n"
 "</dl>\n"
 "<p>Os argumentos definidos máis arriba engadiranse a esta orde.</p>"
 
@@ -537,7 +537,7 @@ msgid ""
 "There is a quoting error in the arguments for the launch configuration '%1'. "
 "Aborting start."
 msgstr ""
-"Hai un erro de aspas nos argumentos da configuración de iniciar «%1». "
+"Hai un erro de comiñas nos argumentos da configuración de iniciar «%1». "
 "Interrómpese o inicio."
 
 #: launcher/executeplugin.cpp:133
