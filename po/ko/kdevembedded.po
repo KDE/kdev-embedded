@@ -311,12 +311,12 @@ msgstr ""
 #: launcher/embeddedlauncher.cpp:345
 #, kde-format
 msgid "Configure Embedded Application"
-msgstr "임베디드 프로그램 설정"
+msgstr "임베디드 앱 설정"
 
 #: launcher/embeddedlauncher.cpp:359
 #, kde-format
 msgid "Upload applications to embedded platforms"
-msgstr "임베디드 플랫폼으로 프로그램 업로드"
+msgstr "임베디드 플랫폼으로 앱 업로드"
 
 #: launcher/embeddedlauncher.cpp:369 launcher/embeddedlauncher.cpp:430
 #, kde-format
