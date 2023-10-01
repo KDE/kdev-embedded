@@ -333,7 +333,7 @@ msgstr "Binario integrado"
 #: launcher/embeddedlauncher.cpp:634
 #, kde-format
 msgid "Could not find interface"
-msgstr "Non se puido atopar a interface."
+msgstr "Non foi posíbel atopar a interface."
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: launcher/embeddedlauncher.ui:17
