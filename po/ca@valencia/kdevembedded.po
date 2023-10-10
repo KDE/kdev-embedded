@@ -543,8 +543,8 @@ msgid ""
 "There is a quoting error in the arguments for the launch configuration '%1'. "
 "Aborting start."
 msgstr ""
-"Hi ha un error de citació en els arguments de la configuració del llançament "
-"«%1». S'interromp."
+"S'ha produït un error de citació en els arguments de la configuració del "
+"llançament «%1». S'interromp."
 
 #: launcher/executeplugin.cpp:133
 #, kde-format
