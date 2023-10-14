@@ -187,7 +187,7 @@ msgstr ""
 #: firsttimewizard.ui:148
 #, kde-format
 msgid "S&ketchbook path:"
-msgstr "Camí a «sketchbook»:"
+msgstr "Camí cap a «sketchbook»:"
 
 #. i18n: ectx: property (title), widget (QWizardPage, wizardPage2)
 #: firsttimewizard.ui:175
