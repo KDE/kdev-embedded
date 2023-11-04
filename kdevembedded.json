@@ -27,7 +27,6 @@
         "Description[sv]": "Inbäddat insticksprogram",
         "Description[tr]": "Gümülü Eklenti",
         "Description[uk]": "Додаток вбудованих систем",
-        "Description[x-test]": "xxEmbedded Pluginxx",
         "Description[zh_CN]": "嵌入式插件",
         "Description[zh_TW]": "嵌入式外掛",
         "Icon": "project-development-new-template",
@@ -58,7 +57,6 @@
         "Name[sv]": "Inbäddade system",
         "Name[tr]": "Gömülü sistemler",
         "Name[uk]": "Вбудовані системи",
-        "Name[x-test]": "xxEmbedded systemsxx",
         "Name[zh_CN]": "嵌入式系统",
         "Name[zh_TW]": "嵌入式系統",
         "ServiceTypes": [
