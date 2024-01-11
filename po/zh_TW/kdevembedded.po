@@ -2,30 +2,31 @@
 # This file is distributed under the same license as the PACKAGE package.
 #
 # pan93412 <pan93412@gmail.com>, 2018.
+# SPDX-FileCopyrightText: 2024 Kisaragi Hiu <mail@kisaragi-hiu.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kdevembedded\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-05 12:27+0000\n"
-"PO-Revision-Date: 2018-07-27 01:06+0800\n"
-"Last-Translator: pan93412 <pan93412@gmail.com>\n"
-"Language-Team: Chinese <zh-l10n@lists.linux.org.tw>\n"
+"PO-Revision-Date: 2024-01-10 14:04+0900\n"
+"Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
+"Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
 "Language: Traditional Chinese\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Lokalize 23.08.4\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "pan93412"
+msgstr "pan93412, Kisaragi Hiu"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "pan93412@gmail.com"
+msgstr "pan93412@gmail.com, mail@kisaragi-hiu.com"
 
 #: embedded.cpp:60
 #, kde-format
@@ -40,74 +41,74 @@ msgstr "設定 Arduino 工具箱。"
 #: embedded.cpp:62
 #, kde-format
 msgid "Toolkit manager for Arduino programs."
-msgstr ""
+msgstr "Arduino 程式用的工具箱管理器。"
 
 #: firsttimewizard.cpp:99
 #, kde-format
 msgid "<p>More information at: <a href=\"mailto:%1\">%1</a></p>"
-msgstr ""
+msgstr "<p>更多資訊在：<a href=\"mailto:%1\">%1</a></p>"
 
 #: firsttimewizard.cpp:100
 #, kde-format
 msgid "Embedded plugin is an unofficial project by Patrick J. Pereira."
-msgstr ""
+msgstr "嵌入式外掛程式是由 Patrick J. Pereira 所做的非官方專案。"
 
 #: firsttimewizard.cpp:116
 #, kde-format
 msgid "Arduino %1 for %2"
-msgstr ""
+msgstr "%2 用的 Arduino %1"
 
 #: firsttimewizard.cpp:213
 #, kde-format
 msgid "Downloading..."
-msgstr ""
+msgstr "下載中..."
 
 #: firsttimewizard.cpp:224
 #, kde-format
 msgid "Downloaded"
-msgstr ""
+msgstr "已下載"
 
 #: firsttimewizard.cpp:228
 #, kde-format
 msgid "Download cancelled"
-msgstr ""
+msgstr "下載已取消"
 
 #: firsttimewizard.cpp:251
 #, kde-format
 msgid "Extracting..."
-msgstr ""
+msgstr "解壓中..."
 
 #: firsttimewizard.cpp:263
 #, kde-format
 msgid "Extracting... "
-msgstr ""
+msgstr "解壓中... "
 
 #: firsttimewizard.cpp:275
 #, kde-format
 msgid "Extracted"
-msgstr ""
+msgstr "已解壓"
 
 #: firsttimewizard.cpp:377 firsttimewizard.cpp:387
 #, kde-format
 msgid "Find Files"
-msgstr ""
+msgstr "尋找檔案"
 
 #: firsttimewizard.cpp:405
 #, kde-format
 msgid "Downloading... (%1 / %2)"
-msgstr ""
+msgstr "下載中... (%1 / %2)"
 
 #. i18n: ectx: property (windowTitle), widget (QWizard, FirstTimeWizard)
 #: firsttimewizard.ui:14
 #, kde-format
 msgid "Wizard"
-msgstr ""
+msgstr "精靈"
 
 #. i18n: ectx: property (title), widget (QWizardPage, wizardPage1)
 #: firsttimewizard.ui:21
 #, kde-format
 msgid "First-time configuration"
-msgstr ""
+msgstr "初始設定"
 
 #. i18n: ectx: property (subTitle), widget (QWizardPage, wizardPage1)
 #: firsttimewizard.ui:24
@@ -115,38 +116,38 @@ msgstr ""
 msgid ""
 "The plugin needs some information in order to work correctly.<br />Please "
 "fill them in the form below:"
-msgstr ""
+msgstr "這個外掛程式要正常運作需要一些資訊。<br />請在以下表單內填入："
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: firsttimewizard.ui:33
 #, kde-format
 msgid "The Arduino location is needed to continue."
-msgstr ""
+msgstr "需要有 Arduino 位置才能繼續。"
 
 #. i18n: ectx: property (text), widget (QRadioButton, existingInstallButton)
 #: firsttimewizard.ui:40
 #, kde-format
 msgid "E&xisting installation"
-msgstr ""
+msgstr "現存安裝(&X)"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: firsttimewizard.ui:67
 #, kde-format
 msgid "Ard&uino path:"
-msgstr ""
+msgstr "Ard&uino 路徑："
 
 #. i18n: ectx: property (text), widget (QToolButton, arduinoPathButton)
 #. i18n: ectx: property (text), widget (QToolButton, sketchbookPathButton)
 #: firsttimewizard.ui:82 firsttimewizard.ui:163
 #, kde-format
 msgid "..."
-msgstr ""
+msgstr "..."
 
 #. i18n: ectx: property (text), widget (QRadioButton, automaticInstallButton)
 #: firsttimewizard.ui:95
 #, kde-format
 msgid "Auto&matic installation"
-msgstr ""
+msgstr "自動安裝(&M)"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: firsttimewizard.ui:120
@@ -155,13 +156,15 @@ msgid ""
 "<p>This will download and install the software automatically from <a href="
 "\"http://arduino.cc/\">the Arduino website</a>.</p>"
 msgstr ""
+"<p>這會自動從 <a href=\"http://arduino.cc/\">Arduino 網站</a>下載並安裝軟體。"
+"</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #. i18n: ectx: property (text), widget (QLabel, label_11)
 #: firsttimewizard.ui:132 firsttimewizard.ui:256
 #, kde-format
 msgid "<hr />"
-msgstr ""
+msgstr "<hr />"
 
 #. i18n: ectx: property (text), widget (QLabel, label_4)
 #: firsttimewizard.ui:139
@@ -170,48 +173,50 @@ msgid ""
 "<p>The sketchbook folder is where the plugin will look for existing projects."
 "<br/>It will be created if it does not exist already.</p>"
 msgstr ""
+"<p>本外掛程式會在塗鴉區資料夾中尋找現存的專案。<br/>如果它不存在，它會被建"
+"立。</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: firsttimewizard.ui:148
 #, kde-format
 msgid "S&ketchbook path:"
-msgstr ""
+msgstr "塗鴉區路徑(&K)："
 
 #. i18n: ectx: property (title), widget (QWizardPage, wizardPage2)
 #: firsttimewizard.ui:175
 #, kde-format
 msgid "Automatic Installation"
-msgstr ""
+msgstr "自動安裝"
 
 #. i18n: ectx: property (subTitle), widget (QWizardPage, wizardPage2)
 #: firsttimewizard.ui:178
 #, kde-format
 msgid "The plugin will now download and install the required software."
-msgstr ""
+msgstr "本外掛程式現在將會下載並安裝需要的軟體。"
 
 #. i18n: ectx: property (text), widget (QLabel, label_8)
 #: firsttimewizard.ui:189
 #, kde-format
 msgid "Step 1: Download"
-msgstr ""
+msgstr "第 1 步：下載"
 
 #. i18n: ectx: property (text), widget (QLabel, label_9)
 #: firsttimewizard.ui:265
 #, kde-format
 msgid "Step 2: Installation"
-msgstr ""
+msgstr "第 2 步：安裝"
 
 #. i18n: ectx: property (title), widget (QWizardPage, wizardPage3)
 #: firsttimewizard.ui:308
 #, kde-format
 msgid "Configuration successful"
-msgstr ""
+msgstr "設定成功"
 
 #. i18n: ectx: property (subTitle), widget (QWizardPage, wizardPage3)
 #: firsttimewizard.ui:311
 #, kde-format
 msgid "The plugin is now ready."
-msgstr ""
+msgstr "外掛程式已就緒。"
 
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #: firsttimewizard.ui:320
@@ -219,14 +224,14 @@ msgstr ""
 msgid ""
 "The configuration is complete, you may now start using the IDE.<br />Thank "
 "you for using the software. Enjoy!"
-msgstr ""
+msgstr "設定已完成，您可以開始使用整合開發環境了。<br />謝謝您使用本軟體。"
 
 #. i18n: ectx: Menu (Embedded)
 #: kdevembedded.rc:5
 #, kde-format
 msgctxt "@title:menu"
 msgid "Embedded"
-msgstr ""
+msgstr "嵌入式"
 
 #: launcher/embeddedlauncher.cpp:234
 #, kde-format
@@ -236,7 +241,7 @@ msgstr ""
 #: launcher/embeddedlauncher.cpp:234
 #, kde-format
 msgid "Please run the first time wizard."
-msgstr ""
+msgstr "請執行初始設定精靈。"
 
 #: launcher/embeddedlauncher.cpp:243
 #, kde-format
@@ -249,6 +254,8 @@ msgid ""
 "Please connect or select an interface, for example:\n"
 "/dev/ttyUSBx, /dev/ttyACMx, COMx, etc"
 msgstr ""
+"請連線或選擇一個介面，例如：\n"
+"/dev/ttyUSBx、/dev/ttyACMx、COMx 等等"
 
 #: launcher/embeddedlauncher.cpp:261
 #, kde-format
@@ -265,27 +272,27 @@ msgstr ""
 #: launcher/embeddedlauncher.cpp:270
 #, kde-format
 msgid "%avrdudeconf\t- Specify location of configuration file.\n"
-msgstr ""
+msgstr "%avrdudeconf\t- 指定設定檔案的位置。\n"
 
 #: launcher/embeddedlauncher.cpp:271
 #, kde-format
 msgid "%mcu\t- Required. Specify AVR device.\n"
-msgstr ""
+msgstr "%mcu\t- 必要。指定 AVR 裝置。\n"
 
 #: launcher/embeddedlauncher.cpp:272
 #, kde-format
 msgid "%interface\t- Specify connection port.\n"
-msgstr ""
+msgstr "%interface\t- 指定連接埠。\n"
 
 #: launcher/embeddedlauncher.cpp:273
 #, kde-format
 msgid "%baud\t- Override RS-232 baud rate.\n"
-msgstr ""
+msgstr "%baud\t- 覆寫 RS-232 baud 速率。\n"
 
 #: launcher/embeddedlauncher.cpp:274
 #, kde-format
 msgid "%hex\t- Firmware."
-msgstr ""
+msgstr "%hex\t- 韌體。"
 
 #: launcher/embeddedlauncher.cpp:281
 #, kde-format
@@ -297,57 +304,57 @@ msgstr ""
 #: launcher/embeddedlauncher.cpp:345
 #, kde-format
 msgid "Configure Embedded Application"
-msgstr ""
+msgstr "設定嵌入式應用程式"
 
 #: launcher/embeddedlauncher.cpp:359
 #, kde-format
 msgid "Upload applications to embedded platforms"
-msgstr ""
+msgstr "將應用程式上傳島嵌入式平台"
 
 #: launcher/embeddedlauncher.cpp:369 launcher/embeddedlauncher.cpp:430
 #, kde-format
 msgid "Embedded"
-msgstr ""
+msgstr "嵌入式"
 
 #: launcher/embeddedlauncher.cpp:510
 #, kde-format
 msgid "Embedded Binary"
-msgstr ""
+msgstr "嵌入式二進位檔"
 
 #: launcher/embeddedlauncher.cpp:634
 #, kde-format
 msgid "Could not find interface"
-msgstr ""
+msgstr "找不到介面"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: launcher/embeddedlauncher.ui:17
 #, kde-format
 msgid "Firmware"
-msgstr ""
+msgstr "韌體"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: launcher/embeddedlauncher.ui:23
 #, kde-format
 msgid "Pro&ject Target:"
-msgstr ""
+msgstr "專案目標(&J)："
 
 #. i18n: ectx: property (text), widget (QLabel, label2)
 #: launcher/embeddedlauncher.ui:63
 #, kde-format
 msgid "Exec&utable:"
-msgstr ""
+msgstr "執行檔(&U)："
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, executablePath)
 #: launcher/embeddedlauncher.ui:88
 #, kde-format
 msgid "Enter the executable name or absolute path to an executable file"
-msgstr ""
+msgstr "輸入執行檔名稱，或是執行檔的絕對路徑"
 
 #. i18n: ectx: property (text), widget (QLabel, freqLabel)
 #: launcher/embeddedlauncher.ui:126
 #, kde-format
 msgid "MCU:"
-msgstr ""
+msgstr "MCU："
 
 #. i18n: ectx: property (text), widget (QLabel, boardLabel)
 #: launcher/embeddedlauncher.ui:136
@@ -359,28 +366,28 @@ msgstr ""
 #: launcher/embeddedlauncher.ui:146
 #, kde-format
 msgid "Interface:"
-msgstr ""
+msgstr "介面："
 
 #. i18n: ectx: property (text), widget (QLabel, presetsLabel)
 #. i18n: ectx: property (text), widget (QLabel, presetsLabel2)
 #: launcher/embeddedlauncher.ui:159 launcher/embeddedlauncher.ui:391
 #, kde-format
 msgid "Presets:"
-msgstr ""
+msgstr "預設檔："
 
 #. i18n: ectx: property (text), item, widget (QComboBox, presetsComboPage1)
 #. i18n: ectx: property (text), item, widget (QComboBox, presetsComboPage2)
 #: launcher/embeddedlauncher.ui:176 launcher/embeddedlauncher.ui:405
 #, kde-format
 msgid "Arduino"
-msgstr ""
+msgstr "Arduino"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, presetsComboPage1)
 #. i18n: ectx: property (text), item, widget (QComboBox, presetsComboPage2)
 #: launcher/embeddedlauncher.ui:181 launcher/embeddedlauncher.ui:410
 #, kde-format
 msgid "OpenOCD"
-msgstr ""
+msgstr "OpenOCD"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, boardCombo)
 #: launcher/embeddedlauncher.ui:196
@@ -392,7 +399,7 @@ msgstr ""
 #: launcher/embeddedlauncher.ui:210
 #, kde-format
 msgid "Please, connect an interface"
-msgstr ""
+msgstr "請連線介面"
 
 #. i18n: ectx: property (text), widget (QLabel, interfaceBRLabel)
 #: launcher/embeddedlauncher.ui:258
@@ -405,7 +412,7 @@ msgstr ""
 #: launcher/embeddedlauncher.ui:265 launcher/embeddedlauncher.ui:456
 #, kde-format
 msgid "Working Directory:"
-msgstr ""
+msgstr "工作目錄："
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, workingDirectory)
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, workingDirectory)
@@ -415,7 +422,7 @@ msgstr ""
 #: launcher/embeddedlauncher.ui:469 launcher/embeddedlauncher.ui:472
 #, kde-format
 msgid "Select a working directory for the executable"
-msgstr ""
+msgstr "選擇執行檔的工作目錄"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, argumentsCombo)
 #: launcher/embeddedlauncher.ui:304
@@ -430,14 +437,14 @@ msgstr ""
 #: launcher/embeddedlauncher.ui:312 launcher/embeddedlauncher.ui:418
 #, kde-format
 msgid "Arguments:"
-msgstr ""
+msgstr "參數："
 
 #. i18n: ectx: property (text), widget (QLabel, commandLabel)
 #. i18n: ectx: property (text), widget (QLabel, commandLabel2)
 #: launcher/embeddedlauncher.ui:322 launcher/embeddedlauncher.ui:479
 #, kde-format
 msgid "Command:"
-msgstr ""
+msgstr "命令："
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, commandCombo)
 #. i18n: ectx: property (toolTip), widget (KComboBox, openocdCommand)
@@ -454,30 +461,38 @@ msgid ""
 "</dl>\n"
 "<p>The arguments defined above will get appended to this command.</p>"
 msgstr ""
+"<p>定義執行外部終端機模擬器用的命令。請使用以下佔位符：</p>\n"
+"<dl>\n"
+"<dt><code>%exe</code></dt>\n"
+"<dd>上方所選的執行檔的路徑。</dd>\n"
+"<dt><code>%workdir</code></dt>\n"
+"<dd>上方所選的工作目錄路徑。</dd>\n"
+"</dl>\n"
+"<p>上方定義的參數會加到這個命令後方。</p>"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, commandCombo)
 #: launcher/embeddedlauncher.ui:358
 #, no-c-format, kde-format
 msgid "%avrdude"
-msgstr ""
+msgstr "%avrdude"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, commandCombo)
 #: launcher/embeddedlauncher.ui:363
 #, kde-format
 msgid "/usr/bin/avrdude"
-msgstr ""
+msgstr "/usr/bin/avrdude"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, openocdArgumentsCombo)
 #: launcher/embeddedlauncher.ui:438
 #, kde-format
 msgid "-f board/board.cfg"
-msgstr ""
+msgstr "-f board/board.cfg"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, openocdArgumentsCombo)
 #: launcher/embeddedlauncher.ui:443
 #, kde-format
 msgid "-f interface/interface.cfg -f target/target.cfg"
-msgstr ""
+msgstr "-f interface/interface.cfg -f target/target.cfg"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, openocdArgumentsCombo)
 #: launcher/embeddedlauncher.ui:448
@@ -492,20 +507,20 @@ msgstr ""
 #: launcher/embeddedlauncher.ui:514
 #, no-c-format, kde-format
 msgid "%openocd"
-msgstr ""
+msgstr "%openocd"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, openocdCommand)
 #: launcher/embeddedlauncher.ui:519
 #, kde-format
 msgid "/usr/bin/openocd"
-msgstr ""
+msgstr "/usr/bin/openocd"
 
 #: launcher/executeplugin.cpp:128
 #, kde-format
 msgid ""
 "There is a quoting error in the arguments for the launch configuration '%1'. "
 "Aborting start."
-msgstr ""
+msgstr "啟動設定「%1」的參數有錯誤的引號。取消啟動。"
 
 #: launcher/executeplugin.cpp:133
 #, kde-format
@@ -513,11 +528,12 @@ msgid ""
 "A shell meta character was included in the arguments for the launch "
 "configuration '%1', this is not supported currently. Aborting start."
 msgstr ""
+"啟動設定「%1」的參數包含 shell 的 meta 字元，目前這不被支援。取消啟動。"
 
 #: launcher/launcherjob.cpp:168
 #, kde-format
 msgid "Job already running"
-msgstr ""
+msgstr "工作已在執行中"
 
 #: launcher/launcherjob.cpp:168
 #, kde-format
