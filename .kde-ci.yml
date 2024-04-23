@@ -11,3 +11,6 @@ Dependencies:
     'frameworks/ktexteditor': '@stable'
     'frameworks/threadweaver': '@stable'
     'kdevelop/kdevelop': '@stable'
+
+Options:
+  require-passing-tests-on: ['Linux', 'FreeBSD', 'Windows']
