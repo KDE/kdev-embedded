@@ -66,7 +66,7 @@ msgstr "Arduino %1 per a %2"
 #: firsttimewizard.cpp:213
 #, kde-format
 msgid "Downloading..."
-msgstr "S'està baixant..."
+msgstr "S'està baixant…"
 
 #: firsttimewizard.cpp:224
 #, kde-format
@@ -81,12 +81,12 @@ msgstr "Baixada cancel·lada"
 #: firsttimewizard.cpp:251
 #, kde-format
 msgid "Extracting..."
-msgstr "S'està extraent..."
+msgstr "S'està extraent…"
 
 #: firsttimewizard.cpp:263
 #, kde-format
 msgid "Extracting... "
-msgstr "S'està extraent... "
+msgstr "S'està extraent… "
 
 #: firsttimewizard.cpp:275
 #, kde-format
@@ -101,7 +101,7 @@ msgstr "Busca en els fitxers"
 #: firsttimewizard.cpp:405
 #, kde-format
 msgid "Downloading... (%1 / %2)"
-msgstr "S'està baixant... (%1 / %2)"
+msgstr "S'està baixant… (%1 / %2)"
 
 #. i18n: ectx: property (windowTitle), widget (QWizard, FirstTimeWizard)
 #: firsttimewizard.ui:14
@@ -148,7 +148,7 @@ msgstr "Camí cap a Ard&uino:"
 #: firsttimewizard.ui:82 firsttimewizard.ui:163
 #, kde-format
 msgid "..."
-msgstr "..."
+msgstr "…"
 
 #. i18n: ectx: property (text), widget (QRadioButton, automaticInstallButton)
 #: firsttimewizard.ui:95
