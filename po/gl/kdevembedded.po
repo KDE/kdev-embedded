@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-05 12:27+0000\n"
-"PO-Revision-Date: 2024-12-08 15:23+0100\n"
+"PO-Revision-Date: 2024-12-16 00:35+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.08.3\n"
+"X-Generator: Lokalize 24.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -508,6 +508,7 @@ msgstr "-f placa/placa.cfg"
 msgid "-f interface/interface.cfg -f target/target.cfg"
 msgstr "-f interface/interface.cfg -f destino/destino.cfg"
 
+# skip-rule: trasno-erase
 #. i18n: ectx: property (text), item, widget (KComboBox, openocdArgumentsCombo)
 #: launcher/embeddedlauncher.ui:448
 #, no-c-format, kde-format
