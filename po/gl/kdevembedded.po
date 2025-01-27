@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-# SPDX-FileCopyrightText: 2024 Adrián Chaves (Gallaecio)
+# SPDX-FileCopyrightText: 2024, 2025 Adrián Chaves (Gallaecio)
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-05 12:27+0000\n"
-"PO-Revision-Date: 2024-12-16 00:35+0100\n"
+"PO-Revision-Date: 2025-01-26 19:43+0100\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Proxecto Trasno (proxecto@trasno.gal)\n"
 "Language: gl\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 24.12.0\n"
+"X-Generator: Lokalize 24.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -319,7 +319,7 @@ msgstr "Configurar a aplicación integrada"
 #: launcher/embeddedlauncher.cpp:359
 #, kde-format
 msgid "Upload applications to embedded platforms"
-msgstr "Enviar aplicacións a dispositivos integrados"
+msgstr "Enviar aplicacións a plataformas integradas"
 
 #: launcher/embeddedlauncher.cpp:369 launcher/embeddedlauncher.cpp:430
 #, kde-format
