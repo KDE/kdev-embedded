@@ -273,7 +273,7 @@ msgid ""
 "Please choose or select a baudrate:\n"
 "19200, 57600, 115200, etc"
 msgstr ""
-"Escolliu o seleccioneu una velocitat en bauds:\n"
+"Trieu o seleccioneu una velocitat en bauds:\n"
 "19200, 57600, 115200, etc"
 
 #: launcher/embeddedlauncher.cpp:269
