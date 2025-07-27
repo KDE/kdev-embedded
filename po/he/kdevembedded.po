@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kdev-embedded\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-05 12:27+0000\n"
-"PO-Revision-Date: 2025-06-10 05:30+0300\n"
+"PO-Revision-Date: 2025-07-26 13:14+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -15,42 +15,42 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 25.04.1\n"
+"X-Generator: Lokalize 25.04.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr ""
+msgstr "צוות התרגום של KDE ישראל"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr ""
+msgstr "kde-l10n-he@kde.org"
 
 #: embedded.cpp:60
 #, kde-format
 msgid "Arduino Setup"
-msgstr ""
+msgstr "הגדרות Arduino"
 
 #: embedded.cpp:61
 #, kde-format
 msgid "Configure Arduino Toolkit."
-msgstr ""
+msgstr "הגדרת ערכת הכלים של Arduino."
 
 #: embedded.cpp:62
 #, kde-format
 msgid "Toolkit manager for Arduino programs."
-msgstr ""
+msgstr "מנהל ערכת כלים לתוכניות Arduino."
 
 #: firsttimewizard.cpp:99
 #, kde-format
 msgid "<p>More information at: <a href=\"mailto:%1\">%1</a></p>"
-msgstr ""
+msgstr "<p>פרטים נוספים דרך: <a href=\"mailto:%1\">%1</a></p>"
 
 #: firsttimewizard.cpp:100
 #, kde-format
 msgid "Embedded plugin is an unofficial project by Patrick J. Pereira."
-msgstr ""
+msgstr "תוסף המערכות המשובצות הוא מיזם בלתי רשמי מאת פטריק ג׳. פריירה."
 
 #: firsttimewizard.cpp:116
 #, kde-format
@@ -173,12 +173,14 @@ msgid ""
 "<p>The sketchbook folder is where the plugin will look for existing projects."
 "<br/>It will be created if it does not exist already.</p>"
 msgstr ""
+"<p>תיקיית ספרי הסקיצות הוא המקום שהתוסף יחפש בו מיזמים קיימים.<br/>היא "
+"תיווצר אם טרם נוצרה.</p>"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: firsttimewizard.ui:148
 #, kde-format
 msgid "S&ketchbook path:"
-msgstr ""
+msgstr "נתיב ספר &סקיצות:"
 
 #. i18n: ectx: property (title), widget (QWizardPage, wizardPage2)
 #: firsttimewizard.ui:175
@@ -223,6 +225,8 @@ msgid ""
 "The configuration is complete, you may now start using the IDE.<br />Thank "
 "you for using the software. Enjoy!"
 msgstr ""
+"ההגדרות הושלמו, ניתן להתחיל להשתמש בסביבת הפיתוח המשולבת כעת.<br />תודה על "
+"השימוש בתוכנה. בהצלחה!"
 
 #. i18n: ectx: Menu (Embedded)
 #: kdevembedded.rc:5
@@ -267,32 +271,32 @@ msgstr ""
 #: launcher/embeddedlauncher.cpp:269
 #, kde-format
 msgid "Variables to programmer:\n"
-msgstr ""
+msgstr "משתנים לצורב:\n"
 
 #: launcher/embeddedlauncher.cpp:270
 #, kde-format
 msgid "%avrdudeconf\t- Specify location of configuration file.\n"
-msgstr ""
+msgstr "%avrdudeconf\t- ציון מקום קובץ הגדרות.\n"
 
 #: launcher/embeddedlauncher.cpp:271
 #, kde-format
 msgid "%mcu\t- Required. Specify AVR device.\n"
-msgstr ""
+msgstr "%mcu\t- חובה. ציון התקן AVR.\n"
 
 #: launcher/embeddedlauncher.cpp:272
 #, kde-format
 msgid "%interface\t- Specify connection port.\n"
-msgstr ""
+msgstr "%interface\t- ציון פתחת חיבור.\n"
 
 #: launcher/embeddedlauncher.cpp:273
 #, kde-format
 msgid "%baud\t- Override RS-232 baud rate.\n"
-msgstr ""
+msgstr "%baud\t- מעקף קצב באוד של RS-232.\n"
 
 #: launcher/embeddedlauncher.cpp:274
 #, kde-format
 msgid "%hex\t- Firmware."
-msgstr ""
+msgstr "%hex\t- קושחה."
 
 #: launcher/embeddedlauncher.cpp:281
 #, kde-format
@@ -300,119 +304,121 @@ msgid ""
 "%avrdude - Avrdude is a program for downloading code and data to Atmel AVR "
 "microcontrollers."
 msgstr ""
+"‏‎%avrdude ‏- Avrdude היא תוכנית להורדת קוד ונתונים למיקרובקרים מסוג AVR מבית "
+"Atmel."
 
 #: launcher/embeddedlauncher.cpp:345
 #, kde-format
 msgid "Configure Embedded Application"
-msgstr ""
+msgstr "הגדרת יישום משובץ"
 
 #: launcher/embeddedlauncher.cpp:359
 #, kde-format
 msgid "Upload applications to embedded platforms"
-msgstr ""
+msgstr "העלאת יישומים לפלטפורמות משובצות"
 
 #: launcher/embeddedlauncher.cpp:369 launcher/embeddedlauncher.cpp:430
 #, kde-format
 msgid "Embedded"
-msgstr ""
+msgstr "משובץ"
 
 #: launcher/embeddedlauncher.cpp:510
 #, kde-format
 msgid "Embedded Binary"
-msgstr ""
+msgstr "בינרי משובץ"
 
 #: launcher/embeddedlauncher.cpp:634
 #, kde-format
 msgid "Could not find interface"
-msgstr ""
+msgstr "לא ניתן למצוא ממשק"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: launcher/embeddedlauncher.ui:17
 #, kde-format
 msgid "Firmware"
-msgstr ""
+msgstr "קושחה"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: launcher/embeddedlauncher.ui:23
 #, kde-format
 msgid "Pro&ject Target:"
-msgstr ""
+msgstr "&יעד מיזם:"
 
 #. i18n: ectx: property (text), widget (QLabel, label2)
 #: launcher/embeddedlauncher.ui:63
 #, kde-format
 msgid "Exec&utable:"
-msgstr ""
+msgstr "קובץ ה&פעלה:"
 
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, executablePath)
 #: launcher/embeddedlauncher.ui:88
 #, kde-format
 msgid "Enter the executable name or absolute path to an executable file"
-msgstr ""
+msgstr "נא למלא את שם קובץ ההפעלה או נתיב מלא לקובץ הפעלה"
 
 #. i18n: ectx: property (text), widget (QLabel, freqLabel)
 #: launcher/embeddedlauncher.ui:126
 #, kde-format
 msgid "MCU:"
-msgstr ""
+msgstr "MCU:"
 
 #. i18n: ectx: property (text), widget (QLabel, boardLabel)
 #: launcher/embeddedlauncher.ui:136
 #, kde-format
 msgid "Board:"
-msgstr ""
+msgstr "לוח:"
 
 #. i18n: ectx: property (text), widget (QLabel, interfaceLabel)
 #: launcher/embeddedlauncher.ui:146
 #, kde-format
 msgid "Interface:"
-msgstr ""
+msgstr "ממשק:"
 
 #. i18n: ectx: property (text), widget (QLabel, presetsLabel)
 #. i18n: ectx: property (text), widget (QLabel, presetsLabel2)
 #: launcher/embeddedlauncher.ui:159 launcher/embeddedlauncher.ui:391
 #, kde-format
 msgid "Presets:"
-msgstr ""
+msgstr "ערכות:"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, presetsComboPage1)
 #. i18n: ectx: property (text), item, widget (QComboBox, presetsComboPage2)
 #: launcher/embeddedlauncher.ui:176 launcher/embeddedlauncher.ui:405
 #, kde-format
 msgid "Arduino"
-msgstr ""
+msgstr "Arduino"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, presetsComboPage1)
 #. i18n: ectx: property (text), item, widget (QComboBox, presetsComboPage2)
 #: launcher/embeddedlauncher.ui:181 launcher/embeddedlauncher.ui:410
 #, kde-format
 msgid "OpenOCD"
-msgstr ""
+msgstr "OpenOCD"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, boardCombo)
 #: launcher/embeddedlauncher.ui:196
 #, kde-format
 msgid "Nano"
-msgstr ""
+msgstr "Nano"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, interfaceCombo)
 #: launcher/embeddedlauncher.ui:210
 #, kde-format
 msgid "Please, connect an interface"
-msgstr ""
+msgstr "נא לחבר ממשק"
 
 #. i18n: ectx: property (text), widget (QLabel, interfaceBRLabel)
 #: launcher/embeddedlauncher.ui:258
 #, kde-format
 msgid "            Baud rate:"
-msgstr ""
+msgstr "            קצב באוד:"
 
 #. i18n: ectx: property (text), widget (QLabel, workdirLabel)
 #. i18n: ectx: property (text), widget (QLabel, workdirLabel2)
 #: launcher/embeddedlauncher.ui:265 launcher/embeddedlauncher.ui:456
 #, kde-format
 msgid "Working Directory:"
-msgstr ""
+msgstr "תיקיית עבודה:"
 
 #. i18n: ectx: property (toolTip), widget (KUrlRequester, workingDirectory)
 #. i18n: ectx: property (placeholderText), widget (KUrlRequester, workingDirectory)
@@ -422,7 +428,7 @@ msgstr ""
 #: launcher/embeddedlauncher.ui:469 launcher/embeddedlauncher.ui:472
 #, kde-format
 msgid "Select a working directory for the executable"
-msgstr ""
+msgstr "נא לבחור תיקיית עבודה לקובץ ההפעלה"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, argumentsCombo)
 #: launcher/embeddedlauncher.ui:304
@@ -431,20 +437,22 @@ msgid ""
 "-C%avrdudeconf -v true -p%mcu -carduino -P%interface -b%baud -D -Uflash:w:"
 "%hex:i"
 msgstr ""
+"-C%avrdudeconf -v true -p%mcu -carduino -P%interface -b%baud -D -Uflash:w:"
+"%hex:i"
 
 #. i18n: ectx: property (text), widget (QLabel, argumentsLabel)
 #. i18n: ectx: property (text), widget (QLabel, argumentsLabel2)
 #: launcher/embeddedlauncher.ui:312 launcher/embeddedlauncher.ui:418
 #, kde-format
 msgid "Arguments:"
-msgstr ""
+msgstr "ארגומנטים:"
 
 #. i18n: ectx: property (text), widget (QLabel, commandLabel)
 #. i18n: ectx: property (text), widget (QLabel, commandLabel2)
 #: launcher/embeddedlauncher.ui:322 launcher/embeddedlauncher.ui:479
 #, kde-format
 msgid "Command:"
-msgstr ""
+msgstr "פקודה:"
 
 #. i18n: ectx: property (toolTip), widget (KComboBox, commandCombo)
 #. i18n: ectx: property (toolTip), widget (KComboBox, openocdCommand)
@@ -461,30 +469,39 @@ msgid ""
 "</dl>\n"
 "<p>The arguments defined above will get appended to this command.</p>"
 msgstr ""
+"<p>הגדרת הפקודה להפעלת מדמה המסוף החיצוני. אפשר להשתמש בממלאי המקום הבאים:</"
+"p>\n"
+"<dl>\n"
+"<dt><code>‎%exe</code></dt>\n"
+"<dd>הנתיב לקובץ ההפעלה שנבחר לעיל.</dd>\n"
+"<dt><code>‎%workdir</code></dt>\n"
+"<dd>הנתיב לתיקיית העבודה שנבחרה לעיל.</dd>\n"
+"</dl>\n"
+"<p>הארגומנטים שמוגדרים לעיל יתווספו לפקודה הזאת.</p>"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, commandCombo)
 #: launcher/embeddedlauncher.ui:358
 #, no-c-format, kde-format
 msgid "%avrdude"
-msgstr ""
+msgstr "%avrdude"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, commandCombo)
 #: launcher/embeddedlauncher.ui:363
 #, kde-format
 msgid "/usr/bin/avrdude"
-msgstr ""
+msgstr "/usr/bin/avrdude"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, openocdArgumentsCombo)
 #: launcher/embeddedlauncher.ui:438
 #, kde-format
 msgid "-f board/board.cfg"
-msgstr ""
+msgstr "-f board/board.cfg"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, openocdArgumentsCombo)
 #: launcher/embeddedlauncher.ui:443
 #, kde-format
 msgid "-f interface/interface.cfg -f target/target.cfg"
-msgstr ""
+msgstr "-f interface/interface.cfg -f target/target.cfg"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, openocdArgumentsCombo)
 #: launcher/embeddedlauncher.ui:448
@@ -494,25 +511,28 @@ msgid ""
 "write_image erase %hex\" -c \"verify_image %hex\" -c \"reset run\" -c "
 "shutdown"
 msgstr ""
+"-f board/board.cfg -c init -c targets -c \"reset\" -c \"halt\" -c \"flash "
+"write_image erase %hex\" -c \"verify_image %hex\" -c \"reset run\" -c "
+"shutdown"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, openocdCommand)
 #: launcher/embeddedlauncher.ui:514
 #, no-c-format, kde-format
 msgid "%openocd"
-msgstr ""
+msgstr "%openocd"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, openocdCommand)
 #: launcher/embeddedlauncher.ui:519
 #, kde-format
 msgid "/usr/bin/openocd"
-msgstr ""
+msgstr "/usr/bin/openocd"
 
 #: launcher/executeplugin.cpp:128
 #, kde-format
 msgid ""
 "There is a quoting error in the arguments for the launch configuration '%1'. "
 "Aborting start."
-msgstr ""
+msgstr "יש שגיאת ציטוט בארגומנטים להגדרות ההפעלה ‚%1’. ההתחלה מושבתת."
 
 #: launcher/executeplugin.cpp:133
 #, kde-format
@@ -520,13 +540,15 @@ msgid ""
 "A shell meta character was included in the arguments for the launch "
 "configuration '%1', this is not supported currently. Aborting start."
 msgstr ""
+"נוסף תו על למסופים בארגומנטים של ההפעלה ‚%1’, אין בזה תמיכה כרגע. ההתחלה "
+"נפסקת."
 
 #: launcher/launcherjob.cpp:168
 #, kde-format
 msgid "Job already running"
-msgstr ""
+msgstr "המשימה כבר פעילה"
 
 #: launcher/launcherjob.cpp:168
 #, kde-format
 msgid "'%1' is already being executed. Should we kill the previous instance?"
-msgstr ""
+msgstr "‚%1’ כבר פעיל. לחסל את המופע הקודם?"
