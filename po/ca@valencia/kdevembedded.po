@@ -264,7 +264,7 @@ msgid ""
 "Please connect or select an interface, for example:\n"
 "/dev/ttyUSBx, /dev/ttyACMx, COMx, etc"
 msgstr ""
-"Per favor, connecteu i seleccioneu una interfície, per exemple:\n"
+"Per favor, connecteu i trieu una interfície, per exemple:\n"
 "/dev/ttyUSBx, /dev/ttyACMx, COMx, etc"
 
 #: launcher/embeddedlauncher.cpp:261
@@ -273,7 +273,7 @@ msgid ""
 "Please choose or select a baudrate:\n"
 "19200, 57600, 115200, etc"
 msgstr ""
-"Trieu o seleccioneu una velocitat en bauds:\n"
+"Trieu o trieu una velocitat en bauds:\n"
 "19200, 57600, 115200, etc"
 
 #: launcher/embeddedlauncher.cpp:269
@@ -437,7 +437,7 @@ msgstr "Directori de treball:"
 #: launcher/embeddedlauncher.ui:469 launcher/embeddedlauncher.ui:472
 #, kde-format
 msgid "Select a working directory for the executable"
-msgstr "Seleccioneu un directori de treball per a l'executable"
+msgstr "Trieu un directori de treball per a l'executable"
 
 #. i18n: ectx: property (text), item, widget (KComboBox, argumentsCombo)
 #: launcher/embeddedlauncher.ui:304
