@@ -2,6 +2,7 @@
     "KPlugin": {
         "Category": "Embedded",
         "Description": "Embedded Plugin",
+        "Description[ar]": "ملحق المضمّنة",
         "Description[az]": "Daxili qoşmalar",
         "Description[ca@valencia]": "Connector incrustat",
         "Description[ca]": "Connector incrustat",
@@ -33,6 +34,7 @@
         "Icon": "project-development-new-template",
         "Id": "kdevembedded",
         "Name": "Embedded systems",
+        "Name[ar]": "الأنظمة المضمّنة",
         "Name[az]": "Daxili sistemlər",
         "Name[ca@valencia]": "Sistemes incrustats",
         "Name[ca]": "Sistemes incrustats",
