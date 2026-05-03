@@ -1,13 +1,13 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
+# SPDX-FileCopyrightText: 2022, 2023, 2026 Emir SARI <emir_sari@icloud.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kdevembedded\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-11-17 09:00+0000\n"
-"PO-Revision-Date: 2023-07-06 22:34+0300\n"
+"PO-Revision-Date: 2026-05-02 19:26+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.07.70\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -50,7 +50,7 @@ msgstr "<p>Daha fazla bilgi : <a href=\"mailto:%1\">%1</a></p>"
 #: firsttimewizard.cpp:100
 #, kde-format
 msgid "Embedded plugin is an unofficial project by Patrick J. Pereira."
-msgstr "Gömülü eklenti Patrick J. Pereira ' nın resmi olmayan bir projesidir."
+msgstr "Gömülü eklenti, Patrick J. Pereira’nın resmî olmayan bir projesidir."
 
 #: firsttimewizard.cpp:116
 #, kde-format
@@ -550,9 +550,9 @@ msgstr ""
 #: launcher/launcherjob.cpp:168
 #, kde-format
 msgid "Job already running"
-msgstr "İş, halihazırda çaışıyor"
+msgstr "İş, hâlihazırda çaışıyor"
 
 #: launcher/launcherjob.cpp:168
 #, kde-format
 msgid "'%1' is already being executed. Should we kill the previous instance?"
-msgstr "'%1' halihazırda yürütülüyor. Önceki örnek sonlandırılsın mı?"
+msgstr "'%1' hâlihazırda yürütülüyor. Önceki örnek sonlandırılsın mı?"
